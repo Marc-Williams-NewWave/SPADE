@@ -1,0 +1,19 @@
+{
+  "generator-jhipster": {
+    "baseName": "spade",
+    "packageName": "com.nwt.spade",
+    "packageFolder": "com/nwt/spade",
+    "authenticationType": "session",
+    "hibernateCache": "no",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "useCompass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "javaVersion": "8",
+    "rememberMeKey": "41711932e970f5e9c2ba7e3bdad463c29a4af46f"
+  }
+}
