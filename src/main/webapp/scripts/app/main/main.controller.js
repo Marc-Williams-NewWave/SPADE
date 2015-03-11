@@ -20,8 +20,34 @@ angular.module('spadeApp').controller(
 					console.log(headers);
 					console.log(config);
 			});
-
-//			$scope.projects = json.items;
+			var json = {
+					"api" : "v0.0.4",
+					"time" : 1425659436363,
+					"label" : "extra",
+					"items" : [ {
+						"name" : "demo",
+						"description" : "Demo Project",
+						"environments" : [],
+						"users" : [],
+						"images" : [ "partlab/ubuntu-mongodb",
+								"bradams/devops:cluster", "sewatech/modcluster" ]
+					},{
+						"name" : "demo",
+						"description" : "Demo Project",
+						"environments" : [],
+						"users" : [],
+						"images" : [ "partlab/ubuntu-mongodb",
+								"bradams/devops:cluster", "sewatech/modcluster" ]
+					},{
+						"name" : "demo",
+						"description" : "Demo Project",
+						"environments" : [],
+						"users" : [],
+						"images" : [ "partlab/ubuntu-mongodb",
+								"bradams/devops:cluster", "sewatech/modcluster" ]
+					} ]
+				};
+			$scope.projects = json.items;
 			Principal.identity().then(function(account) {
 				$scope.account = account;
 				$scope.isAuthenticated = Principal.isAuthenticated;
