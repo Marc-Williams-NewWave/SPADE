@@ -3,23 +3,7 @@
 angular.module('spadeApp')
      .controller('LoginController', function ($modal, $scope) {
         
-    	 $scope.pod = {
-             	osName: ' None Selected',
-             	selectedApp : 'None Selected',
-             	appName : 'Not Yet Specified',
-             	replicaCount : '0'
-             };
-    	 
-    	 $scope.launch = function(){
-//     		var pod = {
-//     	    		os: name,
-//     	    		app: selectedApp,
-//     	    		name: appName,
-//     	    		replicas: replicaCount,
-//     	    	}
-     		alert("Pod Stats\n" + $scope.pod.osName + "\n" +  $scope.pod.selectedApp + "\n" + $scope.pod.appName + "\n" + $scope.pod.replicaCount + "\n");
-     	}
-    	 
+    	
     	 var app = this;
 
         app.closeAlert = function () {
@@ -42,8 +26,109 @@ angular.module('spadeApp')
                 });
         };
     })
-    .controller('ModalCtrl', function ($modalInstance) {
-        var modal = this;
+    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog) {
+    	$scope.applications = 
+        {
+          "api": "v0.0.4",
+          "time": 1426011638988,
+          "label": "extra",
+          "items": [
+            {
+              "image": "sewatech\/modcluster",
+              "os": "ubuntu",
+              "app": "apache"
+            },
+            {
+              "image": "bradams\/devops:nginx-ubuntu",
+              "os": "ubuntu",
+              "app": "nginx"
+            },
+            {
+              "image": "bradams\/devops:wildfly-ubuntu",
+              "os": "ubuntu",
+              "app": "wildfly"
+            },
+            {
+              "image": "bradams\/devops:tomcat-ubuntu",
+              "os": "ubuntu",
+              "app": "tomcat"
+            },
+            {
+              "image": "partlab\/ubuntu-mongodb",
+              "os": "ubuntu",
+              "app": "mongodb"
+            },
+            {
+              "image": "bradams\/devops:mysql-ubuntu",
+              "os": "ubuntu",
+              "app": "mysql"
+            },
+            {
+              "image": "bradams\/devops:apache-fedora",
+              "os": "fedora",
+              "app": "apache"
+            },
+            {
+              "image": "bradams\/devops:nginx-fedora",
+              "os": "fedora",
+              "app": "nginx"
+            },
+            {
+              "image": "bradams\/devops:cluster",
+              "os": "fedora",
+              "app": "wildfly"
+            },
+            {
+              "image": "bradams\/devops:tomcat-fedora",
+              "os": "fedora",
+              "app": "tomcat"
+            },
+            {
+              "image": "bradams\/devops:mongodb-fedora",
+              "os": "fedora",
+              "app": "mongodb"
+            },
+            {
+              "image": "jdeathe\/centos-ssh-mysql",
+              "os": "fedora",
+              "app": "mysql"
+            }
+          ]
+        };
+
+    	$scope.isDisabled = true;
+    	
+    	$scope.pod = {
+              	osName: ' None Selected',
+              	selectedApp : 'None Selected',
+              	appName : 'Not Yet Specified',
+              	replicaCount : '0'
+              };
+     	 
+    	
+     	 $scope.launch = function(pod){
+//      		var pod = {
+//      	    		os: name,
+//      	    		app: selectedApp,
+//      	    		name: appName,
+//      	    		replicas: replicaCount,
+//      	    	}
+      		alert("Pod Stats\n" + pod.osName + "\n" +  pod.selectedApp + "\n" + pod.appName + "\n" + pod.replicaCount + "\n");
+      	}
+     	 
+     	$scope.alert = '';
+     	  $scope.showAlert = function() {
+     	    $mdDialog.show(
+     	      $mdDialog.alert()
+     	        .title('This is an alert title')
+     	        .content('You can specify some description text in here.')
+     	        .ariaLabel('Password notification')
+     	        .ok('Got it!')
+//     	        .targetEvent(ev)
+     	    );
+     	  };
+     	  
+    	var modal = this;
 
         modal.steps = ['one', 'two', 'three'];
         modal.step = 0;
@@ -70,7 +155,7 @@ angular.module('spadeApp')
         };
 
         modal.getNextLabel = function () {
-            return (modal.isLastStep()) ? 'Submit' : 'Next';
+            return (modal.isLastStep()) ? 'Launch' : 'Next';
         };
 
         modal.handlePrevious = function () {
@@ -79,7 +164,9 @@ angular.module('spadeApp')
 
         modal.handleNext = function () {
             if (modal.isLastStep()) {
-                $modalInstance.close(modal.wizard);
+            	$scope.isDisabled = false;
+//            	$scope.showAlert();
+//                $modalInstance.close(modal.wizard);
             } else {
                 modal.step += 1;
             }

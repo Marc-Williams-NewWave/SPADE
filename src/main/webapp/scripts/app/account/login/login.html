@@ -1,104 +1,96 @@
-<div class="modal-header">
-	<button type="button" class="close" ng-click="modal.dismiss('No bueno!')" aria-hidden="true">&times;</button>
-	<h3>Taco Party!!!!!</h3>
-</div>
-<div class="modal-body">
+<div layout="row">
+
 	<div>
-		<div class="btn-group">
-			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(0)}" ng-click="modal.setCurrentStep(0)">Operating System</button>
-			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(1)}" ng-click="modal.setCurrentStep(1)">Application Type</button>
-			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(2)}" ng-click="modal.setCurrentStep(2)">Name & Replica Count</button>
+		<div class="modal-header">
+			<md-toolbar class="md-warn">
+			<div class="md-toolbar-tools">
+				<span class="md-flex"><h3>Describe Your Pod</h3></span>
+			</div>
+			</md-toolbar>
 		</div>
-		<div layout="column">
-		
-		<div ng-switch="modal.getCurrentStep()" class="slide-frame">
-			<div ng-switch-when="one" class="wave">
-				<md-content class="md-padding" style="height: auto;padding: 24px;">
-				<md-radio-group ng-model="pod.osName"> <md-radio-button
-					value="Ubuntu">Ubuntu</md-radio-button> <md-radio-button
-					value="Fedora">Fedora</md-radio-button> </md-radio-group> </md-content>
-				<!-- <fieldset>
-					<div class="form-group">
-						<label class="control-label" for="firstName">First Name</label>
+		<div class="modal-body" style="">
+			<div>
+				<div class="btn-group">
+					<button class="btn"
+						ng-class="{'btn-primary':modal.isCurrentStep(0)}"
+						ng-click="modal.setCurrentStep(0)">Operating System</button>
+					<button class="btn"
+						ng-class="{'btn-primary':modal.isCurrentStep(1)}"
+						ng-click="modal.setCurrentStep(1)">Application Type</button>
+					<button class="btn"
+						ng-class="{'btn-primary':modal.isCurrentStep(2)}"
+						ng-click="modal.setCurrentStep(2)">Name & Replica Count</button>
+				</div>
+				<!-- <div><p>TEST TEXT</p></div> -->
 
-						<div>
-							<input class="form-control" type="text" class="input-xlarge" id="firstName" ng-model="modal.wizard.firstName">
+				<div ng-switch="modal.getCurrentStep()" class="slide-frame">
+					<div ng-switch-when="one" class="wave">
+						<md-toolbar class="md-warn">
+						<div class="md-toolbar-tools">
+							<span class="md-flex">Choose your OS:</span>
 						</div>
+						</md-toolbar>
+						<md-content class="md-padding" style=""> <md-radio-group
+							ng-model="pod.osName"> <md-radio-button
+							value="Ubuntu">Ubuntu</md-radio-button> <md-radio-button
+							value="Fedora">Fedora</md-radio-button> </md-radio-group>
 					</div>
-					<div class="form-group">
-						<label class="control-label" for="lastName">Last Name</label>
+					<div ng-switch-when="two" class="wave">
+						<md-toolbar class="md-warn">
+						<div class="md-toolbar-tools">
+							<span class="md-flex">Choose your Application:</span>
+						</div>
+						</md-toolbar>
+						<md-content class="md-padding" style=""> <select
+							ng-model="pod.selectedApp">
+							<option selected="selected">Select an Application</option>
+							<option ng-value="application"
+								ng-repeat="app in applications.items">{{app.app}}
+								</md-option>
+						</select> </md-content>
+					</div>
+					<div ng-switch-when="three" class="wave">
+						<md-toolbar class="md-warn">
+						<div class="md-toolbar-tools">
+							<span class="md-flex">Name your Container and Replica
+								Count</span>
+						</div>
+						</md-toolbar>
+						<md-content layout="row" style=""> <md-input-container>
+						<label>Application Name</label> <input ng-model="pod.appName">
+						</md-input-container> <md-input-container> <label>Replica
+							Count</label> <input ng-model="pod.replicaCount" type="number"> </md-input-container>
+						</md-content>
+					</div>
+				</div>
 
-						<div>
-							<input class="form-control" type="text" class="input-xlarge" id="lastName" ng-model="modal.wizard.lastName">
-						</div>
-					</div>
-					<div class="form-group">
-						<div>
-							<label>
-								<input type="checkbox" id="optionsCheckbox" ng-model="modal.wizard.coming">
-								Are you coming to my taco party?
-							</label>
-						</div>
-					</div>
-				</fieldset> -->
 			</div>
-			<div ng-switch-when="two" class="wave">
-				<fieldset>
-					<div class="form-group">
-						<label class="control-label" for="select01">How Many Tacos?</label>
 
-						<div class="controls">
-							<select class="form-control" id="select01" ng-model="modal.wizard.tacos">
-								<option>Unlimited</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label" for="multiSelect">Toppings?</label>
-
-						<div class="controls">
-							<select class="form-control" multiple="multiple" id="multiSelect" ng-model="modal.wizard.toppings">
-								<option>Cheese</option>
-								<option>Guacamole</option>
-								<option>Mild Salsa</option>
-								<option>Hot Salsa</option>
-								<option>Cilantro</option>
-							</select>
-						</div>
-					</div>
-				</fieldset>
-			</div>
-			<div ng-switch-when="three" class="wave">
-				<fieldset>
-					<div class="control-group">
-						<h4>Thanks {{modal.wizard.firstName}} {{modal.wizard.lastName}}!</h4>
-
-						<div class="row">
-							<div class="col-xs-4">
-								<img src="../../../../assets/images/hipster.png" alt="Thanks!" width="160px" height="120px">
-							</div>
-							<div class="col-xs-4">
-								<p><strong>Coming:</strong> {{modal.wizard.coming}}</p>
-
-								<p><strong>Tacos:</strong> {{modal.wizard.tacos}}</p>
-
-								<p><strong>Toppings:</strong></p>
-
-								<div class="badge badge-success pull-left" ng-repeat="topping in modal.wizard.toppings">{{topping}}
-								</div>
-							</div>
-						</div>
-					</div>
-				</fieldset>
-			</div>
-		</div>
 		</div>
 	</div>
+	<!-- <div> -->
+	
+	<div flex="33" style="" class="modal-header">
+				<md-toolbar class="md-warn">
+				<div class="md-toolbar-tools">
+					<span class="md-flex">Your Container</span>
+				</div>
+				</md-toolbar>
+				<md-content class="md-padding" style="height: auto;padding: 24px;">
+				<md-subheader class="md-primary">Operating System</md-subheader> <span>{{pod.osName}}</span>
+				<md-divider></md-divider> <md-subheader class="md-primary">Application</md-subheader>
+				<span>{{pod.selectedApp}}</span> <md-divider></md-divider> <md-subheader
+					class="md-primary">Name</md-subheader> <span>{{pod.appName}}</span> <md-divider></md-divider>
+				<md-subheader class="md-primary">Replica Count</md-subheader> <span>{{pod.replicaCount}}</span>
+				<md-divider></md-divider> <md-button class="md-raised md-primary"
+					style="margin-top:5%;" ng-click="launch()" ng-disabled="isDisabled">Launch</md-button> </md-content>
+
+			</div>
+	
+	<!-- </div> -->
 </div>
+
+<!-- </div> -->
 <div class="modal-footer">
 	<a class="btn btn-default" ng-click="modal.handlePrevious()" ng-show="!modal.isFirstStep()">Back</a>
 	<a class="btn btn-primary" ng-click="modal.handleNext()">{{modal.getNextLabel()}}</a>
@@ -153,6 +145,8 @@
 
 			<div flex="33" style="left: 80%; position: fixed;">
 				<md-toolbar class="md-warn">
+
+
 				<div class="md-toolbar-tools">
 					<span class="md-flex">Your Container</span>
 				</div>
