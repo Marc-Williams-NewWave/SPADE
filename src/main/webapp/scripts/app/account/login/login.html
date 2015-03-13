@@ -1,7 +1,107 @@
+<!-- <div class="modal-header">
+	<button type="button" class="close" ng-click="modal.dismiss('No bueno!')" aria-hidden="true">&times;</button>
+	<h3>Taco Party!!!!!</h3>
+</div>
+<div class="modal-body">
+	<div>
+		<div class="btn-group">
+			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(0)}" ng-click="modal.setCurrentStep(0)">Uno</button>
+			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(1)}" ng-click="modal.setCurrentStep(1)">Dos</button>
+			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(2)}" ng-click="modal.setCurrentStep(2)">Tres</button>
+		</div>
+		<div ng-switch="modal.getCurrentStep()" class="slide-frame">
+			<div ng-switch-when="one" class="wave">
+				<fieldset>
+					<div class="form-group">
+						<label class="control-label" for="firstName">First Name</label>
+
+						<div>
+							<input class="form-control" type="text" class="input-xlarge" id="firstName" ng-model="modal.wizard.firstName">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="lastName">Last Name</label>
+
+						<div>
+							<input class="form-control" type="text" class="input-xlarge" id="lastName" ng-model="modal.wizard.lastName">
+						</div>
+					</div>
+					<div class="form-group">
+						<div>
+							<label>
+								<input type="checkbox" id="optionsCheckbox" ng-model="modal.wizard.coming">
+								Are you coming to my taco party?
+							</label>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<div ng-switch-when="two" class="wave">
+				<fieldset>
+					<div class="form-group">
+						<label class="control-label" for="select01">How Many Tacos?</label>
+
+						<div class="controls">
+							<select class="form-control" id="select01" ng-model="modal.wizard.tacos">
+								<option>Unlimited</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="multiSelect">Toppings?</label>
+
+						<div class="controls">
+							<select class="form-control" multiple="multiple" id="multiSelect" ng-model="modal.wizard.toppings">
+								<option>Cheese</option>
+								<option>Guacamole</option>
+								<option>Mild Salsa</option>
+								<option>Hot Salsa</option>
+								<option>Cilantro</option>
+							</select>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<div ng-switch-when="three" class="wave">
+				<fieldset>
+					<div class="control-group">
+						<h4>Thanks {{modal.wizard.firstName}} {{modal.wizard.lastName}}!</h4>
+
+						<div class="row">
+							<div class="col-xs-4">
+								<img src="../../../../assets/images/hipster.png" alt="Thanks!" width="160px" height="120px">
+							</div>
+							<div class="col-xs-4">
+								<p><strong>Coming:</strong> {{modal.wizard.coming}}</p>
+
+								<p><strong>Tacos:</strong> {{modal.wizard.tacos}}</p>
+
+								<p><strong>Toppings:</strong></p>
+
+								<div class="badge badge-success pull-left" ng-repeat="topping in modal.wizard.toppings">{{topping}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<a class="btn btn-default" ng-click="modal.handlePrevious()" ng-show="!modal.isFirstStep()">Back</a>
+	<a class="btn btn-primary" ng-click="modal.handleNext()">{{modal.getNextLabel()}}</a>
+</div>
+ -->
+
 <div>
-	<!-- <div layout=column>
-		<div class="container">
-			heyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyhey</div> -->
+	<div layout=column>
+		<div class="container" style="visibility: hidden;">
+			heyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyhey</div>
 	
 	<div layout="column" class="container" style="margin-top: 1%;">
 		
@@ -12,6 +112,7 @@
 			</div>
 			<div flex>
 				<md-button class="md-raised md-primary">Application Type</md-button> </md-content>
+			
 			</div>
 			<div flex>
 				<md-button class="md-raised md-primary">Name and Replica Count</md-button> </md-content>
@@ -30,7 +131,7 @@
 				</div>
 				</md-toolbar>
 				<md-content class="md-padding" style="height: auto;padding: 24px;">
-				<md-radio-group ng-model="os.name"> <md-radio-button
+				<md-radio-group ng-model="pod.osName"> <md-radio-button
 					value="Ubuntu">Ubuntu</md-radio-button> <md-radio-button
 					value="Fedora">Fedora</md-radio-button> </md-radio-group> <footer style="">
 					<div align="right">
@@ -49,13 +150,13 @@
 				</div>
 				</md-toolbar>
 				<md-content class="md-padding" style="height: auto;padding: 24px;">
-				<md-subheader class="md-primary">Operating System</md-subheader> <span>{{os.name}}</span>
+				<md-subheader class="md-primary">Operating System</md-subheader> <span>{{pod.osName}}</span>
 				<md-divider></md-divider> <md-subheader class="md-primary">Application</md-subheader>
-				<span>{{selectedApp}}</span> <md-divider></md-divider> <md-subheader
-					class="md-primary">Name</md-subheader> <span>{{appName}}</span> <md-divider></md-divider>
-				<md-subheader class="md-primary">Replica Count</md-subheader> <span>{{replicaCount}}</span>
+				<span>{{pod.selectedApp}}</span> <md-divider></md-divider> <md-subheader
+					class="md-primary">Name</md-subheader> <span>{{pod.appName}}</span> <md-divider></md-divider>
+				<md-subheader class="md-primary">Replica Count</md-subheader> <span>{{pod.replicaCount}}</span>
 				<md-divider></md-divider> <md-button class="md-raised md-primary"
-					style="margin-top:5%;">Launch</md-button> </md-content>
+					style="margin-top:5%;" ng-click="launch()">Launch</md-button> </md-content>
 
 			</div>
 		</div>
@@ -67,7 +168,7 @@
 			</div>
 			</md-toolbar>
 			<md-content class="md-padding" style="height: auto;padding: 24px;">
-			<select ng-model="selectedApp">
+			<select ng-model="pod.selectedApp">
 				<option selected="selected">Select an Application</option>
 				<option ng-value="application" ng-repeat="app in applications.items">{{app.app}}
 					</md-option>
@@ -82,14 +183,17 @@
 			</md-toolbar>
 			<md-content layout="row" style="height: auto;padding: 24px;">
 			<md-input-container> <label>Application
-				Name</label> <input ng-model="appName"> </md-input-container> <md-input-container>
-			<label>Replica Count</label> <input ng-model="replicaCount"
+				Name</label> <input ng-model="pod.appName"> </md-input-container> <md-input-container>
+			<label>Replica Count</label> <input ng-model="pod.replicaCount"
 				type="number"> </md-input-container> </md-content>
 		</div>
 
 
 	</div>
 </div>
+
+
+
 <!-- <div flex layout="row" style="margin-top: 10%; margin-right: 10%;">
 		<div class="">
 			<div flex class="container" style="font-size: 70px;">

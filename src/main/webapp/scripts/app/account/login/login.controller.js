@@ -2,15 +2,32 @@
 
 angular.module('spadeApp')
     .controller('LoginController', function ($rootScope, $scope, $state,$mdDialog, $timeout, Auth) {
-//        $scope.osName = "None Selected";
-        $scope.selectedApp = "None Selected";
-        $scope.appName = "Not Yet Specified";
-        $scope.replicaCount = "0";
-    	
-        $scope.os = {
-                name: 'None Selected'
-              };
+        $scope.pod = {
+        	osName: ' None Selected',
+        	selectedApp : 'None Selected',
+        	appName : 'Not Yet Specified',
+        	replicaCount : '0'
+        };
+//    	$scope.
+//        $scope.
+//        $scope.
+//        $scope.
+//    	
+////        $scope.os = {
+////                name: 'None Selected'
+////              };
         
+    	
+        
+    	$scope.launch = function(){
+//    		var pod = {
+//    	    		os: name,
+//    	    		app: selectedApp,
+//    	    		name: appName,
+//    	    		replicas: replicaCount,
+//    	    	}
+    		alert("Pod Stats\n" + $scope.pod.osName + "\n" +  $scope.pod.selectedApp + "\n" + $scope.pod.appName + "\n" + $scope.pod.replicaCount + "\n");
+    	}
     	
         $scope.applications = 
         {
