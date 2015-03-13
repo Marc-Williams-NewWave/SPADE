@@ -1,18 +1,33 @@
 'use strict';
 
 angular.module('spadeApp')
-    .controller('LoginController', function ($rootScope, $scope, $state,$mdDialog, $timeout, Auth) {
-//        $scope.osName = "None Selected";
-        $scope.selectedApp = "None Selected";
-        $scope.appName = "Not Yet Specified";
-        $scope.replicaCount = "0";
-    	
-        $scope.os = {
-                name: 'None Selected'
-              };
+     .controller('LoginController', function ($modal, $scope) {
         
     	
-        $scope.applications = 
+    	 var app = this;
+
+        app.closeAlert = function () {
+            app.reason = null;
+        };
+
+        app.open = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'scripts/app/account/login/login.html',
+                controller: 'ModalCtrl',
+                controllerAs: 'modal'
+            });
+
+            modalInstance.result
+                .then(function (data) {
+                    app.closeAlert();
+                    app.summary = data;
+                }, function (reason) {
+                    app.reason = reason;
+                });
+        };
+    })
+    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog) {
+    	$scope.applications = 
         {
           "api": "v0.0.4",
           "time": 1426011638988,
@@ -81,53 +96,83 @@ angular.module('spadeApp')
           ]
         };
 
+    	$scope.isDisabled = true;
+    	
+    	$scope.pod = {
+              	osName: ' None Selected',
+              	selectedApp : 'None Selected',
+              	appName : 'Not Yet Specified',
+              	replicaCount : '0'
+              };
+     	 
+    	
+     	 $scope.launch = function(pod){
+//      		var pod = {
+//      	    		os: name,
+//      	    		app: selectedApp,
+//      	    		name: appName,
+//      	    		replicas: replicaCount,
+//      	    	}
+      		alert("Pod Stats\n" + pod.osName + "\n" +  pod.selectedApp + "\n" + pod.appName + "\n" + pod.replicaCount + "\n");
+      	}
+     	 
+     	$scope.alert = '';
+     	  $scope.showAlert = function() {
+     	    $mdDialog.show(
+     	      $mdDialog.alert()
+     	        .title('This is an alert title')
+     	        .content('You can specify some description text in here.')
+     	        .ariaLabel('Password notification')
+     	        .ok('Got it!')
+//     	        .targetEvent(ev)
+     	    );
+     	  };
+     	  
+    	var modal = this;
 
-        
-        console.log($scope.applications.items);
-        
-        
-        
-        
-        $scope.user = {};
-        $scope.errors = {};
+        modal.steps = ['one', 'two', 'three'];
+        modal.step = 0;
+        modal.wizard = {tacos: 2};
 
-        
-        
-        
-        
-        
-        
-        $scope.rememberMe = true;
-        $timeout(function (){angular.element('[ng-model="username"]').focus();});
-//        $scope.login = function () {
-//            Auth.login({
-//                username: $scope.username,
-//                password: $scope.password,
-//                rememberMe: $scope.rememberMe
-//            }).then(function () {
-//                $scope.authenticationError = false;
-//                if ($rootScope.previousStateName === 'register') {
-//                    $state.go('home');
-//                } else {
-//                    $rootScope.back();
-//                }
-//            }).catch(function () {
-//                $scope.authenticationError = true;
-//            });
-//        };
-        
-        $scope.showConfirm = function(ev) {
-            var confirm = $mdDialog.confirm()
-              .title('Would you like to delete your debt?')
-              .content('All of the banks have agreed to forgive you your debts.')
-              .ariaLabel('Lucky day')
-              .ok('Please do it!')
-              .cancel('Sounds like a scam')
-              .targetEvent(ev);
-            $mdDialog.show(confirm).then(function() {
-              $scope.alert = 'You decided to get rid of your debt.';
-            }, function() {
-              $scope.alert = 'You decided to keep your debt.';
-            });
-          };
+        modal.isFirstStep = function () {
+            return modal.step === 0;
+        };
+
+        modal.isLastStep = function () {
+            return modal.step === (modal.steps.length - 1);
+        };
+
+        modal.isCurrentStep = function (step) {
+            return modal.step === step;
+        };
+
+        modal.setCurrentStep = function (step) {
+            modal.step = step;
+        };
+
+        modal.getCurrentStep = function () {
+            return modal.steps[modal.step];
+        };
+
+        modal.getNextLabel = function () {
+            return (modal.isLastStep()) ? 'Launch' : 'Next';
+        };
+
+        modal.handlePrevious = function () {
+            modal.step -= (modal.isFirstStep()) ? 0 : 1;
+        };
+
+        modal.handleNext = function () {
+            if (modal.isLastStep()) {
+            	$scope.isDisabled = false;
+//            	$scope.showAlert();
+//                $modalInstance.close(modal.wizard);
+            } else {
+                modal.step += 1;
+            }
+        };
+
+        modal.dismiss = function(reason) {
+            $modalInstance.dismiss(reason);
+        };
     });

@@ -1,7 +1,107 @@
-<div>
-	<!-- <div layout=column>
-		<div class="container">
-			heyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyhey</div> -->
+<div layout="row">
+
+	<div>
+		<div class="modal-header">
+			<md-toolbar class="md-warn">
+			<div class="md-toolbar-tools">
+				<span class="md-flex"><h3>Describe Your Pod</h3></span>
+			</div>
+			</md-toolbar>
+		</div>
+		<div class="modal-body" style="">
+			<div>
+				<div class="btn-group">
+					<button class="btn"
+						ng-class="{'btn-primary':modal.isCurrentStep(0)}"
+						ng-click="modal.setCurrentStep(0)">Operating System</button>
+					<button class="btn"
+						ng-class="{'btn-primary':modal.isCurrentStep(1)}"
+						ng-click="modal.setCurrentStep(1)">Application Type</button>
+					<button class="btn"
+						ng-class="{'btn-primary':modal.isCurrentStep(2)}"
+						ng-click="modal.setCurrentStep(2)">Name & Replica Count</button>
+				</div>
+				<!-- <div><p>TEST TEXT</p></div> -->
+
+				<div ng-switch="modal.getCurrentStep()" class="slide-frame">
+					<div ng-switch-when="one" class="wave">
+						<md-toolbar class="md-warn">
+						<div class="md-toolbar-tools">
+							<span class="md-flex">Choose your OS:</span>
+						</div>
+						</md-toolbar>
+						<md-content class="md-padding" style=""> <md-radio-group
+							ng-model="pod.osName"> <md-radio-button
+							value="Ubuntu">Ubuntu</md-radio-button> <md-radio-button
+							value="Fedora">Fedora</md-radio-button> </md-radio-group>
+					</div>
+					<div ng-switch-when="two" class="wave">
+						<md-toolbar class="md-warn">
+						<div class="md-toolbar-tools">
+							<span class="md-flex">Choose your Application:</span>
+						</div>
+						</md-toolbar>
+						<md-content class="md-padding" style=""> <select
+							ng-model="pod.selectedApp">
+							<option selected="selected">Select an Application</option>
+							<option ng-value="application"
+								ng-repeat="app in applications.items">{{app.app}}
+								</md-option>
+						</select> </md-content>
+					</div>
+					<div ng-switch-when="three" class="wave">
+						<md-toolbar class="md-warn">
+						<div class="md-toolbar-tools">
+							<span class="md-flex">Name your Container and Replica
+								Count</span>
+						</div>
+						</md-toolbar>
+						<md-content layout="row" style=""> <md-input-container>
+						<label>Application Name</label> <input ng-model="pod.appName">
+						</md-input-container> <md-input-container> <label>Replica
+							Count</label> <input ng-model="pod.replicaCount" type="number"> </md-input-container>
+						</md-content>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<!-- <div> -->
+	
+	<div flex="33" style="" class="modal-header">
+				<md-toolbar class="md-warn">
+				<div class="md-toolbar-tools">
+					<span class="md-flex">Your Container</span>
+				</div>
+				</md-toolbar>
+				<md-content class="md-padding" style="height: auto;padding: 24px;">
+				<md-subheader class="md-primary">Operating System</md-subheader> <span>{{pod.osName}}</span>
+				<md-divider></md-divider> <md-subheader class="md-primary">Application</md-subheader>
+				<span>{{pod.selectedApp}}</span> <md-divider></md-divider> <md-subheader
+					class="md-primary">Name</md-subheader> <span>{{pod.appName}}</span> <md-divider></md-divider>
+				<md-subheader class="md-primary">Replica Count</md-subheader> <span>{{pod.replicaCount}}</span>
+				<md-divider></md-divider> <md-button class="md-raised md-primary"
+					style="margin-top:5%;" ng-click="launch()" ng-disabled="isDisabled">Launch</md-button> </md-content>
+
+			</div>
+	
+	<!-- </div> -->
+</div>
+
+<!-- </div> -->
+<div class="modal-footer">
+	<a class="btn btn-default" ng-click="modal.handlePrevious()" ng-show="!modal.isFirstStep()">Back</a>
+	<a class="btn btn-primary" ng-click="modal.handleNext()">{{modal.getNextLabel()}}</a>
+</div>
+
+
+
+<!-- <div>
+	<div layout=column>
+		<div class="container" style="visibility: hidden;">
+			heyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyhey</div>
 	
 	<div layout="column" class="container" style="margin-top: 1%;">
 		
@@ -12,6 +112,7 @@
 			</div>
 			<div flex>
 				<md-button class="md-raised md-primary">Application Type</md-button> </md-content>
+			
 			</div>
 			<div flex>
 				<md-button class="md-raised md-primary">Name and Replica Count</md-button> </md-content>
@@ -30,7 +131,7 @@
 				</div>
 				</md-toolbar>
 				<md-content class="md-padding" style="height: auto;padding: 24px;">
-				<md-radio-group ng-model="os.name"> <md-radio-button
+				<md-radio-group ng-model="pod.osName"> <md-radio-button
 					value="Ubuntu">Ubuntu</md-radio-button> <md-radio-button
 					value="Fedora">Fedora</md-radio-button> </md-radio-group> <footer style="">
 					<div align="right">
@@ -44,18 +145,20 @@
 
 			<div flex="33" style="left: 80%; position: fixed;">
 				<md-toolbar class="md-warn">
+
+
 				<div class="md-toolbar-tools">
 					<span class="md-flex">Your Container</span>
 				</div>
 				</md-toolbar>
 				<md-content class="md-padding" style="height: auto;padding: 24px;">
-				<md-subheader class="md-primary">Operating System</md-subheader> <span>{{os.name}}</span>
+				<md-subheader class="md-primary">Operating System</md-subheader> <span>{{pod.osName}}</span>
 				<md-divider></md-divider> <md-subheader class="md-primary">Application</md-subheader>
-				<span>{{selectedApp}}</span> <md-divider></md-divider> <md-subheader
-					class="md-primary">Name</md-subheader> <span>{{appName}}</span> <md-divider></md-divider>
-				<md-subheader class="md-primary">Replica Count</md-subheader> <span>{{replicaCount}}</span>
+				<span>{{pod.selectedApp}}</span> <md-divider></md-divider> <md-subheader
+					class="md-primary">Name</md-subheader> <span>{{pod.appName}}</span> <md-divider></md-divider>
+				<md-subheader class="md-primary">Replica Count</md-subheader> <span>{{pod.replicaCount}}</span>
 				<md-divider></md-divider> <md-button class="md-raised md-primary"
-					style="margin-top:5%;">Launch</md-button> </md-content>
+					style="margin-top:5%;" ng-click="launch()">Launch</md-button> </md-content>
 
 			</div>
 		</div>
@@ -67,7 +170,7 @@
 			</div>
 			</md-toolbar>
 			<md-content class="md-padding" style="height: auto;padding: 24px;">
-			<select ng-model="selectedApp">
+			<select ng-model="pod.selectedApp">
 				<option selected="selected">Select an Application</option>
 				<option ng-value="application" ng-repeat="app in applications.items">{{app.app}}
 					</md-option>
@@ -82,14 +185,29 @@
 			</md-toolbar>
 			<md-content layout="row" style="height: auto;padding: 24px;">
 			<md-input-container> <label>Application
-				Name</label> <input ng-model="appName"> </md-input-container> <md-input-container>
-			<label>Replica Count</label> <input ng-model="replicaCount"
+				Name</label> <input ng-model="pod.appName"> </md-input-container> <md-input-container>
+			<label>Replica Count</label> <input ng-model="pod.replicaCount"
 				type="number"> </md-input-container> </md-content>
 		</div>
 
 
 	</div>
 </div>
+
+ -->
+
+<!-- <div class="modal-header">
+            <h3 class="modal-title">I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+HI	
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div> -->
+
+
 <!-- <div flex layout="row" style="margin-top: 10%; margin-right: 10%;">
 		<div class="">
 			<div flex class="container" style="font-size: 70px;">

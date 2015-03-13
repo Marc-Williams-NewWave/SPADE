@@ -32,15 +32,15 @@ angular.module('spadeApp').controller(
 						"images" : [ "partlab/ubuntu-mongodb",
 								"bradams/devops:cluster", "sewatech/modcluster" ]
 					},{
-						"name" : "demo",
-						"description" : "Demo Project",
+						"name" : "dr.suess",
+						"description" : "Sam's Sample",
 						"environments" : [],
 						"users" : [],
 						"images" : [ "partlab/ubuntu-mongodb",
 								"bradams/devops:cluster", "sewatech/modcluster" ]
 					},{
-						"name" : "demo",
-						"description" : "Demo Project",
+						"name" : "DC",
+						"description" : "Justice League",
 						"environments" : [],
 						"users" : [],
 						"images" : [ "partlab/ubuntu-mongodb",
