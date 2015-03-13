@@ -1,17 +1,23 @@
-<!-- <div class="modal-header">
+<div class="modal-header">
 	<button type="button" class="close" ng-click="modal.dismiss('No bueno!')" aria-hidden="true">&times;</button>
 	<h3>Taco Party!!!!!</h3>
 </div>
 <div class="modal-body">
 	<div>
 		<div class="btn-group">
-			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(0)}" ng-click="modal.setCurrentStep(0)">Uno</button>
-			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(1)}" ng-click="modal.setCurrentStep(1)">Dos</button>
-			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(2)}" ng-click="modal.setCurrentStep(2)">Tres</button>
+			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(0)}" ng-click="modal.setCurrentStep(0)">Operating System</button>
+			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(1)}" ng-click="modal.setCurrentStep(1)">Application Type</button>
+			<button class="btn" ng-class="{'btn-primary':modal.isCurrentStep(2)}" ng-click="modal.setCurrentStep(2)">Name & Replica Count</button>
 		</div>
+		<div layout="column">
+		
 		<div ng-switch="modal.getCurrentStep()" class="slide-frame">
 			<div ng-switch-when="one" class="wave">
-				<fieldset>
+				<md-content class="md-padding" style="height: auto;padding: 24px;">
+				<md-radio-group ng-model="pod.osName"> <md-radio-button
+					value="Ubuntu">Ubuntu</md-radio-button> <md-radio-button
+					value="Fedora">Fedora</md-radio-button> </md-radio-group> </md-content>
+				<!-- <fieldset>
 					<div class="form-group">
 						<label class="control-label" for="firstName">First Name</label>
 
@@ -34,7 +40,7 @@
 							</label>
 						</div>
 					</div>
-				</fieldset>
+				</fieldset> -->
 			</div>
 			<div ng-switch-when="two" class="wave">
 				<fieldset>
@@ -90,15 +96,17 @@
 				</fieldset>
 			</div>
 		</div>
+		</div>
 	</div>
 </div>
 <div class="modal-footer">
 	<a class="btn btn-default" ng-click="modal.handlePrevious()" ng-show="!modal.isFirstStep()">Back</a>
 	<a class="btn btn-primary" ng-click="modal.handleNext()">{{modal.getNextLabel()}}</a>
 </div>
- -->
 
-<div>
+
+
+<!-- <div>
 	<div layout=column>
 		<div class="container" style="visibility: hidden;">
 			heyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyheyhey</div>
@@ -192,6 +200,18 @@
 	</div>
 </div>
 
+ -->
+
+<!-- <div class="modal-header">
+            <h3 class="modal-title">I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+HI	
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div> -->
 
 
 <!-- <div flex layout="row" style="margin-top: 10%; margin-right: 10%;">

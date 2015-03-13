@@ -1,150 +1,91 @@
 'use strict';
 
 angular.module('spadeApp')
-    .controller('LoginController', function ($rootScope, $scope, $state,$mdDialog, $timeout, Auth) {
-        $scope.pod = {
-        	osName: ' None Selected',
-        	selectedApp : 'None Selected',
-        	appName : 'Not Yet Specified',
-        	replicaCount : '0'
-        };
-//    	$scope.
-//        $scope.
-//        $scope.
-//        $scope.
-//    	
-////        $scope.os = {
-////                name: 'None Selected'
-////              };
+     .controller('LoginController', function ($modal, $scope) {
         
-    	
-        
-    	$scope.launch = function(){
-//    		var pod = {
-//    	    		os: name,
-//    	    		app: selectedApp,
-//    	    		name: appName,
-//    	    		replicas: replicaCount,
-//    	    	}
-    		alert("Pod Stats\n" + $scope.pod.osName + "\n" +  $scope.pod.selectedApp + "\n" + $scope.pod.appName + "\n" + $scope.pod.replicaCount + "\n");
-    	}
-    	
-        $scope.applications = 
-        {
-          "api": "v0.0.4",
-          "time": 1426011638988,
-          "label": "extra",
-          "items": [
-            {
-              "image": "sewatech\/modcluster",
-              "os": "ubuntu",
-              "app": "apache"
-            },
-            {
-              "image": "bradams\/devops:nginx-ubuntu",
-              "os": "ubuntu",
-              "app": "nginx"
-            },
-            {
-              "image": "bradams\/devops:wildfly-ubuntu",
-              "os": "ubuntu",
-              "app": "wildfly"
-            },
-            {
-              "image": "bradams\/devops:tomcat-ubuntu",
-              "os": "ubuntu",
-              "app": "tomcat"
-            },
-            {
-              "image": "partlab\/ubuntu-mongodb",
-              "os": "ubuntu",
-              "app": "mongodb"
-            },
-            {
-              "image": "bradams\/devops:mysql-ubuntu",
-              "os": "ubuntu",
-              "app": "mysql"
-            },
-            {
-              "image": "bradams\/devops:apache-fedora",
-              "os": "fedora",
-              "app": "apache"
-            },
-            {
-              "image": "bradams\/devops:nginx-fedora",
-              "os": "fedora",
-              "app": "nginx"
-            },
-            {
-              "image": "bradams\/devops:cluster",
-              "os": "fedora",
-              "app": "wildfly"
-            },
-            {
-              "image": "bradams\/devops:tomcat-fedora",
-              "os": "fedora",
-              "app": "tomcat"
-            },
-            {
-              "image": "bradams\/devops:mongodb-fedora",
-              "os": "fedora",
-              "app": "mongodb"
-            },
-            {
-              "image": "jdeathe\/centos-ssh-mysql",
-              "os": "fedora",
-              "app": "mysql"
-            }
-          ]
+    	 $scope.pod = {
+             	osName: ' None Selected',
+             	selectedApp : 'None Selected',
+             	appName : 'Not Yet Specified',
+             	replicaCount : '0'
+             };
+    	 
+    	 $scope.launch = function(){
+//     		var pod = {
+//     	    		os: name,
+//     	    		app: selectedApp,
+//     	    		name: appName,
+//     	    		replicas: replicaCount,
+//     	    	}
+     		alert("Pod Stats\n" + $scope.pod.osName + "\n" +  $scope.pod.selectedApp + "\n" + $scope.pod.appName + "\n" + $scope.pod.replicaCount + "\n");
+     	}
+    	 
+    	 var app = this;
+
+        app.closeAlert = function () {
+            app.reason = null;
         };
 
-
-        
-        console.log($scope.applications.items);
-        
-        
-        
-        
-        $scope.user = {};
-        $scope.errors = {};
-
-        
-        
-        
-        
-        
-        
-        $scope.rememberMe = true;
-        $timeout(function (){angular.element('[ng-model="username"]').focus();});
-//        $scope.login = function () {
-//            Auth.login({
-//                username: $scope.username,
-//                password: $scope.password,
-//                rememberMe: $scope.rememberMe
-//            }).then(function () {
-//                $scope.authenticationError = false;
-//                if ($rootScope.previousStateName === 'register') {
-//                    $state.go('home');
-//                } else {
-//                    $rootScope.back();
-//                }
-//            }).catch(function () {
-//                $scope.authenticationError = true;
-//            });
-//        };
-        
-        $scope.showConfirm = function(ev) {
-            var confirm = $mdDialog.confirm()
-              .title('Would you like to delete your debt?')
-              .content('All of the banks have agreed to forgive you your debts.')
-              .ariaLabel('Lucky day')
-              .ok('Please do it!')
-              .cancel('Sounds like a scam')
-              .targetEvent(ev);
-            $mdDialog.show(confirm).then(function() {
-              $scope.alert = 'You decided to get rid of your debt.';
-            }, function() {
-              $scope.alert = 'You decided to keep your debt.';
+        app.open = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'scripts/app/account/login/login.html',
+                controller: 'ModalCtrl',
+                controllerAs: 'modal'
             });
-          };
+
+            modalInstance.result
+                .then(function (data) {
+                    app.closeAlert();
+                    app.summary = data;
+                }, function (reason) {
+                    app.reason = reason;
+                });
+        };
+    })
+    .controller('ModalCtrl', function ($modalInstance) {
+        var modal = this;
+
+        modal.steps = ['one', 'two', 'three'];
+        modal.step = 0;
+        modal.wizard = {tacos: 2};
+
+        modal.isFirstStep = function () {
+            return modal.step === 0;
+        };
+
+        modal.isLastStep = function () {
+            return modal.step === (modal.steps.length - 1);
+        };
+
+        modal.isCurrentStep = function (step) {
+            return modal.step === step;
+        };
+
+        modal.setCurrentStep = function (step) {
+            modal.step = step;
+        };
+
+        modal.getCurrentStep = function () {
+            return modal.steps[modal.step];
+        };
+
+        modal.getNextLabel = function () {
+            return (modal.isLastStep()) ? 'Submit' : 'Next';
+        };
+
+        modal.handlePrevious = function () {
+            modal.step -= (modal.isFirstStep()) ? 0 : 1;
+        };
+
+        modal.handleNext = function () {
+            if (modal.isLastStep()) {
+                $modalInstance.close(modal.wizard);
+            } else {
+                modal.step += 1;
+            }
+        };
+
+        modal.dismiss = function(reason) {
+            $modalInstance.dismiss(reason);
+        };
     });

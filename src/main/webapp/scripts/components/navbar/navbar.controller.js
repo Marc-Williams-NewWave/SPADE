@@ -2,28 +2,28 @@
 
 angular.module('spadeApp')
     .controller('NavbarController', function ($scope, $location, $state, Auth, Principal, $modal) {
-//    	var app = this;
-//    	
-//    	app.closeAlert = function(){
-//    		app.reason = null;
-//    	}
-//    	
-//    	app.open = function(){
-//    		var modalInstance = $modal.open({
-//    			templateUrl: '/spade/src/main/webapp/scripts/app/account/login/login.html',
-//    			controller: 'ModalCtrl',
-//    			controllerAs: 'modal'
-//    		});
-//    		
-//    		modalInstance.result
-//            .then(function (data) {
-//                app.closeAlert();
-//                app.summary = data;
-//            }, function (reason) {
-//                app.reason = reason;
-//            });
-//    		
-//    	}
+    	$scope.app = this;
+    	
+    	$scope.app.closeAlert = function(){
+    		$scope.app.reason = null;
+    	}
+    	
+    	$scope.app.open = function(){
+    		var modalInstance = $modal.open({
+    			templateUrl: 'scripts/app/account/login/login.html',
+    			controller: 'ModalCtrl',
+    			controllerAs: 'modal'
+    		});
+    		
+    		modalInstance.result
+            .then(function (data) {
+            	$scope.app.closeAlert();
+            	$scope.app.summary = data;
+            }, function (reason) {
+            	$scope.app.reason = reason;
+            });
+    		
+    	}
     	
     	
         $scope.isAuthenticated = Principal.isAuthenticated;
