@@ -11,15 +11,15 @@
 		<div class="modal-body" style="">
 			<div>
 				<div class="btn-group">
-					<button class="btn"
-						ng-class="{'btn-primary':modal.isCurrentStep(0)}"
-						ng-click="modal.setCurrentStep(0)">Operating System</button>
-					<button class="btn"
-						ng-class="{'btn-primary':modal.isCurrentStep(1)}"
-						ng-click="modal.setCurrentStep(1)">Application Type</button>
-					<button class="btn"
-						ng-class="{'btn-primary':modal.isCurrentStep(2)}"
-						ng-click="modal.setCurrentStep(2)">Name & Replica Count</button>
+					<md-button class="md-raised"
+						ng-class="{'md-primary':modal.isCurrentStep(0)}"
+						ng-click="modal.setCurrentStep(0)">Operating System</md-button>
+					<md-button class="md-raised"
+						ng-class="{'md-primary':modal.isCurrentStep(1)}"
+						ng-click="modal.setCurrentStep(1)">Application Type</md-button>
+					<md-button class="md-raised"
+						ng-class="{'md-primary':modal.isCurrentStep(2)}"
+						ng-click="modal.setCurrentStep(2)">Name & Replica Count</md-button>
 				</div>
 				<!-- <div><p>TEST TEXT</p></div> -->
 
@@ -49,7 +49,10 @@
 						</select> --> 
 						<select ng-model="pod.app" ng-options="application.app as application.app for application in uniqueApps">
 						 <option value="" ng-if="pod.app">Select an Application</option>
-						</select>
+						</select> 
+						<!-- <md-select ng-model="pod.app" placeholder="Select an Application"> 
+						<md-option ng-value="applications" ng-repeat="application in uniqueApps">{{application.app}}</md-option>
+						</md-select> -->
 						 </md-content>
 					</div>
 					<div ng-switch-when="three" class="wave">
@@ -62,7 +65,7 @@
 						<md-content layout="row" style=""> <md-input-container>
 						<label>Application Name</label> <input ng-model="pod.name">
 						</md-input-container> <md-input-container> <label>Replica
-							Count</label> <input ng-model="pod.replicas" type="number"> </md-input-container>
+							Count</label> <input ng-model="pod.replicas" type="number" min="0"> </md-input-container>
 						</md-content>
 					</div>
 				</div>
@@ -95,8 +98,10 @@
 
 <!-- </div> -->
 <div class="modal-footer">
-	<a class="btn btn-default" ng-click="modal.handlePrevious()" ng-show="!modal.isFirstStep()">Back</a>
-	<a class="btn btn-primary" ng-click="modal.handleNext()">{{modal.getNextLabel()}}</a>
+	<!-- <a class="btn btn-default" ng-click="modal.handlePrevious()" ng-show="!modal.isFirstStep()">Back</a> -->
+	<md-button class="md-raised md-primary" ng-click="modal.handlePrevious()" ng-show="!modal.isFirstStep()">Back</md-button>
+	<!-- <a class="btn btn-primary" ng-click="modal.handleNext()">{{modal.getNextLabel()}}</a> -->
+	<md-button class="md-raised md-primary" ng-click="modal.handleNext()">{{modal.getNextLabel()}}</md-button>
 </div>
 
 

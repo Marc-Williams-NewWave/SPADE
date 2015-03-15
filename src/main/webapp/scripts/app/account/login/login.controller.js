@@ -228,7 +228,8 @@ angular.module('spadeApp')
         	if(angular.equals($scope.pod.os,$scope.defaultPod.os) ||
         			angular.equals($scope.pod.app,$scope.defaultPod.app) ||
         			angular.equals($scope.pod.name,$scope.defaultPod.name) ||
-        			angular.equals($scope.pod.replicas,$scope.defaultPod.replicas) 
+        			angular.equals($scope.pod.replicas,$scope.defaultPod.replicas ||
+        			$scope.pod.replicas < 0		) 
         	){
         		return false;
         	} else {
