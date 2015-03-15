@@ -26,7 +26,8 @@ angular.module('spadeApp')
                 });
         };
     })
-    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog) {
+    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http) {
+    	
     	$scope.applications = 
         {
           "api": "v0.0.4",
@@ -96,24 +97,83 @@ angular.module('spadeApp')
           ]
         };
 
+    	var appFilter = function(){
+    		var n = {},uniqueApps = [];
+//    		var defaultApp = {
+//    				"image": "",
+//    	              "os": "",
+//    	              "app": "Select an Application"	
+//    		}
+//    		uniqueApps.push(defaultApp);
+    		
+    		for(var i = 0; i < $scope.applications.items.length; i++){
+    			if(!n[$scope.applications.items[i].app]){
+    				n[$scope.applications.items[i].app] = true;
+    				uniqueApps.push($scope.applications.items[i]);
+    			}
+    		}
+    		
+    		
+    		return uniqueApps;
+    	}
+    	
+    	$scope.uniqueApps = appFilter();
+    	
+    	for(var i = 0; i < $scope.uniqueApps.length;i++){
+    		console.log($scope.uniqueApps[i]);
+    	}
+//    	console.log($scope.uniqueApps);
+
     	$scope.isDisabled = true;
     	
+    	$scope.defaultPod = {
+    			name : 'Not Yet Specified',
+    			os: ' None Selected',
+              	app : 'None Selected',
+              	replicas : 0
+              };
+    	
     	$scope.pod = {
-              	osName: ' None Selected',
-              	selectedApp : 'None Selected',
-              	appName : 'Not Yet Specified',
-              	replicaCount : '0'
+    			name : $scope.defaultPod.name,
+    			os: $scope.defaultPod.os,
+              	app : $scope.defaultPod.app,
+              	replicas : $scope.defaultPod.replicas
               };
      	 
     	
      	 $scope.launch = function(pod){
-//      		var pod = {
-//      	    		os: name,
-//      	    		app: selectedApp,
-//      	    		name: appName,
-//      	    		replicas: replicaCount,
-//      	    	}
-      		alert("Pod Stats\n" + pod.osName + "\n" +  pod.selectedApp + "\n" + pod.appName + "\n" + pod.replicaCount + "\n");
+//     		{ "name": "demo-app", "os": "ubuntu", "app": "mongodb", "replicas": 1 }
+
+//      		console.log("Pod Stats: " + pod.osName + " " +  pod.selectedApp + " " + pod.appName + " " + pod.replicaCount);
+     		 console.log(pod);
+     		 
+//     		 $http.post("http://192.168.0.95:8080/spade/api/demo/env", pod)
+//     		 	.success(function(data){
+//     		 		console.log("success data returned ====> " + data);
+//     		 });
+     		 
+     		 
+     		 
+     		 
+//     		$http.get("http://192.168.0.95:8080/spade/api/proj")
+//			.success(function(data) {
+//					console.log(data);
+//					$scope.info = data;
+//				})
+//				
+//			.error(function(data, status, headers, config) {
+//				$scope.info = data;
+//				$scope.projects = data.items;
+//
+//				console.log(data.items);
+//				console.log(data);
+//				console.log(status);
+//				console.log(headers);
+//				console.log(config);
+//		});
+     		 
+     		 
+     		 
       	}
      	 
      	$scope.alert = '';
@@ -132,7 +192,7 @@ angular.module('spadeApp')
 
         modal.steps = ['one', 'two', 'three'];
         modal.step = 0;
-        modal.wizard = {tacos: 2};
+//        modal.wizard = {tacos: 2};
 
         modal.isFirstStep = function () {
             return modal.step === 0;
@@ -155,8 +215,26 @@ angular.module('spadeApp')
         };
 
         modal.getNextLabel = function () {
-            return (modal.isLastStep()) ? 'Launch' : 'Next';
+        	if(modal.isLastStep()){
+        		$scope.isDisabled = !modal.launchReady();
+        		return 'Click Above To Launch Your Pod';
+        	} else{
+        		return 'Next'
+        	}
+//            return (modal.isLastStep()) ? 'Launch' : 'Next';
         };
+        
+        modal.launchReady = function(){
+        	if(angular.equals($scope.pod.os,$scope.defaultPod.os) ||
+        			angular.equals($scope.pod.app,$scope.defaultPod.app) ||
+        			angular.equals($scope.pod.name,$scope.defaultPod.name) ||
+        			angular.equals($scope.pod.replicas,$scope.defaultPod.replicas) 
+        	){
+        		return false;
+        	} else {
+        		return true;
+        	}
+        }
 
         modal.handlePrevious = function () {
             modal.step -= (modal.isFirstStep()) ? 0 : 1;
@@ -164,9 +242,7 @@ angular.module('spadeApp')
 
         modal.handleNext = function () {
             if (modal.isLastStep()) {
-            	$scope.isDisabled = false;
-//            	$scope.showAlert();
-//                $modalInstance.close(modal.wizard);
+                $modalInstance.close(modal.wizard);
             } else {
                 modal.step += 1;
             }
