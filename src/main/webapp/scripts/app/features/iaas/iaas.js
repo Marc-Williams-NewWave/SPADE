@@ -3,21 +3,21 @@
 angular.module('spadeApp')
     .config(function ($stateProvider) {
         $stateProvider
-        .state('iaas', {
+            .state('iaas', {
                 parent: 'features',
                 url: '/iaas',
                 data: {
-                    roles: []
+                    roles: [], 
+                    pageTitle: 'iaas.title'
                 },
                 views: {
                     'content@': {
                         templateUrl: 'scripts/app/features/iaas/iaas.html',
                         controller: 'IaasController'
                     }
-                }
-                ,
+                },
                 resolve: {
-                    mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('iaas');
                         return $translate.refresh();
                     }]
