@@ -3,12 +3,28 @@
 angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 'tmh.dynamicLocale',
     'ngResource', 'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster'])
 
-    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV, VERSION) {
+    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV, VERSION,loginModal) {
         $rootScope.ENV = ENV;
         $rootScope.VERSION = VERSION;
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
-            $rootScope.toState = toState;
+        	$rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;
+            
+        	var requireLogin = toState.data.requireLogin;
+            
+            if(requireLogin && typeof $rootScope.currentUser == 'undefined'){
+            	event.preventDefault();
+            	//start login modal
+            	loginModal()
+            		.then(function (){
+            			return $state.go(toState.name, toStateParams);
+            		})
+            		.catch(function (){
+            			return $state.go('home');
+            		});
+            }
+        	
+        	
 
             if (Principal.isIdentityResolved()) {
                 Auth.authorize();
@@ -56,24 +72,9 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
         $urlRouterProvider.otherwise('/');
-//        var iaas = {
-//                name: 'iaas',
-//                url: '/iaas',
-////                abstract: true,
-//                data: {
-//                    roles: []
-//                },
-//                templateUrl: 'scripts/app/iaas/iaas.html',
-//                controller: 'IaasController'
-//            };
+
         
         $stateProvider
-//        .state('iaas', {
-//        	url:'/iaas',
-//        	templateUrl: 'scripts/app/iaas/iaas.html',
-//        	controller: 'IaasController'	
-//        })
-        
         .state('site', {
             'abstract': true,
             views: {
