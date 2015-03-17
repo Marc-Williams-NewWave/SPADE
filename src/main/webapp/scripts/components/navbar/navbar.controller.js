@@ -10,7 +10,7 @@ angular.module('spadeApp')
     	
     	$scope.app.open = function(){
     		var modalInstance = $modal.open({
-    			templateUrl: 'scripts/app/account/iaas/iaas.html',
+    			templateUrl: 'scripts/app/features/iaas/iaas.html',
     			controller: 'ModalCtrl',
     			controllerAs: 'modal'
     		});

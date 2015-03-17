@@ -8,7 +8,7 @@ angular.module('spadeApp')
                 url: '/',
                 data: {
                     roles: [],
-                    requireLogin: true
+//                    requireLogin: true
                 },
                 views: {
                     'content@': {
