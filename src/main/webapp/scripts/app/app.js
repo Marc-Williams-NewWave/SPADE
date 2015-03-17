@@ -10,19 +10,19 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
         	$rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;
             
-        	var requireLogin = toState.data.requireLogin;
-            
-            if(requireLogin && typeof $rootScope.currentUser == 'undefined'){
-            	event.preventDefault();
-            	//start login modal
-            	loginModal()
-            		.then(function (){
-            			return $state.go(toState.name, toStateParams);
-            		})
-            		.catch(function (){
-            			return $state.go('home');
-            		});
-            }
+//        	var requireLogin = toState.data.requireLogin;
+//            
+//            if(requireLogin && typeof $rootScope.currentUser == 'undefined'){
+//            	event.preventDefault();
+//            	//start login modal
+//            	loginModal()
+//            		.then(function (){
+//            			return $state.go(toState.name, toStateParams);
+//            		})
+//            		.catch(function (){
+//            			return $state.go('home');
+//            		});
+//            }
         	
         	
 
