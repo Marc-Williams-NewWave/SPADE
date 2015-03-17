@@ -1,8 +1,6 @@
 'use strict';
 
-angular.module('spadeApp').controller(
-		'MainController',
-		function($scope, Principal, $http) {
+angular.module('spadeApp').controller('MainController', function($scope, Principal, $http) {
 
 			$http.get("http://192.168.0.95:8080/spade/api/proj")
 				.success(function(data) {
