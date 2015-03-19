@@ -23,6 +23,7 @@ angular.module('spadeApp').controller('StatsController', function($scope, $http)
 		console.log(config);
 	});
 	
+	var slaves = [];
 	
 	
 	$http.get("http://192.168.0.95:8080/spade/api/pods")

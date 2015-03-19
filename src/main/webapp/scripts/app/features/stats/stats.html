@@ -41,10 +41,33 @@
 <div>
 <div id='outer' style="width: 1000px; height:800px; margin: 0px auto; margin-top:20px; padding:10px">
     <div id="main" style="width:1000px; height:200px; margin: 0px auto; ">
-        <div id="div1">{{something}}</div>
-        <div id="div2">HELLO</div>
-        <div id="div3"></div>
-        <div id="div4"></div>
+    	<div ng-repeat="slave in slaves">
+    		<svg width="120" height="120">
+  				<circle cx="40" cy="60" r="20"></circle>
+			</svg>
+			<div>{{slave.hostname}}</div>
+		</div>
+<!--         <div id="div1">{{something}}</div> -->
+<!--         <div id="div2">HELLO</div> -->
+<!--         <div id="div3"> -->
+<!--         	<ul> -->
+<!--         		<li ng-repeat="slave in slaves"> -->
+<!--         			{{slave.id}} {{slave.hostname}} -->
+<!--         		<li/> -->
+<!--         		<li ng-repeat="slave in slaves"> -->
+<!--         			<svg width="720" height="120"> -->
+<!--   						<circle cx="40" cy="60" r="10"></circle> -->
+<!--   						<circle cx="80" cy="60" r="10"></circle> -->
+<!--   						<circle cx="120" cy="60" r="10"></circle> -->
+<!-- 					</svg> -->
+<!--         		<li/> -->
+<!--         	</ul> -->
+<!--         	</div> -->
+<!--         <div id="div4"><svg width="720" height="120"> -->
+<!--   <circle cx="40" cy="60" r="10"></circle> -->
+<!--   <circle cx="80" cy="60" r="10"></circle> -->
+<!--   <circle cx="120" cy="60" r="10"></circle> -->
+<!-- </svg></div> -->
     </div>
 </div>
 
