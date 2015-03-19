@@ -73,15 +73,22 @@ angular.module('spadeApp').controller('StatsController', function($scope, $http)
 		}
 	}
 	
-	$scope.percent = 12.5;
-    $scope.options = {
-        animate:{
-            duration:1000,
-            enabled:true
-        },
-        barColor:'#2C3E50',
-        scaleColor:'#DFEe0E0',
-        lineWidth:5,
-        lineCap:'circle'
-    };
+	$scope.data = [
+	               {label: "one", value: 12.2, color: "red"}, 
+	               {label: "two", value: 45, color: "#00ff00"},
+	               {label: "three", value: 10, color: "rgb(0, 0, 255)"}
+	             ];
+	$scope.options = {thickness: 10};
+	
+//	$scope.percent = 12.5;
+//    $scope.options = {
+//        animate:{
+//            duration:1000,
+//            enabled:true
+//        },
+//        barColor:'#2C3E50',
+//        scaleColor:'#DFEe0E0',
+//        lineWidth:5,
+//        lineCap:'circle'
+//    };
 });

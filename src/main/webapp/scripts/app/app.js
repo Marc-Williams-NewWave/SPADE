@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 'tmh.dynamicLocale',
-    'ngResource', 'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster','angular-loading-bar','easypiechart'])
+    'ngResource', 'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster','angular-loading-bar','easypiechart','n3-pie-chart'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV, VERSION,loginModal) {
         $rootScope.ENV = ENV;

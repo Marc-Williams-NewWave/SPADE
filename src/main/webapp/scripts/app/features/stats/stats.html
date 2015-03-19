@@ -46,7 +46,8 @@
     		<div ng-repeat="task in tasks" >
 <!--   				<div easypiechart options="options" percent="getTaskPercent(tasks,pod)"></div> -->
 <!-- 				<div>{{taskCPUPercent}}%</div> -->
-				<div easypiechart options="options" percent="task.cpuPercent"></div>
+				<pie-chart data="data" options="options"></pie-chart>
+<!-- 				<div easypiechart options="options" percent="task.cpuPercent"></div> -->
 				<div>{{task.cpuPercent}}%</div>
 				<div>{{percent}}%</div>
 			</div>
