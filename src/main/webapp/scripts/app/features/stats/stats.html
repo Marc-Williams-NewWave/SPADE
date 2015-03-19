@@ -41,11 +41,15 @@
 <div>
 <div id='outer' style="width: 1000px; height:800px; margin: 0px auto; margin-top:20px; padding:10px">
     <div id="main" style="width:1000px; height:200px; margin: 0px auto; ">
-    	<div ng-repeat="slave in slaves">
-    		<svg width="120" height="120">
-  				<circle cx="40" cy="60" r="20"></circle>
-			</svg>
-			<div>{{slave.hostname}}</div>
+    	<h2>MONITORING</h2>
+    	<div ng-repeat="slave in slaves" margin-top:20px; padding:10px; class=flex">
+    		<div ng-repeat="task in tasks" >
+<!--   				<div easypiechart options="options" percent="getTaskPercent(tasks,pod)"></div> -->
+<!-- 				<div>{{taskCPUPercent}}%</div> -->
+				<div easypiechart options="options" percent="task.cpuPercent"></div>
+				<div>{{task.cpuPercent}}%</div>
+				<div>{{percent}}%</div>
+			</div>
 		</div>
 <!--         <div id="div1">{{something}}</div> -->
 <!--         <div id="div2">HELLO</div> -->
