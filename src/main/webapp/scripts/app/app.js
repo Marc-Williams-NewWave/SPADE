@@ -81,6 +81,10 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
                 'navbar@': {
                     templateUrl: 'scripts/components/navbar/navbar.html',
                     controller: 'NavbarController'
+                },
+                'stats@': {
+                    templateUrl: 'scripts/app/features/stats/stats.html',
+                    controller: 'StatsController'
                 }
             },
             resolve: {

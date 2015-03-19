@@ -11,7 +11,7 @@ angular.module('spadeApp')
                     pageTitle: 'stats.title'
                 },
                 views: {
-                    'content@': {
+                    'stats@': {
                         templateUrl: 'scripts/app/features/stats/stats.html',
                         controller: 'StatsController'
                     }
