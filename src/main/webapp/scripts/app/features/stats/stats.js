@@ -12,8 +12,8 @@ angular.module('spadeApp')
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/features/stats/mesosStats.html',
-                        controller: 'MesosStatsController'
+                        templateUrl: 'scripts/app/features/stats/stats.html',
+                        controller: 'StatsController'
                     }
                 },
                 resolve: {
