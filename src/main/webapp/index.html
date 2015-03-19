@@ -51,11 +51,64 @@
 	
 	
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-
+	<script src="bower_components/d3/radialProgress.js"></script>
+	<script src="bower_components/d3/d3.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="assets/styles/d3-style.css">
 <style type="text/css">
 html {
 	background-color: #f1f7f9;
 }
+
+        #test .arc2 {
+            stroke-weight:0.1;
+            fill: #3660b0;
+        }
+
+        #outer {
+            background:#FFFFFF;
+            border-radius: 5px;
+            color: #000;
+        }
+
+        #div1, #div2, #div3, #div4 {
+            width: 33%;
+            height: 200px;
+            box-sizing: border-box;
+            float: left;
+        }
+
+        #div2 .arc {
+            stroke-weight: 0.1;
+            fill: #f0a417;
+        }
+
+        #div2 .arc2 {
+            stroke-weight: 0.1;
+            fill: #b00d08;
+        }
+
+        #div3 .arc {
+            stroke-weight: 0.1;
+            fill: #1d871b;
+        }
+
+
+        .selectedRadial {
+            border-radius: 3px;
+            background: #f4f4f4;
+            color: #000;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            border: 1px solid rgba(200,200,200,0.85);
+        }
+
+        .radial {
+            border-radius: 3px;
+            background: #FFFFFF;
+            color: #000;
+
+        }
+
 </style>
 </head>
 <body ng-app="spadeApp" layout="column">
@@ -79,7 +132,8 @@ html {
 		</div>
 	
 		<md-content layout="column" flex class="content-wrapper" id="content" style="background-color: #f1f7f9;">
-		<div ui-view="stats">{{something}}</div>
+		<div ui-view="content"></div>
+<!-- 		<div ui-view="stats"><h1>{{hello}}</h1></div> -->
 		</md-content>
 	</section>
 	
@@ -100,7 +154,7 @@ html {
 
 
 
-
+	<script src="bower_components/d3/d3.min.js"></script>
 
 	<script src="bower_components/modernizr/modernizr.js"></script>
 	<script src="bower_components/jquery/dist/jquery.js"></script>
@@ -172,6 +226,8 @@ html {
 	<script src="scripts/app/account/activate/activate.controller.js"></script>
 	<script src="scripts/app/account/login/login.js"></script>
 	<script src="scripts/app/account/login/login.controller.js"></script>
+	
+	<script src="scripts/app/features/features.js"></script>
 	
 	<script src="scripts/app/features/iaas/iaas.js"></script>
 	<script src="scripts/app/features/iaas/iaas.controller.js"></script>

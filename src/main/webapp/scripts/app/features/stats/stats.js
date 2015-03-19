@@ -7,20 +7,20 @@ angular.module('spadeApp')
                 parent: 'features',
                 url: '/stats',
                 data: {
-                    roles: [], 
-                    pageTitle: 'stats.title'
+                    roles: []
                 },
                 views: {
-                    'stats@': {
+                    'content@': {
                         templateUrl: 'scripts/app/features/stats/stats.html',
                         controller: 'StatsController'
                     }
-                },
-                resolve: {
-                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('stats');
-                        return $translate.refresh();
-                    }]
                 }
+//                ,
+//                resolve: {
+//                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+//                        $translatePartialLoader.addPart('stats');
+//                        return $translate.refresh();
+//                    }]
+//                }
             });
     });

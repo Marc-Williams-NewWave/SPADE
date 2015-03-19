@@ -1,72 +1,48 @@
-<head>
-    <meta HTTP-EQUIV="X-UA-COMPATIBLE" CONTENT="IE=EmulateIE9" >
-    <script type="text/javascript" src="scripts/d3.min.js"></script>
-    <script type="text/javascript" src="scripts/radialProgress.js"></script>
+<div ng-cloak style="background-color: #f1f7f9;">
+<!-- <md-toolbar md-scroll-shrink layout-row style="background-color:gray;">
+    <div class="md-toolbar-tools" flex flex-order="1">
+      <h3>
+        <span>Provisioning - Project List</span>
+      </h3>
+       <div flex flex-order="3" align="left">
+    [flex-order="3"]
+  </div>
+    </div>
+   
+  </md-toolbar> -->
+<nav class="navbar navbar-default" style="background-color:gray;">
+  <div class="container-fluid">
+    
+    <div class="navbar-header">
+      <div class="navbar-brand" style="color: white;">Provisioning - Project Lists</div>
+    </div>
 
-    <link type="text/css" rel="stylesheet" href="styles/style.css">
-
-    <style>
-
-        #test .arc2 {
-            stroke-weight:0.1;
-            fill: #3660b0;
-        }
-
-        #outer {
-            background:#FFFFFF;
-            border-radius: 5px;
-            color: #000;
-        }
-
-        #div1, #div2, #div3, #div4 {
-            width: 33%;
-            height: 200px;
-            box-sizing: border-box;
-            float: left;
-        }
-
-        #div2 .arc {
-            stroke-weight: 0.1;
-            fill: #f0a417;
-        }
-
-        #div2 .arc2 {
-            stroke-weight: 0.1;
-            fill: #b00d08;
-        }
-
-        #div3 .arc {
-            stroke-weight: 0.1;
-            fill: #1d871b;
-        }
+    
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 
-        .selectedRadial {
-            border-radius: 3px;
-            background: #f4f4f4;
-            color: #000;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-            -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-            border: 1px solid rgba(200,200,200,0.85);
-        }
-
-        .radial {
-            border-radius: 3px;
-            background: #FFFFFF;
-            color: #000;
-
-        }
-
-
-    </style>
-</head>
-
-<body ng-app="spadeApp" ng-controller="StatsController">
-
+<div>
 <div id='outer' style="width: 1000px; height:800px; margin: 0px auto; margin-top:20px; padding:10px">
     <div id="main" style="width:1000px; height:200px; margin: 0px auto; ">
-        <div id="div1"></div>
-        <div id="div2"></div>
+        <div id="div1">{{something}}</div>
+        <div id="div2">HELLO</div>
         <div id="div3"></div>
         <div id="div4"></div>
     </div>
@@ -74,71 +50,65 @@
 
 
 
-<script language="JavaScript">
+<script>
 
-    var div1=d3.select(document.getElementById('div1'));
-    var div2=d3.select(document.getElementById('div2'));
-    var div3=d3.select(document.getElementById('div3'));
-    var div4=d3.select(document.getElementById('div4'));
+     var div1=d3.select(document.getElementById('div1'));
+     var div2=d3.select(document.getElementById('div2'));
+     var div3=d3.select(document.getElementById('div3'));
+     var div4=d3.select(document.getElementById('div4'));
 
-    start();
+     start();
 
-    function onClick1() {
-        deselect();
-        div1.attr("class","selectedRadial");
-    }
+     function onClick1() {
+         deselect();
+         div1.attr("class","selectedRadial");
+     }
 
-    function onClick2() {
-        deselect();
-        div2.attr("class","selectedRadial");
-    }
+     function onClick2() {
+         deselect();
+         div2.attr("class","selectedRadial");
+     }
 
-    function onClick3() {
-        deselect();
-        div3.attr("class","selectedRadial");
-    }
+     function onClick3() {
+         deselect();
+         div3.attr("class","selectedRadial");
+     }
 
-    function labelFunction(val,min,max) {
+     function labelFunction(val,min,max) {
 
-    }
+     }
 
-    function deselect() {
-        div1.attr("class","radial");
-        div2.attr("class","radial");
-        div3.attr("class","radial");
-    }
+     function deselect() {
+         div1.attr("class","radial");
+         div2.attr("class","radial");
+         div3.attr("class","radial");
+     }
 
-    function start() {
+     function start() {
 
-        var rp1 = radialProgress(document.getElementById('div1'))
-                .label("RADIAL 1")
-                .onClick(onClick1)
-                .diameter(150)
-                .value(78)
+         var rp1 = radialProgress(document.getElementById('div1'))
+                 .label("RADIAL 1")
+                 .onClick(onClick1)
+                 .diameter(150)
+                 .value(78)
+                 .render();
+
+         var rp2 = radialProgress(document.getElementById('div2'))
+                 .label("RADIAL 2")
+                 .onClick(onClick2)
+                 .diameter(150)
+                 .value(132)
+                 .render();
+
+         var rp3 = radialProgress(document.getElementById('div3'))
+                 .label("RADIAL 3")
+                 .onClick(onClick3)
+                 .diameter(150)
+                 .minValue(100)
+                 .maxValue(200)
+                 .value(150)
                 .render();
 
-        var rp2 = radialProgress(document.getElementById('div2'))
-                .label("RADIAL 2")
-                .onClick(onClick2)
-                .diameter(150)
-                .value(132)
-                .render();
-
-        var rp3 = radialProgress(document.getElementById('div3'))
-                .label("RADIAL 3")
-                .onClick(onClick3)
-                .diameter(150)
-                .minValue(100)
-                .maxValue(200)
-                .value(150)
-                .render();
-
     }
-
-
-
-
-
 </script>
-
-</body>
+</div>
