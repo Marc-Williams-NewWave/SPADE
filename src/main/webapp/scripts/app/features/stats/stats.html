@@ -42,101 +42,14 @@
 <div id='outer' style="width: 1000px; height:800px; margin: 0px auto; margin-top:20px; padding:10px">
     <div id="main" style="width:1000px; height:200px; margin: 0px auto; ">
     	<h2>MONITORING</h2>
-    	<div ng-repeat="slave in slaves" margin-top:20px; padding:10px; class=flex">
-    		<div ng-repeat="task in tasks" >
-<!--   				<div easypiechart options="options" percent="getTaskPercent(tasks,pod)"></div> -->
-<!-- 				<div>{{taskCPUPercent}}%</div> -->
-				<pie-chart data="data" options="options"></pie-chart>
-<!-- 				<div easypiechart options="options" percent="task.cpuPercent"></div> -->
-				<div>{{task.cpuPercent}}%</div>
-				<div>{{percent}}%</div>
-			</div>
+    	
+    	<div ng-repeat="slave in slaves track by $index" margin-top:20px; padding:10px; class=flex">
+    		<div ng-init="drawCharts"></div>
+    		<pie-chart data="slave.data" options="options"></pie-chart>
+<!-- 			<div firstone slave='slave' tasks='tasks'></div> -->
+			<div>{{slave.hostname}}</div>
+<!--     		<div ng-repeat="task in tasks" ></div> -->
 		</div>
-<!--         <div id="div1">{{something}}</div> -->
-<!--         <div id="div2">HELLO</div> -->
-<!--         <div id="div3"> -->
-<!--         	<ul> -->
-<!--         		<li ng-repeat="slave in slaves"> -->
-<!--         			{{slave.id}} {{slave.hostname}} -->
-<!--         		<li/> -->
-<!--         		<li ng-repeat="slave in slaves"> -->
-<!--         			<svg width="720" height="120"> -->
-<!--   						<circle cx="40" cy="60" r="10"></circle> -->
-<!--   						<circle cx="80" cy="60" r="10"></circle> -->
-<!--   						<circle cx="120" cy="60" r="10"></circle> -->
-<!-- 					</svg> -->
-<!--         		<li/> -->
-<!--         	</ul> -->
-<!--         	</div> -->
-<!--         <div id="div4"><svg width="720" height="120"> -->
-<!--   <circle cx="40" cy="60" r="10"></circle> -->
-<!--   <circle cx="80" cy="60" r="10"></circle> -->
-<!--   <circle cx="120" cy="60" r="10"></circle> -->
-<!-- </svg></div> -->
     </div>
 </div>
-
-
-
-<script>
-
-     var div1=d3.select(document.getElementById('div1'));
-     var div2=d3.select(document.getElementById('div2'));
-     var div3=d3.select(document.getElementById('div3'));
-     var div4=d3.select(document.getElementById('div4'));
-
-     start();
-
-     function onClick1() {
-         deselect();
-         div1.attr("class","selectedRadial");
-     }
-
-     function onClick2() {
-         deselect();
-         div2.attr("class","selectedRadial");
-     }
-
-     function onClick3() {
-         deselect();
-         div3.attr("class","selectedRadial");
-     }
-
-     function labelFunction(val,min,max) {
-
-     }
-
-     function deselect() {
-         div1.attr("class","radial");
-         div2.attr("class","radial");
-         div3.attr("class","radial");
-     }
-
-     function start() {
-
-         var rp1 = radialProgress(document.getElementById('div1'))
-                 .label("RADIAL 1")
-                 .onClick(onClick1)
-                 .diameter(150)
-                 .value(78)
-                 .render();
-
-         var rp2 = radialProgress(document.getElementById('div2'))
-                 .label("RADIAL 2")
-                 .onClick(onClick2)
-                 .diameter(150)
-                 .value(132)
-                 .render();
-
-         var rp3 = radialProgress(document.getElementById('div3'))
-                 .label("RADIAL 3")
-                 .onClick(onClick3)
-                 .diameter(150)
-                 .minValue(100)
-                 .maxValue(200)
-                 .value(150)
-                .render();
-
-    }
-</script>
 </div>
