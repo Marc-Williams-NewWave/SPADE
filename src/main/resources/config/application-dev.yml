@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 8081
 
 spring:
     profiles:
@@ -11,7 +11,7 @@ spring:
             database: spade
 
     mail:
-        baseUrl: http://localhost:8080
+        baseUrl: http://localhost:8081
 
     thymeleaf:
         mode: XHTML

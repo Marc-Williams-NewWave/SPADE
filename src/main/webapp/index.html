@@ -51,11 +51,106 @@
 	
 	
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="bower_components/d3/radialProgress.js"></script>
+	<script src="bower_components/d3/d3.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="assets/styles/d3-style.css">
+        <style>
 
+   .flex
+   {
+      /* basic styling */
+      width: 350px;
+      height: 200px;
+      border: 1px solid #555;
+      font: 14px Arial;
+
+      /* flexbox setup */
+      display: -webkit-flex;
+      -webkit-flex-direction: row;
+
+      display: flex;
+      flex-direction: row;
+   }
+
+   .flex > div
+   {
+      -webkit-flex: 1 1 auto;
+      flex: 1 1 auto;
+
+      width: 30px; /* To make the transition work nicely.  (Transitions to/from
+                      "width:auto" are buggy in Gecko and Webkit, at least.
+                      See http://bugzil.la/731886 for more info.) */
+
+      -webkit-transition: width 0.7s ease-out;
+      transition: width 0.7s ease-out;
+   }
+
+   /* colors */
+   .flex > div:nth-child(1){ background : #009246; }
+   .flex > div:nth-child(2){ background : #F1F2F1; }
+   .flex > div:nth-child(3){ background : #CE2B37; }
+
+   .flex > div:hover
+   {
+        width: 200px;
+   }
+   
+   </style>
 <style type="text/css">
 html {
 	background-color: #f1f7f9;
 }
+
+        #test .arc2 {
+            stroke-weight:0.1;
+            fill: #3660b0;
+        }
+
+        #outer {
+            background:#FFFFFF;
+            border-radius: 5px;
+            color: #000;
+        }
+
+        #div1, #div2, #div3, #div4 {
+            width: 33%;
+            height: 200px;
+            box-sizing: border-box;
+            float: left;
+        }
+
+        #div2 .arc {
+            stroke-weight: 0.1;
+            fill: #f0a417;
+        }
+
+        #div2 .arc2 {
+            stroke-weight: 0.1;
+            fill: #b00d08;
+        }
+
+        #div3 .arc {
+            stroke-weight: 0.1;
+            fill: #1d871b;
+        }
+
+
+        .selectedRadial {
+            border-radius: 3px;
+            background: #f4f4f4;
+            color: #000;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            border: 1px solid rgba(200,200,200,0.85);
+        }
+
+        .radial {
+            border-radius: 3px;
+            background: #FFFFFF;
+            color: #000;
+
+        }
+
 </style>
 </head>
 <body ng-app="spadeApp" layout="column">
@@ -100,16 +195,14 @@ html {
 
 
 
-
-
+	<script src="bower_components/d3/d3.min.js"></script>
+	
 	<script src="bower_components/modernizr/modernizr.js"></script>
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 	<script src="bower_components/json3/lib/json3.js"></script>
 	<!-- <script src="bower_components/angular/angular.js"></script> -->
-
 	
-
 	<script
 		src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -173,6 +266,8 @@ html {
 	<script src="scripts/app/account/login/login.js"></script>
 	<script src="scripts/app/account/login/login.controller.js"></script>
 	
+	<script src="scripts/app/features/features.js"></script>
+	
 	<script src="scripts/app/features/iaas/iaas.js"></script>
 	<script src="scripts/app/features/iaas/iaas.controller.js"></script>
 
@@ -182,6 +277,8 @@ html {
 	<script src="scripts/app/features/services/loginService/loginModal.js"></script>
 	<script src="scripts/app/features/services/loginService/loginModal.controller.js"></script>
 	
+	<script src="scripts/app/features/stats/stats.js"></script>
+	<script src="scripts/app/features/stats/stats.controller.js"></script>
 	
 	<script src="scripts/app/account/logout/logout.js"></script>
 	<script src="scripts/app/account/logout/logout.controller.js"></script>
@@ -213,6 +310,8 @@ html {
 	<script src="scripts/components/auth/provider/auth.session.service.js"></script>
 	<script src="scripts/app/account/sessions/sessions.js"></script>
 	<script src="scripts/app/account/sessions/sessions.controller.js"></script>
+	<script src="bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.min.js"></script>
+	<script src="bower_components/n3-pie-chart/dist/pie-chart.min.js"></script>
 	<!-- endbuild -->
 </body>
 </html>
