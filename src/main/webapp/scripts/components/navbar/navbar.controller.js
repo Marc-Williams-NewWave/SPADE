@@ -34,4 +34,8 @@ angular.module('spadeApp')
             Auth.logout();
             $state.go('home');
         };
+        
+        $scope.monitor = function () {
+            $state.go('monitor2');
+        };
     })

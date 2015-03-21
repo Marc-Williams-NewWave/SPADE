@@ -5,7 +5,7 @@ angular.module('spadeApp')
         $stateProvider
             .state('monitor', {
                 parent: 'features',
-                url: '/monitoring',
+                url: '/monitor',
                 data: {
                     roles: [], 
                 },

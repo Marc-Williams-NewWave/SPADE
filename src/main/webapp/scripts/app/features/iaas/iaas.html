@@ -1,61 +1,244 @@
 <div layout="row">
-
-	<div>
+<div layout="row">
+	<div style="width: 530px;">
 		<div class="modal-header">
 			<md-toolbar class="md-warn">
 			<div class="md-toolbar-tools">
-				<span class="md-flex"><h3>Describe Your Pod</h3></span>
+				<span class="md-flex"><h3>Describe Your Server</h3></span>
 			</div>
 			</md-toolbar>
 		</div>
-		<div class="modal-body" style="">
+			<div class="modal-body">
+				<md-toolbar class="md-warn" style="height:40px; min-height: 0px;">
+				<div class="md-toolbar-tools">
+					<span class="md-flex">Choose your OS:</span>
+				</div>
+				</md-toolbar>
+				<md-content class="md-padding" style="" layout="row">
+				<div style="width: 100%;">
+					 <select ng-model="pod.os" ng-change="setPodsOS(pod.os)">
+					 <option ng-repeat="os in osOptions" value="{{os}}">{{os}}</option>
+					 </select>
+				</div>
+				</md-content>
+			</div>
+
+			<div class="modal-body" style="width: 530px;">
 			<div>
 				<div class="btn-group">
-					<md-button class="md-raised"
+					<!-- <md-button class="md-raised"
 						ng-class="{'md-primary':modal.isCurrentStep(0)}"
-						ng-click="modal.setCurrentStep(0)">Operating System</md-button>
-					<md-button class="md-raised"
+						ng-click="modal.setCurrentStep(0)">Single Server or Stack?</md-button> -->
+					
+					<!-- <md-button class="md-raised" ng-show="!lamp"
+						ng-class="{'md-primary':modal.isCurrentStep()}"
+						ng-click="modal.setCurrentStep(1)">Operating System</md-button> -->
+					
+						<md-button class="md-raised"
+						ng-class="{'md-primary':modal.isCurrentStep(0)}"
+						ng-click="modal.setCurrentStep(0)">Web Server</md-button>
+					
+					<!-- <md-button class="md-raised"
+						ng-class="{'md-primary':modal.isCurrentStep(0)}"
+						ng-click="modal.setCurrentStep(0)" ng-show="!lamp">Application Type</md-button> -->
+						
+						<md-button class="md-raised"
 						ng-class="{'md-primary':modal.isCurrentStep(1)}"
-						ng-click="modal.setCurrentStep(1)">Application Type</md-button>
-					<md-button class="md-raised"
+						ng-click="modal.setCurrentStep(1)">App Server</md-button>
+						
+						<!-- <md-button class="md-raised"
+						ng-class="{'md-primary':modal.isCurrentStep(3)}"
+						ng-click="modal.setCurrentStep(3)" ng-show="!lamp">Name & Replica Count</md-button> -->
+						
+						<md-button class="md-raised"
 						ng-class="{'md-primary':modal.isCurrentStep(2)}"
-						ng-click="modal.setCurrentStep(2)">Name & Replica Count</md-button>
+						ng-click="modal.setCurrentStep(2)">Database</md-button>
 				</div>
-				<!-- <div><p>TEST TEXT</p></div> -->
-
 				<div ng-switch="modal.getCurrentStep()" class="slide-frame">
-					<div ng-switch-when="one" class="wave">
+					<!-- <div ng-switch-when="one" class="wave" style="width: 530px;">
 						<md-toolbar class="md-warn">
 						<div class="md-toolbar-tools">
-							<span class="md-flex">Choose your OS:</span>
+							<span class="md-flex">Single Server or Stack?</span>
 						</div>
 						</md-toolbar>
-						<md-content class="md-padding" style=""> <md-radio-group
-							ng-model="pod.os"> <md-radio-button
-							value="Ubuntu">Ubuntu</md-radio-button> <md-radio-button
-							value="Fedora">Fedora</md-radio-button> </md-radio-group>
+						<md-content class="md-padding" style="" layout="row"> 
+						<md-checkbox ng-click="switchLamp()"> Stack </md-checkbox>
+						</md-content>
+					</div> -->
+					<div ng-switch-when="one" class="wave" style="">
+						<md-toolbar class="md-warn" style="height:40px; min-height: 0px;">
+						<div class="md-toolbar-tools">
+							<span class="md-flex">Configure Your Web Server:</span>
+						</div>
+						</md-toolbar>
+						<!-- <md-content class="md-padding" style="" layout="row" ng-show="!lamp"> 
+							<div style="width: 30%">
+							<md-checkbox aria-label="Web Server" ng-model="webchecked" ng-init="webchecked=true"> Web Server </md-checkbox>
+							 <md-radio-group ng-model="pod.os"> 
+							<md-radio-button value="Ubuntu">Ubuntu_4</md-radio-button> 
+							<md-radio-button value="Fedora">Fedora</md-radio-button> 
+						</md-radio-group>
+						</div>
+						</md-content> -->
+							<md-content class="md-padding" style="">
+								<div layout="row">
+									<div flex style="width: 50%;">
+									<md-subheader class="md-primary">Operating Systems</md-subheader>
+										 <select ng-model="webPod.os">
+										 <option ng-repeat="os in osOptions" value="{{os}}">{{os}}</option>
+										 </select>
+										 <!-- value="" ng-if="webPod.app" -->
+										 
+									</div>
+									<div flex style="width: 50%;">
+									<md-subheader class="md-primary">Web Server</md-subheader>
+										<select ng-model="webPod.app" ng-options="application.app as application.app for application in webApps">
+						 					<option value="" ng-if="webPod.app">Select an Application</option>
+										</select> 
+									</div>
+								</div>
+								<div layout="row">
+									<div flex>
+										<md-input-container> 
+											<label>Application Name</label> <input ng-model="webPod.name"> 
+										</md-input-container>
+									</div>
+									<div flex>
+										<md-input-container> 
+											<label>Replica Count</label> 
+												<input ng-model="webPod.replicas" type="number" min="0"> 
+										</md-input-container>
+									</div>
+								</div>
+							</md-content>
+							<!-- <md-checkbox aria-label="Web Server" ng-model="webchecked" ng-init="webchecked=true"> Web Server </md-checkbox> -->
+							<!--  <div>
+							 <md-radio-group ng-model="webPod.os"> 
+							<md-radio-button value="Ubuntu">Ubuntu_S</md-radio-button> 
+							<md-radio-button value="Fedora">Fedora</md-radio-button> 
+							</md-radio-group>
+									<md-content class="md-padding" style="border: 1px solid;border-radius: 14px;width:170%;"> 
+									<md-radio-group ng-model="webPod.os"> 
+							<md-radio-button value="Ubuntu">Ubuntu_S</md-radio-button> 
+							<md-radio-button value="Fedora">Fedora</md-radio-button> 
+							</md-radio-group 
+								<select placeholder="Pick" ng-model="webPod.os"> 
+									<option value="Ubuntu">Ubuntu</option>
+									<option value="Fedora">Fedora</option> 
+								</select>
+							</md-content>
+									
+						</div> -->
+						<!-- div style="padding-left:1%;">
+								<md-button class="md-raised md-warn" aria-label="add web server">
+								Add Server
+						<md-icon style="font-size: 36px; height:36px;" md-svg-src="assets/images/plus.svg"></md-icon>		
+								</md-button>
+								</div> -->
+							<!-- </div> -->
+							
+<!-- 						<md-content class="md-padding" style="" layout="row" ng-show="lamp"> 
+							<div style="width: 30%">
+							<md-checkbox aria-label="Web Server" ng-model="webchecked" ng-init="webchecked=true"> Web Server </md-checkbox>
+							 <md-radio-group ng-model="webPod.os"> 
+							<md-radio-button value="Ubuntu" ng-disabled="!webchecked">Ubuntu2</md-radio-button> 
+							<md-radio-button value="Fedora" ng-disabled="!webchecked">Fedora</md-radio-button> 
+						</md-radio-group>
+						</div>
+						<div style="width: 30%" >
+						<md-checkbox aria-label="App Server" ng-model="appchecked" ng-init="appchecked=true"> App Server </md-checkbox>
+							<md-radio-group ng-model="appPod.os"> 
+							<md-radio-button value="Ubuntu" ng-disabled="!appchecked">Ubuntu</md-radio-button> 
+							<md-radio-button value="Fedora" ng-disabled="!appchecked">Fedora</md-radio-button> 
+						</md-radio-group>
+						</div>
+						<div style="width: 30%">
+						<md-checkbox aria-label="Database" ng-model="dbchecked" ng-init="dbchecked=true"> Database </md-checkbox>
+							<div >
+							<md-radio-group ng-model="dbPod.os" > 
+							<md-radio-button value="Ubuntu" ng-disabled="!dbchecked">Ubuntu</md-radio-button> 
+							<md-radio-button value="Fedora" ng-disabled="!dbchecked">Fedora</md-radio-button>
+						</md-radio-group>
+						</div>
+						</div>
+						<md-content class="md-padding" style="" layout="row"> 
+						<div style="width: 60%;">
+						<md-subheader class="md-primary">Web Servers</md-subheader> 
+						<select ng-model="webPod.app" ng-options="application.app as application.app for application in webApps">
+						 <option value="" ng-if="webPod.app">Select an Application</option>
+						</select> 
+						<md-subheader class="md-primary">Applications Servers</md-subheader>
+						<select ng-model="appPod.app" ng-options="application.app as application.app for application in appApps">
+						 <option value="" ng-if="appPod.app">Select an Application</option>
+						</select>
+						</div>
+						<div>
+						<md-subheader class="md-primary">Databases</md-subheader> 
+						<select ng-model="dbPod.app" ng-options="application.app as application.app for application in dbApps">
+						 <option value="" ng-if="dbPod.app">Select an Application</option>
+						</select>
+						</div> 
+						<md-select ng-model="pod.app" placeholder="Select an Application"> 
+						<md-option ng-value="applications" ng-repeat="application in uniqueApps">{{application.app}}</md-option>
+						</md-select>
+						 </md-content>
+						</md-content> -->
 					</div>
-					<div ng-switch-when="two" class="wave">
+					<div ng-switch-when="two" class="wave" style="">
 						<md-toolbar class="md-warn">
 						<div class="md-toolbar-tools">
 							<span class="md-flex">Choose your Application:</span>
 						</div>
 						</md-toolbar>
-						<md-content class="md-padding" style=""> 
+						<md-content class="md-padding" style="" layout="row"> 
 						<!-- <!-- <select ng-model="pod.app" ng-init="text">
 							<option selected="selected">Select an Application</option>
 							<option ng-repeat="app in uniqueApps">{{app.app}}
 								</md-option>
 						</select> --> 
-						<select ng-model="pod.app" ng-options="application.app as application.app for application in uniqueApps">
+						<!-- <select ng-model="pod.app" ng-options="application.app as application.app for application in uniqueApps">
+						 <option value="" ng-if="pod.app">Select an Application</option>
+						</select>  -->
+						<div style="width: 60%;">
+						<md-subheader class="md-primary">Web Servers</md-subheader> 
+						
+						<select ng-model="pod.app" ng-options="application.app as application.app for application in webApps" ng-show="!lamp">
 						 <option value="" ng-if="pod.app">Select an Application</option>
 						</select> 
+						
+						<select ng-model="webPod.app" ng-options="application.app as application.app for application in webApps" ng-show="lamp">
+						 <option value="" ng-if="webPod.app">Select an Application</option>
+						</select> 
+						
+						<md-subheader class="md-primary">Applications Servers</md-subheader>
+						
+						<select ng-model="pod.app" ng-options="application.app as application.app for application in appApps" ng-show="!lamp">
+						 <option value="" ng-if="pod.app">Select an Application</option>
+						</select>
+						
+						<select ng-model="appPod.app" ng-options="application.app as application.app for application in appApps" ng-show="lamp">
+						 <option value="" ng-if="appPod.app">Select an Application</option>
+						</select>
+						
+						</div>
+						<div>
+						<md-subheader class="md-primary">Databases</md-subheader> 
+						
+						<select ng-model="pod.app" ng-options="application.app as application.app for application in dbApps" ng-show="!lamp">
+						 <option value="" ng-if="pod.app">Select an Application</option>
+						</select>
+						
+						<select ng-model="dbPod.app" ng-options="application.app as application.app for application in dbApps" ng-show="lamp">
+						 <option value="" ng-if="dbPod.app">Select an Application</option>
+						</select>
+						
+						</div> 
 						<!-- <md-select ng-model="pod.app" placeholder="Select an Application"> 
 						<md-option ng-value="applications" ng-repeat="application in uniqueApps">{{application.app}}</md-option>
 						</md-select> -->
 						 </md-content>
 					</div>
-					<div ng-switch-when="three" class="wave">
+						<div ng-switch-when="three" class="wave" style="">
 						<md-toolbar class="md-warn">
 						<div class="md-toolbar-tools">
 							<span class="md-flex">Name your Container and Replica
@@ -76,21 +259,108 @@
 	</div>
 	<!-- <div> -->
 	
-	<div flex="33" style="" class="modal-header" ng-model="pod">
+	
+	<div flex="33" style="" class="modal-header" ng-model="podArray">
 				<md-toolbar class="md-warn">
 				<div class="md-toolbar-tools">
-					<span class="md-flex">Your Pod</span>
+					<span class="md-flex">Your Server</span>
 				</div>
 				</md-toolbar>
 				<md-content class="md-padding" style="height: auto;padding: 24px;">
-				<md-subheader class="md-primary">Operating System</md-subheader> <span>{{pod.os}}</span>
-				<md-divider></md-divider> <md-subheader class="md-primary">Application</md-subheader>
-				<span>{{pod.app}}</span> <md-divider></md-divider> <md-subheader
-					class="md-primary">Name</md-subheader> <span>{{pod.name}}</span> <md-divider></md-divider>
-				<md-subheader class="md-primary">Replica Count</md-subheader> <span>{{pod.replicas}}</span>
-				<md-divider></md-divider> <md-button class="md-raised md-primary"
-					style="margin-top:5%;" ng-click="launch(pod)" ng-disabled="isDisabled">Launch</md-button> </md-content>
+				<!-- <md-subheader class="md-primary">Stack</md-subheader> <span>{{lamp}}</span>
+				<md-divider></md-divider> -->
+				
+				<!-- <md-subheader class="md-primary">dbDisabled</md-subheader> <span>{{dbDisabled}}</span>
+				<md-divider></md-divider> -->
+			<div ng-model="webPod">
+				<md-subheader class="md-primary" >Web Server - {{webPod.name}}</md-subheader>
+				<md-list> 
+					<md-item> 
+						<md-item-content>
+							<div class="md-tile-content">
+								<!-- <h3>{{item.what}}</h3>
+								<h4>{{item.who}}</h4> -->
+								<h4>OS - {{webPod.os}}</h4>
+								<h4>App - {{webPod.app}}</h4>
+								<h4>Replica Count - {{webPod.replicas}}</h4>
+							</div>
+						</md-item-content> 
+					</md-item> 
+				</md-list>
+			</div>
 
+			<md-divider></md-divider>
+				<!-- <div ng-show="!lamp">
+				<md-subheader class="md-primary"  ng-model="pod">Operating System</md-subheader> <span>{{pod.os}}</span>
+				</div> -->
+				
+				<div ng-model="appPod">
+				<md-subheader class="md-primary">Application Server - {{appPod.name}}</md-subheader>
+				<md-list> 
+					<md-item> 
+						<md-item-content>
+							<div class="md-tile-content">
+								<!-- <h3>{{item.what}}</h3>
+								<h4>{{item.who}}</h4> -->
+								<h4>OS - {{appPod.os}}</h4>
+								<h4>App - {{appPod.app}}</h4>
+								<h4>Replica Count - {{appPod.replicas}}</h4>
+							</div>
+						</md-item-content> 
+					</md-item> 
+				</md-list>
+				</div>
+				<!-- <div ng-show="lamp">
+				<md-subheader class="md-primary">Application</md-subheader> <span  ng-repeat="pod in podArray">{{pod.app}} |</span>
+				</div>
+				<div ng-show="!lamp">
+				<md-subheader class="md-primary"  ng-model="pod">Application</md-subheader> <span>{{pod.app}}</span>
+				</div> -->
+				
+				 <md-divider></md-divider> 
+				 
+				 <div ng-model="dbPod">
+				<md-subheader class="md-primary">Database - {{dbPod.name}}</md-subheader>
+				<md-list> 
+					<md-item> 
+						<md-item-content>
+							<div class="md-tile-content">
+								<!-- <h3>{{item.what}}</h3>
+								<h4>{{item.who}}</h4> -->
+								<h4>OS - {{dbPod.os}}</h4>
+								<h4>App - {{dbPod.app}}</h4>
+								<h4>Replica Count - {{dbPod.replicas}}</h4>
+							</div>
+						</md-item-content> 
+					</md-item> 
+				</md-list>
+				</div>
+				 
+				 <!-- <div ng-show="lamp">
+				<md-subheader class="md-primary">Name</md-subheader> <span  ng-repeat="pod in podArray">{{pod.name}} |</span>
+				</div>
+				<div ng-show="!lamp">
+				<md-subheader class="md-primary"  ng-model="pod">Name</md-subheader> <span>{{pod.name}}</span>
+				</div> -->
+				 
+				 <!-- <md-subheader class="md-primary">Name</md-subheader> <span  ng-repeat="pod in podArray">{{pod.name}} |</span> --> 
+				 
+				 <!-- <md-divider></md-divider>
+				 
+				 <div ng-show="lamp">
+				<md-subheader class="md-primary">Replica Count</md-subheader> <span  ng-repeat="pod in podArray">{{pod.replicas}} |</span>
+				</div>
+				<div ng-show="!lamp">
+				<md-subheader class="md-primary"  ng-model="pod">Application</md-subheader> <span>{{pod.replicas}}</span>
+				</div>
+				<md-divider></md-divider> --> 
+				<md-button class="md-raised md-primary"
+					style="margin-top:5%;" ng-click="launch(pod)" ng-disabled="isDisabled">Launch</md-button> 
+					<!-- <md-button class="md-raised md-primary"
+					style="margin-top:5%;" ng-click="deletePod(pod)" ng-disabled="isDisabled">Delete</md-button> -->
+					</md-content>
+
+			</div>
 			</div>
 	
 	<!-- </div> -->

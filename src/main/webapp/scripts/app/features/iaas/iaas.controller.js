@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('spadeApp')
-     .controller('IaasController', function ($modal, $scope) {
+     .controller('IaasController', function ($mdDialog,$modal, $scope) {
         
     	
     	 var app = this;
 
         app.closeAlert = function () {
             app.reason = null;
-        };
+        };	
 
         app.open = function () {
             var modalInstance = $modal.open({
@@ -27,7 +27,8 @@ angular.module('spadeApp')
         };
     })
     .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http) {
-    	
+    	$scope.osOptions = ['Ubuntu','Fedora'];
+    	console.log($scope.osOptions);
     	$scope.applications = 
         {
           "api": "v0.0.4",
@@ -37,66 +38,102 @@ angular.module('spadeApp')
             {
               "image": "sewatech\/modcluster",
               "os": "ubuntu",
-              "app": "apache"
+              "app": "apache",
+              "type": "web"	  
             },
             {
               "image": "bradams\/devops:nginx-ubuntu",
               "os": "ubuntu",
-              "app": "nginx"
+              "app": "nginx",
+             "type": "app"
             },
             {
               "image": "bradams\/devops:wildfly-ubuntu",
               "os": "ubuntu",
-              "app": "wildfly"
+              "app": "wildfly",
+            	  "type": "app"
             },
             {
               "image": "bradams\/devops:tomcat-ubuntu",
               "os": "ubuntu",
-              "app": "tomcat"
+              "app": "tomcat",
+            	  "type": "web"
             },
             {
               "image": "partlab\/ubuntu-mongodb",
               "os": "ubuntu",
-              "app": "mongodb"
+              "app": "mongodb",
+            	  "type": "db"
             },
             {
               "image": "bradams\/devops:mysql-ubuntu",
               "os": "ubuntu",
-              "app": "mysql"
+              "app": "mysql",
+            	  "type": "db"
             },
             {
               "image": "bradams\/devops:apache-fedora",
               "os": "fedora",
-              "app": "apache"
+              "app": "apache",
+            	  "type": "web"
             },
             {
               "image": "bradams\/devops:nginx-fedora",
               "os": "fedora",
-              "app": "nginx"
+              "app": "nginx",
+            	  "type": "app"
             },
             {
               "image": "bradams\/devops:cluster",
               "os": "fedora",
-              "app": "wildfly"
+              "app": "wildfly",
+            	  "type": "app"
             },
             {
               "image": "bradams\/devops:tomcat-fedora",
               "os": "fedora",
-              "app": "tomcat"
+              "app": "tomcat",
+            	  "type": "web"
             },
             {
               "image": "bradams\/devops:mongodb-fedora",
               "os": "fedora",
-              "app": "mongodb"
+              "app": "mongodb",
+            	  "type": "db"
             },
             {
               "image": "jdeathe\/centos-ssh-mysql",
               "os": "fedora",
-              "app": "mysql"
+              "app": "mysql",
+            	  "type": "db",
             }
           ]
         };
+    	
+    	$scope.lamp = true;
+    	
+    	$scope.webDisabled = false;
+    	$scope.appDisabled = false;
+    	$scope.dbDisabled = false;
+    	
+//    	$scope.dbDisabled = false;
+    	
+    	$scope.switchdbDisabled = function(){
+    		console.log($scope.dbDisabled);
+    		return $scope.dbDisabled = !$scope.dbDisabled;
+    	}
 
+//    	$scope.test = {};
+//    	$scope.test.dbDisabled = false;
+    	
+    	$scope.disableDB = function() {
+    		console.log($scope.dbDisabled);
+            return $scope.dbDisabled = !$scope.dbDisabled;
+        };
+    	
+    	console.log($scope.webDisabled);
+    	console.log($scope.appDisabled);
+    	console.log($scope.dbDisabled);
     	var appFilter = function(){
     		var n = {},uniqueApps = [];
 //    		var defaultApp = {
@@ -119,6 +156,42 @@ angular.module('spadeApp')
     	
     	$scope.uniqueApps = appFilter();
     	
+    	$scope.switchLamp = function(){
+    		console.log($scope.lamp);
+    		return $scope.lamp = !$scope.lamp;
+    	}
+    	
+    	$scope.appTypeFiler = function(){
+    		var webApps = [];
+    		var appApps = [];
+    		var dbApps = [];
+    		
+    		
+    		for(var i = 0; i < $scope.uniqueApps.length; i++){
+    			if($scope.uniqueApps[i].type == 'web'){
+    				webApps.push($scope.uniqueApps[i]);
+    			} else {
+    				if($scope.uniqueApps[i].type == 'app'){
+    					appApps.push($scope.uniqueApps[i]);
+    				} else {
+    					if($scope.uniqueApps[i].type == 'db'){
+        					dbApps.push($scope.uniqueApps[i]);
+    				}
+    			}
+    		}
+    	}
+    		$scope.webApps = webApps;
+    		$scope.appApps = appApps;
+    		$scope.dbApps = dbApps;
+    }
+    	
+    	$scope.appTypeFiler();
+    	
+    	console.log("Web apps " + $scope.webApps);
+    	console.log("App apps " + $scope.appApps);
+    	console.log("DB apps " + $scope.dbApps);
+    	
+    	
     	for(var i = 0; i < $scope.uniqueApps.length;i++){
     		console.log($scope.uniqueApps[i]);
     	}
@@ -127,8 +200,8 @@ angular.module('spadeApp')
     	$scope.isDisabled = true;
     	
     	$scope.defaultPod = {
-    			name : 'Not Yet Specified',
-    			os: ' None Selected',
+    			name : '',
+    			os: 'None Selected',
               	app : 'None Selected',
               	replicas : 0
               };
@@ -139,42 +212,85 @@ angular.module('spadeApp')
               	app : $scope.defaultPod.app,
               	replicas : $scope.defaultPod.replicas
               };
+    	
+    	$scope.appPod = {
+    			name : $scope.defaultPod.name,
+    			os: $scope.defaultPod.os,
+              	app : $scope.defaultPod.app,
+              	replicas : $scope.defaultPod.replicas
+              };
+    	
+    	
+    	$scope.webPod = {
+    			name : $scope.defaultPod.name,
+    			os: $scope.defaultPod.os,
+              	app : $scope.defaultPod.app,
+              	replicas : $scope.defaultPod.replicas
+              };
+    	
+    	$scope.webPod.name = '';
+    	
+    	$scope.dbPod = {
+    			name : $scope.defaultPod.name,
+    			os: $scope.defaultPod.os,
+              	app : $scope.defaultPod.app,
+              	replicas : $scope.defaultPod.replicas
+              };
+    	
+    	$scope.setPodsOS = function(os){
+    		$scope.webPod.os = os;
+    		$scope.appPod.os = os;
+    		$scope.dbPod.os = os;
+    	};
+    	
+    	$scope.podArray = new Array(3);
+    	$scope.podArray[0] = $scope.webPod;
+    	$scope.podArray[1] = $scope.appPod
+    	$scope.podArray[2] = $scope.dbPod;
+    	
+    	console.log("POD ARRAY " + $scope.podArray);
+    	
+//    	$scope.podArray = {
+//    			"pods": [ {$scope.appPod}, {$scope.webPod}, {$scope.dbPod} ]};
+//    			            {
+//    			            	"name" : $scope.defaultPod.name,
+//    			    			"os": $scope.defaultPod.os,
+//    			              	"app" : $scope.defaultPod.app,
+//    			              	"replicas" : $scope.defaultPod.replicas,
+//    			              	"type": "web"
+//    			            },
+//    			            {
+//    			            	"name" : $scope.defaultPod.name,
+//    			    			"os": $scope.defaultPod.os,
+//    			              	"app" : $scope.defaultPod.app,
+//    			              	"replicas" : $scope.defaultPod.replicas,
+//    			              	"type": "app"
+//    			            },
+//    			            {
+//    			            	"name" : $scope.defaultPod.name,
+//    			    			"os": $scope.defaultPod.os,
+//    			              	"app" : $scope.defaultPod.app,
+//    			              	"replicas" : $scope.defaultPod.replicas,
+//    			              	"type": "db"
+//    			            }
+    	
      	 
     	
      	 $scope.launch = function(pod){
-//     		{ "name": "demo-app", "os": "ubuntu", "app": "mongodb", "replicas": 1 }
-
-//      		console.log("Pod Stats: " + pod.osName + " " +  pod.selectedApp + " " + pod.appName + " " + pod.replicaCount);
      		 console.log(pod);
-     		 
      		 $http.post("http://192.168.0.95:8080/spade/api/demo/env", pod)
      		 	.success(function(data){
      		 		console.log("success data returned ====> " + data);
      		 });
-     		 
-     		 
-     		 
-     		 
-//     		$http.get("http://192.168.0.95:8080/spade/api/proj")
-//			.success(function(data) {
-//					console.log(data);
-//					$scope.info = data;
-//				})
-//				
-//			.error(function(data, status, headers, config) {
-//				$scope.info = data;
-//				$scope.projects = data.items;
-//
-//				console.log(data.items);
-//				console.log(data);
-//				console.log(status);
-//				console.log(headers);
-//				console.log(config);
-//		});
-     		 
-     		 
-     		 
       	}
+     	 
+     	$scope.deletePod = function(pod){
+     		 console.log(pod);
+     		 $http.delete("http://192.168.0.95:8080/spade/api/env", pod)
+     		 	.success(function(data){
+     		 		console.log("successfully deleted ====> " + data.name + '\npod.appName');
+     		 });
+     	}
      	 
      	$scope.alert = '';
      	  $scope.showAlert = function() {
@@ -192,7 +308,7 @@ angular.module('spadeApp')
 
         modal.steps = ['one', 'two', 'three'];
         modal.step = 0;
-//        modal.wizard = {tacos: 2};
+
 
         modal.isFirstStep = function () {
             return modal.step === 0;
