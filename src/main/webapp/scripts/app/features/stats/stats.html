@@ -39,15 +39,15 @@
 
 
 <div>
-<div id='outer' style="width: 1000px; height:800px; margin: 0px auto; margin-top:20px; padding:10px">
-    <div id="main" style="width:1000px; height:200px; margin: 0px auto; ">
+<div id='outer' style="width: 1000x; height:800px; margin: 0px auto; margin-top:20px; padding:10px">
+    <div id="main" style="width:500px; height:200px; margin: 0px auto; ">
     	<h2>MONITORING</h2>
     	
-    	<div ng-repeat="slave in slaves track by $index" margin-top:20px; padding:10px; class=flex">
-    		<div ng-init="drawCharts"></div>
-    		<pie-chart data="slave.data" options="options"></pie-chart>
+    	<div ng-repeat="slave in slaves track by $index" class="un-50">
+    		<div ng-init="drawCharts" ng-cloak></div>
+    		<pie-chart class="un-50" data="slave.data" options="options"></pie-chart>
 <!-- 			<div firstone slave='slave' tasks='tasks'></div> -->
-			<div>{{slave.hostname}}</div>
+			<div><h4>{{slave.hostname}}</h4></div>
 <!--     		<div ng-repeat="task in tasks" ></div> -->
 		</div>
     </div>
