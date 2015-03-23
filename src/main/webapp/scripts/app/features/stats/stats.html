@@ -39,17 +39,19 @@
 
 
 <div>
-<div id='outer' style="width: 1000x; height:800px; margin: 0px auto; margin-top:20px; padding:10px">
+<md-grid-list class="md=padding" id='outer'>
     <div id="main" style="width:500px; height:200px; margin: 0px auto; ">
     	<h2>MONITORING</h2>
     	
-    	<div ng-repeat="slave in slaves track by $index" class="un-50">
+    	<md-grid-tile ng-repeat="slave in slaves track by $index" >
     		<div ng-init="drawCharts" ng-cloak></div>
-    		<pie-chart class="un-50" data="slave.data" options="options"></pie-chart>
+    		<div>
+    		<pie-chart data="slave.data" options="options"></pie-chart>
 <!-- 			<div firstone slave='slave' tasks='tasks'></div> -->
 			<div><h4>{{slave.hostname}}</h4></div>
 <!--     		<div ng-repeat="task in tasks" ></div> -->
-		</div>
+			</div>
+		</md-grid-tile>
     </div>
-</div>
+</md-grid-list>
 </div>
