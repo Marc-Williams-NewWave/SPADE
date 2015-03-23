@@ -1,7 +1,5 @@
-/**
- * 
- */
 
+'use strict'
 angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", function($scope, $http){
 	$scope.hello = "world";
 	$scope.something = 'somethingelse';
@@ -146,7 +144,8 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", fu
 					slave.data.push({label: task.podName, value: task.cpuPercent, color: color, suffix: "%"});
 				}
 			}
-			data.push({label: "unused", value: 100-total, color: color});
+			slave.data.push({label: "unused", value: 100-total, color: "grey"});
+			//slave.data.reverse();
 	}
 		return data;
 	}
