@@ -71,15 +71,6 @@
 							<span class="md-flex">Configure Your Web Server:</span>
 						</div>
 						</md-toolbar>
-						<!-- <md-content class="md-padding" style="" layout="row" ng-show="!lamp"> 
-							<div style="width: 30%">
-							<md-checkbox aria-label="Web Server" ng-model="webchecked" ng-init="webchecked=true"> Web Server </md-checkbox>
-							 <md-radio-group ng-model="pod.os"> 
-							<md-radio-button value="Ubuntu">Ubuntu_4</md-radio-button> 
-							<md-radio-button value="Fedora">Fedora</md-radio-button> 
-						</md-radio-group>
-						</div>
-						</md-content> -->
 							<md-content class="md-padding" style="">
 								<div layout="row">
 									<div flex style="width: 50%;">
@@ -87,8 +78,6 @@
 										 <select ng-model="webPod.os">
 										 <option ng-repeat="os in osOptions" value="{{os}}">{{os}}</option>
 										 </select>
-										 <!-- value="" ng-if="webPod.app" -->
-										 
 									</div>
 									<div flex style="width: 50%;">
 									<md-subheader class="md-primary">Web Server</md-subheader>
@@ -187,18 +176,39 @@
 					<div ng-switch-when="two" class="wave" style="">
 						<md-toolbar class="md-warn">
 						<div class="md-toolbar-tools">
-							<span class="md-flex">Choose your Application:</span>
+							<span class="md-flex">Configure Your Application Server:</span>
 						</div>
 						</md-toolbar>
-						<md-content class="md-padding" style="" layout="row"> 
-						<!-- <!-- <select ng-model="pod.app" ng-init="text">
-							<option selected="selected">Select an Application</option>
-							<option ng-repeat="app in uniqueApps">{{app.app}}
-								</md-option>
-						</select> --> 
-						<!-- <select ng-model="pod.app" ng-options="application.app as application.app for application in uniqueApps">
-						 <option value="" ng-if="pod.app">Select an Application</option>
-						</select>  -->
+						<md-content class="md-padding" style="">
+								<div layout="row">
+									<div flex style="width: 50%;">
+									<md-subheader class="md-primary">Operating Systems</md-subheader>
+										 <select ng-model="appPod.os">
+										 <option ng-repeat="os in osOptions" value="{{os}}">{{os}}</option>
+										 </select>
+									</div>
+									<div flex style="width: 50%;">
+									<md-subheader class="md-primary">Application Server</md-subheader>
+										<select ng-model="appPod.app" ng-options="application.app as application.app for application in appApps">
+						 					<option value="" ng-if="appPod.app">Select an Application</option>
+										</select> 
+									</div>
+								</div>
+								<div layout="row">
+									<div flex>
+										<md-input-container> 
+											<label>Application Name</label> <input ng-model="appPod.name"> 
+										</md-input-container>
+									</div>
+									<div flex>
+										<md-input-container> 
+											<label>Replica Count</label> 
+												<input ng-model="appPod.replicas" type="number" min="0"> 
+										</md-input-container>
+									</div>
+								</div>
+							</md-content>
+						<!-- <md-content class="md-padding" style="" layout="row"> 
 						<div style="width: 60%;">
 						<md-subheader class="md-primary">Web Servers</md-subheader> 
 						
@@ -233,23 +243,57 @@
 						</select>
 						
 						</div> 
-						<!-- <md-select ng-model="pod.app" placeholder="Select an Application"> 
+						<md-select ng-model="pod.app" placeholder="Select an Application"> 
 						<md-option ng-value="applications" ng-repeat="application in uniqueApps">{{application.app}}</md-option>
-						</md-select> -->
-						 </md-content>
+						</md-select>
+						 </md-content> -->
+						 
 					</div>
 						<div ng-switch-when="three" class="wave" style="">
 						<md-toolbar class="md-warn">
 						<div class="md-toolbar-tools">
-							<span class="md-flex">Name your Container and Replica
-								Count</span>
+							<span class="md-flex">Configure Your Database:</span>
+						</div>
+						</md-toolbar>
+						<md-content class="md-padding" style="">
+								<div layout="row">
+									<div flex style="width: 50%;">
+									<md-subheader class="md-primary">Operating Systems</md-subheader>
+										 <select ng-model="dbPod.os">
+										 <option ng-repeat="os in osOptions" value="{{os}}">{{os}}</option>
+										 </select>
+									</div>
+									<div flex style="width: 50%;">
+									<md-subheader class="md-primary">Database</md-subheader>
+										<select ng-model="dbPod.app" ng-options="application.app as application.app for application in dbApps">
+						 					<option value="" ng-if="dbPod.app">Select Database</option>
+										</select> 
+									</div>
+								</div>
+								<div layout="row">
+									<div flex>
+										<md-input-container> 
+											<label>Application Name</label> <input ng-model="dbPod.name"> 
+										</md-input-container>
+									</div>
+									<div flex>
+										<md-input-container> 
+											<label>Replica Count</label> 
+												<input ng-model="dbPod.replicas" type="number" min="0"> 
+										</md-input-container>
+									</div>
+								</div>
+							</md-content>
+						<!-- <md-toolbar class="md-warn">
+						<div class="md-toolbar-tools">
+							<span class="md-flex">Name your Container and Replica Count</span>
 						</div>
 						</md-toolbar>
 						<md-content layout="row" style=""> <md-input-container>
 						<label>Application Name</label> <input ng-model="pod.name">
 						</md-input-container> <md-input-container> <label>Replica
 							Count</label> <input ng-model="pod.replicas" type="number" min="0"> </md-input-container>
-						</md-content>
+						</md-content> -->
 					</div>
 				</div>
 
