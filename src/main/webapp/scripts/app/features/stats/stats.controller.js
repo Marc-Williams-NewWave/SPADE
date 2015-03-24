@@ -125,12 +125,15 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", fu
 //	}
 	
 	function drawCharts(){
-		var data = [];
 		for (var i=0; i < $scope.slaves.length; i++){
 			var slave = $scope.slaves[i];
-			slave.data = [];
+			slave.cpuData = [];
+			slave.memData = [];
+			slave.diskData = [];
 			console.log(i);
-			var total = 0;
+			var cpuTotal = 0;
+			var memTotal = 0;
+			var diskTotal = 0;
 			for (var j=0; j < $scope.tasks.length; j++){
 				var color = 'rgb(' + Math.floor(Math.random() * 255) 
 				+ ',' + Math.floor(Math.random() * 255) 
@@ -140,16 +143,22 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", fu
 				if (task.slaveId === slave.id){
 					console.log(task.slaveId)
 					console.log(slave.id)
-					total += task.cpuPercent;
-					slave.data.push({label: task.podName, value: task.cpuPercent, color: color, suffix: "%"});
+					cpuTotal += task.cpuPercent;
+					memTotal += task.memPercent;
+					diskTotal += task.diskPercent;
+					slave.cpuData.push({label: task.podName, value: task.cpuPercent, color: color, suffix: "%"});
+					slave.memData.push({label: task.podName, value: task.memPercent, color: color, suffix: "%"});
+					slave.diskData.push({label: task.podName, value: task.diskPercent, color: color, suffix: "%"});
 				}
 			}
-			slave.data.push({label: "unused", value: 100-total, color: "grey"});
+			slave.cpuData.push({label: "unused", value: 100-cpuTotal, color: "grey"});
+			slave.memData.push({label: "unused", value: 100-memTotal, color: "grey"});
+			slave.diskData.push({label: "unused", value: 100-diskTotal, color: "grey"});
 			//slave.data.reverse();
 	}
-		return data;
+		//return data;
 	}
-	$scope.options = {thickness: 25};
+	$scope.options = {thickness: 50};
 	$scope.drawCharts = drawCharts();
 	
 //	$scope.data = [
@@ -203,4 +212,36 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", fu
 		
 	}]
 	}
-}]);
+}])
+.controller('AppCtrl', function ($scope, $log) {
+    var tabs = [
+      { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
+      { title: 'Two', content: "You can swipe left and right on a mobile device to change tabs."},
+      { title: 'Three', content: "You can bind the selected tab via the selected attribute on the md-tabs element."},
+      { title: 'Four', content: "If you set the selected tab binding to -1, it will leave no tab selected."},
+      { title: 'Five', content: "If you remove a tab, it will try to select a new one."},
+      { title: 'Six', content: "There's an ink bar that follows the selected tab, you can turn it off if you want."},
+      { title: 'Seven', content: "If you set ng-disabled on a tab, it becomes unselectable. If the currently selected tab becomes disabled, it will try to select the next tab."},
+      { title: 'Eight', content: "If you look at the source, you're using tabs to look at a demo for tabs. Recursion!"},
+      { title: 'Nine', content: "If you set md-theme=\"green\" on the md-tabs element, you'll get green tabs."},
+      { title: 'Ten', content: "If you're still reading this, you should just go check out the API docs for tabs!"}
+    ];
+    $scope.tabs = tabs;
+    $scope.selectedIndex = 2;
+    $scope.$watch('selectedIndex', function(current, old){
+      if ( old && (old != current)) $log.debug('Goodbye ' + tabs[old].title + '!');
+      if ( current )                $log.debug('Hello ' + tabs[current].title + '!');
+    });
+    $scope.addTab = function (title, view) {
+      view = view || title + " Content View";
+      tabs.push({ title: title, content: view, disabled: false});
+    };
+    $scope.removeTab = function (tab) {
+      for (var j = 0; j < tabs.length; j++) {
+        if (tab.title == tabs[j].title) {
+          $scope.tabs.splice(j, 1);
+          break;
+        }
+      }
+    };
+  });

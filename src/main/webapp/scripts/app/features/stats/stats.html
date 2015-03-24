@@ -14,7 +14,7 @@
   <div class="container-fluid">
     
     <div class="navbar-header">
-      <div class="navbar-brand" style="color: white;">Provisioning - Project Lists</div>
+      <div ui-sref="stats" class="navbar-brand" style="color: white;">Monitoring - Resource View</div>
     </div>
 
     
@@ -39,17 +39,34 @@
 
 
 <div>
-<div id='outer' style="width: 1000x; height:800px; margin: 0px auto; margin-top:20px; padding:10px">
-    <div id="main" style="width:500px; height:200px; margin: 0px auto; ">
-    	<h2>MONITORING</h2>
-    	
-    	<div ng-repeat="slave in slaves track by $index" class="un-50">
-    		<div ng-init="drawCharts" ng-cloak></div>
-    		<pie-chart class="un-50" data="slave.data" options="options"></pie-chart>
-<!-- 			<div firstone slave='slave' tasks='tasks'></div> -->
-			<div><h4>{{slave.hostname}}</h4></div>
-<!--     		<div ng-repeat="task in tasks" ></div> -->
+<div id='outer'  >
+    <div id="main" class="md-content" class="DynamicTabs">
+    <div ng-init="drawCharts" ng-cloak></div>
+     <md-tabs class="title" flex>
+     	<md-tab label="CPU" >
+     	<div ng-repeat="slave in slaves" class="un-50" flex>
+    		
+    		<pie-chart data="slave.cpuData" options="options" flex></pie-chart>
+			<div flex style="text-align:center"><h4>{{slave.hostname}}</h4></div>
 		</div>
+     	</md-tab>
+     	<md-tab label="MEM" >
+     	<div ng-repeat="slave in slaves" class="md-padding" flex>
+    		
+    		<pie-chart data="slave.memData" options="options"></pie-chart>
+			<div flex style="text-align:center"><h4>{{slave.hostname}}</h4></div>
+		</div>
+     	</md-tab>
+     	<md-tab label="DISK" >
+     	<div ng-repeat="slave in slaves" class="md-padding" flex>
+    		
+    		<pie-chart data="slave.diskData" options="options"></pie-chart>
+			<div flex style="text-align:center"><h4>{{slave.hostname}}</h4></div>
+		</div>
+     	</md-tab>
+     	</md-tabs>
+    	
+    	
     </div>
 </div>
 </div>
