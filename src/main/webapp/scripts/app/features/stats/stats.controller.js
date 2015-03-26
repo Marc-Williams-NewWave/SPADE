@@ -124,7 +124,6 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
 		    getSlaves: function() {
          	var promise = $http.get("http://192.168.0.95:8080/spade/api/slaves")
          	.then(function(response) {
-         		alert(response.data);
          		return response.data;
          	});
          	
@@ -138,7 +137,6 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
 		    getPods: function() {
          	var promise = $http.get("http://192.168.0.95:8080/spade/api/pods")
          	.then(function(response) {
-         		alert(response.data);
          		return response.data;
          	});
          	
@@ -152,7 +150,6 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
 		    getTasks: function() {
          	var promise = $http.get("http://192.168.0.95:8080/spade/api/tasks")
          	.then(function(response) {
-         		alert(response.data);
          		return response.data;
          	});
          	

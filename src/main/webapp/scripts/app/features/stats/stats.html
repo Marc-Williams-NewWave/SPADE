@@ -44,24 +44,24 @@
      <md-tabs class="title" flex>
 <!--      <div ng-init="drawCharts" ng-cloak></div> -->
      	<md-tab label="CPU" style="height:auto !important">
-     	<div ng-repeat="slave in slaves" class="un-20" flex>
+     	<md-card ng-repeat="slave in slaves" class="un-25" flex>
     		<pie-chart  data="slave.cpuData" options="options"></pie-chart>
-			<div flex style="text-align:center"><h4>{{slave.hostname}}</h4></div>
-		</div>
+			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
+		</md-card>
      	</md-tab>
      	
      	<md-tab label="MEM" style="height:auto !important">
-     	<div ng-repeat="slave in slaves" class="un-20" flex>
+     	<md-card ng-repeat="slave in slaves" class="un-25" flex>
     		<pie-chart data="slave.memData" options="options" flex></pie-chart>
-			<div flex style="text-align:center"><h4>{{slave.hostname}}</h4></div>
-		</div>
+			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
+		</md-card>
      	</md-tab>
      	
      	<md-tab label="DISK" style="height:auto !important">
-     	<div ng-repeat="slave in slaves" class="un-20" flex>
+     	<md-card ng-repeat="slave in slaves" class="un-25" flex>
     		<pie-chart data="slave.diskData" options="options" flex></pie-chart>
-			<div flex style="text-align:center"><h4>{{slave.hostname}}</h4></div>
-		</div>
+			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
+		</md-card>
      	</md-tab>
      	</md-tabs>
     </div>

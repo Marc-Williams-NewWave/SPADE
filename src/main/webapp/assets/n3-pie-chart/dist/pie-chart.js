@@ -9,8 +9,8 @@ angular.module('n3-pie-chart', ['n3-pie-utils'])
     var dim = $utils.getDefaultMargins();
 
     var updateDimensions = function(dimensions) {
-      dimensions.width = element[0].parentElement.offsetWidth || 200;
-      dimensions.height = element[0].parentElement.offsetHeight || 200;
+      dimensions.width = element[0].parentElement.offsetWidth || 250;
+      dimensions.height = element[0].parentElement.offsetHeight || 250;
     };
 
     var update = function(data, options) {
