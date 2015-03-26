@@ -14,7 +14,21 @@ angular.module('spadeApp')
                         templateUrl: 'scripts/app/features/stats/stats.html',
                         controller: 'StatsController'
                     }
-                }
+                },
+                resolve: {
+
+                    resolveSlaves:['SlaveService', function (slaveService) {
+                        return slaveService.getSlaves();
+                    }],
+                    resolveTasks:['TaskService', function (taskService) {
+                        return taskService.getTasks();
+                    }],
+                    resolvePods:['PodService', function (podService) {
+                        return podService.getPods();
+                    }]
+                    
+                    
+                },
 //                ,
 //                resolve: {
 //                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
