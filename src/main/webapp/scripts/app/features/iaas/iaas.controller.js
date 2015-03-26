@@ -147,7 +147,7 @@ angular.module('spadeApp')
 //      		console.log("Pod Stats: " + pod.osName + " " +  pod.selectedApp + " " + pod.appName + " " + pod.replicaCount);
      		 console.log(pod);
      		 
-     		 $http.post("http://192.168.0.95:8080/spade/api/demo/env", pod)
+     		 $http.post("http://192.168.4.8:8080/spade/api/demo/env", pod)
      		 	.success(function(data){
      		 		console.log("success data returned ====> " + data);
      		 });

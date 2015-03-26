@@ -1,5 +1,5 @@
-
 'use strict'
+
 angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "resolveSlaves", "resolveTasks", "resolvePods", function($scope, $http, resolveSlaves, resolveTasks, resolvePods){
 
 	$scope.slaves = resolveSlaves.items;
@@ -88,41 +88,10 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
 //        lineCap:'circle'
 //    };
 }])
-
-//.directive("firstone", [ "$scope", function($scope){
-//	return {
-//	template: "<pie-chart data='data' options='options'></pie-chart>",
-//	scope: {
-//		slave: '=slave',
-//		tasks: '=tasks'
-//	},
-//	link: [ "$scope", function($scope,element,attrs){
-//		var data = [];
-//	
-//			var slave = attrs.slave;
-//			console.log(slave);
-//			color = 'rgb(' + Math.floor(Math.random() * 255) 
-//				+ ',' + Math.floor(Math.random() * 255) 
-//				+ ',' + Math.floor(Math.random() * 255) + ')';
-//			for (var j=0; j < attrs.tasks.length; j++){
-//				var task = attrs.tasks[j];
-//				console.log()
-//				if (task.slaveId === slave.id){
-//					console.log(task.slaveId)
-//					console.log(slave.id)
-//					data.push({label: task.podName, value: task.cpuPercent, color: color, suffix: "%"});
-//				}
-//			}
-//	
-//		return data;
-//		
-//	}]
-//	}
-//}])
 .factory('SlaveService', function ($http) {
 	 return {
 		    getSlaves: function() {
-         	var promise = $http.get("http://192.168.0.95:8080/spade/api/slaves")
+         	var promise = $http.get("http://192.168.4.8:8080/spade/api/slaves")
          	.then(function(response) {
          		return response.data;
          	});
@@ -135,7 +104,7 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
 	 .factory('PodService', function ($http) {
 	 return {
 		    getPods: function() {
-         	var promise = $http.get("http://192.168.0.95:8080/spade/api/pods")
+         	var promise = $http.get("http://192.168.4.8:8080/spade/api/pods")
          	.then(function(response) {
          		return response.data;
          	});
@@ -148,7 +117,7 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
 	 .factory('TaskService', function ($http) {
 	 return {
 		    getTasks: function() {
-         	var promise = $http.get("http://192.168.0.95:8080/spade/api/tasks")
+         	var promise = $http.get("http://192.168.4.8:8080/spade/api/tasks")
          	.then(function(response) {
          		return response.data;
          	});
