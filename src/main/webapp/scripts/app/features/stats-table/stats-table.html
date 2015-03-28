@@ -33,9 +33,24 @@
 </nav>
 
 <div>
-<div id='outer'  >
+<div id="outer" >
     <div id="main" class="md-content">
-    
+    <table st-table="rowCollection" class="table table-striped">
+	<thead>
+	<tr ng-repeat="title in headers">
+		<th>{{title}}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="row in rowCollection">
+		<td>{{row.firstName}}</td>
+		<td>{{row.lastName}}</td>
+		<td>{{row.birthDate}}</td>
+		<td>{{row.balance}}</td>
+		<td>{{row.email}}</td>
+	</tr>
+	</tbody>
+</table>
     </div>
 </div>
 </div>
