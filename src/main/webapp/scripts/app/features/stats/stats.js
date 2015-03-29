@@ -16,7 +16,6 @@ angular.module('spadeApp')
                     }
                 },
                 resolve: {
-
                     resolveSlaves:['SlaveService', function (slaveService) {
                         return slaveService.getSlaves();
                     }],
@@ -26,8 +25,6 @@ angular.module('spadeApp')
                     resolvePods:['PodService', function (podService) {
                         return podService.getPods();
                     }]
-                    
-                    
                 },
 //                ,
 //                resolve: {

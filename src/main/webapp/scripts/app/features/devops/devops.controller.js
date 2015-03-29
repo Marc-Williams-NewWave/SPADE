@@ -1,5 +1,5 @@
 'use strict'
 angular.module('spadeApp')
-.controller('StatsTableController',	["$scope", "$http", "resolvePods",	function($scope, $http, resolvePods) {
+.controller('DevopsController',	["$scope", "$http",	function($scope, $http) {
 	
 }])

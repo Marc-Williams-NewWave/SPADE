@@ -3,15 +3,15 @@
 angular.module('spadeApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('stats-table', {
+            .state('statstable', {
                 parent: 'features',
-                url: '/stats-table',
+                url: '/statstable',
                 data: {
                     roles: []
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/features/stats-table/stats-table.html',
+                        templateUrl: 'scripts/app/features/statstable/statstable.html',
                         controller: 'StatsTableController'
                     }
                 },

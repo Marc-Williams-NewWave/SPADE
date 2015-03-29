@@ -23,7 +23,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a ui-sref="stats-table">Server List</a></li>
+            <li><a ui-sref="statstable">Server List</a></li>
             <li><a ui-sref="stats">Resource Usage</a></li>
           </ul>
         </li>
@@ -33,7 +33,7 @@
 </nav>
 
 <div>
-<div id='outer'  >
+<div id="outer" >
     <div id="main" class="md-content DynamicTabs">
     
      <md-tabs class="title" flex>
@@ -45,14 +45,14 @@
 		</md-card>
      	</md-tab>
      	
-     	<md-tab label="MEM" style="height:auto !important">
+     	<md-tab label="Memory" style="height:auto !important">
      	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
     		<pie-chart data="slave.memData" options="options" flex></pie-chart>
 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
 		</md-card>
      	</md-tab>
      	
-     	<md-tab label="DISK" style="height:auto !important">
+     	<md-tab label="Storage" style="height:auto !important">
      	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
     		<pie-chart data="slave.diskData" options="options" flex></pie-chart>
 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>

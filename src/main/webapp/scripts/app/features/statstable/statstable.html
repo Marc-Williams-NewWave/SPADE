@@ -23,7 +23,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a ui-sref="stats-table">Server List</a></li>
+            <li><a ui-sref="statstable">Server List</a></li>
             <li><a ui-sref="stats">Resource Usage</a></li>
           </ul>
         </li>
@@ -34,23 +34,29 @@
 
 <div>
 <div id="outer" >
-    <div id="main" class="md-content">
-    <table st-table="rowCollection" class="table table-striped">
+    <md-card id="main" class="md-whiteframe-z2" flex>
+    <table st-table="displayedPods" st-safe-src="pods" class="table table-striped">
 	<thead>
-	<tr ng-repeat="title in headers">
-		<th>{{title}}</th>
+	<tr >
+		<th ng-repeat="header in headers" st-sort="header">{{header}}</th>
+	</tr>
+	<tr>
+		<th colspan="7"><input st-search="Server Name" class="form-control" placeholder="Search for server..." type="text"/></th>
 	</tr>
 	</thead>
 	<tbody>
-	<tr ng-repeat="row in rowCollection">
-		<td>{{row.firstName}}</td>
-		<td>{{row.lastName}}</td>
-		<td>{{row.birthDate}}</td>
-		<td>{{row.balance}}</td>
-		<td>{{row.email}}</td>
+	<tr ng-repeat="pod in pods">
+		<td>{{pod.labels.name}}</td>
+		<td>{{pod.id}}</td>
+		<td>{{pod.labels.project}}</td>
+		<td>{{pod.labels.stack}}</td>
+		<td ng-repeat="container in pod.desiredState.manifest.containers">{{container.name}}</td>
+		<td>{{pod.currentState.host}}</td>
+		<td></td>
+		<td>{{pod.currentState.status}}<ng-md-icon icon="check_circle" style="color:green"></ng-md-icon></td>
 	</tr>
 	</tbody>
 </table>
-    </div>
+    </md-card>
 </div>
 </div>
