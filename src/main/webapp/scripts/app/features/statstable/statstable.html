@@ -12,19 +12,17 @@
   </md-toolbar> -->
 <nav class="navbar navbar-default" style="background-color:gray;">
   <div class="container-fluid">
-    
     <div class="navbar-header">
-      <div ui-sref="stats" class="navbar-brand" style="color: white;">Infrastructure Dashboard - Server View</div>
+      <div ui-sref="stats" class="navbar-brand" style="color: white;">Infrastructure Dashboard - Table View</div>
     </div>
-
-    
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
       <ul class="nav navbar-nav">
+<!--       	<li><button><ng-md-icon icon="cached" size="30" style="color:white"></ng-md-icon></button></li> -->
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">Dropdown <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">Switch View<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a ui-sref="statstable">Server List</a></li>
-            <li><a ui-sref="stats">Resource Usage</a></li>
+            <li><a ui-sref="statstable">Table View</a></li>
+            <li><a ui-sref="stats">Resource View</a></li>
           </ul>
         </li>
       </ul>
@@ -38,14 +36,14 @@
     <table st-table="displayedPods" st-safe-src="pods" class="table table-striped">
 	<thead>
 	<tr >
-		<th ng-repeat="header in headers" st-sort="header">{{header}}</th>
+		<th st-sort="{{header}}" ng-repeat="header in headers">{{header}}</th>
 	</tr>
 	<tr>
-		<th colspan="7"><input st-search="Server Name" class="form-control" placeholder="Search for server..." type="text"/></th>
+		<th colspan=8"><input st-search="Server Name" class="form-control" placeholder="Search for server..." type="text"/></th>
 	</tr>
 	</thead>
 	<tbody>
-	<tr ng-repeat="pod in pods">
+	<tr st-select-row="row" ng-repeat="pod in pods">
 		<td>{{pod.labels.name}}</td>
 		<td>{{pod.id}}</td>
 		<td>{{pod.labels.project}}</td>
@@ -53,9 +51,16 @@
 		<td ng-repeat="container in pod.desiredState.manifest.containers">{{container.name}}</td>
 		<td>{{pod.currentState.host}}</td>
 		<td></td>
-		<td>{{pod.currentState.status}}<ng-md-icon icon="check_circle" style="color:green"></ng-md-icon></td>
+		<td><ng-md-icon icon="check_circle" style="color:green"><md-tooltip>{{pod.currentState.status}}</md-tooltip></ng-md-icon></td>
 	</tr>
 	</tbody>
+	<tfoot>
+	<tr>
+		<td colspan="8" class="text-center">
+			<div st-pagination="" st-items-by-page="3" st-displayed-pages="3"></div>
+		</td>
+	</tr>
+	</tfoot>
 </table>
     </md-card>
 </div>
