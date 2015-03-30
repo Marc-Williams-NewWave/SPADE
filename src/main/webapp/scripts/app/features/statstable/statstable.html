@@ -39,8 +39,10 @@
 <div id="outer" >
 	<md-card id="buttons" layout="row" >
 		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="create()">Create</md-button>
+		<div class="gap"></div>
 		<md-button class="md-raised md-noink" style="padding:5px 20px 5px 20px;">Edit</md-button>
-		<md-button class="md-raised md-warn" style="padding:5px 20px 5px 20px;" ng-click="delPod(selected)">Delete</md-button>
+		<div class="gap"></div>
+		<md-button class="md-raised md-warn" style="padding:5px 20px 5px 20px;" ng-click="confirmDel($event)">Delete</md-button>
 	</md-card>
     <md-card id="main" class="md-whiteframe-z2" flex>
     <table st-table="displayedPods" st-safe-src="pods" class="table table-striped">
