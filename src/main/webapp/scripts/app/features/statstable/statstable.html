@@ -25,6 +25,11 @@
             <li><a ui-sref="stats">Resource View</a></li>
           </ul>
         </li>
+<!--         <li> -->
+<!--         	<md-button type="button" class="md-raised btn btn-default navbar-btn"> -->
+<!--         		<ng-md-icon icon="cached" style="color:black"> -->
+<!--         	</md-button> -->
+<!--         </li> -->
       </ul>
     </div>
   </div>
@@ -32,14 +37,19 @@
 
 <div>
 <div id="outer" >
+	<md-card id="buttons" layout="row" >
+		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="create()">Create</md-button>
+		<md-button class="md-raised md-noink" style="padding:5px 20px 5px 20px;">Edit</md-button>
+		<md-button class="md-raised md-warn" style="padding:5px 20px 5px 20px;">Delete</md-button>
+	</md-card>
     <md-card id="main" class="md-whiteframe-z2" flex>
     <table st-table="displayedPods" st-safe-src="pods" class="table table-striped">
 	<thead>
 	<tr >
-		<th st-sort="{{header}}" ng-repeat="header in headers">{{header}}</th>
+		<th st-sort="header" ng-repeat="header in headers">{{header}}</th>
 	</tr>
 	<tr>
-		<th colspan=8"><input st-search="Server Name" class="form-control" placeholder="Search for server..." type="text"/></th>
+		<th colspan="8"><input st-search="Server Name" class="form-control" placeholder="Search for server..." type="text"/></th>
 	</tr>
 	</thead>
 	<tbody>

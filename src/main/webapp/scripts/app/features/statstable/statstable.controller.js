@@ -1,5 +1,9 @@
 'use strict'
-angular.module('spadeApp').controller('StatsTableController', ["$scope", "$http", "resolvePods", function($scope, $http, resolvePods) {
+angular.module('spadeApp')
+.controller('StatsTableController', ["$scope", "$http", "resolvePods", "$controller", function($scope, $http, resolvePods, $controller) {
+	
+	//var iaasController = $controller("IassController");
+	//$scope.create = iaasController.app.open();
 	$scope.pods = resolvePods.items;
 	$scope.headers = [
 	    "Name",
