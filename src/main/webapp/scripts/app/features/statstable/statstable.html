@@ -40,7 +40,7 @@
 	<md-card id="buttons" layout="row" >
 		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="create()">Create</md-button>
 		<md-button class="md-raised md-noink" style="padding:5px 20px 5px 20px;">Edit</md-button>
-		<md-button class="md-raised md-warn" style="padding:5px 20px 5px 20px;">Delete</md-button>
+		<md-button class="md-raised md-warn" style="padding:5px 20px 5px 20px;" ng-click="delPod(selected)">Delete</md-button>
 	</md-card>
     <md-card id="main" class="md-whiteframe-z2" flex>
     <table st-table="displayedPods" st-safe-src="pods" class="table table-striped">
@@ -49,11 +49,13 @@
 		<th st-sort="header" ng-repeat="header in headers">{{header}}</th>
 	</tr>
 	<tr>
-		<th colspan="8"><input st-search="Server Name" class="form-control" placeholder="Search for server..." type="text"/></th>
+		<th colspan="8">
+			<input st-search class="input-sm form-control" type="search" placeholder="Filter..." />
+		</th>
 	</tr>
 	</thead>
 	<tbody>
-	<tr st-select-row="row" ng-repeat="pod in pods">
+	<tr st-select-row="pod" st-select-mode="multiple" ng-repeat="pod in displayedPods">
 		<td>{{pod.labels.name}}</td>
 		<td>{{pod.id}}</td>
 		<td>{{pod.labels.project}}</td>

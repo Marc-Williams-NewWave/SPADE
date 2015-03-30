@@ -1,9 +1,24 @@
 'use strict'
 angular.module('spadeApp')
-.controller('StatsTableController', ["$scope", "$http", "resolvePods", "$controller", function($scope, $http, resolvePods, $controller) {
+.controller('StatsTableController', ["$scope", "$http", "$modal", "$filter", "resolvePods", function($scope, $http, $modal, $filter, resolvePods) {
 	
-	//var iaasController = $controller("IassController");
-	//$scope.create = iaasController.app.open();
+//	var iaasController = $controller("IassController");
+//	$scope.create = iaasController.app.open();
+	$scope.create = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'scripts/app/features/iaas/iaas.html',
+            controller: 'ModalCtrl',
+            controllerAs: 'modal'
+        });
+
+        modalInstance.result
+            .then(function (data) {
+                $scope.create.closeAlert();
+                $scope.create.summary = data;
+            }, function (reason) {
+            	$scope.create.reason = reason;
+            });
+    };
 	$scope.pods = resolvePods.items;
 	$scope.headers = [
 	    "Name",
@@ -21,7 +36,16 @@ angular.module('spadeApp')
 //{ "id" : "spade-db-0133o", "uid" : "17692738-d4b8-11e4-a0ad-fa163e3c002e", "creationTimestamp" : "2015-03-27T19:33:05Z", "selfLink" : "/api/v1beta2/pods/spade-db-0133o?namespace=default", "resourceVersion" : 37835, "namespace" : "default", "generateName" : "spade-db-", "annotations" : { "k8s_mesosphere_io/bindingHost" : "mesos-slave-4", "k8s_mesosphere_io/executorId" : "KubeleteExecutorID", "k8s_mesosphere_io/offerId" : "20150325-153337-806819607-5050-1451-O130150", "k8s_mesosphere_io/slaveId" : "20150211-155400-806819607-5050-4880-S13", "k8s_mesosphere_io/taskId" : "17a836fb-d4b8-11e4-a826-fa163e3c002e" }, "labels" : { "app" : "mongodb", "image" : "partlab/ubuntu-mongodb", "stack": "spade-demo", "name" : "mongodb", "os" : "ubuntu", "project" : "demo", "type" : "mongodb-pod" }, "desiredState" : { "manifest" : { "version" : "v1beta2", "id" : "", "volumes" : null, "containers" : [ { "name" : "mongodb", "image" : "partlab/ubuntu-mongodb", "ports" : [ { "hostPort" : 31017, "containerPort" : 27017, "protocol" : "TCP" } ], "resources" : { "limits" : { "cpu" : "1" } }, "cpu" : 1000, "terminationMessagePath" : "/dev/termination-log", "imagePullPolicy" : "PullIfNotPresent", "capabilities" : {  } } ], "restartPolicy" : { "always" : {  } }, "dnsPolicy" : "ClusterFirst" } }, "currentState" : { "manifest" : { "version" : "", "id" : "", "volumes" : null, "containers" : null, "restartPolicy" : {  } }, "status" : "Running", "Condition" : [ { "kind" : "Ready", "status" : "Full" } ], "host" : "mesos-slave-4", "hostIP" : "23.23.23.61", "podIP" : "172.17.0.4", "info" : { "POD" : { "state" : { "running" : { "startedAt" : "2015-03-27T19:33:05Z" } }, "ready" : false, "restartCount" : 0, "podIP" : "172.17.0.4", "image" : "kubernetes/pause:latest", "imageID" : "docker://6c4579af347b649857e915521132f15a06186d73faa62145e3eeeb6be0e97c27", "containerID" : "docker://d32312de11d198ca377e633d38aec13b4b23bf1258f444976c1dc6bce3f8540c" }, "mongodb" : { "state" : { "running" : { "startedAt" : "2015-03-27T19:33:06Z" } }, "ready" : true, "restartCount" : 0, "image" : "partlab/ubuntu-mongodb", "imageID" : "docker://ed600c32a4841bbc87aefd1600cf91efab7b4e457e0bd5abe10372c481592613", "containerID" : "docker://c0113cb8a95e5c09d67af471668275f5c85e522ba5a704f824a9ec3956e2533c" } } } },
 //{ "id" : "spade-app-hh2gd", "uid" : "17734a7d-d4b8-11e4-a0ad-fa163e3c002e", "creationTimestamp" : "2015-03-27T19:33:06Z", "selfLink" : "/api/v1beta2/pods/spade-app-hh2gd?namespace=default", "resourceVersion" : 37843, "namespace" : "default", "generateName" : "spade-app-", "annotations" : { "k8s_mesosphere_io/bindingHost" : "mesos-slave-1", "k8s_mesosphere_io/executorId" : "KubeleteExecutorID", "k8s_mesosphere_io/offerId" : "20150325-153337-806819607-5050-1451-O130151", "k8s_mesosphere_io/slaveId" : "20150211-155400-806819607-5050-4880-S10", "k8s_mesosphere_io/taskId" : "17b45155-d4b8-11e4-a826-fa163e3c002e" }, "labels" : { "app" : "wildfly", "image" : "bradams/devops:wildfly-ubuntu", "stack": "spade-demo", "name" : "jboss", "os" : "ubuntu", "project" : "demo", "type" : "jboss-pod" }, "desiredState" : { "manifest" : { "version" : "v1beta2", "id" : "", "volumes" : null, "containers" : [ { "name" : "jboss", "image" : "bradams/devops:wildfly-ubuntu", "ports" : [ { "hostPort" : 31081, "containerPort" : 8080, "protocol" : "TCP" }, { "hostPort" : 31090, "containerPort" : 9990, "protocol" : "TCP" } ], "resources" : { "limits" : { "cpu" : "1" } }, "cpu" : 1000, "terminationMessagePath" : "/dev/termination-log", "imagePullPolicy" : "PullIfNotPresent", "capabilities" : {  } } ], "restartPolicy" : { "always" : {  } }, "dnsPolicy" : "ClusterFirst" } }, "currentState" : { "manifest" : { "version" : "", "id" : "", "volumes" : null, "containers" : null, "restartPolicy" : {  } }, "status" : "Running", "Condition" : [ { "kind" : "Ready", "status" : "Full" } ], "host" : "mesos-slave-1", "hostIP" : "23.23.23.50", "podIP" : "172.17.0.3", "info" : { "POD" : { "state" : { "running" : { "startedAt" : "2015-03-27T19:33:06Z" } }, "ready" : false, "restartCount" : 0, "podIP" : "172.17.0.3", "image" : "kubernetes/pause:latest", "imageID" : "docker://6c4579af347b649857e915521132f15a06186d73faa62145e3eeeb6be0e97c27", "containerID" : "docker://07e3dbe164f0a3424b17839eebf83a8dcd68cec5dc01925fe9ff492b1cd0f8b8" }, "jboss" : { "state" : { "running" : { "startedAt" : "2015-03-27T19:35:00Z" } }, "ready" : true, "restartCount" : 0, "image" : "bradams/devops:wildfly-ubuntu", "imageID" : "docker://66eecf419cc9430b483976d92e81a1da9df105c259b1ffc8da51dec3f277df1d", "containerID" : "docker://85bcdbc18c85c78a96a4c900616089b8d968028541dcd8498f50ad13a67061e2" } } } }
 //	];
-	
+	$scope.delPod = function(pod){
+		var req = {
+				 method: "DELETE",
+				 url: "http://192.168.4.8:8080/spade/api/demo/" + pod.id
+				}
+		$http(req).then(function(response) {
+			
+			$scope.delRes = response.data;
+		});
+	}
 	$scope.displayedPods = [].concat($scope.pods);
 }])
 .factory('PodService', function($http) {
