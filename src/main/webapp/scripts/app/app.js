@@ -1,7 +1,59 @@
 'use strict';
 
 angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 'tmh.dynamicLocale',
-    'ngResource', 'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster','ngMdIcons'])
+    'ngResource', 'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster','ui.select2','n3-pie-chart'])
+    
+    .factory('templateService', function(){
+    	var items = [];
+        var myTemplatesService = {};
+        
+        myTemplatesService.addItem = function(item) {
+        	console.log("Entering Factory");
+        	console.log(item)
+            items.push(item);
+        	console.log("Leaving Factory");
+        };
+
+        myTemplatesService.items = function() {
+            return items;
+        };
+        
+        myTemplatesService.clear = function() {
+        	items = [];
+        	console.log(items);
+        };
+        
+        return myTemplatesService;
+        
+    })
+    
+     .factory('appService', function($http){
+    	var items = [];
+        var myAppsService = {};
+        
+//        myAppsService.addItem = function(item) {
+//        	console.log("Entering Factory");
+//        	console.log(item)
+//            items.push(item);
+//        	console.log("Leaving Factory");
+//        };
+
+        myAppsService.getItems = function() {
+        	var promise = $http.get("http://192.168.4.8:8080/spade/api/images")
+        	.then(function(response) {
+        		console.log(response.data.items);
+        		return response.data;
+        	});
+        	
+            return promise;
+        
+        	
+//        	return items;
+        };
+        
+        return myAppsService;
+        
+    })
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV, VERSION,loginModal) {
         $rootScope.ENV = ENV;

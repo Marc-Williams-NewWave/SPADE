@@ -1,20 +1,44 @@
 'use strict';
 
 angular.module('spadeApp')
-     .controller('IaasController', function ($mdDialog,$modal, $scope) {
+     .controller('IaasController', ["$mdDialog","$modal","$scope","$rootScope","resolveImages", function ($mdDialog,$modal, $scope,$rootScope,resolveImages) {
         
-    	
+    	 
+    	 
+    	 
+    	 console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    	 
     	 var app = this;
+    	 
+    	 $scope.images = resolveImages.items;
+    	 console.log("test testtest testtest test");
+//    	 console.log($scope.images);
+    	 
+//    	 console.log(app.apps);
 
         app.closeAlert = function () {
             app.reason = null;
         };	
 
+
         app.open = function () {
-            var modalInstance = $modal.open({
+        	console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    	 $scope.apps = resolveImages.items;
+    	 
+    	 console.log($scope.apps);
+        	
+            var modalInstance = $modal.open(
+            		{
+            	
                 templateUrl: 'scripts/app/features/iaas/iaas.html',
                 controller: 'ModalCtrl',
-                controllerAs: 'modal'
+                controllerAs: 'modal',
+//                resolve: {
+//                  resolveImages2:['ImageService', function (imageService) {
+//                  	return imageService.getImages();
+////                      return slaveService.getSlaves();
+//                  }]
+//              }
             });
 
             modalInstance.result
@@ -25,90 +49,320 @@ angular.module('spadeApp')
                     app.reason = reason;
                 });
         };
-    })
-    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http) {
+        
+//        $rootScope.$on('openModal', function () {
+//
+//            app.open();
+//        });
+    }])
+    
+    .factory('ImageService', function ($http) {
+	 return {
+		    getImages: function() {
+        	var promise = $http.get("http://192.168.4.8:8080/spade/api/images")
+        	.then(function(response) {
+        		console.log(response.data.items);
+        		return response.data;
+        	});
+        	
+            return promise;
+        }
+	 }
+	 
+	 })
+
+    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService) {
+    	console.log($scope.images);
+    	console.log($scope.$parent.images);
+    	
+//    	$scope.applications = resolveImages;
+//    	console.log($scope.applications);
+//    	var getApps = function(){
+//    		var deffered;
+//    	}
+    	console.log(appService.getItems());
+    	
+    	$scope.applications = $rootScope.resolveImages;
+   	 
+   	 	console.log($scope.$parent.apps);
+   	 
+//   	 $scope.imageService = ImageService;
+//   	 
+//   	$scope.getApplications = function(){
+//   		if($scope.imageService.getImages().length != 0 ){
+//   			$scope.applications = $scope.imageService.getImages();
+//   		}
+//   	}
+   	
+   	
+//   	$scope.getApplications();
+    	
+//    	$http.get("http://192.168.0.95:8080/spade/api/images")
+//		.success(function(data) {
+//			console.log(data);
+//				$scope.applications = data;
+//			})
+    	
+//    	$scope.applications = $rootScope.applications;
+    	
+//    	$scope.$on('testObj', function(response) {
+//    	      alert(response);
+//    	})
+    	
+    	
     	$scope.osOptions = ['Ubuntu','Fedora'];
-    	console.log($scope.osOptions);
+//    	console.log($scope.osOptions);
+    	$scope.oneOS;
+    	
     	$scope.applications = 
-        {
-          "api": "v0.0.4",
-          "time": 1426011638988,
-          "label": "extra",
-          "items": [
-            {
-              "image": "sewatech\/modcluster",
-              "os": "ubuntu",
-              "app": "apache",
-              "type": "web"	  
-            },
-            {
-              "image": "bradams\/devops:nginx-ubuntu",
-              "os": "ubuntu",
-              "app": "nginx",
-             "type": "app"
-            },
-            {
-              "image": "bradams\/devops:wildfly-ubuntu",
-              "os": "ubuntu",
-              "app": "wildfly",
-            	  "type": "app"
-            },
-            {
-              "image": "bradams\/devops:tomcat-ubuntu",
-              "os": "ubuntu",
-              "app": "tomcat",
-            	  "type": "web"
-            },
-            {
-              "image": "partlab\/ubuntu-mongodb",
-              "os": "ubuntu",
-              "app": "mongodb",
-            	  "type": "db"
-            },
-            {
-              "image": "bradams\/devops:mysql-ubuntu",
-              "os": "ubuntu",
-              "app": "mysql",
-            	  "type": "db"
-            },
-            {
-              "image": "bradams\/devops:apache-fedora",
-              "os": "fedora",
-              "app": "apache",
-            	  "type": "web"
-            },
-            {
-              "image": "bradams\/devops:nginx-fedora",
-              "os": "fedora",
-              "app": "nginx",
-            	  "type": "app"
-            },
-            {
-              "image": "bradams\/devops:cluster",
-              "os": "fedora",
-              "app": "wildfly",
-            	  "type": "app"
-            },
-            {
-              "image": "bradams\/devops:tomcat-fedora",
-              "os": "fedora",
-              "app": "tomcat",
-            	  "type": "web"
-            },
-            {
-              "image": "bradams\/devops:mongodb-fedora",
-              "os": "fedora",
-              "app": "mongodb",
-            	  "type": "db"
-            },
-            {
-              "image": "jdeathe\/centos-ssh-mysql",
-              "os": "fedora",
-              "app": "mysql",
-            	  "type": "db",
-            }
-          ]
-        };
+    	{
+    			  "api": "v0.0.4",
+    			  "time": 1427390606456,
+    			  "label": "extra",
+    			  "items": [
+    			    {
+    			      "image": "sewatech\/modcluster",
+    			      "os": "ubuntu",
+    			      "app": "apache",
+    			      "type": "web",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "6.8"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    },
+    			    {
+    			      "image": "bradams\/devops:nginx-ubuntu",
+    			      "os": "ubuntu",
+    			      "app": "nginx",
+    			      "type": "web",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "1.1.2"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    },
+    			    {
+    			      "image": "bradams\/devops:wildfly-ubuntu",
+    			      "os": "ubuntu",
+    			      "app": "wildfly",
+    			      "type": "app",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "8.0.0"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    },
+    			    {
+    			      "image": "bradams\/devops:tomcat-ubuntu",
+    			      "os": "ubuntu",
+    			      "app": "tomcat",
+    			      "type": "app",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "8.5.5"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    },
+    			    {
+    			      "image": "partlab\/ubuntu-mongodb",
+    			      "os": "ubuntu",
+    			      "app": "mongodb",
+    			      "type": "db",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "7.1.0"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    },
+    			    {
+    			      "image": "bradams\/devops:mysql-ubuntu",
+    			      "os": "ubuntu",
+    			      "app": "mysql",
+    			      "type": "db",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "5.5"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    },
+    			    {
+    			      "image": "bradams\/devops:apache-fedora",
+    			      "os": "fedora",
+    			      "app": "apache",
+    			      "type": "web",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "7.0"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    },
+    			    {
+    			      "image": "bradams\/devops:nginx-fedora",
+    			      "os": "fedora",
+    			      "app": "nginx",
+    			      "type": "web",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "2.0.3"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    },
+    			    {
+    			      "image": "bradams\/devops:cluster",
+    			      "os": "fedora",
+    			      "app": "wildfly",
+    			      "type": "app",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "7.8.3"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    },
+    			    {
+    			      "image": "bradams\/devops:tomcat-fedora",
+    			      "os": "fedora",
+    			      "app": "tomcat",
+    			      "type": "app",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "7.0.3"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    },
+    			    {
+    			      "image": "bradams\/devops:mongodb-fedora",
+    			      "os": "fedora",
+    			      "app": "mongodb",
+    			      "type": "db",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "6.3.0"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    },
+    			    {
+    			      "image": "jdeathe\/centos-ssh-mysql",
+    			      "os": "fedora",
+    			      "app": "mysql",
+    			      "type": "db",
+    			      "info": [
+    			        {
+    			          "key": "app_version",
+    			          "val": "5.5"
+    			        },
+    			        {
+    			          "key": "heap_size",
+    			          "val": "1024MB"
+    			        },
+    			        {
+    			          "key": "storage_size",
+    			          "val": "100MB"
+    			        }
+    			      ]
+    			    }
+    			  ]
+    			}
+    	
     	
     	$scope.lamp = true;
     	
@@ -195,6 +449,12 @@ angular.module('spadeApp')
     	for(var i = 0; i < $scope.uniqueApps.length;i++){
     		console.log($scope.uniqueApps[i]);
     	}
+    	
+    	for(var i = 0; i < $scope.uniqueApps.length;i++){
+    		if($scope.uniqueApps[i].type == 'web')
+    		console.log($scope.uniqueApps[i]);
+    	}
+    	
 //    	console.log($scope.uniqueApps);
 
     	$scope.isDisabled = true;
@@ -228,7 +488,7 @@ angular.module('spadeApp')
               	replicas : $scope.defaultPod.replicas
               };
     	
-    	$scope.webPod.name = '';
+    	
     	
     	$scope.dbPod = {
     			name : $scope.defaultPod.name,
@@ -241,7 +501,112 @@ angular.module('spadeApp')
     		$scope.webPod.os = os;
     		$scope.appPod.os = os;
     		$scope.dbPod.os = os;
+    		
+    		console.log($scope.oneOS);
     	};
+    	
+    	console.log(templateService.items());
+    	
+    	if(templateService.items().length > 0){
+    		$scope.webPod = templateService.items()[0].templates[0];
+    		$scope.appPod = templateService.items()[0].templates[1];
+    		$scope.dbPod = templateService.items()[0].templates[2];
+    	}
+    	
+//    	$scope.webConfig = 'n/a';
+    	
+    	$scope.conf = false;
+    	
+    	$scope.setWebConfig = function(item){
+    		var conf = [];
+    		for(i in $scope.webApps){
+    			if($scope.webApps[i].app == item){
+    				console.log('EUREKA!');
+//    				$scope.webConfig = $scope.webApps[i];
+//    				console.log($scope.webApps[i]);
+//    				console.log($scope.webConfig);
+    				for(var x = 0; x <  $scope.webApps[i].info.length; x++){
+//    					dbApps.push($scope.uniqueApps[i]);
+    					conf.push($scope.webApps[i].info[x]);
+//    					console.log(conf);
+    				}
+    			}
+    		}
+    		
+    		$scope.webConfig = conf;
+    		console.log('&&&&&&&');
+    		console.log($scope.webConfig);
+    		
+    		for(var y = 0; y < $scope.webConfig.length; y++){
+    			console.log($scope.webConfig[y]);
+    		}
+    		
+//    		var currentApp = JSON.stringify($scope.webPod.app);
+//    		console.log("Current app is " + currentApp);
+    		
+    	};
+    	
+    	$scope.setAppConfig = function(item){
+    		var conf = [];
+    		for(i in $scope.appApps){
+    			if($scope.appApps[i].app == item){
+    				console.log('EUREKA!');
+//    				$scope.webConfig = $scope.webApps[i];
+//    				console.log($scope.webApps[i]);
+//    				console.log($scope.webConfig);
+    				for(var x = 0; x <  $scope.appApps[i].info.length; x++){
+//    					dbApps.push($scope.uniqueApps[i]);
+    					conf.push($scope.appApps[i].info[x]);
+//    					console.log(conf);
+    				}
+    			}
+    		}
+    		
+    		$scope.appConfig = conf;
+    		console.log('*****');
+    		console.log($scope.appConfig);
+    		
+    		for(var y = 0; y < $scope.appConfig.length; y++){
+    			console.log($scope.appConfig[y]);
+    		}
+    		
+//    		var currentApp = JSON.stringify($scope.webPod.app);
+//    		console.log("Current app is " + currentApp);
+    		
+    	};
+    	
+       	$scope.setDBConfig = function(item){
+    		console.log(item);
+       		var conf = [];
+    		for(i in $scope.dbApps){
+    			if($scope.dbApps[i].app == item){
+    				console.log('EUREKA!');
+//    				$scope.webConfig = $scope.webApps[i];
+//    				console.log($scope.webApps[i]);
+//    				console.log($scope.webConfig);
+    				for(var x = 0; x <  $scope.dbApps[i].info.length; x++){
+//    					dbApps.push($scope.uniqueApps[i]);
+    					conf.push($scope.dbApps[i].info[x]);
+//    					console.log(conf);
+    				}
+    			}
+    		}
+    		
+    		$scope.dbConfig = conf;
+    		console.log('+++++');
+    		console.log($scope.dbConfig);
+    		
+    		for(var y = 0; y < $scope.dbConfig.length; y++){
+    			console.log($scope.dbConfig[y]);
+    		}
+    		
+//    		var currentApp = JSON.stringify($scope.webPod.app);
+//    		console.log("Current app is " + currentApp);
+    		
+    	};
+    	
+    	
+    	
     	
     	$scope.podArray = new Array(3);
     	$scope.podArray[0] = $scope.webPod;
@@ -275,22 +640,42 @@ angular.module('spadeApp')
 //    			            }
     	
      	 
-    	
-     	 $scope.launch = function(pod){
-     		 console.log(pod);
-     		 $http.post("http://192.168.0.95:8080/spade/api/demo/env", pod)
-     		 	.success(function(data){
-     		 		console.log("success data returned ====> " + data);
-     		 });
+    	$scope.webPodNameError = false;
+        $scope.webPodOSError = false;
+        $scope.webPodAppError = false;
+
+        $scope.appPodNameError = false;
+        $scope.appPodOSError = false;
+        $scope.appPodAppError = false;
+
+        $scope.dbPodNameError = false;
+        $scope.dbPodOSError = false;
+        $scope.dbPodAppError = false;
+
+        
+     	 $scope.launch = function(){
+     		 console.log($scope.podArray);
+     		 
+     		              
+     		 for(var x = 0; x < $scope.podArray.length; x++){
+     			 if($scope.podArray[x].replicas > 0){
+     				 //call validation function with current pod
+     				$http.post("http://192.168.4.8:8080/spade/api/demo/env", $scope.podArray[x])
+         		 	.success(function(data){
+         		 		console.log("success data returned ====> " + data);
+         		 });
+     			 }
+     		 }
+     		 
       	}
      	 
-     	$scope.deletePod = function(pod){
-     		 console.log(pod);
-     		 $http.delete("http://192.168.0.95:8080/spade/api/env", pod)
-     		 	.success(function(data){
-     		 		console.log("successfully deleted ====> " + data.name + '\npod.appName');
-     		 });
-     	}
+//     	$scope.deletePod = function(pod){
+//     		 console.log(pod);
+//     		 $http.delete("http://192.168.0.95:8080/spade/api/env", pod)
+//     		 	.success(function(data){
+//     		 		console.log("successfully deleted ====> " + data.name + '\npod.appName');
+//     		 });
+//     	}
      	 
      	$scope.alert = '';
      	  $scope.showAlert = function() {
@@ -303,6 +688,7 @@ angular.module('spadeApp')
 //     	        .targetEvent(ev)
      	    );
      	  };
+     	  
      	  
     	var modal = this;
 
@@ -332,13 +718,17 @@ angular.module('spadeApp')
 
         modal.getNextLabel = function () {
         	if(modal.isLastStep()){
+        		
         		$scope.isDisabled = !modal.launchReady();
+        		
+        		
         		return 'Click Above To Launch Your Pod';
         	} else{
         		return 'Next'
         	}
 //            return (modal.isLastStep()) ? 'Launch' : 'Next';
         };
+        
         
         modal.launchReady = function(){
         	if(angular.equals($scope.pod.os,$scope.defaultPod.os) ||
@@ -349,6 +739,35 @@ angular.module('spadeApp')
         	){
         		return false;
         	} else {
+        		return true;
+        	}
+        }
+        
+       
+        
+        
+        modal.isWebPodReady = function(){
+        	if($scope.webPod.replicas > 0){
+        		if(angular.equals($scope.webPod.name,$scope.defaultPod.name)){
+        			//add to web error messages list
+        			$scope.webPodNameError = false;
+        	        
+        			
+        		}
+        		if(angular.equals($scope.webPod.os,$scope.defaultPod.os)){
+        			//add to web error messages list
+        			$scope.webPodOSError = false;
+        	        $scope.webPodAppError = false;
+        		}
+        		if(angular.equals($scope.webPod.app,$scope.defaultPod.app)){
+        			//add to web error messages list
+        		}
+        		
+        	}
+        	
+        	if($scope.webPodErrors.length > 0){
+        		return false;
+        	} else{
         		return true;
         	}
         }
@@ -364,8 +783,23 @@ angular.module('spadeApp')
                 modal.step += 1;
             }
         };
+        
+    
 
         modal.dismiss = function(reason) {
             $modalInstance.dismiss(reason);
         };
+        
+        $scope.data = {
+  		      selectedIndex : 0,
+  		      secondLocked : false,
+  		      secondLabel : "Item Two"
+  		    };
+  		    $scope.next = function() {
+  		    	modal.handleNext();
+  		      $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2) ;
+  		    };
+  		    $scope.previous = function() {
+  		      $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
+  		    };
     });

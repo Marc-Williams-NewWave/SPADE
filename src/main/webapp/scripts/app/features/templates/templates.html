@@ -1,0 +1,57 @@
+<div layout="row" layout-md="column" layout-wrap flex class="md-content">
+	<!-- <div class="container"> -->
+		<!-- <div flex ng-repeat="item in plates" > -->
+		
+		<md-card ng-repeat="item in plates" class="un-25" flex="20" style="background-color:white;">
+			<md-card-content flex style="text-align:center">
+				<md-toolbar class="md-warn"><h4>{{item.id}}</h4></md-toolbar>
+				<div ng-repeat="temp in item.templates" style="padding: 4%;" flex>
+						<h3 style="margin-top: 0px;margin-bottom: 0px;">{{temp.name}}</h3>
+						<span>{{temp.app}}</span>
+					</div>
+					<div layout="row" layout-align="space-around center" flex>
+						<md-button class="md-warn" style="background-color:#3f51b5;color:white" ng-click="open2(item)">Edit</md-button>
+						<md-button class="md-warn" style="background-color:#3f51b5;color:white">Launch</md-button>
+					</div>
+			</md-card-content>
+		</md-card>
+		
+		
+		<!-- <md-content>
+	    <md-card  style="border-style:solid; border-width:thin; border-radius:10px;" ng-model="item"  flex>
+	      <md-content flex>
+	        <md-toolbar class="md-warn" style="border-radius:7px;" flex><h2 class="md-title">{{item.id}} 0</h2></md-toolbar>
+	        <div ng-repeat="temp in item.templates" style="padding: 4%;" flex>
+						<h3 style="margin-top: 0px;margin-bottom: 0px;">{{temp.name}}</h3>
+						<span>{{temp.app}}</span>
+					</div>
+					<div layout="row" layout-align="" flex>
+						<md-button class="md-warn" style="background-color:#3f51b5;color:white" ng-click="open2(item)">Edit</md-button>
+						<md-button class="md-warn" style="background-color:#3f51b5;color:white">Launch</md-button>
+					</div>
+	      </md-card-content>
+	    </md-card>
+    </md-content> -->
+		
+		
+		
+			<!-- <md-card  style="border-style:solid; border-width:thin; border-radius:10px;" ng-model="item"  flex>
+			<md-content style="border-style:solid; border-width:thin; border-radius:10px;" ng-model="item">
+				<md-content flex>
+					<md-toolbar class="md-warn" style="border-radius:7px;" flex><h2>{{item.id}}</h2></md-toolbar>
+					<div ng-repeat="temp in item.templates" style="padding: 4%;" flex>
+						<h3 style="margin-top: 0px;margin-bottom: 0px;
+						">{{temp.name}}</h3>
+						<span>{{temp.app}}</span>
+					</div>
+					<div layout="row" layout-align="" flex>
+						<md-button class="md-warn" style="background-color:#3f51b5;color:white" ng-click="open2(item)">Edit</md-button>
+						<md-button class="md-warn" style="background-color:#3f51b5;color:white">Launch</md-button>
+					</div>
+				</md-content>
+			</md-content>
+			
+			</md-card> -->
+		<!-- </div> -->
+	<!-- </div> -->
+</div>

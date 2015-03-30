@@ -36,9 +36,9 @@
     </div>
   </div>
 </nav>
-	<div style="padding-left: 5%; padding-top: 1%;">
-		<div layout="row" ng-repeat="project in projects">
-		<md-button class="md-raised md-primary md-hue-1" style="margin-bottom: 5%;font-size: large;">
+	<div style="padding-left: 5%; padding-top: 1%;" class="listing">
+		<div layout="row">
+		<md-button class="md-raised md-primary md-hue-1" style="margin-bottom: 5%;font-size: large;" ng-repeat="project in projects">
   	{{project.description}} - {{project.name}} 
   </md-button>
 			<!-- <div flex="33">

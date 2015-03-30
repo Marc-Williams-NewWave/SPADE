@@ -1,33 +1,37 @@
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$media('gt-sm')" ng-cloak="" style="width: 260px;min-width: 260px;">
-	        
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$media('gt-sm')" ng-cloak="" style="width: 260px;min-width: 260px;height:auto !important">
+<!-- <ng-switch on="">	         -->
 	
-	<div>
-	  <p align="center">
-	    <!-- <button class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button> -->
-	    <!-- <md-button class="btn btn-default btn-sm" ng-click="" style="background-color: blue;color:white;">Home</md-button> -->
+	<div ng-show="isAuthenticated()">
+	  <!-- <p align="center">
+	    <button class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
+	    <md-button class="btn btn-default btn-sm" ng-click="" style="background-color: blue;color:white;">Home</md-button>
 	    <md-subheader class="md-primary" style="color:black;font-size:medium">
 	    
 	    <u><a ui-sref="home">Home</a></u>
 	    
 	    </md-subheader>
-	  </p>
+	  </p> -->
 	  
 	  <accordion close-others="oneAtATime">
-	    <!-- <accordion-group heading="Home">
-	      
-	    </accordion-group> -->
-	    <accordion-group heading="Provisioning" is-disabled="status.isFirstDisabled">
+	    <accordion-group>
+	      <accordion-heading><span><img src="assets/images/appbar.home.png" height="34px"></span><a ui-sref="home">Home</a></accordion-heading>
+	    </accordion-group>
+	    <accordion-group is-disabled="status.isFirstDisabled">
+	    <accordion-heading><span><img src="assets/images/appbar.database.png" height="34px"></span>Provisioning</accordion-heading>
 	      <ul>
 	        <li><a ng-click="app.open()" href="#">IaaS</a></li>
-	        <li><a ui-sref="login">Login Test</a></li>
+	        <li><a ng-click="templates()" href="#">Templates</a></li>
+	        <!-- <li><a ui-sref="login">Login Test</a></li> -->
 	        <li><a ui-sref="monitoring">PaaS</a></li>
+	        <li><a ng-click="logout()" href="#">Logout</a></li>
 	        <li>Application</li>
 	      </ul>
 	    </accordion-group>
-	    <accordion-group heading="Metrics">
+	    <accordion-group>
+	    <accordion-heading><span><img src="assets/images/appbar.graph.line.png" height="34px"></span>Metrics</accordion-heading>
 	      <ul>
 	        <li><a ng-click="monitor()">DevOps Dashboard 2</a></li>
-	        <li>Infrastructure Dashboard</li>
+	        <li><a ui-sref="stats">Infrastructure Dashboard</a></li>
 	        <li>Performance Dashboard</li>
 	        <li><a href="#">SOC Dashboard (Security Operations Center)</a></li>
 	        <li>NOC Dashboard (Network Operations Dashboard)</li>
@@ -37,5 +41,6 @@
 	  </accordion>
 	</div>
 	
-	<img src="assets/images/NewLogoTransparant.png" height="50%">
+	<!-- <img src="assets/images/NewLogoTransparant.png" height="50%"> -->
+	<!-- </ng-switch> -->
 	</md-sidenav>

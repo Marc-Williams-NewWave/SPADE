@@ -5,7 +5,7 @@ angular.module('spadeApp')
         $stateProvider
             .state('login', {
                 parent: 'account',
-                url: '/login',
+                url: '/',
                 data: {
                     roles: []
                 },
