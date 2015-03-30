@@ -278,17 +278,10 @@ angular.module('spadeApp')
     	
      	 $scope.launch = function(pod){
      		 console.log(pod);
-<<<<<<< HEAD
-     		 $http.post("http://192.168.0.95:8080/spade/api/demo/env", pod)
-=======
      		 
      		 $http.post("http://192.168.4.8:8080/spade/api/demo/env", pod)
->>>>>>> remotes/origin/Dev-Brandon
      		 	.success(function(data){
-     		 		console.log("success data returned ====> " + data);
-     		 });
-      	}
-     	 
+     	
      	$scope.deletePod = function(pod){
      		 console.log(pod);
      		 $http.delete("http://192.168.0.95:8080/spade/api/env", pod)
