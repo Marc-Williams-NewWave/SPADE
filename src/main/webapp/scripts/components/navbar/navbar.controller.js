@@ -37,5 +37,9 @@ angular.module('spadeApp')
         
         $scope.monitor = function () {
             $state.go('monitor2');
+        }
+        
+        $scope.stats = function () {
+            $state.go('stats');
         };
     })

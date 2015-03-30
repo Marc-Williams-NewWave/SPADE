@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <div ng-cloak style="background-color: #f1f7f9;">
+=======
+<div ng-cloak style="background-color: #f1f7f9;"></div>
+>>>>>>> remotes/origin/Dev-Brandon
 <!-- <md-toolbar md-scroll-shrink layout-row style="background-color:gray;">
     <div class="md-toolbar-tools" flex flex-order="1">
       <h3>
@@ -14,13 +18,18 @@
   <div class="container-fluid">
     
     <div class="navbar-header">
+<<<<<<< HEAD
       <div class="navbar-brand" style="color: white;">Provisioning - Project Lists</div>
+=======
+      <div ui-sref="stats" class="navbar-brand" style="color: white;">Infrastructure Dashboard - Resource View</div>
+>>>>>>> remotes/origin/Dev-Brandon
     </div>
 
     
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
       <ul class="nav navbar-nav">
         <li class="dropdown">
+<<<<<<< HEAD
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">Action</a></li>
@@ -30,6 +39,12 @@
             <li><a href="#">Separated link</a></li>
             <li class="divider"></li>
             <li><a href="#">One more separated link</a></li>
+=======
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">Switch View <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a ui-sref="statstable">Table View</a></li>
+            <li><a ui-sref="stats">Resource View</a></li>
+>>>>>>> remotes/origin/Dev-Brandon
           </ul>
         </li>
       </ul>
@@ -37,6 +52,7 @@
   </div>
 </nav>
 
+<<<<<<< HEAD
 
 <div>
 <md-grid-list class="md=padding" id='outer'>
@@ -54,4 +70,35 @@
 		</md-grid-tile>
     </div>
 </md-grid-list>
+=======
+<div>
+<div id="outer" >
+    <div id="main" class="md-content DynamicTabs">
+    
+     <md-tabs class="title" flex>
+<!--      <div ng-init="drawCharts" ng-cloak></div> -->
+     	<md-tab label="CPU" style="height:auto !important">
+     	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
+    		<pie-chart  data="slave.cpuData" options="options"></pie-chart>
+			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
+		</md-card>
+     	</md-tab>
+     	
+     	<md-tab label="Memory" style="height:auto !important">
+     	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
+    		<pie-chart data="slave.memData" options="options" flex></pie-chart>
+			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
+		</md-card>
+     	</md-tab>
+     	
+     	<md-tab label="Storage" style="height:auto !important">
+     	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
+    		<pie-chart data="slave.diskData" options="options" flex></pie-chart>
+			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
+		</md-card>
+     	</md-tab>
+     	</md-tabs>
+    </div>
+</div>
+>>>>>>> remotes/origin/Dev-Brandon
 </div>

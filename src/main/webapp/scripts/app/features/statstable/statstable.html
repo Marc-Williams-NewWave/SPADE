@@ -1,0 +1,81 @@
+<div ng-cloak style="background-color: #f1f7f9;"></div>
+<!-- <md-toolbar md-scroll-shrink layout-row style="background-color:gray;">
+    <div class="md-toolbar-tools" flex flex-order="1">
+      <h3>
+        <span>Provisioning - Project List</span>
+      </h3>
+       <div flex flex-order="3" align="left">
+    [flex-order="3"]
+  </div>
+    </div>
+   
+  </md-toolbar> -->
+<nav class="navbar navbar-default" style="background-color:gray;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div ui-sref="stats" class="navbar-brand" style="color: white;">Infrastructure Dashboard - Table View</div>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
+      <ul class="nav navbar-nav">
+<!--       	<li><button><ng-md-icon icon="cached" size="30" style="color:white"></ng-md-icon></button></li> -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">Switch View<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a ui-sref="statstable">Table View</a></li>
+            <li><a ui-sref="stats">Resource View</a></li>
+          </ul>
+        </li>
+<!--         <li> -->
+<!--         	<md-button type="button" class="md-raised btn btn-default navbar-btn"> -->
+<!--         		<ng-md-icon icon="cached" style="color:black"> -->
+<!--         	</md-button> -->
+<!--         </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div>
+<div id="outer" >
+	<md-card id="buttons" layout="row" >
+		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="create()">Create</md-button>
+		<div class="gap"></div>
+		<md-button class="md-raised md-noink" style="padding:5px 20px 5px 20px;">Edit</md-button>
+		<div class="gap"></div>
+		<md-button class="md-raised md-warn" style="padding:5px 20px 5px 20px;" ng-click="confirmDel($event)">Delete</md-button>
+	</md-card>
+    <md-card id="main" class="md-whiteframe-z2" flex>
+    <table st-table="displayedPods" st-safe-src="pods" class="table table-striped">
+	<thead>
+	<tr >
+		<th st-sort="header" ng-repeat="header in headers">{{header}}</th>
+	</tr>
+	<tr>
+		<th colspan="8">
+			<input st-search class="input-sm form-control" type="search" placeholder="Filter..." />
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr st-select-row="pod" st-select-mode="multiple" ng-repeat="pod in displayedPods">
+		<td>{{pod.labels.name}}</td>
+		<td>{{pod.id}}</td>
+		<td>{{pod.labels.project}}</td>
+		<td>{{pod.labels.stack}}</td>
+		<td ng-repeat="container in pod.desiredState.manifest.containers">{{container.name}}</td>
+		<td>{{pod.currentState.host}}</td>
+		<td></td>
+		<td><ng-md-icon icon="check_circle" style="color:green"><md-tooltip>{{pod.currentState.status}}</md-tooltip></ng-md-icon></td>
+	</tr>
+	</tbody>
+	<tfoot>
+	<tr>
+		<td colspan="8" class="text-center">
+			<div st-pagination="" st-items-by-page="3" st-displayed-pages="3"></div>
+		</td>
+	</tr>
+	</tfoot>
+</table>
+    </md-card>
+</div>
+</div>

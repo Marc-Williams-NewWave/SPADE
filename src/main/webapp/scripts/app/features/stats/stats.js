@@ -14,7 +14,22 @@ angular.module('spadeApp')
                         templateUrl: 'scripts/app/features/stats/stats.html',
                         controller: 'StatsController'
                     }
+<<<<<<< HEAD
                 }
+=======
+                },
+                resolve: {
+                    resolveSlaves:['SlaveService', function (slaveService) {
+                        return slaveService.getSlaves();
+                    }],
+                    resolveTasks:['TaskService', function (taskService) {
+                        return taskService.getTasks();
+                    }],
+                    resolvePods:['PodService', function (podService) {
+                        return podService.getPods();
+                    }]
+                },
+>>>>>>> remotes/origin/Dev-Brandon
 //                ,
 //                resolve: {
 //                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
