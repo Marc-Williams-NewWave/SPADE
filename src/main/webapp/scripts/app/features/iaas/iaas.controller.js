@@ -513,51 +513,30 @@ angular.module('spadeApp')
     		$scope.dbPod = templateService.items()[0].templates[2];
     	}
     	
-//    	$scope.webConfig = 'n/a';
-    	
     	$scope.conf = false;
     	
     	$scope.setWebConfig = function(item){
     		var conf = [];
     		for(i in $scope.webApps){
     			if($scope.webApps[i].app == item){
-    				console.log('EUREKA!');
-//    				$scope.webConfig = $scope.webApps[i];
-//    				console.log($scope.webApps[i]);
-//    				console.log($scope.webConfig);
     				for(var x = 0; x <  $scope.webApps[i].info.length; x++){
-//    					dbApps.push($scope.uniqueApps[i]);
     					conf.push($scope.webApps[i].info[x]);
-//    					console.log(conf);
     				}
     			}
     		}
     		
     		$scope.webConfig = conf;
-    		console.log('&&&&&&&');
-    		console.log($scope.webConfig);
-    		
     		for(var y = 0; y < $scope.webConfig.length; y++){
     			console.log($scope.webConfig[y]);
     		}
-    		
-//    		var currentApp = JSON.stringify($scope.webPod.app);
-//    		console.log("Current app is " + currentApp);
-    		
     	};
     	
     	$scope.setAppConfig = function(item){
     		var conf = [];
     		for(i in $scope.appApps){
     			if($scope.appApps[i].app == item){
-    				console.log('EUREKA!');
-//    				$scope.webConfig = $scope.webApps[i];
-//    				console.log($scope.webApps[i]);
-//    				console.log($scope.webConfig);
     				for(var x = 0; x <  $scope.appApps[i].info.length; x++){
-//    					dbApps.push($scope.uniqueApps[i]);
     					conf.push($scope.appApps[i].info[x]);
-//    					console.log(conf);
     				}
     			}
     		}
@@ -569,10 +548,6 @@ angular.module('spadeApp')
     		for(var y = 0; y < $scope.appConfig.length; y++){
     			console.log($scope.appConfig[y]);
     		}
-    		
-//    		var currentApp = JSON.stringify($scope.webPod.app);
-//    		console.log("Current app is " + currentApp);
-    		
     	};
     	
        	$scope.setDBConfig = function(item){
@@ -580,14 +555,8 @@ angular.module('spadeApp')
        		var conf = [];
     		for(i in $scope.dbApps){
     			if($scope.dbApps[i].app == item){
-    				console.log('EUREKA!');
-//    				$scope.webConfig = $scope.webApps[i];
-//    				console.log($scope.webApps[i]);
-//    				console.log($scope.webConfig);
     				for(var x = 0; x <  $scope.dbApps[i].info.length; x++){
-//    					dbApps.push($scope.uniqueApps[i]);
     					conf.push($scope.dbApps[i].info[x]);
-//    					console.log(conf);
     				}
     			}
     		}
@@ -599,10 +568,6 @@ angular.module('spadeApp')
     		for(var y = 0; y < $scope.dbConfig.length; y++){
     			console.log($scope.dbConfig[y]);
     		}
-    		
-//    		var currentApp = JSON.stringify($scope.webPod.app);
-//    		console.log("Current app is " + currentApp);
-    		
     	};
     	
     	
@@ -612,32 +577,6 @@ angular.module('spadeApp')
     	$scope.podArray[0] = $scope.webPod;
     	$scope.podArray[1] = $scope.appPod
     	$scope.podArray[2] = $scope.dbPod;
-    	
-    	console.log("POD ARRAY " + $scope.podArray);
-    	
-//    	$scope.podArray = {
-//    			"pods": [ {$scope.appPod}, {$scope.webPod}, {$scope.dbPod} ]};
-//    			            {
-//    			            	"name" : $scope.defaultPod.name,
-//    			    			"os": $scope.defaultPod.os,
-//    			              	"app" : $scope.defaultPod.app,
-//    			              	"replicas" : $scope.defaultPod.replicas,
-//    			              	"type": "web"
-//    			            },
-//    			            {
-//    			            	"name" : $scope.defaultPod.name,
-//    			    			"os": $scope.defaultPod.os,
-//    			              	"app" : $scope.defaultPod.app,
-//    			              	"replicas" : $scope.defaultPod.replicas,
-//    			              	"type": "app"
-//    			            },
-//    			            {
-//    			            	"name" : $scope.defaultPod.name,
-//    			    			"os": $scope.defaultPod.os,
-//    			              	"app" : $scope.defaultPod.app,
-//    			              	"replicas" : $scope.defaultPod.replicas,
-//    			              	"type": "db"
-//    			            }
     	
      	 
     	$scope.webPodNameError = false;
@@ -651,21 +590,30 @@ angular.module('spadeApp')
         $scope.dbPodNameError = false;
         $scope.dbPodOSError = false;
         $scope.dbPodAppError = false;
-
+        
+        $scope.payload = {
+        		  id: '',
+        		  project: "demo",
+        		  controllers: [$scope.podArray]
+        		}
         
      	 $scope.launch = function(){
-     		 console.log($scope.podArray);
+        	alert($scope.payload.name);
+     		console.log($scope.payload);
      		 
      		              
-     		 for(var x = 0; x < $scope.podArray.length; x++){
-     			 if($scope.podArray[x].replicas > 0){
+//     		 for(var x = 0; x < $scope.podArray.length; x++){
+//     			 if($scope.podArray[x].replicas > 0){
      				 //call validation function with current pod
-     				$http.post("http://192.168.4.8:8080/spade/api/demo/env", $scope.podArray[x])
-         		 	.success(function(data){
-         		 		console.log("success data returned ====> " + data);
-         		 });
-     			 }
-     		 }
+     				
+//     		 	$http.post("http://192.168.4.8:8080/spade/api/demo/env", $scope.payload)
+//         		 	.success(function(data){
+//         		 		console.log("success data returned ====> " + data);
+//         		 });
+     				
+     				
+//     			 }
+//     		 }
      		 
       	}
      	 

@@ -1,8 +1,35 @@
+<nav class="navbar navbar-default" style="background-color:gray;">
+  <div class="container-fluid">
+    
+    <div class="navbar-header">
+      <div class="navbar-brand" style="color: white;">Provisioning - Project Lists</div>
+    </div>
+
+    
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">View <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#" ng-click="gridView = !gridView">Grid View</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <div layout="row" layout-md="column" layout-wrap flex class="md-content">
+
 	<!-- <div class="container"> -->
 		<!-- <div flex ng-repeat="item in plates" > -->
 		
-		<md-card ng-repeat="item in plates" class="un-25" flex="20" style="background-color:white;">
+		<md-card ng-repeat="item in plates" class="un-25" flex="20" style="background-color:white;" ng-show="!gridView">
 			<md-card-content flex style="text-align:center">
 				<md-toolbar class="md-warn"><h4>{{item.id}}</h4></md-toolbar>
 				<div ng-repeat="temp in item.templates" style="padding: 4%;" flex>
@@ -15,6 +42,11 @@
 					</div>
 			</md-card-content>
 		</md-card>
+		
+		<div ng-show="gridView">
+		<p>Grid Here</p>
+		</div>
+</div>
 		
 		
 		<!-- <md-content>
@@ -54,4 +86,3 @@
 			</md-card> -->
 		<!-- </div> -->
 	<!-- </div> -->
-</div>
