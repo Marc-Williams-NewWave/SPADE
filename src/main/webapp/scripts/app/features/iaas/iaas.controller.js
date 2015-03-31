@@ -618,7 +618,6 @@ angular.module('spadeApp')
         		  project: "demo",
         		  controllers: $scope.podArray
         		}
-<<<<<<< HEAD
 //        var alert;
 //        $scope.showAlert = showAlert;
 //        
