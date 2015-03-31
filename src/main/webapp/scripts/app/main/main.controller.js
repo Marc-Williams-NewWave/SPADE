@@ -34,7 +34,7 @@ angular.module('spadeApp').controller('MainController', function($scope, Princip
 								"bradams/devops:cluster", "sewatech/modcluster" ]
 					}]
 				};
-			$scope.projects = json.items;
+//			$scope.projects = json.items;
 			
 //			var json = {
 //					"api" : "v0.0.4",

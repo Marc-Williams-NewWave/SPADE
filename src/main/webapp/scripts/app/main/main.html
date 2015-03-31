@@ -36,11 +36,24 @@
     </div>
   </div>
 </nav>
-	<div style="padding-left: 5%; padding-top: 1%;" class="listing">
+	<div>
 		<div layout="row">
-		<md-button class="md-raised md-primary md-hue-1" style="margin-bottom: 5%;font-size: large;" ng-repeat="project in projects">
-  	{{project.description}} - {{project.name}} 
-  </md-button>
+		<div style="padding-left: 5%; padding-top: 1%;" class="listing">
+			<md-button class="md-raised md-primary md-hue-1" style="font-size: large;" ng-repeat="project in projects" ui-sref="stats">
+			<div layout="column">
+				<div>
+		  			{{project.description}} - {{project.name}}
+		  		</div>
+			  	<div layout="row">
+			  	<img alt="servers" src="assets/images/appbar.server_1.png">
+			  		<h4 style="margin-top: auto;margin-bottom: auto;">{{project.environments.length}} environments</h4>
+			  	</div>
+			  	<div>
+			  		{{project.images.length}} images
+			  	</div>
+		  	</div> 
+	  </md-button>
+  </div>
 		</div>
 	</div>
 </div>

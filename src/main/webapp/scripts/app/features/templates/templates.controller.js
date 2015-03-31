@@ -2,7 +2,8 @@
 
 angular.module('spadeApp')
 
-.controller('TemplatesController', function($rootScope, $scope, $state, $timeout, Auth,$http,$mdDialog,$modal,templateService) {
+.controller('TemplatesController', function($rootScope, $scope, $state, $timeout, Auth,$http,$mdDialog,$modal,templateService, resolveTemplates) {
+		
 		$http.get("http://192.168.4.8:8080/spade/api/stack_templates")
 		.success(function(data) {
 				$scope.plates = data.items;
@@ -227,46 +228,119 @@ angular.module('spadeApp')
         	   $scope.reason = reason;
            });
    };
-   
+			    
+			    
+   $scope.templates2 = resolveTemplates.items;
+	$scope.headers = [
+	    "Id",
+	    "Project",
+	    "Name",
+	    "OS",
+	    "App",
+	    "Replicas"
+	    
+	];
+	$scope.confirmDel = function(ev) {
+	    // Appending dialog to document.body to cover sidenav in docs app
+	    var confirm = $mdDialog.confirm()
+	      //.parent(angular.element(document.body))
+	      .title("Confirm deletion?")
+	      .content("This operation cannot be undone")
+	      .ariaLabel("Deleting resource")
+	      .ok("Delete")
+	      .cancel("Cancel")
+	      .targetEvent(ev);
+	    $mdDialog.show(confirm)
+	      .then(function() {
+	      //$scope.delPod();
+	    }, function() {
+	      $mdDialog.hide();
+	    });
+	  };
+	  
+	$scope.delPod = function(pod){
+		var req = {
+				 method: "DELETE",
+				 url: "http://192.168.4.8:8080/spade/api/demo/" + pod.id
+		};
+		$http(req).then(function(response) {
+			$scope.delRes = response.data;
+		});
+	}
+	
+	$scope.displayedTemplates = [].concat($scope.templates2);
+})
+
+
+.factory('TemplateService2', function($http) {
+	return {
+		getPods : function() {
+			var promise = $http.get("http://192.168.4.8:8080/spade/api/stack_templates")
+			.then(function(response) {
+				return response.data;
+			});
+			return promise;
+		}
+	}
+})
+.directive('mdTable', function () {
+ return {
+   restrict: 'E',
+   scope: { 
+     headers: '=', 
+     content: '=', 
+     sortable: '=', 
+     filters: '=',
+     customClass: '=customClass',
+     thumbs:'=', 
+     count: '=' 
+   },
+   controller: function ($scope,$filter,$window) {
+     var orderBy = $filter('orderBy');
+     $scope.tablePage = 0;
+     $scope.nbOfPages = function () {
+       return Math.ceil($scope.content.length / $scope.count);
+     },
+     	$scope.handleSort = function (field) {
+         if ($scope.sortable.indexOf(field) > -1) { return true; } else { return false; }
+     };
+     $scope.order = function(predicate, reverse) {
+         $scope.content = orderBy($scope.content, predicate, reverse);
+         $scope.predicate = predicate;
+     };
+     $scope.order($scope.sortable[0],false);
+     $scope.getNumber = function (num) {
+     			    return new Array(num);
+     };
+     $scope.goToPage = function (page) {
+       $scope.tablePage = page;
+     };
+   },
+   template: angular.element(document.querySelector('#md-table-template')).html()
+ }
+})
+.directive('mdColresize', function ($timeout) {
+ return {
+   restrict: 'A',
+   link: function (scope, element, attrs) {
+     scope.$evalAsync(function () {
+       $timeout(function(){ $(element).colResizable({
+         liveDrag: true,
+         fixed: true
+         
+       });},100);
+     });
+   }
+ }
+})
+.filter('startFrom',function (){
+ return function (input,start) {
+   start = +start;
+   return input.slice(start);
+ }
+})	
+
 		
-				
-					
-					
-//					$scope.open = function(){
-//						$scope.templateFactoryService = templateService;
-//						 
-//						 
-//						$scope.templateFactoryService.addItem($scope.plates[0]);	
-//						
-//						$rootScope.$emit('openModal');
-//					}
-					
-//			        $scope.closeAlert = function () {
-//			        	$scope.reason = null;
-//			        };	
-//
-//			        $scope.open = function () {
-//			        	$rootScope.$broadcast('testObj', 'hi!!!!');
-//			        	
-//			            var modalInstance = $modal.open({
-//			                templateUrl: 'scripts/app/features/iaas/iaas.html',
-//			                controller: 'ModalCtrl',
-//			                controllerAs: 'modal'
-//			            });
-//
-//			            modalInstance.result
-//			                .then(function (data) {
-//			                	$scope.closeAlert();
-//			                	$scope.summary = data;
-//			                }, function (reason) {
-//			                	$scope.reason = reason;
-//			                });
-//			        };
-//			    
-			    
-			    
-			
-		})
 
 .controller('ModalCtrl2', function ($modalInstance,$scope,$mdDialog,$http,templateService) {
 	

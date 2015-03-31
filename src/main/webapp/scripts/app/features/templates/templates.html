@@ -44,7 +44,61 @@
 		</md-card>
 		
 		<div ng-show="gridView">
-		<p>Grid Here</p>
+		<div>
+
+<div id="outer" >
+	<md-card id="buttons" layout="row" >
+		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="create()">Create</md-button>
+		<div class="gap"></div>
+		<md-button class="md-raised md-noink" style="padding:5px 20px 5px 20px;">Edit</md-button>
+		<div class="gap"></div>
+		<md-button class="md-raised md-warn" style="padding:5px 20px 5px 20px;" ng-click="confirmDel($event)">Delete</md-button>
+	</md-card>
+    <md-card id="main" class="md-whiteframe-z2" flex>
+    <table st-table="displayedPods" st-safe-src="pods" class="table table-striped">
+	<thead>
+	<tr >
+		<th st-sort="header" ng-repeat="header in headers">{{header}}</th>
+	</tr>
+	<tr>
+		<th colspan="8">
+			<input st-search class="input-sm form-control" type="search" placeholder="Filter..." />
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr st-select-row="pod" st-select-mode="multiple" ng-repeat="template in displayedTemplates">
+		<td>{{template.id}}</td>
+		<td>{{template.project}}</td>
+		<td>{{template.templates[$index].name}}</td>
+		<td>{{template.templates[$index].os}}</td>
+		<td>{{template.templates[$index].app}}</td>
+		<td>{{template.templates[$index].replicas}}</td>
+		<!-- <div ng-repeat="innerTemp in template.templates">
+			<td>{{innerTemp.name}}</td>
+			<td>{{innerTemp.os}}</td>
+			<td>{{innerTemp.app}}</td>
+			<td>{{innerTemp.replica}}</td>
+		</div> -->
+		<!-- <td ng-repeat="innerTemp in template.templates">{{innerTemp.name}}</td>
+		<td ng-repeat="innerTemp in template.templates">{{innerTemp.os}}</td>
+		<td ng-repeat="innerTemp in template.templates">{{innerTemp.app}}</td>
+		<td ng-repeat="innerTemp in template.templates">{{innerTemp.replicas}}</td>
+		<td></td> -->
+		<!-- <td><ng-md-icon icon="check_circle" style="color:green"><md-tooltip>{{pod.currentState.status}}</md-tooltip></ng-md-icon></td> -->
+	</tr>
+	</tbody>
+	<tfoot>
+	<tr>
+		<td colspan="8" class="text-center">
+			<div st-pagination="" st-items-by-page="3" st-displayed-pages="3"></div>
+		</td>
+	</tr>
+	</tfoot>
+</table>
+    </md-card>
+</div>
+</div>
 		</div>
 </div>
 		

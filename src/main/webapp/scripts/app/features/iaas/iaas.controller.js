@@ -589,7 +589,7 @@ angular.module('spadeApp')
         $scope.dbPodAppError = false;
         
         $scope.payload = {
-        		  id: '',
+        		  id: "",
         		  project: "demo",
         		  controllers: $scope.podArray
         		}
@@ -598,6 +598,7 @@ angular.module('spadeApp')
      		console.log($scope.payload);
      		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
          		 	.success(function(data){
+         		 		
          		 		console.log("success data returned ====> " + data);
          		 });	
       	}

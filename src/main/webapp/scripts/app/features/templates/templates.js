@@ -14,7 +14,12 @@ angular.module('spadeApp')
                         templateUrl: 'scripts/app/features/templates/templates.html',
                         controller: 'TemplatesController'
                     }
-                }
+                },
+                resolve: {
+                    resolveTemplates:['TemplateService2', function (templateService2) {
+                        return templateService2.getPods();
+                    }] 
+                },
 //                ,
 //                resolve: {
 //                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
