@@ -1,15 +1,22 @@
+<md-toast ng-show="showToast" ng-cloak>
+  <span flex>Custom toast!</span>
+  <md-button ng-click="closeToast()">
+    Close
+  </md-button>
+</md-toast>
+
 <div layout="row">
 <div layout="row">
 	<div style="width: 530px;">
 		<div class="modal-header">
-			<md-toolbar class="md-warn">
+			<md-toolbar class="md-primary">
 			<div class="md-toolbar-tools">
 				<span class="md-flex"><h3>Describe Your Stack</h3></span>
 			</div>
 			</md-toolbar>
 		</div>
 			<div class="modal-body">
-				<md-toolbar class="md-warn" style="height:40px; min-height: 0px;">
+				<md-toolbar class="md-primary" style="height:40px; min-height: 0px;">
 				<div class="md-toolbar-tools">
 					<span class="md-flex">Default Operating System</span>
 				</div>
@@ -20,7 +27,7 @@
 			      <label>Stack Name</label> <input ng-model="payload.id">
     			</md-input-container>
 				<md-checkbox ng-model="oneOS">Select a default operating system for your entire stack?</md-checkbox>
-					 <select style="padding-left: 16px;" ui-select2  data-placeholder="Select an OS" ng-model="pod.os" ng-change="setPodsOS(pod.os)">
+					 <select style="" ui-select2  data-placeholder="Select an OS" ng-model="pod.os" ng-change="setPodsOS(pod.os)">
 					 <option value=""></option>
 					 <option ng-repeat="os in osOptions" value="{{os}}">{{os}}</option>
 					 </select>
@@ -28,22 +35,22 @@
 				</md-content>
 			</div>
 
-			<div class="modal-body" style="width: 530px;">
-			<div class="tabsdemoStaticTabs sample">
-    <md-tabs class="md-warn" md-selected="data.selectedIndex" style="">
-      <md-tab id="tab1" aria-controls="tab1-content" style="height: auto !important;text-transform: none !important">
-        Web Server
-      </md-tab>
-      <md-tab id="tab2" aria-controls="tab2-content" ng-disabled="data.secondLocked" style="height: auto !important;text-transform: none !important">
-        App Server
-      </md-tab>
-      <md-tab id="tab3" aria-controls="tab3-content" style="height: auto !important;text-transform: none !important">
-        Database
-      </md-tab>
-    </md-tabs>
+			<div class="modal-body" style="width: auto;">
+			<div class="tabsdemoStaticTabs sample" flex>
+			    <md-tabs class="md-primary" md-selected="data.selectedIndex" style="" flex>
+				      <md-tab  aria-controls="tab1-content" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);width:160px !important;">
+				        	Web Server
+				      </md-tab>
+				      <md-tab  aria-controls="tab2-content" ng-disabled="data.secondLocked" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);width:160px !important;">
+				        	App Server
+				      </md-tab>
+				      <md-tab  aria-controls="tab3-content" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);width:160px !important;">
+				        	Database
+				      </md-tab>
+			    </md-tabs>
     <ng-switch on="data.selectedIndex" class="tabpanel-container" >
         <div role="tabpanel" id="tab1-content" aria-labelledby="tab1" ng-switch-when="0">
-            	<md-toolbar class="md-warn" style="height:40px; min-height: 0px;">
+            	<md-toolbar class="md-primary" style="height:40px; min-height: 0px;">
 						<!-- <div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Web Server:</span>
 						</div> -->
@@ -117,7 +124,7 @@
              aria-labelledby="tab2"
              ng-switch-when="1"
              >
-            <md-toolbar class="md-warn" style="height:40px; min-height: 0px;">
+            <md-toolbar class="md-primary" style="height:40px; min-height: 0px;">
 						<div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Application Server:</span>
 						</div>
@@ -180,7 +187,7 @@
              aria-labelledby="tab3"
              ng-switch-when="2"
               >
-            <md-toolbar class="md-warn" style="height:40px; min-height: 0px;">
+            <md-toolbar class="md-primary" style="height:40px; min-height: 0px;">
 						<div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Database:</span>
 						</div>
@@ -282,7 +289,7 @@
 				</div> -->
 				<!-- <div ng-switch="modal.getCurrentStep()" class="slide-frame">
 					<div ng-switch-when="one" class="wave" style="width: 530px;">
-						<md-toolbar class="md-warn">
+						<md-toolbar class="md-primary">
 						<div class="md-toolbar-tools">
 							<span class="md-flex">Single Server or Stack?</span>
 						</div>
@@ -292,7 +299,7 @@
 						</md-content>
 					</div>
 					<div ng-switch-when="one" class="wave" style="">
-						<md-toolbar class="md-warn" style="height:40px; min-height: 0px;">
+						<md-toolbar class="md-primary" style="height:40px; min-height: 0px;">
 						<div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Web Server:</span>
 						</div>
@@ -352,7 +359,7 @@
 							</md-content>
 					</div>
 					<div ng-switch-when="two" class="wave" style="">
-					<md-toolbar class="md-warn" style="height:40px; min-height: 0px;">
+					<md-toolbar class="md-primary" style="height:40px; min-height: 0px;">
 						<div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Application Server:</span>
 						</div>
@@ -406,7 +413,7 @@
 									</div>
 								</div>
 							</md-content>
-						<md-toolbar class="md-warn">
+						<md-toolbar class="md-primary">
 						<div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Application Server:</span>
 						</div>
@@ -482,7 +489,7 @@
 						 
 					</div>
 						<div ng-switch-when="three" class="wave" style="">
-						<md-toolbar class="md-warn" style="height:40px; min-height: 0px;">
+						<md-toolbar class="md-primary" style="height:40px; min-height: 0px;">
 						<div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Database:</span>
 						</div>
@@ -549,12 +556,12 @@
 	</div>
 	
 	<div flex="33" style="" class="modal-header" ng-model="podArray">
-				<md-toolbar class="md-warn">
+				<md-toolbar class="md-primary">
 				<div class="md-toolbar-tools">
 					<span class="md-flex">Your Stack</span>
 				</div>
 				</md-toolbar>
-				<md-toolbar class="md-warn">
+				<md-toolbar class="md-primary">
 				<div class="md-toolbar-tools" ng-model="payload">
 					<span class="md-flex">{{payload.id}}</span>
 				</div>

@@ -4,6 +4,7 @@ html {
 	-webkit-text-size-adjust: 100%
 }
 
+/* 
 html, body, div, span, object, iframe, p, blockquote, pre, a, abbr,
 	acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s,
 	samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt,
@@ -20,7 +21,7 @@ html, body, div, span, object, iframe, p, blockquote, pre, a, abbr,
 	background: transparent;
 	font-style: normal
 }
-
+ */
 a:active, a:hover {
 	outline: 0
 }
@@ -72,9 +73,9 @@ thead th, thead td {
 	vertical-align: bottom
 }
 
-a img, th img, td img {
+/* a img, th img, td img {
 	vertical-align: top
-}
+} */
 
 button, input, select, textarea {
 	margin: 0
@@ -195,12 +196,12 @@ hgroup {
 	margin-bottom: .6em
 }
 
-.subheader {
+/* .subheader {
 	font-weight: 300;
 	color: #888
-}
+} */
 
-h1.subheader {
+/* h1.subheader {
 	font-size: 1.357em;
 	line-height: 1.263em
 }
@@ -223,15 +224,15 @@ h4.subheader, h5.subheader {
 h6.subheader {
 	font-size: .8em;
 	line-height: 1.364em
-}
+} */
 
-p, ul, ol, dl, dd, dt, blockquote, td, th {
+/* p, ul, ol, dl, dd, dt, blockquote, td, th {
 	line-height: 1.65em
-}
+} */
 
-ul, ol, ul ul, ol ol, ul ol, ol ul {
+/* ul, ol, ul ul, ol ol, ul ol, ol ul {
 	margin: 0 0 0 2em
-}
+} */
 
 ol ol li {
 	list-style-type: lower-alpha

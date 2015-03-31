@@ -2,7 +2,7 @@
   <div class="container-fluid">
     
     <div class="navbar-header">
-      <div class="navbar-brand" style="color: white;">Provisioning - Project Lists</div>
+      <div class="navbar-brand" style="color: white;">Provisioning - Templates Lists</div>
     </div>
 
     
@@ -24,25 +24,26 @@
     </div>
   </div>
 </nav>
-<div layout="row" layout-md="column" layout-wrap flex class="md-content">
+<div layout="row" layout-md="column" layout-wrap flex class="md-content" style="padding-left: 4%;" ng-show="!gridView">
 
 	<!-- <div class="container"> -->
 		<!-- <div flex ng-repeat="item in plates" > -->
 		
-		<md-card ng-repeat="item in plates" class="un-25" flex="20" style="background-color:white; border-radius:12px;" ng-show="!gridView">
-			<md-card-content flex style="text-align:center">
-				<md-toolbar class="md-warn"><h4>{{item.id}}</h4></md-toolbar>
+		<md-card ng-repeat="item in plates" class="un-25" flex="20" style="background-color:white; border-radius:12px;">
+			<md-card-content flex style="text-align:center;padding:0px;">
+				<md-toolbar class="md-primary" style="border-radius:8px;"><h4>{{item.id}}</h4></md-toolbar>
 				<div ng-repeat="temp in item.templates" style="padding: 4%;" flex>
 						<h3 style="margin-top: 0px;margin-bottom: 0px;">{{temp.name}}</h3>
 						<span>{{temp.app}}</span>
 					</div>
-					<div layout="row" layout-align="space-around center" flex>
-						<md-button class="md-warn" style="background-color:#3f51b5;color:white" ng-click="open2(item)">Edit</md-button>
-						<md-button class="md-warn" style="background-color:#3f51b5;color:white">Launch</md-button>
+					<div layout="row" layout-align="space-around center" flex style="padding-bottom: 1%;">
+						<md-button class="md-primary" style="background-color:#1e88e5;color:white" ng-click="open2(item)">Edit</md-button>
+						<md-button class="md-primary" style="background-color:#1e88e5;color:white">Launch</md-button>
+						<md-button class="md-primary" style="background-color:#1e88e5;color:white">Delete</md-button>
 					</div>
 			</md-card-content>
 		</md-card>
-		
+		</div>
 		<div ng-show="gridView">
 		<div>
 
@@ -55,7 +56,7 @@
 		<md-button class="md-raised md-warn" style="padding:5px 20px 5px 20px;" ng-click="confirmDel($event)">Delete</md-button>
 	</md-card>
     <md-card id="main" class="md-whiteframe-z2" flex>
-    <table st-table="displayedPods" st-safe-src="pods" class="table table-striped">
+    <table st-table="displayedTemplates" st-safe-src="templates2" class="table table-striped">
 	<thead>
 	<tr >
 		<th st-sort="header" ng-repeat="header in headers">{{header}}</th>
@@ -100,7 +101,7 @@
 </div>
 </div>
 		</div>
-</div>
+
 		
 		
 		<!-- <md-content>

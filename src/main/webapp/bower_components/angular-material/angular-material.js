@@ -26,9 +26,31 @@ angular
 function MdCoreConfigure($provide, $mdThemingProvider) {
 
   $provide.decorator('$$rAF', ["$delegate", rAFDecorator]);
-
+  
+  $mdThemingProvider.definePalette('amazingPaletteName', {
+	    '50': 'ffebee',
+	    '100': 'ffffff',
+	    '200': '1e88e5',
+	    '300': '1e88e5',
+	    '400': 'ef5350',
+	    '500': '1e88e5', // this is the displayed color when a user hovers over element
+	    '600': '1e88e5',
+	    '700': '1e88e5',
+	    '800': '1e88e5',
+	    '900': '1e88e5',
+	    'A100': '1e88e5',
+	    'A200': '1e88e5',
+	    'A400': '1e88e5',
+	    'A700': '1e88e5',
+	    'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
+	                                        // on this palette should be dark or light
+	    'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+	     '200', '300', '400', 'A100'],
+	    'contrastLightColors': undefined    // could also specify this if default was 'dark'
+	  });
+  
   $mdThemingProvider.theme('default')
-    .primaryPalette('blue-grey')
+    .primaryPalette('amazingPaletteName')
     .accentPalette('amber')
     .warnPalette('indigo')
     .backgroundPalette('grey');

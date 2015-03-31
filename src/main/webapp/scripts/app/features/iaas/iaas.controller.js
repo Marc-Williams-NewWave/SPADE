@@ -71,7 +71,31 @@ angular.module('spadeApp')
 	 
 	 })
 
-    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService) {
+    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService,$mdToast, $animate) {
+    	$scope.toastPosition = {
+    		    bottom: false,
+    		    top: true,
+    		    left: false,
+    		    right: true
+    		  };
+    	
+    	$scope.getToastPosition = function() {
+    	    return Object.keys($scope.toastPosition)
+    	      .filter(function(pos) { return $scope.toastPosition[pos]; })
+    	      .join(' ');
+    	  };
+    	  
+    	  $scope.showToast = false;
+    	  
+    	  $scope.showCustomToast = function() {
+//    		    $mdToast.show({
+//    		      controller: 'ToastCtrl',
+//    		      templateUrl: 'scripts/app/features/iaas/toast-template.html',
+//    		      hideDelay: 6000,
+//    		      position: $scope.getToastPosition()
+//    		    });
+    		  $scope.showToast = true;  
+    		  };
     	console.log($scope.images);
     	console.log($scope.$parent.images);
     	
@@ -593,14 +617,32 @@ angular.module('spadeApp')
         		  project: "demo",
         		  controllers: $scope.podArray
         		}
-        
+//        var alert;
+//        $scope.showAlert = showAlert;
+//        
+//        function showAlert() {
+//            alert = $mdDialog.alert()
+//              .title('Attention, ' + $scope.userName)
+//              .content('This is an example of how easy dialogs can be!')
+//              .ok('Close');
+//
+//            $mdDialog
+//                .show( alert )
+//                .finally(function() {
+//                  alert = undefined;
+//                });
+//          }
+     	  
+          
      	 $scope.launch = function(){
      		console.log($scope.payload);
-     		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
-         		 	.success(function(data){
-         		 		
-         		 		console.log("success data returned ====> " + data);
-         		 });	
+//     		$scope.showAlert();
+     		$scope.showCustomToast();
+//     		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
+//         		 	.success(function(data){
+//         		 		
+//         		 		console.log("success data returned ====> " + data);
+//         		 });	
       	}
      	 
 //     	$scope.deletePod = function(pod){
@@ -611,19 +653,7 @@ angular.module('spadeApp')
 //     		 });
 //     	}
      	 
-     	$scope.alert = '';
-     	  $scope.showAlert = function() {
-     	    $mdDialog.show(
-     	      $mdDialog.alert()
-     	        .title('This is an alert title')
-     	        .content('You can specify some description text in here.')
-     	        .ariaLabel('Password notification')
-     	        .ok('Got it!')
-//     	        .targetEvent(ev)
-     	    );
-     	  };
-     	  
-     	  
+        
     	var modal = this;
 
         modal.steps = ['one', 'two', 'three'];
@@ -656,7 +686,7 @@ angular.module('spadeApp')
         		$scope.isDisabled = !modal.launchReady();
         		
         		
-        		return 'Click Above To Launch Your Pod';
+        		return 'Launch';
         	} else{
         		return 'Next'
         	}
@@ -736,4 +766,10 @@ angular.module('spadeApp')
   		    $scope.previous = function() {
   		      $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
   		    };
-    });
+    })
+    
+.controller('ToastCtrl', function($scope, $mdToast) {
+	  $scope.closeToast = function() {
+	    $mdToast.hide();
+	  };
+	});
