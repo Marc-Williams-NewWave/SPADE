@@ -55,7 +55,7 @@
 		<md-button class="md-raised md-warn" style="padding:5px 20px 5px 20px;" ng-click="confirmDel($event)">Delete</md-button>
 	</md-card>
     <md-card id="main" class="md-whiteframe-z2" flex>
-    <table st-table="displayedPods" st-safe-src="pods" class="table table-striped">
+    <table st-table="displayedTemplates" st-safe-src="templates2" class="table table-striped">
 	<thead>
 	<tr >
 		<th st-sort="header" ng-repeat="header in headers">{{header}}</th>
@@ -67,7 +67,7 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr st-select-row="pod" st-select-mode="multiple" ng-repeat="template in displayedTemplates">
+	<tr st-select-row="template" st-select-mode="multiple" ng-repeat="template in displayedTemplates">
 		<td>{{template.id}}</td>
 		<td>{{template.project}}</td>
 		<td>{{template.templates[$index].name}}</td>
