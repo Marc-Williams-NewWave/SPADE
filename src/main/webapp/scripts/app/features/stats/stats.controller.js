@@ -20,7 +20,6 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
 			+ ',' + Math.floor(Math.random() * 255) 
 			+ ',' + Math.floor(Math.random() * 255) + ')';
 			var task = $scope.tasks[j];
-			console.log()
 			if (task.slaveId === slave.id){
 				cpuTotal += task.cpuPercent;
 				memTotal += task.memPercent;
@@ -31,7 +30,7 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
 			}
 		}
 		slave.cpuData.push({label: "unused", value: 100-cpuTotal, color: "grey"});
-		slave.memData.push({label: "unused", value: 100-memTotal, color: "white"});
+		slave.memData.push({label: "unused", value: 100-memTotal, color: "grey"});
 		slave.diskData.push({label: "unused", value: 100-diskTotal, color: "grey"});
 }
 	function drawCharts(){
@@ -65,7 +64,7 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
 				}
 			}
 			slave.cpuData.push({label: "unused", value: 100-cpuTotal, color: "grey"});
-			slave.memData.push({label: "unused", value: 100-memTotal, color: "white"});
+			slave.memData.push({label: "unused", value: 100-memTotal, color: "grey"});
 			slave.diskData.push({label: "unused", value: 100-diskTotal, color: "grey"});
 	}
 	}

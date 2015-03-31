@@ -96,6 +96,7 @@ angular.module('spadeApp')
 //    		    });
     		  $scope.showToast = true;  
     		  };
+    		  
     	console.log($scope.images);
     	console.log($scope.$parent.images);
     	
@@ -617,6 +618,7 @@ angular.module('spadeApp')
         		  project: "demo",
         		  controllers: $scope.podArray
         		}
+<<<<<<< HEAD
 //        var alert;
 //        $scope.showAlert = showAlert;
 //        
@@ -653,7 +655,19 @@ angular.module('spadeApp')
 //     		 });
 //     	}
      	 
-        
+     	$scope.alert = '';
+     	  $scope.showAlert = function() {
+     	    $mdDialog.show(
+     	      $mdDialog.alert()
+     	        .title('This is an alert title')
+     	        .content('You can specify some description text in here.')
+     	        .ariaLabel('Password notification')
+     	        .ok('Got it!')
+//     	        .targetEvent(ev)
+     	    );
+     	  };
+     	  
+     	  
     	var modal = this;
 
         modal.steps = ['one', 'two', 'three'];
@@ -682,10 +696,7 @@ angular.module('spadeApp')
 
         modal.getNextLabel = function () {
         	if(modal.isLastStep()){
-        		
         		$scope.isDisabled = !modal.launchReady();
-        		
-        		
         		return 'Launch';
         	} else{
         		return 'Next'
