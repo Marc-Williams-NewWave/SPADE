@@ -17,9 +17,14 @@ angular.module('spadeApp')
                     }
                 },
                 resolve: {
-                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('iaas');
-                        return $translate.refresh();
+//                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+//                        $translatePartialLoader.addPart('iaas');
+//                        return $translate.refresh();
+//                    }]
+
+                    resolveImages:['ImageService', function (imageService) {
+                    	return imageService.getImages();
+//                        return slaveService.getSlaves();
                     }]
                 }
             });

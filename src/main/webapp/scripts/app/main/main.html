@@ -36,34 +36,24 @@
     </div>
   </div>
 </nav>
-	<div style="padding-left: 5%; padding-top: 1%;">
-		<div layout="row" ng-repeat="project in projects">
-		<md-button class="md-raised md-primary md-hue-1" style="background-color:#FFFF00;margin-bottom: 5%;font-size: large;">
-  	{{project.description}}
-  	{{project.name}}
-  </md-button>
-			<!-- <div flex="33">
-				<div class="panel panel-default">
-					<h3 class="panel-heading">{{proj.name}}</h3>
-					<div class="panel panel-heading">
-						<h3 class="panel-title">{{project.description}}</h3>
-					</div>
-					<div class="panel-body">{{project.name}}</div>
-				</div>
-			</div> -->
+	<div>
+		<div layout="row">
+		<div style="padding-left: 5%; padding-top: 1%;" class="listing">
+			<md-button class="md-raised md-primary md-hue-1" style="font-size: large;" ng-repeat="project in projects" ui-sref="stats">
+			<div layout="column">
+				<div>
+		  			{{project.description}} - {{project.name}}
+		  		</div>
+			  	<div layout="row">
+			  	<img alt="servers" src="assets/images/appbar.server_1.png">
+			  		<h4 style="margin-top: auto;margin-bottom: auto;">{{project.environments.length}} environments</h4>
+			  	</div>
+			  	<div>
+			  		{{project.images.length}} images
+			  	</div>
+		  	</div> 
+	  </md-button>
+  </div>
 		</div>
 	</div>
-	<!-- </div> -->
-
-	<!-- <ul>
-
-		<li ><span> {{ user.name }} </span>
-		<span> aka {{user.nickname }} </span>
-			<ul>
-				<li ng-repeat="proj in user.projects">{{proj.name}}</li>
-			</ul>
-			</li>
-
-	</ul> -->
-	<div ui-view="stats"><h1>HEY</h1></div>
 </div>
