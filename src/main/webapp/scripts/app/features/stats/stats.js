@@ -26,12 +26,5 @@ angular.module('spadeApp')
                         return podService.getPods();
                     }]
                 },
-//                ,
-//                resolve: {
-//                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-//                        $translatePartialLoader.addPart('stats');
-//                        return $translate.refresh();
-//                    }]
-//                }
             });
     });

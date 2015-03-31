@@ -32,7 +32,7 @@ angular.module('spadeApp')
 
         $scope.logout = function () {
             Auth.logout();
-            $state.go('home');
+            $state.go('login');
         };
         
         $scope.monitor = function () {
@@ -41,5 +41,9 @@ angular.module('spadeApp')
         
         $scope.stats = function () {
             $state.go('stats');
+        };
+        
+        $scope.templates = function () {
+            $state.go('templates');
         };
     })

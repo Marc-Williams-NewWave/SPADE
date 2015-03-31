@@ -36,33 +36,11 @@
     </div>
   </div>
 </nav>
-	<div style="padding-left: 5%; padding-top: 1%;">
-		<div layout="row" ng-repeat="project in projects">
-		<md-button class="md-raised md-primary md-hue-1" style="margin-bottom: 5%;font-size: large;">
+	<div style="padding-left: 5%; padding-top: 1%;" class="listing">
+		<div layout="row">
+		<md-button class="md-raised md-primary md-hue-1" style="margin-bottom: 5%;font-size: large;" ng-repeat="project in projects">
   	{{project.description}} - {{project.name}} 
   </md-button>
-			<!-- <div flex="33">
-				<div class="panel panel-default">
-					<h3 class="panel-heading">{{proj.name}}</h3>
-					<div class="panel panel-heading">
-						<h3 class="panel-title">{{project.description}}</h3>
-					</div>
-					<div class="panel-body">{{project.name}}</div>
-				</div>
-			</div> -->
 		</div>
 	</div>
-	<!-- </div> -->
-
-	<!-- <ul>
-
-		<li ><span> {{ user.name }} </span>
-		<span> aka {{user.nickname }} </span>
-			<ul>
-				<li ng-repeat="proj in user.projects">{{proj.name}}</li>
-			</ul>
-			</li>
-
-	</ul> -->
-	<div ui-view="stats"><h1>HEY</h1></div>
 </div>

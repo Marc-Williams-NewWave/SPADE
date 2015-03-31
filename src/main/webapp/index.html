@@ -15,8 +15,9 @@
 <!-- build:css assets/styles/vendor.css -->
 <!-- bower:css -->
 <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" /> -->
- 
-
+<link type="text/css" rel="stylesheet" href="assets/n3-pie-chart/css/kube.min.css">
+ <link rel="stylesheet" href="assets/styles/pie-chart.css">
+ <link rel="stylesheet" href="css/stylesheet.css">
 <!-- endbower -->
 <!-- endbuild -->
 <!-- build:css assets/styles/main.css -->
@@ -25,16 +26,31 @@
 <!-- endbuild -->
 
 <!-- <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"> -->
- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/0.7.0/angular-material.min.css">
+ <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/0.7.0/angular-material.min.css"> -->
     <link type="text/css" rel="stylesheet" href="assets/styles/d3-style.css">
-    <link type="text/css" rel="stylesheet" href="assets/n3-pie-chart/css/kube.min.css">
+    
+<link rel="stylesheet" href="./bower_components/angular-material/angular-material.css">
+
+
+
+<!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.7.0/angular-material.min.css"> -->
+
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+
 <link rel="stylesheet" href="assets/styles/bootstrap.min.css">
 <link rel="stylesheet" href="assets/styles/pie-chart.css">
 <link rel="stylesheet" href="assets/styles/loading-bar.css">
 <link rel="stylesheet" href="assets/styles/main.css">
 <link rel="stylesheet" href="css/stylesheet.css">
 <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
+
+<link rel="stylesheet" href="bower_components/select2/select2.css">
+ 
+ 
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script> -->
+
+	<!-- Angular Material Dependencies -->
 
 
 	<!-- Angular Material Dependencies -->
@@ -80,13 +96,16 @@
 	<!-- <md-button>
   Button
 </md-button> -->
+<div layout="row">
+<img src="assets/images/SPADEIcon.png" height="70px" style="background-color: #607d8b;">
 <md-toolbar layout="row" layout-align="center">
       <h1 ui-sref="home">Self Service Portal Automating Deployment Environments</h1>
     </md-toolbar>
+    </div>
 	
 	  <section layout="row" flex>
 	
-	<div ui-view="navbar" layout="vertical" ng-cloak="">
+	<div ui-view="navbar" layout="vertical" style="height: auto !important;">
 	<!-- <div class="container"> -->
 		</div>
 	
@@ -114,11 +133,19 @@
 
 	<script src="bower_components/d3/d3.min.js"></script>
 	
+
+
 	<script src="bower_components/modernizr/modernizr.js"></script>
-	<script src="bower_components/jquery/dist/jquery.js"></script>
+	
 	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 	<script src="bower_components/json3/lib/json3.js"></script>
 	<!-- <script src="bower_components/angular/angular.js"></script> -->
+	
+	
+	
+<script src="bower_components/select2/select2.js"></script>
+<script src="bower_components/angular-ui-select2/src/select2.js"></script>
+
 	
 	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -133,8 +160,7 @@
 		src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
 	<script
 		src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-	<script
-		src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
+	<script src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
 	<!-- <script
 		src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script> -->
 
@@ -185,9 +211,11 @@
 	<script src="scripts/app/account/monitor/monitor.controller.js"></script>
 	
 	<script src="scripts/app/features/features.js"></script>
-
 	<script src="scripts/app/features/iaas/iaas.js"></script>
 	<script src="scripts/app/features/iaas/iaas.controller.js"></script>
+	
+	<script src="scripts/app/features/templates/templates.js"></script>
+	<script src="scripts/app/features/templates/templates.controller.js"></script>
 
 <!-- 	<script src="scripts/app/features/monitor/monitor.js"></script>
 	<script src="scripts/app/features/monitor/monitor.controller.js"></script> -->
