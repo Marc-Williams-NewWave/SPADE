@@ -29,7 +29,7 @@
 	<!-- <div class="container"> -->
 		<!-- <div flex ng-repeat="item in plates" > -->
 		
-		<md-card ng-repeat="item in plates" class="un-25" flex="20" style="background-color:white;" ng-show="!gridView">
+		<md-card ng-repeat="item in plates" class="un-25" flex="20" style="background-color:white; border-radius:12px;" ng-show="!gridView">
 			<md-card-content flex style="text-align:center">
 				<md-toolbar class="md-warn"><h4>{{item.id}}</h4></md-toolbar>
 				<div ng-repeat="temp in item.templates" style="padding: 4%;" flex>

@@ -3,7 +3,7 @@
 angular.module('spadeApp')
 
 .controller('TemplatesController', function($rootScope, $scope, $state, $timeout, Auth,$http,$mdDialog,$modal,templateService) {
-		$http.get("http://192.168.4.8:8080/spade/api/stacks")
+		$http.get("http://192.168.4.8:8080/spade/api/stack_templates")
 		.success(function(data) {
 				$scope.plates = data.items;
 			})

@@ -594,22 +594,23 @@ angular.module('spadeApp')
         $scope.payload = {
         		  id: '',
         		  project: "demo",
-        		  controllers: [$scope.podArray]
+        		  controllers: $scope.podArray
         		}
         
      	 $scope.launch = function(){
-        	alert($scope.payload.name);
      		console.log($scope.payload);
-     		 
+//     		 for(x in $scope.payload.controllers){
+//     			 console.log(x);
+//     		 }
      		              
 //     		 for(var x = 0; x < $scope.podArray.length; x++){
 //     			 if($scope.podArray[x].replicas > 0){
      				 //call validation function with current pod
      				
-//     		 	$http.post("http://192.168.4.8:8080/spade/api/demo/env", $scope.payload)
-//         		 	.success(function(data){
-//         		 		console.log("success data returned ====> " + data);
-//         		 });
+     		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
+         		 	.success(function(data){
+         		 		console.log("success data returned ====> " + data);
+         		 });	
      				
      				
 //     			 }
