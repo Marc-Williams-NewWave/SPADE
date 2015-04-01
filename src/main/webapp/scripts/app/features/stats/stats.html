@@ -35,12 +35,18 @@
 <div>
 <div id="outer" >
     <div id="main" class="md-content DynamicTabs">
-    
+    <md-card id="buttons" layout="row" >
+		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="create()">Create</md-button>
+	</md-card>
+	     	<md-card class="un-25 md-whiteframe-z2" flex><nvd3 options="options2" data="data" config="chartConfig" api="api" class="un-25 chart md-whiteframe-z2" style="height:100%"flex></nvd3></md-card>
+	
      <md-tabs class="title" flex>
-<!--      <div ng-init="drawCharts" ng-cloak></div> -->
+     
      	<md-tab label="CPU" style="height:auto !important">
+     	
      	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
-    		<pie-chart  data="slave.cpuData" options="options"></pie-chart>
+<!--     		<pie-chart  data="slave.cpuData" options="options"></pie-chart> -->
+			<nvd3 options="options2" data="slave.cpuData" config="chartConfig" api="api" class="un-25 chart md-whiteframe-z2" style="height:100%;width:100%;position:initial"flex></nvd3>
 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
 		</md-card>
      	</md-tab>
@@ -59,6 +65,8 @@
 		</md-card>
      	</md-tab>
      	</md-tabs>
+     	
     </div>
+    
 </div>
 </div>

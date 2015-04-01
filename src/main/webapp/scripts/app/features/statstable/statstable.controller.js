@@ -1,6 +1,8 @@
 'use strict'
 angular.module('spadeApp')
-.controller('StatsTableController', ["$scope", "$http", "$modal", "$filter", "$mdDialog", "$mdToast", "resolvePods", "ngTableParams", function($scope, $http, $modal, $filter, $mdDialog, $mdToast, resolvePods, ngTableParams) {
+.controller('StatsTableController',
+		["$scope", "$http", "$modal", "$filter", "$mdDialog", "$mdToast", "$state", "resolvePods", "ngTableParams", 
+		function($scope, $http, $modal, $filter, $mdDialog, $mdToast, $state, resolvePods, ngTableParams) {
 	
 //	var iaasController = $controller("IassController");
 //	$scope.create = iaasController.app.open();
@@ -15,8 +17,10 @@ angular.module('spadeApp')
             .then(function (data) {
                 $scope.create.closeAlert();
                 $scope.create.summary = data;
+                $state.go('statstable', { "reload": true })
             }, function (reason) {
             	$scope.create.reason = reason;
+            	$state.go('statstable', { "reload": true })
             });
     };
 	$scope.pods = resolvePods.items;
@@ -98,7 +102,6 @@ angular.module('spadeApp')
 	};
 	
 	$scope.confirmDel = function(ev, pod) {
-	    console.log(pod.$selected);
 		if (pod === undefined || pod === null || pod.$selected === undefined){
 			var confirm = $mdDialog.confirm()
 		      //.parent(angular.element(document.body))
@@ -110,6 +113,7 @@ angular.module('spadeApp')
 		    $mdDialog.show(confirm)
 		      .then(function() {
 		      $mdDialog.hide();
+		      $state.go('statstable', { "reload": true })
 		    }, function() {
 		      $mdDialog.hide();
 		    });
@@ -126,6 +130,7 @@ angular.module('spadeApp')
 	      .then(function() {
 	      $scope.delPod(pod);
 	      $scope.showSimpleToast();
+	      $state.go('statstable', { "reload": true })
 	    }, function() {
 	      $mdDialog.hide();
 	    });
