@@ -2,7 +2,7 @@
 
 angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 'tmh.dynamicLocale','ngResource', 
                             'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster','n3-pie-chart',
-                            'smart-table','ngMdIcons','ui.select2','ngTable', 'nvd3'])
+                            'smart-table','ngMdIcons','ui.select2','ngTable', 'nvd3','nvd3ChartDirectives'])
     
     .factory('templateService', function(){
     	var items = [];

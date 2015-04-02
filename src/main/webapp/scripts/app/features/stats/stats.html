@@ -38,29 +38,70 @@
     <md-card id="buttons" layout="row" >
 		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="create()">Create</md-button>
 	</md-card>
-	     	<md-card class="un-25 md-whiteframe-z2" flex><nvd3 options="options2" data="data" config="chartConfig" api="api" class="un-25 chart md-whiteframe-z2" style="height:100%"flex></nvd3></md-card>
+<!-- 	     	<md-card class="un-25 md-whiteframe-z2" flex><nvd3 options="options2" data="data" config="chartConfig" api="api" class="un-25 chart md-whiteframe-z2" style="height:100%"flex></nvd3></md-card> -->
 	
      <md-tabs class="title" flex>
      
      	<md-tab label="CPU" style="height:auto !important">
-     	
-     	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
-<!--     		<pie-chart  data="slave.cpuData" options="options"></pie-chart> -->
-			<nvd3 options="options2" data="slave.cpuData" config="chartConfig" api="api" class="un-25 chart md-whiteframe-z2" style="height:100%;width:100%;position:initial"flex></nvd3>
+     	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" flex>
+     		<nvd3-pie-chart
+            data="slave.cpuData"
+            donut="true"
+            donutRatio=".40"
+            margin="{left:0,top:0,bottom:0,right:0}"
+            x="xFunction()"
+            y="yFunction()"
+            showLabels="false"
+            tooltips="true"
+            tooltipContent="tooltipFunction()"
+            color="getColor(slave.cpuData)"
+            pieLabelsOutside="false"
+            showValues="false"
+            labelType="percent">
+        <svg height="400"></svg>
+    </nvd3-pie-chart>
 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
 		</md-card>
      	</md-tab>
      	
      	<md-tab label="Memory" style="height:auto !important">
-     	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
-    		<pie-chart data="slave.memData" options="options" flex></pie-chart>
+     	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" flex>
+    		<nvd3-pie-chart
+            data="slave.memData"
+            donut="true"
+            donutRatio=".40"
+            margin="{left:0,top:0,bottom:0,right:0}"
+            x="xFunction()"
+            y="yFunction()"
+            showLabels="false"
+            tooltips="true"
+            color="getColor(slave.memData)"
+            pieLabelsOutside="false"
+            showValues="false"
+            labelType="percent">
+        <svg height="400"></svg>
+    </nvd3-pie-chart>
 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
 		</md-card>
      	</md-tab>
      	
      	<md-tab label="Storage" style="height:auto !important">
-     	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
-    		<pie-chart data="slave.diskData" options="options" flex></pie-chart>
+     	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" flex>
+    		<nvd3-pie-chart
+            data="slave.diskData"
+            donut="true"
+            donutRatio=".45"
+            margin="{left:0,top:0,bottom:0,right:0}"
+            x="xFunction()"
+            y="yFunction()"
+            showLabels="false"
+            tooltips="true"
+            color="getColor(slave.diskData)"
+            pieLabelsOutside="false"
+            showValues="false"
+            labelType="percent">
+        <svg height="400"></svg>
+    </nvd3-pie-chart>
 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
 		</md-card>
      	</md-tab>
