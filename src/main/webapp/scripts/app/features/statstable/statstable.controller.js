@@ -4,8 +4,8 @@ angular.module('spadeApp')
 		["$scope", "$http", "$modal", "$filter", "$mdDialog", "$mdToast", "$state", "resolvePods", "ngTableParams", 
 		function($scope, $http, $modal, $filter, $mdDialog, $mdToast, $state, resolvePods, ngTableParams) {
 	
-//	var iaasController = $controller("IassController");
-//	$scope.create = iaasController.app.open();
+
+			
 	$scope.create = function () {
         var modalInstance = $modal.open({
             templateUrl: 'scripts/app/features/iaas/iaas.html',
@@ -17,18 +17,14 @@ angular.module('spadeApp')
             .then(function (data) {
                 $scope.create.closeAlert();
                 $scope.create.summary = data;
-                $state.go('statstable', { "reload": true })
+                $state.go($state.current, {}, { "reload": true })
             }, function (reason) {
             	$scope.create.reason = reason;
-            	$state.go('statstable', { "reload": true })
+            	$state.go($state.current, {}, { "reload": true })
             });
     };
 	$scope.pods = resolvePods.items;
-	function constructEndpoints(){
-		for (pod in pods){
-			
-		}
-	}
+	
 	$scope.headers = [
 	    "Name",
 	    "Id",
@@ -113,7 +109,6 @@ angular.module('spadeApp')
 		    $mdDialog.show(confirm)
 		      .then(function() {
 		      $mdDialog.hide();
-		      $state.go('statstable', { "reload": true })
 		    }, function() {
 		      $mdDialog.hide();
 		    });
@@ -130,7 +125,7 @@ angular.module('spadeApp')
 	      .then(function() {
 	      $scope.delPod(pod);
 	      $scope.showSimpleToast();
-	      $state.go('statstable', { "reload": true })
+	      $state.go($state.current, {}, { "reload": true })
 	    }, function() {
 	      $mdDialog.hide();
 	    });
@@ -147,6 +142,29 @@ angular.module('spadeApp')
 			console.log(response.data);
 		});
 	}
+	$scope.statusColors = {
+			"Running":"green",
+			"Pending":"yellow",
+			"Failed":"red"
+	};
+	
+//	$scope.statusColor = function(status){
+//		var style;
+//		switch (status){
+//		case "Running":
+//			style = "fill:green";
+//			break;
+//		case "Pending":
+//			style = "fill:yellow";
+//			break;
+//		case "Failed":
+//			style = "fill:red";
+//			break;
+//		default: "fill:yellow"
+//		}
+//		alert(style);
+//		return style;
+//	}
 	
 }])
 .factory('PodService', function($http) {
