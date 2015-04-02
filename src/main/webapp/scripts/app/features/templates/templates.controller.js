@@ -2,7 +2,7 @@
 
 angular.module('spadeApp')
 
-.controller('TemplatesController', function($rootScope, $scope, $state, $timeout, Auth,$http,$mdDialog,$modal,templateService, resolveTemplates) {
+.controller('TemplatesController', function($rootScope, $scope, $state, $timeout, Auth,$http,$mdDialog,$modal,templateService, resolveTemplates,ngTableParams,$filter) {
 		
 		$http.get("http://192.168.4.8:8080/spade/api/stack_templates")
 		.success(function(data) {
@@ -237,35 +237,89 @@ angular.module('spadeApp')
 	    "Name",
 	    "OS",
 	    "App",
-	    "Replicas"
+	    "Replicas",
+	    "Status"
 	    
 	];
-	$scope.confirmDel = function(ev) {
-	    // Appending dialog to document.body to cover sidenav in docs app
+	
+	$scope.tableParams = new ngTableParams({
+        page: 1,            // show first page
+        count: 10,          // count per page
+        filter: {
+            //stack: 'M'       // initial filter
+        },
+        sorting: {
+            //name: 'asc'     // initial sorting
+        }
+    }, {
+        total: $scope.templates2.length, // length of data
+        getData: function ($defer, params) {
+            // use build-in angular filter
+            var filteredData = params.filter() ?
+                    $filter('filter')($scope.templates2, params.filter()) :
+                    $scope.templates2;
+            var orderedData = params.sorting() ?
+                    $filter('orderBy')(filteredData, params.orderBy()) :
+                    $scope.templates2;
+
+            params.total(orderedData.length); // set total for recalc pagination
+            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+        }
+    });
+	
+	$scope.changeSelection = function(template) {
+		if (template.$selected){
+			$scope.selectedTemplate = template;
+		} else {
+			$scope.selectedTemplate = {};
+		}
+	}
+		
+	$scope.confirmDel = function(ev, template) {
+		if (template === undefined || template === null || template.$selected === undefined){
+			var confirm = $mdDialog.confirm()
+		      //.parent(angular.element(document.body))
+		      .title("No Template Selected")
+		      .content("There is nothing selected")
+		      .ariaLabel("Deleting template")
+		      .ok("Back")
+		      .targetEvent(ev);
+		    $mdDialog.show(confirm)
+		      .then(function() {
+		      $mdDialog.hide();
+		      $state.go('templates', { "reload": true })
+		    }, function() {
+		      $mdDialog.hide();
+		    });
+		} else {
 	    var confirm = $mdDialog.confirm()
 	      //.parent(angular.element(document.body))
 	      .title("Confirm deletion?")
 	      .content("This operation cannot be undone")
-	      .ariaLabel("Deleting resource")
+	      .ariaLabel("Deleting template")
 	      .ok("Delete")
 	      .cancel("Cancel")
 	      .targetEvent(ev);
 	    $mdDialog.show(confirm)
 	      .then(function() {
-	      //$scope.delPod();
+	      $scope.delTemplate(template);
+	      $scope.showSimpleToast();
+	      $state.go('templates', { "reload": true })
 	    }, function() {
 	      $mdDialog.hide();
 	    });
+		}
 	  };
-	  
-	$scope.delPod = function(pod){
+	$scope.delTemplate = function(template){
 		var req = {
 				 method: "DELETE",
-				 url: "http://192.168.4.8:8080/spade/api/demo/" + pod.id
+				 url: "http://192.168.4.8:8080/spade/api/demo/controllers/" + template.labels.controller
 		};
-		$http(req).then(function(response) {
-			$scope.delRes = response.data;
-		});
+		console.log(template)
+//		$http(req).then(function(response) {
+//			$scope.delRes = response.data;
+//			console.log(response.data);
+//		});
 	}
 	
 	$scope.displayedTemplates = [].concat($scope.templates2);

@@ -12,6 +12,14 @@
 	color: white !important;
 } */
 
+.statsTabs{
+	
+}
+.statsTabs md-tab {
+    color: white !important;
+    background-color: #9e9e9e; }
+
+
 .tabsdemoStaticTabs {
   /*
  * Animation styles

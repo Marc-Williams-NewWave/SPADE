@@ -21,6 +21,11 @@ body {
   border: 1px solid grey;
   float: left;
   width: 250px!important;
+/*   background-color: #1e88e5 */
+}
+
+.un-25 .chart {
+/*   background-color: #ffffff */
 }
 
 .un-30 {

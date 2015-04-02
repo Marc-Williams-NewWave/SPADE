@@ -8976,7 +8976,7 @@ md-tabs {
 }
 
 .md-header {
-	width: 100%;
+	width: 489px;
 	height: 48px;
 	box-sizing: border-box;
 	position: relative;
@@ -9052,7 +9052,7 @@ md-tabs[center] .md-header:not (.md-paginating ) .md-header-items {
 	-webkit-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 	height: 100%;
-	width: 99999px;
+	width: 0px;
 }
 
 .md-tabs-content {

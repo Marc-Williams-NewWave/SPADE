@@ -1,9 +1,93 @@
 'use strict'
-angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "resolveSlaves", "resolveTasks", "resolvePods", function($scope, $http, resolveSlaves, resolveTasks, resolvePods){
+angular.module('spadeApp').controller('StatsController', 
+		[ "$scope", "$http", "$modal", "$state", "$timeout", "resolveSlaves", "resolveTasks", "resolvePods", 
+        function($scope, $http, $modal, $state, $timeout, resolveSlaves, resolveTasks, resolvePods){
 
 	$scope.slaves = resolveSlaves.items;
+	function compare(a,b) {
+		  if (a.hostname < b.hostname)
+		     return -1;
+		  if (a.hostname > b.hostname)
+		    return 1;
+		  return 0;
+	}
+	$scope.slaves.sort(compare);
 	$scope.tasks = resolveTasks.items;
 	$scope.pods = resolvePods.items;
+	
+	$scope.create = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'scripts/app/features/iaas/iaas.html',
+            controller: 'ModalCtrl',
+            controllerAs: 'modal'
+        });
+
+        modalInstance.result
+            .then(function (data) {
+                $scope.create.closeAlert();
+                $scope.create.summary = data;
+                $state.go('stats', { "reload": true })
+            }, function (reason) {
+            	$scope.create.reason = reason;
+            	$state.go('stats', { "reload": true })
+            });
+    };
+	
+	$scope.options2 = {
+            chart: {
+                type: 'pieChart',
+                height: 250,
+                x: function(d){return d.label;},
+                y: function(d){return d.value;},
+                showLabels: false,
+                donut: true,
+                donutRatio: 0.45,
+                transitionDuration: 500,
+                labelThreshold: 0.01,
+                //showLegend: false,
+                legend: {
+                    margin: {
+                        top: 5,
+                        right: 30,
+                        bottom: 5,
+                        left: 0
+                    }
+                }
+            }
+        };
+	$scope.data = [
+	               {
+	                   label: "One",
+	                   value: 5
+	               },
+	               {
+	                   label: "Two",
+	                   value: 2
+	               },
+	               {
+	                   label: "Three",
+	                   value: 9
+	               },
+	               {
+	                   label: "Four",
+	                   value: 7
+	               },
+	               {
+	                   label: "Five",
+	                   value: 4
+	               },
+	               {
+	                   label: "Six",
+	                   value: 3
+	               },
+	               {
+	                   label: "Seven",
+	                   value: .5
+	               }
+	           ];
+	$scope.chartConfig = {
+			refreshDataOnly: true
+	}
 	
 	for (var i=0; i < $scope.slaves.length; i++){
 		var slave = $scope.slaves[i];
@@ -33,6 +117,11 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
 		slave.memData.push({label: "unused", value: 100-memTotal, color: "grey"});
 		slave.diskData.push({label: "unused", value: 100-diskTotal, color: "grey"});
 }
+	$scope.refresh = function () {
+    	alert("TIMEOUT");
+    	$scope.$apply();
+    	//$scope.api.refresh();
+    };
 	function drawCharts(){
 		for (var i=0; i < $scope.slaves.length; i++){
 			var slave = $scope.slaves[i];
@@ -71,56 +160,7 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
 	$scope.options = {thickness: 30};
 	$scope.drawCharts = drawCharts();
 	
-//	$scope.data = [
-//	               {label: "one", value: 12.2, color: "red"}, 
-//	               {label: "two", value: 45, color: "#00ff00"},
-//	               {label: "three", value: 10, color: "rgb(0, 0, 255)"}
-//	             ];
-	
-	
-//	$scope.percent = 12.5;
-//    $scope.options = {
-//        animate:{
-//            duration:1000,
-//            enabled:true
-//        },
-//        barColor:'#2C3E50',
-//        scaleColor:'#DFEe0E0',
-//        lineWidth:5,
-//        lineCap:'circle'
-//    };
 }])
-
-//.directive("firstone", [ "$scope", function($scope){
-//	return {
-//	template: "<pie-chart data='data' options='options'></pie-chart>",
-//	scope: {
-//		slave: '=slave',
-//		tasks: '=tasks'
-//	},
-//	link: [ "$scope", function($scope,element,attrs){
-//		var data = [];
-//	
-//			var slave = attrs.slave;
-//			console.log(slave);
-//			color = 'rgb(' + Math.floor(Math.random() * 255) 
-//				+ ',' + Math.floor(Math.random() * 255) 
-//				+ ',' + Math.floor(Math.random() * 255) + ')';
-//			for (var j=0; j < attrs.tasks.length; j++){
-//				var task = attrs.tasks[j];
-//				console.log()
-//				if (task.slaveId === slave.id){
-//					console.log(task.slaveId)
-//					console.log(slave.id)
-//					data.push({label: task.podName, value: task.cpuPercent, color: color, suffix: "%"});
-//				}
-//			}
-//	
-//		return data;
-//		
-//	}]
-//	}
-//}])
 .factory('SlaveService', function ($http) {
 	 return {
 		    getSlaves: function() {
@@ -161,37 +201,4 @@ angular.module('spadeApp').controller('StatsController', [ "$scope", "$http", "r
          }
 	 }
 	 
-	 })
-	 
-.controller('AppCtrl', function ($scope, $log) {
-    var tabs = [
-      { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
-      { title: 'Two', content: "You can swipe left and right on a mobile device to change tabs."},
-      { title: 'Three', content: "You can bind the selected tab via the selected attribute on the md-tabs element."},
-      { title: 'Four', content: "If you set the selected tab binding to -1, it will leave no tab selected."},
-      { title: 'Five', content: "If you remove a tab, it will try to select a new one."},
-      { title: 'Six', content: "There's an ink bar that follows the selected tab, you can turn it off if you want."},
-      { title: 'Seven', content: "If you set ng-disabled on a tab, it becomes unselectable. If the currently selected tab becomes disabled, it will try to select the next tab."},
-      { title: 'Eight', content: "If you look at the source, you're using tabs to look at a demo for tabs. Recursion!"},
-      { title: 'Nine', content: "If you set md-theme=\"green\" on the md-tabs element, you'll get green tabs."},
-      { title: 'Ten', content: "If you're still reading this, you should just go check out the API docs for tabs!"}
-    ];
-    $scope.tabs = tabs;
-    $scope.selectedIndex = 2;
-    $scope.$watch('selectedIndex', function(current, old){
-      if ( old && (old != current)) $log.debug('Goodbye ' + tabs[old].title + '!');
-      if ( current )                $log.debug('Hello ' + tabs[current].title + '!');
-    });
-    $scope.addTab = function (title, view) {
-      view = view || title + " Content View";
-      tabs.push({ title: title, content: view, disabled: false});
-    };
-    $scope.removeTab = function (tab) {
-      for (var j = 0; j < tabs.length; j++) {
-        if (tab.title == tabs[j].title) {
-          $scope.tabs.splice(j, 1);
-          break;
-        }
-      }
-    };
-  });
+	 });
