@@ -73,12 +73,7 @@
 		<td ng-repeat="container in pod.desiredState.manifest.containers">
 			{{container.name}}
 		</td>
-	<<<<<<< HEAD
-		<md-button class="md-raised md-noink" style="padding:5px 20px 5px 20px;">Edit</md-button>
-		<div class="gap"></div>
-<!-- 		ng-disabled="selectedPod.$selected===false" -->
-		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="confirmDel($event, selectedPod)">Delete</md-button>
-=======	<td data-title="'Host'" sortable="'host'" filter="{ 'host': 'text' }">
+    	<td data-title="'Host'" sortable="'host'" filter="{ 'host': 'text' }">
 			{{pod.currentState.host}}
 		</td>
 		<td ng-repeat="container in pod.desiredState.manifest.containers">
