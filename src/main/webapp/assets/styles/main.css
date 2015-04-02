@@ -70,16 +70,17 @@
   .tabsdemoStaticTabs md-tab {
     color: white !important;
     background-color: #9e9e9e; }
-  .tabsdemoStaticTabs md-tab.active, .tabsdemoStaticTabs md-tab:focus {
-    color: white !important; }
+  .tabsdemoStaticTabs md-tab.active {
+    color: white !important;
+    background-color: #1e88e5 !important; }
   .tabsdemoStaticTabs md-tab[disabled] {
     opacity: 0.5;
      }
   .tabsdemoStaticTabs .md-header .md-ripple {
     border-color: #FFFF8D !important; }
-  .tabsdemoStaticTabs md-tabs-ink-bar {
+  /* .tabsdemoStaticTabs md-tabs-ink-bar {
     background-color: #FFFF8D !important;
-     }
+     } */
   .tabsdemoStaticTabs md-tabs .md-paginator {
     color: white; }
     

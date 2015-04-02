@@ -22,8 +22,9 @@ angular.module('spadeApp')
 
 
         app.open = function () {
-        	console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        	console.log("------------------------------------------------------------");
     	 $scope.apps = resolveImages.items;
+    	 $scope.images = resolveImages.items;
     	 
     	 console.log($scope.apps);
         	
@@ -55,47 +56,8 @@ angular.module('spadeApp')
 //            app.open();
 //        });
     }])
-    
-    .factory('ImageService', function ($http) {
-	 return {
-		    getImages: function() {
-        	var promise = $http.get("http://192.168.4.8:8080/spade/api/images")
-        	.then(function(response) {
-        		console.log(response.data.items);
-        		return response.data;
-        	});
-        	
-            return promise;
-        }
-	 }
-	 
-	 })
 
-    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService,$mdToast, $animate,$state) {
-    	$scope.toastPosition = {
-    		    bottom: false,
-    		    top: true,
-    		    left: false,
-    		    right: true
-    		  };
-    	
-    	$scope.getToastPosition = function() {
-    	    return Object.keys($scope.toastPosition)
-    	      .filter(function(pos) { return $scope.toastPosition[pos]; })
-    	      .join(' ');
-    	  };
-    	  
-    	  $scope.showToast = false;
-    	  
-    	  $scope.showCustomToast = function() {
-//    		    $mdToast.show({
-//    		      controller: 'ToastCtrl',
-//    		      templateUrl: 'scripts/app/features/iaas/toast-template.html',
-//    		      hideDelay: 6000,
-//    		      position: $scope.getToastPosition()
-//    		    });
-    		  $scope.showToast = true;  
-    		  };
+    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService,$state,ImageService) {
     		  
     	console.log($scope.images);
     	console.log($scope.$parent.images);
@@ -105,7 +67,13 @@ angular.module('spadeApp')
 //    	var getApps = function(){
 //    		var deffered;
 //    	}
+    	console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    	var images = ImageService.getImages();
+    	console.log(images.items);
+    	console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     	console.log(appService.getItems());
+    	console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    	console.log(appService.items);
     	
     	$scope.applications = $rootScope.resolveImages;
    	 
@@ -602,8 +570,13 @@ $scope.conf = false;
 //    		var appApp = templateService.items()[0].templates[1].app
 //    		var dbApp = templateService.items()[0].templates[2].app
     		
-    		$scope.webConfig = $scope.setWebConfig(templateService.items()[0].templates[0].app); 
+    		console.log('entering setWebConfig w/ ' + templateService.items()[0].templates[0].app);
+    		$scope.webConfig = $scope.setWebConfig(templateService.items()[0].templates[0].app);
+    		
+    		console.log('entering setAppConfig w/ ' + templateService.items()[0].templates[1].app);
     		$scope.appConfig = $scope.setAppConfig(templateService.items()[0].templates[1].app);
+    		
+    		console.log('entering setDBConfig w/ ' + templateService.items()[0].templates[2].app);
     		$scope.dbConfig = $scope.setDBConfig(templateService.items()[0].templates[2].app);
     	}
     	
@@ -796,8 +769,16 @@ $scope.conf = false;
   		    };
     })
     
-.controller('ToastCtrl', function($scope, $mdToast) {
-	  $scope.closeToast = function() {
-	    $mdToast.hide();
-	  };
-	});
+  .factory('ImageService', function ($http) {
+	 return {
+		    getImages: function() {
+         	var promise = $http.get("http://192.168.4.8:8080/spade/api/images")
+         	.then(function(response) {
+         		return response.data;
+         	});
+         	
+             return promise;
+         }
+	 }
+	 
+	 })

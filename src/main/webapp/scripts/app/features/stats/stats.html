@@ -33,38 +33,38 @@
 </nav>
 
 <div>
-<div id="outer" >
-    <div id="main" class="md-content">
+<div id="outer">
+    <div id="main" class="">
     <md-card id="buttons" layout="row" >
 		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="create()">Create</md-button>
 	</md-card>
 	     	<md-card class="un-25 md-whiteframe-z2" flex><nvd3 options="options2" data="data" config="chartConfig" api="api" class="un-25 chart md-whiteframe-z2" style="height:100%"flex></nvd3></md-card>
-	
-     <md-tabs class="md-primary md-default-theme statsTabs" flex>
-     	<md-tab label="CPU" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;">
+	<div>
+     <md-tabs class="statsTabs" flex>
+     	<md-tab label="CPU" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;">
      	<!-- <md-tab-label>CPU</md-tab-label> -->
      	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
 <!--     		<pie-chart  data="slave.cpuData" options="options"></pie-chart> -->
 			<nvd3 options="options2" data="slave.cpuData" config="chartConfig" api="api" class="un-25 chart md-whiteframe-z2" style="height:100%;width:100%;position:initial"flex></nvd3>
-			<md-card-content flex class="robotItem" style="text-align:center;background-color:#1e88e5"><h4>{{slave.hostname}}</h4></md-card-content>
+			<md-card-content flex class="robotItem" style="text-align:center;background-color:#1e88e5;color:white"><h4>{{slave.hostname}}</h4></md-card-content>
 		</md-card>
      	</md-tab>
      	
-     	<md-tab label="Memory" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;">
+     	<md-tab label="Memory" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;">
      	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
     		<pie-chart data="slave.memData" options="options" flex></pie-chart>
-			<md-card-content flex class="robotItem" style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
+			<md-card-content flex class="robotItem" style="text-align:center;background-color:#1e88e5;color:white"><h4>{{slave.hostname}}</h4></md-card-content>
 		</md-card>
      	</md-tab>
      	
-     	<md-tab label="Storage" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;">
+     	<md-tab label="Storage" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;">
      	<md-card ng-repeat="slave in slaves" class="un-25 md-whiteframe-z2" flex>
     		<pie-chart data="slave.diskData" options="options" flex></pie-chart>
-			<md-card-content flex class="robotItem" style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
+			<md-card-content flex class="robotItem" style="text-align:center;background-color:#1e88e5;color:white"><h4>{{slave.hostname}}</h4></md-card-content>
 		</md-card>
      	</md-tab>
      	</md-tabs>
-     	
+     	</div>
     </div>
     
 </div>

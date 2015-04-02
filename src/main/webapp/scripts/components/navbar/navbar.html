@@ -1,13 +1,13 @@
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$media('gt-sm')" ng-cloak="" style="width: 260px;min-width: 260px;height:auto !important;background-color: #bdbdbd;">
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$media('gt-sm')" ng-cloak="" style="width: 260px;min-width: 260px;height:auto !important;background-color: #e0e0e0;">
 <!-- <ng-switch on="">	         -->
 	
 	<div ng-show="isAuthenticated()">
 	  <accordion close-others="oneAtATime">
 	    <accordion-group>
-	      <accordion-heading><span><img src="assets/images/appbar.home.png" height="34px"></span><a ui-sref="home"><span style="font-family: 'Roboto', sans-serif;font-weight:500;">Home</span></a></accordion-heading>
+	      <accordion-heading><span><img src="assets/images/appbar.home.png" height="34px"></span><a ui-sref="home"><span style="font-family: 'Roboto', sans-serif;font-weight:500;color: black;">Home</span></a></accordion-heading>
 	    </accordion-group>
 	    <accordion-group is-disabled="status.isFirstDisabled">
-	    <accordion-heading><span><img src="assets/images/appbar.database.png" height="34px"></span><span style="font-family: 'Roboto', sans-serif;font-weight:500;">Provisioning</span></accordion-heading>
+	    <accordion-heading><span><img src="assets/images/appbar.database.png" height="34px"><a href=""><span style="font-family: 'Roboto', sans-serif;font-weight:500;color: black;">Provisioning</span></a></accordion-heading>
 	      <ul>
 	        <li><a ng-click="app.open()" href="#"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">IaaS</span></a></li>
 	        <li><a ng-click="templates()" href="#"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">Templates</span></a></li>
@@ -15,7 +15,7 @@
 	      </ul>
 	    </accordion-group>
 	    <accordion-group>
-	    <accordion-heading><span><img src="assets/images/appbar.graph.line.png" height="34px"></span><span style="font-family: 'Roboto', sans-serif;font-weight:500;">Metrics</span></accordion-heading>
+	    <accordion-heading><span><img src="assets/images/appbar.graph.line.png" height="34px"><a href=""><span style="font-family: 'Roboto', sans-serif;font-weight:500;color: black;">Metric</span></a></accordion-heading>
 	      <ul>
 	        <li><a ui-sref="devops"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">DevOps Dashboard</span></li>
 	        <li><a ui-sref="stats"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">Infrastructure Dashboard</span></a></li>

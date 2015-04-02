@@ -28,6 +28,8 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
         
     })
     
+ 
+    
      .factory('appService', function($http){
     	var items = [];
         var myAppsService = {};
@@ -43,14 +45,24 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
         	var promise = $http.get("http://192.168.4.8:8080/spade/api/images")
         	.then(function(response) {
         		console.log(response.data.items);
+        		var x;
+        		for(x in response.data.items){
+        			console.log("pushing x ===> " + x);
+        			items.push(x);	
+        		}
+        		
         		return response.data;
         	});
         	
             return promise;
         
-        	
+            myAppsService.items = function() {
+                return items;
+            };
 //        	return items;
         };
+        
+        
         
         return myAppsService;
         

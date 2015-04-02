@@ -1,9 +1,9 @@
 <div ng-cloak style="background-color: #f1f7f9;">
-<nav class="navbar navbar-default" style="background-color:#bdbdbd;">
+<nav class="navbar navbar-default" style="background-color:#e0e0e0;">
   <div class="container-fluid">
     
     <div class="navbar-header">
-      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:white;">Provisioning - Project Lists</div>
+      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">Provisioning - Project List</div>
     </div>
 
     
@@ -29,12 +29,12 @@
 		<div layout="row">
 		<div style="padding-left: 5%; padding-top: 1%;" class="listing">
 			<md-button class="md-raised md-primary md-hue-1" style="font-size: large;" ng-repeat="project in projects" ui-sref="stats">
-			<div layout="column" style="font-family: 'Roboto', sans-serif;font-weight:700;">
+			<div layout="column" style="font-family: 'Roboto', sans-serif;font-weight:700;color: white">
 				<div>
 		  			{{project.description}} - {{project.name}}
 		  		</div>
 			  	<div layout="row">
-			  	<img alt="servers" src="assets/images/appbar.server_1.png">
+			  	<img alt="servers" src="assets/images/appbar.server.png">
 			  		<h4 style="margin-top: auto;margin-bottom: auto;">{{project.environments.length}} Application Stacks</h4>
 			  	</div>
 		  	</div> 

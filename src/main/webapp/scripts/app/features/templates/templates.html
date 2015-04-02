@@ -1,11 +1,9 @@
-<nav class="navbar navbar-default" style="background-color: #bdbdbd;">
+<nav class="navbar navbar-default" style="background-color: #e0e0e0;">
 	<div class="container-fluid">
 
 		<div class="navbar-header">
-			<div class="navbar-brand"
-				style="font-family: 'Roboto', sans-serif; font-weight: 300; color: white;">
-				Provisioning - Templates Lists</div>
-		</div>
+      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">Provisioning - Templates List</div>
+    </div>
 
 
 		<div class="collapse navbar-collapse"
@@ -14,7 +12,7 @@
 			<ul class="nav navbar-nav">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-expanded="false"
-					style="font-family: 'Roboto', sans-serif; font-weight: 300; color: white;">Switch View
+					style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Switch View
 						<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu" role="menu" style="font-family: 'Roboto', sans-serif; font-weight: 300;">
@@ -98,26 +96,26 @@
 		<tr ng-repeat="template in templates2"
 			ng-click="template.$selected = !template.$selected; changeSelection(template)"
 			ng-class="{'st-selected': template.$selected}">
-			<td data-title="'Id'" sortable="'id'" filter="{ 'id': 'text' }">
+			<td data-title="'Id'" sortable="'id'" filter="{ 'id': 'text' }" style="text-align: center;">
 				{{template.id}}
 			</td>
-			<td data-title="'Project'" sortable="'project'" filter="{ 'project': 'text' }">
+			<td data-title="'Project'" sortable="'project'" filter="{ 'project': 'text' }" style="text-align: center;">
 				{{template.project}}
 			</td>
-			<td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
+			<td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }" style="text-align: center;">
 				{{template.templates[$index].name}}
 			</td>
-			<td data-title="'OS'" sortable="'os'" filter="{ 'os': 'text' }">
+			<td data-title="'OS'" sortable="'os'" filter="{ 'os': 'text' }" style="text-align: center;">
 				{{template.templates[$index].os}}
 			</td>
-			<td data-title="'App'" sortable="'app'" filter="{ 'app': 'text' }">
+			<td data-title="'App'" sortable="'app'" filter="{ 'app': 'text' }" style="text-align: center;">
 				{{template.templates[$index].app}}
 			</td>
-			<td data-title="'Replicas'" sortable="'replicas'" filter="{ 'replicas': 'number' }">
+			<td data-title="'Replicas'" sortable="'replicas'" filter="{ 'replicas': 'number' }" style="text-align: center;">
 				{{template.templates[$index].replicas}}
 			</td>
-			<td></td>
-			<td><ng-md-icon icon="check_circle" style="color:green;height:20%;"><md-tooltip>{{pod.currentState.status}}</md-tooltip></ng-md-icon></td>
+			
+			<td style="height: 40px;"><ng-md-icon icon="check_circle" style="color:green;height:20%;"><md-tooltip>{{pod.currentState.status}}</md-tooltip></ng-md-icon></td>
 		</tr>
 		</tbody>
 		<tfoot>
