@@ -216,8 +216,8 @@ angular.module('spadeApp')
 	   $scope.templateFactoryService.addItem(template);
        var modalInstance = $modal.open({
            templateUrl: 'scripts/app/features/iaas/iaas.html',
-           controller: 'ModalCtrl2',
-           controllerAs: 'modal2'
+           controller: 'ModalCtrl',
+           controllerAs: 'modal'
        });
 
        modalInstance.result
@@ -342,11 +342,72 @@ angular.module('spadeApp')
 
 		
 
-.controller('ModalCtrl2', function ($modalInstance,$scope,$mdDialog,$http,templateService) {
+.controller('ModalCtrl2', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService,$mdToast, $animate,$state) {
+	$scope.toastPosition = {
+		    bottom: false,
+		    top: true,
+		    left: false,
+		    right: true
+		  };
+	
+	$scope.getToastPosition = function() {
+	    return Object.keys($scope.toastPosition)
+	      .filter(function(pos) { return $scope.toastPosition[pos]; })
+	      .join(' ');
+	  };
+	  
+	  $scope.showToast = false;
+	  
+	  $scope.showCustomToast = function() {
+//		    $mdToast.show({
+//		      controller: 'ToastCtrl',
+//		      templateUrl: 'scripts/app/features/iaas/toast-template.html',
+//		      hideDelay: 6000,
+//		      position: $scope.getToastPosition()
+//		    });
+		  $scope.showToast = true;  
+		  };
+		  
+	console.log($scope.images);
+	console.log($scope.$parent.images);
+	
+//	$scope.applications = resolveImages;
+//	console.log($scope.applications);
+//	var getApps = function(){
+//		var deffered;
+//	}
+	console.log(appService.getItems());
+	
+	$scope.applications = $rootScope.resolveImages;
+	 
+	 	console.log($scope.$parent.apps);
+	 
+//	 $scope.imageService = ImageService;
+//	 
+//	$scope.getApplications = function(){
+//		if($scope.imageService.getImages().length != 0 ){
+//			$scope.applications = $scope.imageService.getImages();
+//		}
+//	}
+	
+	
+//	$scope.getApplications();
+	
+//	$http.get("http://192.168.0.95:8080/spade/api/images")
+//	.success(function(data) {
+//		console.log(data);
+//			$scope.applications = data;
+//		})
+	
+//	$scope.applications = $rootScope.applications;
+	
+//	$scope.$on('testObj', function(response) {
+//	      alert(response);
+//	})
+	
 	
 	$scope.osOptions = ['Ubuntu','Fedora'];
-	console.log($scope.osOptions);
-	
+//	console.log($scope.osOptions);
 	$scope.oneOS;
 	
 	$scope.applications = 
@@ -598,6 +659,7 @@ angular.module('spadeApp')
 			  ]
 			}
 	
+	
 	$scope.lamp = true;
 	
 	$scope.webDisabled = false;
@@ -716,22 +778,12 @@ angular.module('spadeApp')
 	
 	
 	$scope.webPod = {
-			name : 'Your Web Server',
+			name : $scope.defaultPod.name,
 			os: $scope.defaultPod.os,
           	app : $scope.defaultPod.app,
           	replicas : $scope.defaultPod.replicas
           };
-	$scope.data = {
-		      selectedIndex : 0,
-		      secondLocked : false,
-		      secondLabel : "Item Two"
-		    };
-		    $scope.next = function() {
-		      $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2) ;
-		    };
-		    $scope.previous = function() {
-		      $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
-		    };
+	
 	
 	
 	$scope.dbPod = {
@@ -749,62 +801,30 @@ angular.module('spadeApp')
 		console.log($scope.oneOS);
 	};
 	
-	console.log(templateService.items());
-	
-	if(templateService.items().length > 0){
-		$scope.webPod = templateService.items()[0].templates[0];
-		$scope.appPod = templateService.items()[0].templates[1];
-		$scope.dbPod = templateService.items()[0].templates[2];
-		
-		templateService.clear();
-//		clear
-	}
-	
-//	$scope.webConfig = 'n/a';
-	
-	$scope.conf = false;
+$scope.conf = false;
 	
 	$scope.setWebConfig = function(item){
 		var conf = [];
 		for(i in $scope.webApps){
 			if($scope.webApps[i].app == item){
-				console.log('EUREKA!');
-//				$scope.webConfig = $scope.webApps[i];
-//				console.log($scope.webApps[i]);
-//				console.log($scope.webConfig);
 				for(var x = 0; x <  $scope.webApps[i].info.length; x++){
-//					dbApps.push($scope.uniqueApps[i]);
 					conf.push($scope.webApps[i].info[x]);
-//					console.log(conf);
 				}
 			}
 		}
 		
 		$scope.webConfig = conf;
-		console.log('&&&&&&&');
-		console.log($scope.webConfig);
-		
 		for(var y = 0; y < $scope.webConfig.length; y++){
 			console.log($scope.webConfig[y]);
 		}
-		
-//		var currentApp = JSON.stringify($scope.webPod.app);
-//		console.log("Current app is " + currentApp);
-		
 	};
 	
 	$scope.setAppConfig = function(item){
 		var conf = [];
 		for(i in $scope.appApps){
 			if($scope.appApps[i].app == item){
-				console.log('EUREKA!');
-//				$scope.webConfig = $scope.webApps[i];
-//				console.log($scope.webApps[i]);
-//				console.log($scope.webConfig);
 				for(var x = 0; x <  $scope.appApps[i].info.length; x++){
-//					dbApps.push($scope.uniqueApps[i]);
 					conf.push($scope.appApps[i].info[x]);
-//					console.log(conf);
 				}
 			}
 		}
@@ -816,10 +836,6 @@ angular.module('spadeApp')
 		for(var y = 0; y < $scope.appConfig.length; y++){
 			console.log($scope.appConfig[y]);
 		}
-		
-//		var currentApp = JSON.stringify($scope.webPod.app);
-//		console.log("Current app is " + currentApp);
-		
 	};
 	
    	$scope.setDBConfig = function(item){
@@ -827,14 +843,8 @@ angular.module('spadeApp')
    		var conf = [];
 		for(i in $scope.dbApps){
 			if($scope.dbApps[i].app == item){
-				console.log('EUREKA!');
-//				$scope.webConfig = $scope.webApps[i];
-//				console.log($scope.webApps[i]);
-//				console.log($scope.webConfig);
 				for(var x = 0; x <  $scope.dbApps[i].info.length; x++){
-//					dbApps.push($scope.uniqueApps[i]);
 					conf.push($scope.dbApps[i].info[x]);
-//					console.log(conf);
 				}
 			}
 		}
@@ -846,11 +856,28 @@ angular.module('spadeApp')
 		for(var y = 0; y < $scope.dbConfig.length; y++){
 			console.log($scope.dbConfig[y]);
 		}
-		
-//		var currentApp = JSON.stringify($scope.webPod.app);
-//		console.log("Current app is " + currentApp);
-		
 	};
+	
+	console.log(templateService.items());
+	
+	if(templateService.items().length > 0){
+		$scope.webPod = templateService.items()[0].templates[0];
+		$scope.appPod = templateService.items()[0].templates[1];
+		$scope.dbPod = templateService.items()[0].templates[2];
+		
+//		console.log(templateService.items()[0].templates[0].app);
+//		console.log(templateService.items()[0].templates[1].app);
+//		console.log(templateService.items()[0].templates[2].app);
+		
+//		var webApp = templateService.items()[0].templates[0].app;
+//		var appApp = templateService.items()[0].templates[1].app
+//		var dbApp = templateService.items()[0].templates[2].app
+		
+		$scope.webConfig = $scope.setWebConfig(templateService.items()[0].templates[0].app); 
+		$scope.appConfig = $scope.setAppConfig(templateService.items()[0].templates[1].app);
+		$scope.dbConfig = $scope.setDBConfig(templateService.items()[0].templates[2].app);
+	}
+	
 	
 	
 	
@@ -860,66 +887,74 @@ angular.module('spadeApp')
 	$scope.podArray[1] = $scope.appPod
 	$scope.podArray[2] = $scope.dbPod;
 	
-	console.log("POD ARRAY " + $scope.podArray);
-	
-//	$scope.podArray = {
-//			"pods": [ {$scope.appPod}, {$scope.webPod}, {$scope.dbPod} ]};
-//			            {
-//			            	"name" : $scope.defaultPod.name,
-//			    			"os": $scope.defaultPod.os,
-//			              	"app" : $scope.defaultPod.app,
-//			              	"replicas" : $scope.defaultPod.replicas,
-//			              	"type": "web"
-//			            },
-//			            {
-//			            	"name" : $scope.defaultPod.name,
-//			    			"os": $scope.defaultPod.os,
-//			              	"app" : $scope.defaultPod.app,
-//			              	"replicas" : $scope.defaultPod.replicas,
-//			              	"type": "app"
-//			            },
-//			            {
-//			            	"name" : $scope.defaultPod.name,
-//			    			"os": $scope.defaultPod.os,
-//			              	"app" : $scope.defaultPod.app,
-//			              	"replicas" : $scope.defaultPod.replicas,
-//			              	"type": "db"
-//			            }
-	
- 	 
-	
-	 $scope.launch = function(){
- 		 console.log($scope.podArray);
- 		 for(var x = 0; x < $scope.podArray.length; x++){
- 			 if($scope.podArray[x].name != ''){
- 				$http.post("http://192.168.4.8:8080/spade/api/demo/env", $scope.podArray[x])
+ 	
+	$scope.webPodNameError = false;
+    $scope.webPodOSError = false;
+    $scope.webPodAppError = false;
+
+    $scope.appPodNameError = false;
+    $scope.appPodOSError = false;
+    $scope.appPodAppError = false;
+
+    $scope.dbPodNameError = false;
+    $scope.dbPodOSError = false;
+    $scope.dbPodAppError = false;
+    
+    $scope.payload = {
+    		  id: "",
+    		  project: "demo",
+    		  controllers: $scope.podArray
+    		}
+    
+    $scope.showAlert = showAlert;
+    
+    function showAlert() {
+       var confirm = $mdDialog.confirm()
+          .title('Success, your server has been launched')
+          .content('Click \'View Server\' to view your server')
+          .ok('View Server')
+          .cancel('Close');
+
+        $mdDialog
+            .show( confirm ).then(function(){
+            	$state.go('stats');
+            })
+            
+      }
+ 	  
+      
+ 	 $scope.launch = function(){
+ 		console.log($scope.payload);
+ 		
+// 		$scope.showCustomToast();
+ 		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
      		 	.success(function(data){
+     		 		$modalInstance.dismiss();
+     	     		$scope.showAlert();
      		 		console.log("success data returned ====> " + data);
-     		 });
- 			 }
- 		 }
- 		 
+     		 });	
   	}
  	 
- 	$scope.deletePod = function(pod){
- 		 console.log(pod);
- 		 $http.delete("http://192.168.0.95:8080/spade/api/env", pod)
- 		 	.success(function(data){
- 		 		console.log("successfully deleted ====> " + data.name + '\npod.appName');
- 		 });
- 	}
+// 	$scope.deletePod = function(pod){
+// 		 console.log(pod);
+// 		 $http.delete("http://192.168.0.95:8080/spade/api/env", pod)
+// 		 	.success(function(data){
+// 		 		console.log("successfully deleted ====> " + data.name + '\npod.appName');
+// 		 });
+// 	}
  	 
- 	$scope.alert = '';
- 	  $scope.showAlert = function() {
- 	    $mdDialog.show(
- 	      $mdDialog.alert()
- 	        .title('This is an alert title')
- 	        .content('You can specify some description text in here.')
- 	        .ariaLabel('Password notification')
- 	        .ok('Got it!')
-// 	        .targetEvent(ev)
- 	    );
- 	  };
+// 	$scope.alert = '';
+// 	  $scope.showAlert = function() {
+// 	    $mdDialog.show(
+// 	      $mdDialog.alert()
+// 	        .title('This is an alert title')
+// 	        .content('You can specify some description text in here.')
+// 	        .ariaLabel('Password notification')
+// 	        .ok('Got it!')
+//// 	        .targetEvent(ev)
+// 	    );
+// 	  };
+ 	  
  	  
 	var modal = this;
 
@@ -950,12 +985,13 @@ angular.module('spadeApp')
     modal.getNextLabel = function () {
     	if(modal.isLastStep()){
     		$scope.isDisabled = !modal.launchReady();
-    		return 'Click Above To Launch Your Pod';
+    		return 'Launch';
     	} else{
     		return 'Next'
     	}
 //        return (modal.isLastStep()) ? 'Launch' : 'Next';
     };
+    
     
     modal.launchReady = function(){
     	if(angular.equals($scope.pod.os,$scope.defaultPod.os) ||
@@ -966,6 +1002,35 @@ angular.module('spadeApp')
     	){
     		return false;
     	} else {
+    		return true;
+    	}
+    }
+    
+   
+    
+    
+    modal.isWebPodReady = function(){
+    	if($scope.webPod.replicas > 0){
+    		if(angular.equals($scope.webPod.name,$scope.defaultPod.name)){
+    			//add to web error messages list
+    			$scope.webPodNameError = false;
+    	        
+    			
+    		}
+    		if(angular.equals($scope.webPod.os,$scope.defaultPod.os)){
+    			//add to web error messages list
+    			$scope.webPodOSError = false;
+    	        $scope.webPodAppError = false;
+    		}
+    		if(angular.equals($scope.webPod.app,$scope.defaultPod.app)){
+    			//add to web error messages list
+    		}
+    		
+    	}
+    	
+    	if($scope.webPodErrors.length > 0){
+    		return false;
+    	} else{
     		return true;
     	}
     }
@@ -987,4 +1052,17 @@ angular.module('spadeApp')
     modal.dismiss = function(reason) {
         $modalInstance.dismiss(reason);
     };
-});
+    
+    $scope.data = {
+		      selectedIndex : 0,
+		      secondLocked : false,
+		      secondLabel : "Item Two"
+		    };
+		    $scope.next = function() {
+		    	modal.handleNext();
+		      $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2) ;
+		    };
+		    $scope.previous = function() {
+		      $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
+		    };
+})

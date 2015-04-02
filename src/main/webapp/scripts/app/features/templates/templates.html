@@ -1,143 +1,130 @@
-<nav class="navbar navbar-default" style="background-color:gray;">
-  <div class="container-fluid">
-    
-    <div class="navbar-header">
+<nav class="navbar navbar-default" style="background-color: #bdbdbd;">
+	<div class="container-fluid">
 
-      <div class="navbar-brand" style="color: white;">Provisioning - Templates Lists</div>
-    </div>
+		<div class="navbar-header">
+			<div class="navbar-brand"
+				style="font-family: 'Roboto', sans-serif; font-weight: 300; color: white;">
+				Provisioning - Project Lists</div>
+		</div>
 
-    
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">View <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#" ng-click="gridView = !gridView">Grid View</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
+
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1" align="right"
+			style="float: right; margin-right: 10%;">
+			<ul class="nav navbar-nav">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-expanded="false"
+					style="font-family: 'Roboto', sans-serif; font-weight: 300; color: white;">View
+						<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#" ng-click="gridView = !gridView">Grid View</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+						<li class="divider"></li>
+						<li><a href="#">One more separated link</a></li>
+					</ul></li>
+			</ul>
+		</div>
+	</div>
 </nav>
-<div layout="row" layout-md="column" layout-wrap flex class="md-content">
+<div layout="row" layout-md="column" layout-wrap flex class="md-content"
+	style="padding-left: 5%;">
 
 	<!-- <div class="container"> -->
-		<!-- <div flex ng-repeat="item in plates" > -->
-		
-		<md-card ng-repeat="item in plates" class="un-25" flex="20" style="background-color:white; border-radius:12px;" ng-show="!gridView">
-			<md-card-content flex style="text-align:center">
-				<md-toolbar class="md-warn"><h4>{{item.id}}</h4></md-toolbar>
-				<div ng-repeat="temp in item.templates" style="padding: 4%;" flex>
-						<h3 style="margin-top: 0px;margin-bottom: 0px;">{{temp.name}}</h3>
-						<span>{{temp.app}}</span>
-					</div>
-					<div layout="row" layout-align="space-around center" flex>
-						<md-button class="md-warn" style="background-color:#3f51b5;color:white" ng-click="open2(item)">Edit</md-button>
-						<md-button class="md-warn" style="background-color:#3f51b5;color:white">Launch</md-button>
-					</div>
-			</md-card-content>
-		</md-card>
-		
-		<div ng-show="gridView">
+	<!-- <div flex ng-repeat="item in plates" > -->
+
+	<md-card ng-repeat="item in plates" class="un-25" flex="20" style="background-color:white; border-radius:12px;" ng-show="!gridView"> 
+		<md-card-content flex style="padding: 0px"> 
+			<md-toolbar class="md-primary" style="text-align:center;font-family: 'Roboto', sans-serif; font-weight:300;  color:white;border-top-left-radius:10px;border-top-right-radius:10px;padding-top: 6%;">
+				<h4>{{item.id}}</h4>
+			</md-toolbar>
+					
+		<div ng-repeat="temp in item.templates" style="padding: 4%;" flex>
+			<div layout="row">
+				<span ng-if="temp.app == 'apache' ">
+					<img alt="logo" src="assets/images/Apache.png" height="20px">
+				</span>
+				<span ng-if="temp.app == 'nginx' ">
+					<img alt="logo" src="assets/images/nginx.png" height="20px">
+				</span>
+				<span ng-if="temp.app == 'wildfly' ">
+					<img alt="logo" src="assets/images/wildfly.png" height="20px">
+				</span>
+				<span ng-if="temp.app == 'tomcat' ">
+					<img alt="logo" src="assets/images/Tomcat.png" height="20px">
+				</span>
+				<span ng-if="temp.app == 'mongodb' ">
+					<img alt="logo" src="assets/images/mongo2.png" height="20px">
+				</span>
+				<span ng-if="temp.app == 'mysql' ">
+					<img alt="logo" src="assets/images/mysql.png" height="20px">
+				</span>
+				
+				<div layout="column">
+					<h3 style="margin-top: 0px; margin-bottom: 0px;">{{temp.name}}</h3>
+					<span >{{temp.app}}</span>
+				</div>
+			</div>
+			
+		</div>
+	<div layout="row" layout-align="space-around center" flex>
+		<md-button class="md-primary"
+			style="font-family: 'Roboto', sans-serif;" ng-click="open2(item)">Edit</md-button>
+	</div>
+	</md-card-content> </md-card>
+
+	<div ng-show="gridView">
 		<div>
 
-<div id="outer" >
-	<md-card id="buttons" layout="row" >
-		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="create()">Create</md-button>
-		<div class="gap"></div>
-		<md-button class="md-raised md-noink" style="padding:5px 20px 5px 20px;">Edit</md-button>
-		<div class="gap"></div>
-		<md-button class="md-raised md-warn" style="padding:5px 20px 5px 20px;" ng-click="confirmDel($event)">Delete</md-button>
-	</md-card>
-    <md-card id="main" class="md-whiteframe-z2" flex>
-    <table st-table="displayedTemplates" st-safe-src="templates2" class="table table-striped">
-	<thead>
-	<tr >
-		<th st-sort="header" ng-repeat="header in headers">{{header}}</th>
-	</tr>
-	<tr>
-		<th colspan="8">
-			<input st-search class="input-sm form-control" type="search" placeholder="Filter..." />
-		</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr st-select-row="template" st-select-mode="multiple" ng-repeat="template in displayedTemplates">
-		<td>{{template.id}}</td>
-		<td>{{template.project}}</td>
-		<td>{{template.templates[$index].name}}</td>
-		<td>{{template.templates[$index].os}}</td>
-		<td>{{template.templates[$index].app}}</td>
-		<td>{{template.templates[$index].replicas}}</td>
-		<!-- <div ng-repeat="innerTemp in template.templates">
-			<td>{{innerTemp.name}}</td>
-			<td>{{innerTemp.os}}</td>
-			<td>{{innerTemp.app}}</td>
-			<td>{{innerTemp.replica}}</td>
-		</div> -->
-		<!-- <td ng-repeat="innerTemp in template.templates">{{innerTemp.name}}</td>
-		<td ng-repeat="innerTemp in template.templates">{{innerTemp.os}}</td>
-		<td ng-repeat="innerTemp in template.templates">{{innerTemp.app}}</td>
-		<td ng-repeat="innerTemp in template.templates">{{innerTemp.replicas}}</td>
-		<td></td> -->
-		<!-- <td><ng-md-icon icon="check_circle" style="color:green"><md-tooltip>{{pod.currentState.status}}</md-tooltip></ng-md-icon></td> -->
-	</tr>
-	</tbody>
-	<tfoot>
-	<tr>
-		<td colspan="8" class="text-center">
-			<div st-pagination="" st-items-by-page="3" st-displayed-pages="3"></div>
-		</td>
-	</tr>
-	</tfoot>
-</table>
-    </md-card>
-</div>
-</div>
+			<div id="outer">
+				<md-card id="buttons" layout="row"> <md-button
+					class="md-raised md-primary" style="padding:5px 20px 5px 20px;"
+					ng-click="create()">Create</md-button>
+				<div class="gap"></div>
+				<md-button class="md-raised md-noink"
+					style="padding:5px 20px 5px 20px;">Edit</md-button>
+				<div class="gap"></div>
+				<md-button class="md-raised md-warn"
+					style="padding:5px 20px 5px 20px;" ng-click="confirmDel($event)">Delete</md-button>
+				</md-card>
+				<md-card id="main" class="md-whiteframe-z2" flex>
+				<table st-table="displayedTemplates" st-safe-src="templates2"
+					class="table table-striped">
+					<thead>
+						<tr>
+							<th st-sort="header" ng-repeat="header in headers">{{header}}</th>
+						</tr>
+						<tr>
+							<th colspan="8"><input st-search
+								class="input-sm form-control" type="search"
+								placeholder="Filter..." /></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr st-select-row="template" st-select-mode="multiple"
+							ng-repeat="template in displayedTemplates">
+							<td>{{template.id}}</td>
+							<td>{{template.project}}</td>
+							<td>{{template.templates[$index].name}}</td>
+							<td>{{template.templates[$index].os}}</td>
+							<td>{{template.templates[$index].app}}</td>
+							<td>{{template.templates[$index].replicas}}</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="8" class="text-center">
+								<div st-pagination="" st-items-by-page="3"
+									st-displayed-pages="3"></div>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				</md-card>
+			</div>
 		</div>
+	</div>
 </div>
-		
-		
-		<!-- <md-content>
-	    <md-card  style="border-style:solid; border-width:thin; border-radius:10px;" ng-model="item"  flex>
-	      <md-content flex>
-	        <md-toolbar class="md-warn" style="border-radius:7px;" flex><h2 class="md-title">{{item.id}} 0</h2></md-toolbar>
-	        <div ng-repeat="temp in item.templates" style="padding: 4%;" flex>
-						<h3 style="margin-top: 0px;margin-bottom: 0px;">{{temp.name}}</h3>
-						<span>{{temp.app}}</span>
-					</div>
-					<div layout="row" layout-align="" flex>
-						<md-button class="md-warn" style="background-color:#3f51b5;color:white" ng-click="open2(item)">Edit</md-button>
-						<md-button class="md-warn" style="background-color:#3f51b5;color:white">Launch</md-button>
-					</div>
-	      </md-card-content>
-	    </md-card>
-    </md-content> -->
-		
-		
-		
-			<!-- <md-card  style="border-style:solid; border-width:thin; border-radius:10px;" ng-model="item"  flex>
-			<md-content style="border-style:solid; border-width:thin; border-radius:10px;" ng-model="item">
-				<md-content flex>
-					<md-toolbar class="md-warn" style="border-radius:7px;" flex><h2>{{item.id}}</h2></md-toolbar>
-					<div ng-repeat="temp in item.templates" style="padding: 4%;" flex>
-						<h3 style="margin-top: 0px;margin-bottom: 0px;
-						">{{temp.name}}</h3>
-						<span>{{temp.app}}</span>
-					</div>
-					<div layout="row" layout-align="" flex>
-						<md-button class="md-warn" style="background-color:#3f51b5;color:white" ng-click="open2(item)">Edit</md-button>
-						<md-button class="md-warn" style="background-color:#3f51b5;color:white">Launch</md-button>
-					</div>
-				</md-content>
-			</md-content>
-			
-			</md-card> -->
-		<!-- </div> -->
-	<!-- </div> -->

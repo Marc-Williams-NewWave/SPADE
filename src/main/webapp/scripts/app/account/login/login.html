@@ -1,11 +1,7 @@
-<!-- <div layout="row">
-	<div class="container">Monitoring {{name}}'s Actions</div>
-</div>
- -->
 <div>
-    <div class="row">
+    <div class="row" style="font-family: 'Roboto', sans-serif">
         <div class="col-md-4 col-md-offset-4">
-            <h1 translate="login.title">SPADE Login</h1>
+            <h1 style="font-weight:500;">SPADE Login</h1>
 
             <div class="alert alert-danger" ng-show="authenticationError" translate="login.messages.error.authentication">
                 <strong>Authentication failed!</strong> Please check your credentials and try again.
@@ -26,7 +22,7 @@
                         {{"login.form.rememberme" | translate}}
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary" ng-click="login()" translate="login.form.button">Authenticate</button>
+                <button type="submit" class="btn btn-primary" ng-click="login()">Login</button>
             </form>
             <p></p>
             <div class="alert alert-warning" translate="global.messages.info.register" style="width: 120%;">

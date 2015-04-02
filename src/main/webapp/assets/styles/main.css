@@ -1,11 +1,13 @@
 
-/* .robotItem {
+.robotItem {
 	font-family: 'Roboto', sans-serif;
-	font-weight: lighter;
-	color: white !important;
 }
 
-.robotItem .subheader2{
+.robotItem .medium{
+	font-weight: 500;
+}
+
+/* .robotItem .subheader2{
 	font-weight: lighter;
 	color: white !important;
 } */

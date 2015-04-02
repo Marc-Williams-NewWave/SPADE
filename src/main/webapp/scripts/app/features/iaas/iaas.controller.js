@@ -71,7 +71,7 @@ angular.module('spadeApp')
 	 
 	 })
 
-    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService,$mdToast, $animate) {
+    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService,$mdToast, $animate,$state) {
     	$scope.toastPosition = {
     		    bottom: false,
     		    top: true,
@@ -532,13 +532,7 @@ angular.module('spadeApp')
     	
     	console.log(templateService.items());
     	
-    	if(templateService.items().length > 0){
-    		$scope.webPod = templateService.items()[0].templates[0];
-    		$scope.appPod = templateService.items()[0].templates[1];
-    		$scope.dbPod = templateService.items()[0].templates[2];
-    	}
-    	
-    	$scope.conf = false;
+$scope.conf = false;
     	
     	$scope.setWebConfig = function(item){
     		var conf = [];
@@ -595,6 +589,26 @@ angular.module('spadeApp')
     		}
     	};
     	
+    	if(templateService.items().length > 0){
+    		$scope.webPod = templateService.items()[0].templates[0];
+    		$scope.appPod = templateService.items()[0].templates[1];
+    		$scope.dbPod = templateService.items()[0].templates[2];
+    		
+//    		console.log(templateService.items()[0].templates[0].app);
+//    		console.log(templateService.items()[0].templates[1].app);
+//    		console.log(templateService.items()[0].templates[2].app);
+    		
+//    		var webApp = templateService.items()[0].templates[0].app;
+//    		var appApp = templateService.items()[0].templates[1].app
+//    		var dbApp = templateService.items()[0].templates[2].app
+    		
+    		$scope.webConfig = $scope.setWebConfig(templateService.items()[0].templates[0].app); 
+    		$scope.appConfig = $scope.setAppConfig(templateService.items()[0].templates[1].app);
+    		$scope.dbConfig = $scope.setDBConfig(templateService.items()[0].templates[2].app);
+    	}
+    	
+    	
+    	
     	$scope.podArray = new Array(3);
     	$scope.podArray[0] = $scope.webPod;
     	$scope.podArray[1] = $scope.appPod
@@ -618,32 +632,35 @@ angular.module('spadeApp')
         		  project: "demo",
         		  controllers: $scope.podArray
         		}
-//        var alert;
-//        $scope.showAlert = showAlert;
-//        
-//        function showAlert() {
-//            alert = $mdDialog.alert()
-//              .title('Attention, ' + $scope.userName)
-//              .content('This is an example of how easy dialogs can be!')
-//              .ok('Close');
-//
-//            $mdDialog
-//                .show( alert )
-//                .finally(function() {
-//                  alert = undefined;
-//                });
-//          }
+        
+        $scope.showAlert = showAlert;
+        
+        function showAlert() {
+           var confirm = $mdDialog.confirm()
+              .title('Success, your server has been launched')
+              .content('Click \'View Server\' to view your server')
+              .ok('View Server')
+              .cancel('Close');
+
+            $mdDialog
+                .show( confirm ).then(function(){
+                	$state.go('stats');
+                })
+                
+          }
      	  
           
      	 $scope.launch = function(){
      		console.log($scope.payload);
-//     		$scope.showAlert();
-     		$scope.showCustomToast();
-//     		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
-//         		 	.success(function(data){
-//         		 		
-//         		 		console.log("success data returned ====> " + data);
-//         		 });	
+     		
+//     		$scope.showCustomToast();
+     		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
+         		 	.success(function(data){
+         		 		modal.dismiss();
+//         		 		$modalInstance.dismiss();
+         	     		$scope.showAlert();
+         		 		console.log("success data returned ====> " + data);
+         		 });	
       	}
      	 
 //     	$scope.deletePod = function(pod){
@@ -654,17 +671,17 @@ angular.module('spadeApp')
 //     		 });
 //     	}
      	 
-     	$scope.alert = '';
-     	  $scope.showAlert = function() {
-     	    $mdDialog.show(
-     	      $mdDialog.alert()
-     	        .title('This is an alert title')
-     	        .content('You can specify some description text in here.')
-     	        .ariaLabel('Password notification')
-     	        .ok('Got it!')
-//     	        .targetEvent(ev)
-     	    );
-     	  };
+//     	$scope.alert = '';
+//     	  $scope.showAlert = function() {
+//     	    $mdDialog.show(
+//     	      $mdDialog.alert()
+//     	        .title('This is an alert title')
+//     	        .content('You can specify some description text in here.')
+//     	        .ariaLabel('Password notification')
+//     	        .ok('Got it!')
+////     	        .targetEvent(ev)
+//     	    );
+//     	  };
      	  
      	  
     	var modal = this;
@@ -760,8 +777,9 @@ angular.module('spadeApp')
         
     
 
-        modal.dismiss = function(reason) {
-            $modalInstance.dismiss(reason);
+        modal.dismiss = function() {
+        	templateService.clear()
+            $modalInstance.dismiss();
         };
         
         $scope.data = {
