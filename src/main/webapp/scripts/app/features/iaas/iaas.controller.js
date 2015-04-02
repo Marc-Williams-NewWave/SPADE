@@ -611,8 +611,8 @@ $scope.conf = false;
         function showAlert() {
            var confirm = $mdDialog.confirm()
               .title('Success, your server has been launched')
-              .content('Click \'View Server\' to view your server')
-              .ok('View Server')
+              .content('Click \'View Stack\' to view your stack')
+              .ok('View Stack')
               .cancel('Close');
 
             $mdDialog
