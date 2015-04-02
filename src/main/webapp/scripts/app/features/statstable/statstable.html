@@ -13,7 +13,7 @@
 <nav class="navbar navbar-default" style="background-color:gray;">
   <div class="container-fluid">
     <div class="navbar-header">
-      <div ui-sref="stats" class="navbar-brand" style="color: white;">Infrastructure Dashboard - Table View</div>
+      <div ui-sref="stats" class="navbar-brand" style="color:white;">Infrastructure Dashboard - Table View</div>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
       <ul class="nav navbar-nav">
@@ -40,9 +40,6 @@
 	<md-card id="buttons" layout="row" >
 		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="create()">Create</md-button>
 		<div class="gap"></div>
-		<md-button class="md-raised md-noink" style="padding:5px 20px 5px 20px;">Edit</md-button>
-		<div class="gap"></div>
-<!-- 		ng-disabled="selectedPod.$selected===false" -->
 		<md-button class="md-raised md-warn" style="padding:5px 20px 5px 20px;" ng-click="confirmDel($event, selectedPod)">Delete</md-button>
 	</md-card>
 	
@@ -79,8 +76,14 @@
 		<td data-title="'Host'" sortable="'host'" filter="{ 'host': 'text' }">
 			{{pod.currentState.host}}
 		</td>
-		<td></td>
-		<td><ng-md-icon icon="check_circle" style="color:green"><md-tooltip>{{pod.currentState.status}}</md-tooltip></ng-md-icon></td>
+		<td ng-repeat="container in pod.desiredState.manifest.containers">
+			<div ng-repeat="port in container.ports">{{pod.currentState.host}}:{{port.hostPort}}</div></td>
+		<td>
+<!-- 		pod.currentState.status|switch:{'Running:'status-running','Pending:'status-pending','Failed:'status-failed' -->
+			<ng-md-icon icon="brightness_1"
+			 style="fill:{{statusColors[pod.currentState.status]}}" size="24" >
+				<md-tooltip>{{pod.currentState.status}}</md-tooltip>
+			</ng-md-icon></td>
 	</tr>
 	</tbody>
 	<tfoot>

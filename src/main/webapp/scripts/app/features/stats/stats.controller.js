@@ -18,7 +18,6 @@ angular.module('spadeApp').controller('StatsController',
 	$scope.updateSlaves = function(){
 		SlaveService.getSlaves()
 		.then(function(response){
-			alert(response.items);
 			$scope.slaves = response.items;
 			$scope.slaves.sort(compare);
 		})
@@ -26,7 +25,6 @@ angular.module('spadeApp').controller('StatsController',
 	$scope.updateTasks = function(){
 		TaskService.getTasks()
 		.then(function(response){
-			alert(response.items);
 			$scope.tasks = response.items;
 		})
 	}
@@ -34,7 +32,6 @@ angular.module('spadeApp').controller('StatsController',
 	$scope.updatePods = function(){
 		PodService.getPods()
 		.then(function(response){
-			alert(response.items);
 			$scope.pods = response.items;
 		})
 	}
@@ -55,10 +52,6 @@ angular.module('spadeApp').controller('StatsController',
 			}
 			//alert(color);
 		}
-//		for (var c in colors){
-//			alert(c);
-//			alert(colors[c]);
-//		}
 		return colors;
 	}
 	//$scope.stackColors = stackColors();
@@ -75,10 +68,10 @@ angular.module('spadeApp').controller('StatsController',
             .then(function (data) {
                 $scope.create.closeAlert();
                 $scope.create.summary = data;
-                $state.go('stats', { "reload": true })
+                $state.go($state.current, {}, { "reload": true })
             }, function (reason) {
             	$scope.create.reason = reason;
-            	$state.go('stats', { "reload": true })
+            	//$state.go($state.current, {}, { "reload": true })
             });
     };
 	
@@ -146,84 +139,63 @@ angular.module('spadeApp').controller('StatsController',
 //	               }
 //	           ];
 	var colors = $scope.stackColors();
-//	alert(colors);
-//	for (var c in colors){
-//		alert(c);
-//		alert(colors[c]);
-//	}
-	for (var i=0; i < $scope.slaves.length; i++){
-		var slave = $scope.slaves[i];
-		slave.cpuData = [];
-		slave.memData = [];
-		slave.diskData = [];
-		var cpuTotal = 0;
-		var memTotal = 0;
-		var diskTotal = 0;
-		for (var j=0; j < $scope.tasks.length; j++){
-			var task = $scope.tasks[j];
-			if (task.slaveId === slave.id){
-				cpuTotal += task.cpuPercent;
-				memTotal += task.memPercent;
-				diskTotal += task.diskPercent;
-				for (var k=0; k < $scope.pods.length; k++){
-					var pod = $scope.pods[k];
-					console.log(pod.labels.name);
-					if (task.podName === pod.labels.name){
-						var stack = pod.labels.stack;
-						//console.log(stack + ":" + colors[stack]);
-						slave.cpuData.push({label: task.podName, value: task.cpuPercent, color: colors[stack]});
-						slave.memData.push({label: task.podName, value: task.memPercent, color: colors[stack]});
-						slave.diskData.push({label: task.podName, value: task.diskPercent, color: colors[stack]});
+	$scope.colors = colors;
+	
+	$scope.drawCharts = function (){
+		console.log("DRAWING");
+		for (var i=0; i < $scope.slaves.length; i++){
+			var slave = $scope.slaves[i];
+			slave.cpuData = [];
+			slave.memData = [];
+			slave.diskData = [];
+			var cpuTotal = 0;
+			var memTotal = 0;
+			var diskTotal = 0;
+			for (var j=0; j < $scope.tasks.length; j++){
+				var task = $scope.tasks[j];
+				if (task.slaveId === slave.id){
+					cpuTotal += task.cpuPercent;
+					memTotal += task.memPercent;
+					diskTotal += task.diskPercent;
+					for (var k=0; k < $scope.pods.length; k++){
+						var pod = $scope.pods[k];
+						//console.log(pod.labels.name);
+						if (task.podName === pod.labels.name){
+							var stack = pod.labels.stack;
+							//console.log(stack + ":" + colors[stack]);
+							slave.cpuData.push({label: task.podName, value: task.cpuPercent, color: colors[stack]});
+							slave.memData.push({label: task.podName, value: task.memPercent, color: colors[stack]});
+							slave.diskData.push({label: task.podName, value: task.diskPercent, color: colors[stack]});
+						}
 					}
 				}
 			}
-		}
-		slave.cpuData.push({label: "unused", value: 100-cpuTotal, color: "grey"});
-		slave.memData.push({label: "unused", value: 100-memTotal, color: "grey"});
-		slave.diskData.push({label: "unused", value: 100-diskTotal, color: "grey"});
-}
+			slave.cpuData.push({label: "unused", value: 100-cpuTotal, color: "grey"});
+			slave.memData.push({label: "unused", value: 100-memTotal, color: "grey"});
+			slave.diskData.push({label: "unused", value: 100-diskTotal, color: "grey"});
+	}
+	}
+	
+	$scope.drawCharts();
+	
 	$scope.refresh = function () {
-    	alert("TIMEOUT");
-    	$scope.$apply();
+    	//alert("TIMEOUT");
+//    	$scope.updateTasks();
+//    	$scope.updateSlaves();
+//    	$scope.updatePods();
+    	$scope.drawCharts();
+    	$state.go($state.current, {}, {reload:true});
     	//$scope.api.refresh();
     };
-//	function drawCharts(){
-//		for (var i=0; i < $scope.slaves.length; i++){
-//			var slave = $scope.slaves[i];
-//			slave.cpuData = [];
-//			slave.memData = [];
-//			slave.diskData = [];
-//
-//			console.log(i);
-//
-//			var cpuTotal = 0;
-//			var memTotal = 0;
-//			var diskTotal = 0;
-//			for (var j=0; j < $scope.tasks.length; j++){
-//				var color = 'rgb(' + Math.floor(Math.random() * 255) 
-//				+ ',' + Math.floor(Math.random() * 255) 
-//				+ ',' + Math.floor(Math.random() * 255) + ')';
-//				var task = $scope.tasks[j];
-//				console.log()
-//				if (task.slaveId === slave.id){
-//					console.log(task.slaveId)
-//					console.log(slave.id)
-//
-//					cpuTotal += task.cpuPercent;
-//					memTotal += task.memPercent;
-//					diskTotal += task.diskPercent;
-//					slave.cpuData.push({label: task.podName, value: task.cpuPercent, color: color, suffix: "%"});
-//					slave.memData.push({label: task.podName, value: task.memPercent, color: color, suffix: "%"});
-//					slave.diskData.push({label: task.podName, value: task.diskPercent, color: color, suffix: "%"});
-//				}
-//			}
-//			slave.cpuData.push({label: "unused", value: 100-cpuTotal, color: "grey"});
-//			slave.memData.push({label: "unused", value: 100-memTotal, color: "grey"});
-//			slave.diskData.push({label: "unused", value: 100-diskTotal, color: "grey"});
-//	}
-//	}
-	//$scope.options = {thickness: 30};
-	//$scope.drawCharts = drawCharts();
+    
+    $scope.$on('stateChange.directive', function(angularEvent, event){
+    	console.log("CHANGED");
+    });
+    
+    $scope.$on('beforeUpdate.directive', function(angularEvent, event){
+    	console.log("CHANGED");
+    });
+    //$timeout($scope.refresh, 3000);
 	
 }])
 .factory('SlaveService', function ($http) {

@@ -43,22 +43,32 @@
      <md-tabs class="title" flex>
      
      	<md-tab label="CPU" style="height:auto !important">
+     	<md-card id="legend" class="md-whiteframe-z2" layout="row" flex>
+     		<md-card ng-repeat="(stack, color) in colors" layout="row">
+     		<ng-md-icon icon="brightness_1"
+			 style="fill:{{color}}" size="24" >
+			</ng-md-icon>
+			{{stack}}
+			</md-card>
+     	</md-card>
      	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" flex>
      		<nvd3-pie-chart
             data="slave.cpuData"
             donut="true"
-            donutRatio=".40"
+            donutRatio=".45"
             margin="{left:0,top:0,bottom:0,right:0}"
             x="xFunction()"
             y="yFunction()"
             showLabels="false"
             tooltips="true"
+            height="250"
+            width="250"
             tooltipContent="tooltipFunction()"
             color="getColor(slave.cpuData)"
             pieLabelsOutside="false"
             showValues="false"
             labelType="percent">
-        <svg height="400"></svg>
+        <svg height="250"></svg>
     </nvd3-pie-chart>
 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
 		</md-card>
@@ -69,17 +79,20 @@
     		<nvd3-pie-chart
             data="slave.memData"
             donut="true"
-            donutRatio=".40"
+            donutRatio=".45"
             margin="{left:0,top:0,bottom:0,right:0}"
             x="xFunction()"
             y="yFunction()"
             showLabels="false"
             tooltips="true"
+            height="250"
+            width="250"
+            tooltipContent="tooltipFunction()"
             color="getColor(slave.memData)"
             pieLabelsOutside="false"
             showValues="false"
             labelType="percent">
-        <svg height="400"></svg>
+        <svg height="250"></svg>
     </nvd3-pie-chart>
 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
 		</md-card>
@@ -96,11 +109,14 @@
             y="yFunction()"
             showLabels="false"
             tooltips="true"
+            height="250"
+            width="250"
+            tooltipContent="tooltipFunction()"
             color="getColor(slave.diskData)"
             pieLabelsOutside="false"
             showValues="false"
             labelType="percent">
-        <svg height="400"></svg>
+        <svg height="250"></svg>
     </nvd3-pie-chart>
 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
 		</md-card>
