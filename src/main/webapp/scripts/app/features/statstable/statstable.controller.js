@@ -1,8 +1,8 @@
 'use strict'
 angular.module('spadeApp')
 .controller('StatsTableController',
-		["$scope", "$http", "$modal", "$filter", "$mdDialog", "$mdToast", "$state", "resolvePods", "ngTableParams", 
-		function($scope, $http, $modal, $filter, $mdDialog, $mdToast, $state, resolvePods, ngTableParams) {
+		["$scope", "$http", "$modal", "$filter", "$mdDialog", "$mdToast", "$state", "Auth", "resolvePods", "ngTableParams", 
+		function($scope, $http, $modal, $filter, $mdDialog, $mdToast, $state, Auth, resolvePods, ngTableParams) {
 	
 			$scope.pageName = "Table View";
 			$scope.switchPages = { "Resource":"stats", "Table":"statstable" };
@@ -161,7 +161,10 @@ angular.module('spadeApp')
 			"Pending":"yellow",
 			"Failed":"red"
 	};
-	
+	$scope.logout = function () {
+        Auth.logout();
+        $state.go('login');
+    };
 //	$scope.statusColor = function(status){
 //		var style;
 //		switch (status){

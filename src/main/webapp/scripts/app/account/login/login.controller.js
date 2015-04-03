@@ -22,7 +22,8 @@ angular.module('spadeApp')
                 rememberMe: $scope.rememberMe
             }).then(function () {
                 $scope.authenticationError = false;
-                $rootScope.back();
+                $state.go("home");
+                //$rootScope.back();
             }).catch(function () {
                 $scope.authenticationError = true;
             });

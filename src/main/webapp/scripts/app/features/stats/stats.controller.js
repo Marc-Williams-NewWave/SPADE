@@ -1,7 +1,7 @@
 'use strict'
 angular.module('spadeApp').controller('StatsController', 
-		[ "$scope", "$http", "$modal", "$state", "$timeout", "resolveSlaves", "resolveTasks", "resolvePods", "SlaveService", "TaskService", "PodService", "MenuService",
-        function($scope, $http, $modal, $state, $timeout, resolveSlaves, resolveTasks, resolvePods, SlaveService, TaskService, PodService, MenuService){
+		[ "$scope", "$http", "$modal", "$state", "$timeout", "Auth", "resolveSlaves", "resolveTasks", "resolvePods", "SlaveService", "TaskService", "PodService", "MenuService",
+        function($scope, $http, $modal, $state, $timeout, Auth, resolveSlaves, resolveTasks, resolvePods, SlaveService, TaskService, PodService, MenuService){
 
 			$scope.pageName = "Resource View";
 			$scope.switchPages = { "Resource":"stats", "Table":"statstable" };
@@ -191,6 +191,11 @@ angular.module('spadeApp').controller('StatsController',
     	$scope.drawCharts();
     	$state.go($state.current, {}, {reload:true});
     	//$scope.api.refresh();
+    };
+    
+    $scope.logout = function () {
+        Auth.logout();
+        $state.go('login');
     };
     
     $scope.$on('stateChange.directive', function(angularEvent, event){

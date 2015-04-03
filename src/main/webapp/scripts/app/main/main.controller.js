@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('spadeApp').controller('MainController', function($scope, Principal, $http,templateService) {
+angular.module('spadeApp').controller('MainController', function($scope, $state, Principal, Auth, $http,templateService) {
 
 
 			$http.get("http://192.168.4.8:8080/spade/api/proj")
@@ -66,6 +66,10 @@ angular.module('spadeApp').controller('MainController', function($scope, Princip
 //        	 
 //        	 $scope.templateFactoryService.addItem($scope.defaultPod2);
 
+			$scope.logout = function () {
+	            Auth.logout();
+	            $state.go('login');
+	        };
 			
 			Principal.identity().then(function(account) {
 				$scope.account = account;

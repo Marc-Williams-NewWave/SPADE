@@ -321,6 +321,11 @@ angular.module('spadeApp')
 	}
 	
 	$scope.displayedTemplates = [].concat($scope.templates2);
+	
+	$scope.logout = function () {
+        Auth.logout();
+        $state.go('login');
+    };
 })
 
 

@@ -1,19 +1,23 @@
 <div ng-cloak style="background-color: #f1f7f9;">
-<nav class="navbar navbar-default" style="background-color:#e0e0e0;">
+<nav class="navbar navbar-default navbar-transparent" style="background-color:#bdbdbd;margin-bottom: 0px !important;height:auto">
   <div class="container-fluid">
     
     <div class="navbar-header">
-      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">Provisioning - Project List</div>
+      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">Home - Project List</div>
     </div>
 
-    
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
-      <ul class="nav navbar-nav nav-pills navbar-right">
-      <li>
-      <a ui-sref="home">
-      	<span class="glyphicon glyphicon-home"></span>
-      	</a>
-      </li>
+      <ul class="nav navbar-nav">
+      <li ><a ui-sref="home"><ng-md-icon icon="home" style="fill:black" size="20"></ng-md-icon></a></li>
+      <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Account <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="">Profile</a></li>
+            <li><a href="">Statistics</a></li>
+            <li><a ng-click="logout()" href="">Logout</a></li>
+          </ul>
+        </li>
+        
       </ul>
     </div>
   </div>
