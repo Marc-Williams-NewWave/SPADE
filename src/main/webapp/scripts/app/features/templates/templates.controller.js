@@ -74,6 +74,7 @@ angular.module('spadeApp')
 //			console.log(config);
 //		})
 	
+	$scope.labelFormat = { "web":"Web Server", "app":"App Server", "db":"Database"}
 	 
 	$scope.plates2 = [{
 		  "id": "Template A",

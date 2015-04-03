@@ -2,14 +2,16 @@
 <!-- <ng-switch on="">	         -->
 	
 	<div ng-show="isAuthenticated()">
-	  <accordion close-others="oneAtATime">
-	    <accordion-group>
-	      <accordion-heading><span><img src="assets/images/appbar.home.png" height="34px"></span><a ui-sref="home"><span style="font-family: 'Roboto', sans-serif;font-weight:500;color: black;">Home</span></a></accordion-heading>
+	  <accordion close-others="true">
+	    <accordion-group data-toggle="collapse" is-disabled="true">
+	      <accordion-heading><span><img src="assets/images/appbar.home.png" height="34px"></span>
+	      					<a ui-sref="home"><span style="font-family: 'Roboto', sans-serif;font-weight:500;color: black;">Home</span></a>
+	      </accordion-heading>
 	    </accordion-group>
 	    <accordion-group is-disabled="status.isFirstDisabled">
 	    <accordion-heading><span><img src="assets/images/appbar.database.png" height="34px"><a href=""><span style="font-family: 'Roboto', sans-serif;font-weight:500;color: black;">Provisioning</span></a></accordion-heading>
 	      <ul>
-	        <li><a ng-click="app.open()" href="#"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">IaaS</span></a></li>
+	        <li><a ng-click="app.open()" href="#"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">Launch Stack</span></a></li>
 	        <li><a ng-click="templates()" href="#"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">Templates</span></a></li>
 	        <li><a ng-click="logout()" href="#"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">Logout</span></a></li>
 	      </ul>

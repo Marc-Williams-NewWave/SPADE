@@ -7,57 +7,29 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
       <ul class="nav navbar-nav">
-      <li ><a ui-sref="home"><ng-md-icon icon="home" style="fill:black" size="20"></ng-md-icon></a></li>
       <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Account <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">
+          Switch View <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="" ng-click="gridView = true">Table View</a></li>
+            <li><a href="" ng-click="gridView = false">Template View</a></li>
+          </ul>
+        </li>
+      <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">
+          <div layout="row"><ng-md-icon icon="person" style="fill:black" size="20"></ng-md-icon><span style="display:block; margin-top:11px;" class="caret"></span></div></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="">Profile</a></li>
             <li><a href="">Statistics</a></li>
             <li><a ng-click="logout()" href="">Logout</a></li>
           </ul>
         </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Switch View <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="" ng-click="gridView = true">Table View</a></li>
-            <li><a href="" ng-click="gridView = false">Template View</a></li>
-          </ul>
-        </li>
+        
+        <li ><a ui-sref="home"><ng-md-icon icon="home" style="fill:black" size="20"></ng-md-icon></a></li>
       </ul>
     </div>
   </div>
 </nav>
-<!-- <nav class="navbar navbar-default" style="background-color: #e0e0e0;"> -->
-<!-- 	<div class="container-fluid"> -->
-
-<!-- 		<div class="navbar-header"> -->
-<!--       <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">Provisioning - Templates List</div> -->
-<!--     </div> -->
-
-
-<!-- 		<div class="collapse navbar-collapse" -->
-<!-- 			id="bs-example-navbar-collapse-1" align="right" -->
-<!-- 			style="float: right; margin-right: 10%;"> -->
-<!-- 			<ul class="nav navbar-nav"> -->
-<!-- 				<li class="dropdown"><a href="#" class="dropdown-toggle" -->
-<!-- 					data-toggle="dropdown" role="button" aria-expanded="false" -->
-<!-- 					style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Switch View -->
-<!-- 						<span class="caret"></span> -->
-<!-- 				</a> -->
-<!-- 					<ul class="dropdown-menu" role="menu" style="font-family: 'Roboto', sans-serif; font-weight: 300;"> -->
-<!-- 						<li><a href="#" ng-click="gridView = true">Table View</a></li> -->
-<!-- 						<li><a href="#" ng-click="gridView = false">Template View</a></li> -->
-<!-- 						<li><a href="#">Another action</a></li>
-<!-- 						<li><a href="#">Something else here</a></li> -->
-<!-- 						<li class="divider"></li> -->
-<!-- 						<li><a href="#">Separated link</a></li> -->
-<!-- 						<li class="divider"></li> -->
-<!-- 						<li><a href="#">One more separated link</a></li> -->
-<!-- 					</ul></li> -->
-<!-- 			</ul> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- </nav> -->
 
 <div layout="row" layout-md="column" layout-wrap flex class="md-content"
 	style="padding-left: 5%;">
@@ -67,30 +39,30 @@
 				<h4>{{item.id}}</h4>
 			</md-toolbar>
 					
-		<div ng-repeat="temp in item.templates" style="padding: 4%;" flex>
-			<div layout="row">
-				<span ng-if="temp.app == 'apache' ">
+		<div ng-repeat="temp in item.templates" style="padding: 4%; padding-left:40px" flex>
+			<div layout="row" style="margin-top:2px">
+				<span style="margin-top:16px;padding-right:3px" ng-if="temp.app == 'apache' ">
 					<img alt="logo" src="assets/images/Apache.png" height="20px">
 				</span>
-				<span ng-if="temp.app == 'nginx' ">
+				<span style="margin-top:16px;padding-right:3px" ng-if="temp.app == 'nginx' ">
 					<img alt="logo" src="assets/images/nginx.png" height="20px">
 				</span>
-				<span ng-if="temp.app == 'wildfly' ">
+				<span style="margin-top:16px;padding-right:3px" ng-if="temp.app == 'wildfly' ">
 					<img alt="logo" src="assets/images/wildfly.png" height="20px">
 				</span>
-				<span ng-if="temp.app == 'tomcat' ">
+				<span style="margin-top:16px;padding-right:3px" ng-if="temp.app == 'tomcat' ">
 					<img alt="logo" src="assets/images/Tomcat.png" height="20px">
 				</span>
-				<span ng-if="temp.app == 'mongodb' ">
+				<span style="margin-top:16px;padding-right:3px" ng-if="temp.app == 'mongodb' ">
 					<img alt="logo" src="assets/images/mongo2.png" height="20px">
 				</span>
-				<span ng-if="temp.app == 'mysql' ">
+				<span style="margin-top:16px;padding-right:3px" ng-if="temp.app == 'mysql' ">
 					<img alt="logo" src="assets/images/mysql.png" height="20px">
 				</span>
 				
 				<div layout="column">
-					<h3 style="margin-top: 0px; margin-bottom: 0px;">{{temp.name}}</h3>
-					<span >{{temp.app}}</span>
+					<h3 style="margin-top: 0px; margin-bottom: 0px;" >{{labelFormat[temp.label]}}</h3>
+					<span style="text-transform:capitalize">{{temp.app}}</span>
 				</div>
 			</div>
 		</div>

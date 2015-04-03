@@ -241,10 +241,10 @@
     </ng-switch>
     <div layout="row">
     <div class="modal-footer" style="border: none !important;">
-		<md-button class="md-raised md-primary" style="font-family: 'Roboto', sans-serif; font-weight:500;" ng-click="modal.dismiss()">Cancel</md-button>
-		<md-button class="md-raised md-primary" style="font-family: 'Roboto', sans-serif; font-weight:500;" ng-click="previous()" ng-show="data.selectedIndex != 0">Back</md-button>
-		<md-button class="md-raised md-primary" style="font-family: 'Roboto', sans-serif; font-weight:500;" ng-click="next()" ng-show="data.selectedIndex != 2">Next</md-button>
-		<md-button class="md-raised md-primary" style="font-family: 'Roboto', sans-serif; font-weight:500;" ng-show="data.selectedIndex == 2" ng-click="launch()">Launch</md-button>
+		<md-button class="md-raised" style="font-family: 'Roboto', sans-serif; font-weight:500;color: #1e88e5;background-color: #ffffff" ng-click="modal.dismiss()">Cancel</md-button>
+		<md-button class="md-raised md-primary" style="font-family: 'Roboto', sans-serif; font-weight:500;" ng-click="previous()" ng-disabled="data.selectedIndex == 0">Back</md-button>
+		<md-button class="md-raised md-primary" style="font-family: 'Roboto', sans-serif; font-weight:500;" ng-click="next()" ng-disabled="data.selectedIndex == 2">Next</md-button>
+		<!-- <md-button class="md-raised md-primary" style="font-family: 'Roboto', sans-serif; font-weight:500;" ng-show="data.selectedIndex == 2" ng-click="launch()">Launch</md-button> -->
 	</div>
     </div>
 </div>

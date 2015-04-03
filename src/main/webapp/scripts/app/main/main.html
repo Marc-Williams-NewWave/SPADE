@@ -8,27 +8,30 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
       <ul class="nav navbar-nav">
-      <li ><a ui-sref="home"><ng-md-icon icon="home" style="fill:black" size="20"></ng-md-icon></a></li>
+      
       <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Account <span class="caret"></span></a>
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">
+          <div layout="row"><ng-md-icon icon="person" style="fill:black" size="20"></ng-md-icon><span style="display:block; margin-top:11px;" class="caret"></span></div></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="">Profile</a></li>
             <li><a href="">Statistics</a></li>
             <li><a ng-click="logout()" href="">Logout</a></li>
           </ul>
         </li>
-        
+        <li ><a ui-sref="home"><ng-md-icon icon="home" style="fill:black" size="20"></ng-md-icon></a></li>
       </ul>
     </div>
   </div>
 </nav>
 	<div>
 		<div layout="row">
-		<div style="padding-left: 5%; padding-top: 1%;" class="listing">
-			<md-button class="md-raised md-primary md-hue-1" style="font-size: large;" ng-repeat="project in projects" ui-sref="stats">
+		<div style="padding-left: 5%; padding-top: 1%; width: 100%">
+			<md-button class="md-raised md-primary md-hue-1 listing" style="font-size: large; margin-right:5%" ng-repeat="project in projects" 
+			ui-sref="stats">
 			<div layout="column" style="font-family: 'Roboto', sans-serif;font-weight:700;color: white">
-				<div>
-		  			{{project.description}} - {{project.name}}
+				<div layout="column">
+		  			 <span style="text-transform: capitalize;">{{project.name}}</span>
+		  			 <span>{{project.description}}</span>
 		  		</div>
 			  	<div layout="row">
 			  	<img alt="servers" src="assets/images/appbar.server.png">
