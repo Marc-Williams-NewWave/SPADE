@@ -67,7 +67,19 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
         return myAppsService;
         
     })
+.factory("MenuService", ["$rootScope", function($rootScope) {
+    "use strict";
 
+    return { 
+        menu: function() {
+            $rootScope.globalMenu;
+        },    
+        setMenu: function(menu) {
+            $rootScope.globalMenu = menu;
+        }
+    };
+
+}])
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV, VERSION,loginModal) {
         $rootScope.ENV = ENV;
         $rootScope.VERSION = VERSION;

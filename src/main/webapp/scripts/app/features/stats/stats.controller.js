@@ -1,8 +1,13 @@
 'use strict'
 angular.module('spadeApp').controller('StatsController', 
-		[ "$scope", "$http", "$modal", "$state", "$timeout", "resolveSlaves", "resolveTasks", "resolvePods", "SlaveService", "TaskService", "PodService",
-        function($scope, $http, $modal, $state, $timeout, resolveSlaves, resolveTasks, resolvePods, SlaveService, TaskService, PodService){
+		[ "$scope", "$http", "$modal", "$state", "$timeout", "resolveSlaves", "resolveTasks", "resolvePods", "SlaveService", "TaskService", "PodService", "MenuService",
+        function($scope, $http, $modal, $state, $timeout, resolveSlaves, resolveTasks, resolvePods, SlaveService, TaskService, PodService, MenuService){
 
+			$scope.pageName = "Resource View";
+			$scope.switchPages = { "Resource":"stats", "Table":"statstable" };
+			
+			
+			
 	$scope.slaves = resolveSlaves.items;
 	function compare(a,b) {
 		  if (a.hostname < b.hostname)

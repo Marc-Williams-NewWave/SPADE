@@ -209,8 +209,6 @@ angular.module('spadeApp')
 
    $scope.templateFactoryService = templateService;
 	 
-	 
-		
    $scope.open2 = function (template) {
 	   console.log(template);
 	   $scope.templateFactoryService.addItem(template);
@@ -224,8 +222,10 @@ angular.module('spadeApp')
            .then(function (data) {
         	   $scope.closeAlert();
         	   $scope.summary = data;
+        	   
            }, function (reason) {
         	   $scope.reason = reason;
+//        	   $state.go($state.current, {}, { "reload": true })
            });
    };
 			    
@@ -235,11 +235,9 @@ angular.module('spadeApp')
 	    "Id",
 	    "Project",
 	    "Name",
-	    "OS",
+	    "Web",
 	    "App",
-	    "Replicas",
-	    "Status"
-	    
+	    "DB"	    
 	];
 	
 	$scope.tableParams = new ngTableParams({

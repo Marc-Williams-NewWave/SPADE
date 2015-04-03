@@ -4,7 +4,8 @@ angular.module('spadeApp')
 		["$scope", "$http", "$modal", "$filter", "$mdDialog", "$mdToast", "$state", "resolvePods", "ngTableParams", 
 		function($scope, $http, $modal, $filter, $mdDialog, $mdToast, $state, resolvePods, ngTableParams) {
 	
-
+			$scope.pageName = "Table View";
+			$scope.switchPages = { "Resource":"stats", "Table":"statstable" };
 			
 	$scope.create = function () {
         var modalInstance = $modal.open({
@@ -97,6 +98,20 @@ angular.module('spadeApp')
 	    );
 	};
 	
+	$scope.showAlert = showAlert;
+    
+    function showAlert() {
+       var confirm = $mdDialog.confirm()
+          .title('Deletion Confirmed')
+          .content('Server has been deleted')
+          .ok('Close')
+        $mdDialog
+            .show( confirm ).then(function(){
+            	$state.go($state.current, {}, { "reload": true })
+            })
+            
+      }
+	
 	$scope.confirmDel = function(ev, pod) {
 		if (pod === undefined || pod === null || pod.$selected === undefined){
 			var confirm = $mdDialog.confirm()
@@ -124,8 +139,7 @@ angular.module('spadeApp')
 	    $mdDialog.show(confirm)
 	      .then(function() {
 	      $scope.delPod(pod);
-	      $scope.showSimpleToast();
-	      $state.go($state.current, {}, { "reload": true })
+	      $scope.showAlert();
 	    }, function() {
 	      $mdDialog.hide();
 	    });

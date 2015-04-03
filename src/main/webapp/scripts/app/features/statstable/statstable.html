@@ -10,26 +10,30 @@
     </div>
    
   </md-toolbar> -->
-<nav class="navbar navbar-default" style="background-color:#bdbdbd;margin-bottom: 0px !important;">
+<nav class="navbar navbar-default navbar-transparent" style="background-color:#bdbdbd;margin-bottom: 0px !important;height:auto">
   <div class="container-fluid">
+    
     <div class="navbar-header">
-      <div ui-sref="stats" class="navbar-brand" style="color:white;">Infrastructure Dashboard - Table View</div>
+      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">Infrastructure Dashboard - Resource View</div>
     </div>
+
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
       <ul class="nav navbar-nav">
-<!--       	<li><button><ng-md-icon icon="cached" size="30" style="color:white"></ng-md-icon></button></li> -->
+      <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Account <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="">Profile</a></li>
+            <li><a href="">Statistics</a></li>
+            <li><a href="">Logout</a></li>
+          </ul>
+        </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">Switch View<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Switch View <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a ui-sref="statstable">Table View</a></li>
             <li><a ui-sref="stats">Resource View</a></li>
           </ul>
         </li>
-<!--         <li> -->
-<!--         	<md-button type="button" class="md-raised btn btn-default navbar-btn"> -->
-<!--         		<ng-md-icon icon="cached" style="color:black"> -->
-<!--         	</md-button> -->
-<!--         </li> -->
       </ul>
     </div>
   </div>
@@ -47,7 +51,7 @@
     <table ng-table="tableParams" show-filter="true" class="table ng-table-rowselected">
 	<thead>
 	<tr>
-		<th ng-repeat="header in headers">{{header}}</th>
+		<th ng-repeat="header in headers" style="text-align:left;">{{header}}</th>
 	</tr>
 	<tr>
 		
