@@ -13,24 +13,16 @@
     </div>
   </div>
 </nav>
+<md-card href="" ng-click="spadeInfo()">
+		<md-card-content class="md-whiteframe-z1" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">
+			<h3>What is SPADE?</h3>
+	</md-card-content>
+	</md-card>
 	<div>
-	<md-card>
-		<md-card-content class="md-whiteframe-z1" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">
-			<h3>SPADE</h3>
-			<p>NewWave’s Self-Service Portal And Dashboard Environment is a next generation provisioning, deployment, and monitoring dashboard. 
-			SPADE manages the resources for each of your projects and allows you to monitor performance and metrics.</p>
-			<p>SPADE puts the power of infrastructure management in the hands of your team with just few clicks. 
-			Applications built in container-based environments shift focus from technology maintenance to your business requirements. 
-			Multi-container environments combined with DevOps methodology significantly reduce the time and cost needed for setup and maintenance.</p>
-			<h3>Welcome to SPADE!</h3>
-	</md-card-content>
-	</md-card>
-	<md-card>
-		<md-card-content class="md-whiteframe-z1" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">
-			<h2>Select a project</h2>
-	</md-card-content>
-	</md-card>
-		<div layout="row">
+	<md-card class="md-whiteframe-z2" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">
+	<h2 style="padding-left:6%">Select a project</h2>
+		<md-card-content>
+			<div layout="row">
 		
 		<div style="padding-left: 5%; padding-top: 1%; width: 100%">
 			<md-button class="md-raised md-primary md-hue-1 listing" style="font-size: large; margin-right:5%" ng-repeat="project in projects" 
@@ -48,5 +40,9 @@
 	  </md-button>
   </div>
 		</div>
+	</md-card-content>
+	</md-card>
+		
 	</div>
 </div>
+

@@ -503,11 +503,17 @@
 				</div>
 				 
 				<md-button class="md-raised md-primary"
-					style="margin-top:5%;margin-left:35%;" ng-click="launch()" >Launch</md-button> 
+					style="margin-top:5%;margin-left:35%;" ng-click="progress = true; launch()" >Launch</md-button> 
 					<!-- <md-button class="md-raised md-primary"
 					style="margin-top:5%;" ng-click="deletePod(pod)" ng-disabled="isDisabled">Delete</md-button> -->
 					</md-content>
-
+			<div ng-show="progress">
+<!-- 				<md-progress-linear class="md-warn" md-mode="buffer" value="{{determinateValue}}" md-buffer-value="{{determinateValue2}}"></md-progress-linear> -->
+<!-- 				<md-progress-linear md-mode="indeterminate"></md-progress-linear> -->
+					<div layout="row" layout-sm="column" layout-align="space-around">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+			</div>
 			</div>
 			</div>
 	

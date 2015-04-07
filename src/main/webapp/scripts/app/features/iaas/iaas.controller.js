@@ -56,8 +56,9 @@ angular.module('spadeApp')
 //            app.open();
 //        });
     }])
-
-    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService,$state,ImageService) {
+.config(function($mdThemingProvider) {
+  })
+    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService,$state,ImageService,$interval) {
     		  
     	console.log($scope.images);
     	console.log($scope.$parent.images);
@@ -624,16 +625,30 @@ $scope.conf = false;
      	  
           
      	 $scope.launch = function(){
-     		console.log($scope.payload);
-     		
-//     		$scope.showCustomToast();
-     		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
-         		 	.success(function(data){
-         		 		modal.dismiss();
-//         		 		$modalInstance.dismiss();
-         	     		$scope.showAlert();
-         		 		console.log("success data returned ====> " + data);
-         		 });	
+     		$scope.determinateValue = 30;
+     		$scope.determinateValue2 = 30;
+     		$interval(function() {
+     		      $scope.determinateValue += 1;
+     		      $scope.determinateValue2 += 1.5;
+     		      if ($scope.determinateValue > 100) {
+     		        $scope.determinateValue = 30;
+     		        $scope.determinateValue2 = 30;
+     		      }
+     		    }, 7200, 1, true);
+     		 setTimeout(function(){
+     			console.log($scope.payload);
+         		//alert("CREATED");
+         		
+//         		$scope.showCustomToast();
+//         		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
+//             		 	.success(function(data){
+//             		 		modal.dismiss();
+////             		 		$modalInstance.dismiss();
+//             	     		$scope.showAlert();
+//             		 		console.log("success data returned ====> " + data);
+//             		 });
+     		 }, 5000)
+     			
       	}
      	 
 //     	$scope.deletePod = function(pod){
