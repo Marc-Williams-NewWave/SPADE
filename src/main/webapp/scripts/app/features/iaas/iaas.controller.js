@@ -640,13 +640,13 @@ $scope.conf = false;
          		//alert("CREATED");
          		
 //         		$scope.showCustomToast();
-//         		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
-//             		 	.success(function(data){
-//             		 		modal.dismiss();
-////             		 		$modalInstance.dismiss();
-//             	     		$scope.showAlert();
-//             		 		console.log("success data returned ====> " + data);
-//             		 });
+         		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
+             		 	.success(function(data){
+             		 		modal.dismiss();
+//             		 		$modalInstance.dismiss();
+             	     		$scope.showAlert();
+             		 		console.log("success data returned ====> " + data);
+             		 });
      		 }, 5000)
      			
       	}
