@@ -4,6 +4,17 @@ angular.module('spadeApp')
 
 .controller('TemplatesController', function($rootScope, $scope, $state, $timeout, Auth,$http,$mdDialog,$modal,templateService, resolveTemplates,ngTableParams,$filter) {
 		
+	$scope.spadeInfo = function(ev) {
+	    $mdDialog.show(
+	      $mdDialog.alert()
+	        .title("Templates")
+	        .content("Templates Info")
+	        .ariaLabel("Templates Info")
+	        .ok("Close")
+	        .targetEvent(ev)
+	    );
+	  };
+	
 		$http.get("http://192.168.4.8:8080/spade/api/stack_templates")
 		.success(function(data) {
 				$scope.plates = data.items;

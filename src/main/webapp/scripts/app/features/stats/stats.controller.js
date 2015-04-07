@@ -1,8 +1,19 @@
 'use strict'
 angular.module('spadeApp').controller('StatsController', 
-		[ "$scope", "$http", "$modal", "$state", "$timeout", "Auth", "resolveSlaves", "resolveTasks", "resolvePods", "SlaveService", "TaskService", "PodService", "MenuService",
-        function($scope, $http, $modal, $state, $timeout, Auth, resolveSlaves, resolveTasks, resolvePods, SlaveService, TaskService, PodService, MenuService){
+		[ "$scope", "$http", "$modal", "$state", "$timeout", "$mdDialog", "Auth", "resolveSlaves", "resolveTasks", "resolvePods", "SlaveService", "TaskService", "PodService", "MenuService",
+        function($scope, $http, $modal, $state, $timeout, $mdDialog, Auth, resolveSlaves, resolveTasks, resolvePods, SlaveService, TaskService, PodService, MenuService){
 
+			$scope.spadeInfo = function(ev) {
+			    $mdDialog.show(
+			      $mdDialog.alert()
+			        .title("Resources")
+			        .content("Infrastructure Resources Info")
+			        .ariaLabel("Stats Info")
+			        .ok("Close")
+			        .targetEvent(ev)
+			    );
+			  };
+			
 			$scope.pageName = "Resource View";
 			$scope.switchPages = { "Resource":"stats", "Table":"statstable" };
 			

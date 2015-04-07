@@ -4,6 +4,17 @@ angular.module('spadeApp')
 		["$scope", "$http", "$modal", "$filter", "$mdDialog", "$mdToast", "$state", "Auth", "resolvePods", "ngTableParams", 
 		function($scope, $http, $modal, $filter, $mdDialog, $mdToast, $state, Auth, resolvePods, ngTableParams) {
 	
+			$scope.spadeInfo = function(ev) {
+			    $mdDialog.show(
+			      $mdDialog.alert()
+			        .title("Server Info")
+			        .content("Server Table Info")
+			        .ariaLabel("Stats Table Info")
+			        .ok("Close")
+			        .targetEvent(ev)
+			    );
+			  };
+			
 			$scope.pageName = "Table View";
 			$scope.switchPages = { "Resource":"stats", "Table":"statstable" };
 			
