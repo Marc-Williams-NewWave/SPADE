@@ -24,11 +24,68 @@ angular.module('spadeApp')
             	$state.go($state.current, {}, { "reload": true })
             });
     };
+    
+    $scope.scale = function (ev, pod) {
+    	if (pod === undefined || pod === null || pod.$selected === undefined){
+    		var confirm = $mdDialog.confirm()
+		      //.parent(angular.element(document.body))
+		      .title("No Server Selected")
+		      .content("There is nothing selected")
+		      .ariaLabel("Editing resource")
+		      .ok("Back")
+		      .targetEvent(ev);
+		    $mdDialog.show(confirm)
+		      .then(function() {
+		      $mdDialog.hide();
+		    }, function() {
+		      $mdDialog.hide();
+		    });
+    	} else {
+    		var confirm = $mdDialog.confirm()
+		      //.parent(angular.element(document.body))
+		      .title("Scaling Placeholder")
+		      .content("Scaling Placeholder")
+		      .ariaLabel("Scaling resource")
+		      .ok("Back")
+		      .targetEvent(ev);
+		    $mdDialog.show(confirm)
+		      .then(function() {
+		      $mdDialog.hide();
+		    }, function() {
+		      $mdDialog.hide();
+		    });
+//    		
+//        var modalInstance = $modal.open({
+//            templateUrl: 'scripts/app/features/statstable/scale.html',
+//            controller: 'ScaleController',
+//            controllerAs: 'modal'
+//        });
+//
+//        modalInstance.result
+//            .then(function (data) {
+//                $scope.scale.closeAlert();
+//                $scope.scale.summary = data;
+//                $state.go($state.current, {}, { "reload": true })
+//            }, function (reason) {
+//            	$scope.scale.reason = reason;
+//            	$state.go($state.current, {}, { "reload": true })
+//            });
+    	}
+    };
+    
 	$scope.pods = resolvePods.items;
 	
+	$scope.isAppFunc = function(label){
+		if (label === "apache" || label === "wildfly"){
+			$scope.isApp = true;
+		} else {
+			$scope.isApp = false;
+		}
+	}
+	
 	$scope.headers = [
-	    "Name",
-	    "Id",
+	    "Cluster",
+	    "Server Id",
 	    "Project",
 	    "Stack",
 	    "Containers",
@@ -68,15 +125,6 @@ angular.module('spadeApp')
 		} else {
 			$scope.selectedPod = {};
 		}
-//		alert(pod.$selected);
-//		alert($scope.selectedPod.$selected);
-//		for (item in $scope.pods){
-//			if (item.$selected==true){
-//				alert(item.$selected);
-//			} else {
-//				alert(item.$selected);
-//			}
-//		}
 	}
 	$scope.toastPosition = {
 		    bottom: false,
@@ -98,12 +146,25 @@ angular.module('spadeApp')
 	    );
 	};
 	
-	$scope.showAlert = showAlert;
+	$scope.showDelAlert = showDelAlert;
     
-    function showAlert() {
+    function showDelAlert() {
        var confirm = $mdDialog.confirm()
           .title('Deletion Confirmed')
-          .content('Server has been deleted')
+          .content('Cluster has been deleted')
+          .ok('Close')
+        $mdDialog
+            .show( confirm ).then(function(){
+            	$state.go($state.current, {}, { "reload": true })
+            })
+            
+      }
+$scope.showScaleAlert = showScaleAlert;
+    
+    function showScaleAlert() {
+       var confirm = $mdDialog.confirm()
+          .title('Scale Confirmed')
+          .content('Server has been scaled')
           .ok('Close')
         $mdDialog
             .show( confirm ).then(function(){
@@ -116,7 +177,7 @@ angular.module('spadeApp')
 		if (pod === undefined || pod === null || pod.$selected === undefined){
 			var confirm = $mdDialog.confirm()
 		      //.parent(angular.element(document.body))
-		      .title("No Server Selected")
+		      .title("No Cluster Selected")
 		      .content("There is nothing selected")
 		      .ariaLabel("Deleting resource")
 		      .ok("Back")
@@ -139,7 +200,7 @@ angular.module('spadeApp')
 	    $mdDialog.show(confirm)
 	      .then(function() {
 	      $scope.delPod(pod);
-	      $scope.showAlert();
+	      $scope.showDelAlert();
 	    }, function() {
 	      $mdDialog.hide();
 	    });
@@ -158,32 +219,18 @@ angular.module('spadeApp')
 	}
 	$scope.statusColors = {
 			"Running":"green",
-			"Pending":"yellow",
+			"Waiting":"yellow",
 			"Failed":"red"
 	};
 	$scope.logout = function () {
         Auth.logout();
         $state.go('login');
     };
-//	$scope.statusColor = function(status){
-//		var style;
-//		switch (status){
-//		case "Running":
-//			style = "fill:green";
-//			break;
-//		case "Pending":
-//			style = "fill:yellow";
-//			break;
-//		case "Failed":
-//			style = "fill:red";
-//			break;
-//		default: "fill:yellow"
-//		}
-//		alert(style);
-//		return style;
-//	}
 	
 }])
+.controller('ScaleController', function($scope, $http, $mdDialog){
+	$scope.replicas;
+})
 .factory('PodService', function($http) {
 	return {
 		getPods : function() {

@@ -92,7 +92,8 @@ angular.module('spadeApp').controller('StatsController',
     }
     $scope.tooltipFunction = function(){
     	return function(key, x, y, e, graph) {
-        	return  '<h4 style="text=align:center">' + key + '</h4>' +
+        	return  (y.point.podId !== undefined ? '<h4 style="text=align:center">Server Cluster: ' + key + '</h4>' +
+             '<p style="text=align:center">Server Id: ' + y.point.podId + '</p>' : '<h4 style="text=align:center">' + key + '</h4>') +
                 '<p style="text=align:center">' + x + '% of host</p>'
     	}
     }
@@ -113,36 +114,7 @@ angular.module('spadeApp').controller('StatsController',
 	                          return d.label;
 	                      }
 	                  }
-//	$scope.data = [
-//	               {
-//	                   label: "One",
-//	                   value: 5
-//	               },
-//	               {
-//	                   label: "Two",
-//	                   value: 2
-//	               },
-//	               {
-//	                   label: "Three",
-//	                   value: 9
-//	               },
-//	               {
-//	                   label: "Four",
-//	                   value: 7
-//	               },
-//	               {
-//	                   label: "Five",
-//	                   value: 4
-//	               },
-//	               {
-//	                   label: "Six",
-//	                   value: 3
-//	               },
-//	               {
-//	                   label: "Seven",
-//	                   value: .5
-//	               }
-//	           ];
+	                  
 	var colors = $scope.stackColors();
 	$scope.colors = colors;
 	
@@ -168,9 +140,9 @@ angular.module('spadeApp').controller('StatsController',
 						if (task.podName === pod.labels.name){
 							var stack = pod.labels.stack;
 							//console.log(stack + ":" + colors[stack]);
-							slave.cpuData.push({label: task.podName, value: task.cpuPercent, color: colors[stack]});
-							slave.memData.push({label: task.podName, value: task.memPercent, color: colors[stack]});
-							slave.diskData.push({label: task.podName, value: task.diskPercent, color: colors[stack]});
+							slave.cpuData.push({label: task.podName, value: task.cpuPercent, podId: pod.id, color: colors[stack]});
+							slave.memData.push({label: task.podName, value: task.memPercent, podId: pod.id, color: colors[stack]});
+							slave.diskData.push({label: task.podName, value: task.diskPercent, podId: pod.id, color: colors[stack]});
 						}
 					}
 				}

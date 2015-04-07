@@ -16,8 +16,11 @@
 				</md-toolbar>
 				<md-content class="md-padding" style="" layout="row">
 				<div style="width: 100%;">
-				<md-input-container>
-			      <label>Stack Name</label> <input ng-model="payload.id">
+				<md-input-container >
+			      <label>Stack Name*</label> <input name="stackName" required ng-model="payload.id">
+			      <div ng-messages="stackName.$error">
+			      	<div ng-message="required">*Required</div>
+			      </div>
     			</md-input-container>
 				<md-checkbox ng-model="oneOS">Select a default operating system for your entire stack?</md-checkbox>
 					 <select style="" ui-select2  data-placeholder="Select an OS" ng-model="pod.os" ng-change="setPodsOS(pod.os)">
@@ -43,7 +46,7 @@
 			    </md-tabs>
     <ng-switch on="data.selectedIndex" class="tabpanel-container" >
         <div role="tabpanel" id="tab1-content" aria-labelledby="tab1" ng-switch-when="0">
-            	<md-toolbar class="md-primary" style="height:40px; min-height: 0px;">
+            	<md-toolbar class="md-primary" style="margin-left:2px;margin-right:3px;height:40px; min-height: 0px;">
 						<!-- <div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Web Server:</span>
 						</div> -->
@@ -56,11 +59,14 @@
 									<div style="width:60%;">
 										<div flex>
 											<md-input-container> 
-												<label>Application Name</label> <input ng-model="webPod.name"> 
+												<label>Application Name*</label> <input name="webName" required ng-model="webPod.name"> 
+<!-- 												<div ng-messages="webName.$error"> -->
+<!-- 			      									<div ng-message="required">*Required</div> -->
+<!-- 			      								</div> -->
 											</md-input-container>
 										</div>
 										<div flex style="width: 50%;" ng-show="!oneOS">
-										<md-subheader class="md-primary" style="padding: 0px !important;">Operating Systems</md-subheader>
+										<md-subheader class="md-primary" style="padding: 0px !important;">Operating System*</md-subheader>
 											 <select ui-select2 ng-model="webPod.os" data-placeholder="Select an OS">
 											 <option value=""></option>
 											 <option ng-repeat="os in osOptions" value="{{os}}">{{os}}</option>
@@ -68,8 +74,11 @@
 										</div>
 									<div flex>
 											<md-input-container> 
-												<label>Replica Count</label> 
-													<input ng-model="webPod.replicas" type="number" min="0"> 
+												<label>Server Count*</label> 
+													<input name="webCount" required ng-model="webPod.replicas" type="number" min="0"> 
+<!-- 													<div ng-messages="webCount.$error"> -->
+<!-- 			      									<div ng-message="required">*Required</div> -->
+<!-- 			      								</div> -->
 											</md-input-container>
 										</div>
 									</div>
@@ -86,7 +95,7 @@
 											 </div>
 											 
 											 
-											<div ng-model="webConfig" style="border-style: solid;border-radius:6px;"> 
+											<div ng-model="webConfig" style="margin-top:8px;border-style:solid;border-radius:5px;border-width:1px;color:#bdbdbd"> 
 											<md-list>
 												<md-item>
 													<md-item-content>
@@ -117,7 +126,7 @@
              aria-labelledby="tab2"
              ng-switch-when="1"
              >
-            <md-toolbar class="md-primary" style="height:40px; min-height: 0px;">
+            <md-toolbar class="md-primary" style="margin-left:2px;margin-right:3px;height:40px; min-height: 0px;">
 						<div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Application Server:</span>
 						</div>
@@ -127,7 +136,10 @@
 									<div style="width:60%;">
 										<div flex>
 											<md-input-container> 
-												<label>Application Name</label> <input ng-model="appPod.name"> 
+												<label>Application Name*</label> <input name="appName" required ng-model="appPod.name"> 
+<!-- 												<div ng-messages="appName.$error"> -->
+<!-- 			      									<div ng-message="required">*Required</div> -->
+<!-- 			      								</div> -->
 											</md-input-container>
 										</div>
 										<div flex style="width: 50%;" ng-show="!oneOS">
@@ -139,8 +151,11 @@
 										</div>
 									<div flex>
 											<md-input-container> 
-												<label>Replica Count</label> 
-													<input ng-model="appPod.replicas" type="number" min="0"> 
+												<label>Server Count*</label> 
+													<input name="appCount" required ng-model="appPod.replicas" type="number" min="0"> 
+<!-- 													<div ng-messages="appCount.$error"> -->
+<!-- 			      									<div ng-message="required">*Required</div> -->
+<!-- 			      								</div> -->
 											</md-input-container>
 										</div>
 									</div>
@@ -154,7 +169,7 @@
 											 <option ng-repeat="app in appApps" value="{{app.app}}">{{app.app}}</option>
 											 </select>
 											 
-											 <div ng-model="webConfig" style="border-style: solid;border-radius:6px;" ng-show="!conf"> 
+											 <div ng-model="webConfig" style="margin-top:8px;border-style:solid;border-radius:5px;border-width:1px;color:#bdbdbd" ng-show="!conf"> 
 											<md-list>
 												<md-item>
 													<md-item-content>
@@ -180,7 +195,7 @@
              aria-labelledby="tab3"
              ng-switch-when="2"
               >
-            <md-toolbar class="md-primary" style="height:40px; min-height: 0px;">
+            <md-toolbar class="md-primary" style="margin-left:2px;margin-right:5px;height:40px; min-height: 0px;">
 						<div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Database:</span>
 						</div>
@@ -190,7 +205,10 @@
 									<div style="width:60%;">
 										<div flex>
 											<md-input-container> 
-												<label>Application Name</label> <input ng-model="dbPod.name"> 
+												<label>Application Name*</label> <input name="dbName" required ng-model="dbPod.name"> 
+<!-- 												<div ng-messages="dbName.$error"> -->
+<!-- 			      									<div ng-message="required">*Required</div> -->
+<!-- 			      								</div> -->
 											</md-input-container>
 										</div>
 										<div flex style="width: 50%;" ng-show="!oneOS">
@@ -202,8 +220,11 @@
 										</div>
 									<div flex>
 											<md-input-container> 
-												<label>Replica Count</label> 
-													<input ng-model="dbPod.replicas" type="number" min="0"> 
+												<label>Server Count</label> 
+													<input name="dbCount" required ng-model="dbPod.replicas" type="number" min="0"> 
+<!-- 													<div ng-messages="dbCount.$error"> -->
+<!-- 			      									<div ng-message="required">*Required</div> -->
+<!-- 			      								</div> -->
 											</md-input-container>
 										</div>
 									</div>
@@ -217,7 +238,7 @@
 											 <option ng-repeat="app in dbApps" value="{{app.app}}">{{app.app}}</option>
 											 </select>
 											 
-											<div ng-model="webConfig" style="border-style: solid;border-radius:6px;" ng-show="!conf"> 
+											<div ng-model="webConfig" style="margin-top:8px;border-style:solid;border-radius:5px;border-width:1px;color:#bdbdbd" ng-show="!conf"> 
 											<md-list>
 												<md-item>
 													<md-item-content>
@@ -236,12 +257,13 @@
 										</div>
 									</div>
 								</div>
+								<div style="font-family: 'Roboto', sans-serif;">*Required</div>
 							</md-content>
         </div>
     </ng-switch>
     <div layout="row">
     <div class="modal-footer" style="border: none !important;">
-		<md-button class="md-raised" style="font-family: 'Roboto', sans-serif; font-weight:500;color: #1e88e5;background-color: #ffffff" ng-click="modal.dismiss()">Cancel</md-button>
+		<md-button class="md-raised md-primary" style="font-family: 'Roboto', sans-serif; font-weight:500;" ng-click="modal.dismiss()">Cancel</md-button>
 		<md-button class="md-raised md-primary" style="font-family: 'Roboto', sans-serif; font-weight:500;" ng-click="previous()" ng-disabled="data.selectedIndex == 0">Back</md-button>
 		<md-button class="md-raised md-primary" style="font-family: 'Roboto', sans-serif; font-weight:500;" ng-click="next()" ng-disabled="data.selectedIndex == 2">Next</md-button>
 		<!-- <md-button class="md-raised md-primary" style="font-family: 'Roboto', sans-serif; font-weight:500;" ng-show="data.selectedIndex == 2" ng-click="launch()">Launch</md-button> -->
@@ -380,11 +402,11 @@
 							<div class="md-tile-content" style="padding: 4px !important">
 								<h4 ng-class="{ 'error': webPodOSError}">OS - {{webPod.os}}</h4>
 								<h4 ng-class="{ 'error': webPodAppError}">App - {{webPod.app}}</h4>
-								<h4>Replica Count - {{webPod.replicas}}</h4>
+								<h4>Server Count - {{webPod.replicas}}</h4>
 							</div>
 						</md-item-content> 
 					</md-item>
-					<div ng-model="webConfig" style="border-style: solid;border-radius:6px;"> 
+					<div ng-model="webConfig" style="margin-top:8px;border-style:solid;border-radius:5px;border-width:1px;color:#bdbdbd"> 
 											<md-list>
 												<md-item>
 													<md-item-content>
@@ -417,11 +439,11 @@
 							<div class="md-tile-content" style="padding: 4px !important">
 								<h4 ng-class="{ 'error': appPodAppError}">OS - {{appPod.os}}</h4>
 								<h4 ng-class="{ 'error': appPodOSError}">App - {{appPod.app}}</h4>
-								<h4>Replica Count - {{appPod.replicas}}</h4>
+								<h4>Server Count - {{appPod.replicas}}</h4>
 							</div>
 						</md-item-content> 
 					</md-item> 
-					<div ng-model="webConfig" style="border-style: solid;border-radius:6px;" ng-show="!conf"> 
+					<div ng-model="webConfig" style="margin-top:8px;border-style:solid;border-radius:5px;border-width:1px;color:#bdbdbd" ng-show="!conf"> 
 											<md-list>
 												<md-item>
 													<md-item-content>
@@ -457,11 +479,11 @@
 							<div class="md-tile-content" style="padding: 4px !important">
 								<h4 ng-class="{ 'error': dbPodOSError}">OS - {{dbPod.os}}</h4>
 								<h4 ng-class="{ 'error': dbPodAppError}">App - {{dbPod.app}}</h4>
-								<h4>Replica Count - {{dbPod.replicas}}</h4>
+								<h4>Server Count - {{dbPod.replicas}}</h4>
 							</div>
 						</md-item-content> 
 					</md-item> 
-					<div ng-model="webConfig" style="border-style: solid;border-radius:6px;" ng-show="!conf"> 
+					<div ng-model="webConfig" style="margin-top:8px;border-style:solid;border-radius:5px;border-width:1px;color:#bdbdbd" ng-show="!conf"> 
 											<md-list>
 												<md-item>
 													<md-item-content>
@@ -481,7 +503,7 @@
 				</div>
 				 
 				<md-button class="md-raised md-primary"
-					style="margin-top:5%;" ng-click="launch()" >Launch</md-button> 
+					style="margin-top:5%;margin-left:35%;" ng-click="launch()" >Launch</md-button> 
 					<!-- <md-button class="md-raised md-primary"
 					style="margin-top:5%;" ng-click="deletePod(pod)" ng-disabled="isDisabled">Delete</md-button> -->
 					</md-content>

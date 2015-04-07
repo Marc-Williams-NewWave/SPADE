@@ -93,39 +93,33 @@
 	<!--[if lt IE 10]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-<div layout="row">
+<div layout="row" style="">
     
-    <header style="background-color: #274973;width: 100%;color: white;" layout="column" layout-align="">
+    <div class="navbar-default navbar-transparent" style="background-color: #274973;width: 100%;color: white;" layout="column" layout-align="">
     <div layout="row">
-    <div align="left" style="margin-right: 30%;">
+    <div class="navbar-header" align="left" style="margin-right: 30%;">
     	<img alt="NewWave Logo" src="assets/images/newwave-logo-wave-long-white-1024x282.png" height="60px">
     </div>
     <div align="center" layout="row">
     <a ui-sref="home" ><img alt="spade logo" src="assets/images/SPADEIcon.png" height="60px"></a>
       <h2 style="font-family: 'Roboto', sans-serif;font-weight: 700;">SPADE</h2>
      </div>
+     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10px;margin-top:10px;margin-left:20%">
+      <ul class="nav navbar-nav">
+      
+      <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: white;">
+          <div layout="row"><ng-md-icon icon="person" style="fill:white" size="20"></ng-md-icon><div style="display:block; margin-top:2px;">Account</div><span style="display:block; margin-top:11px;" class="caret"></span></div></a>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-controller="LogoutCtrl"><a ng-click="logout()" href="">Logout</a></li>
+          </ul>
+        </li>
+        <li ><a ui-sref="home"><div layout="row"><ng-md-icon icon="home" style="fill:white" size="20"></ng-md-icon><div role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: white;display:block; margin-left:4% margin-top:2px;">Home</div></div></a></li>
+      </ul>
+    </div>
      </div>
      
-<!--       <div class="container"> -->
-<!--         <div id="navbar" class="navbar-collapse collapse"> -->
-<!--           <ul class="nav navbar-nav navbar-right"> -->
-<!--             <li><a href="#/home">Switch Projects</a></li> -->
-<!--             <li class="dropdown"> -->
-<!--               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> -->
-<!--               	<span class="glyphicon glyphicon-user"></span> -->
-<!--               	Account <span class="caret"></span></a> -->
-<!--               <ul class="dropdown-menu" role="menu"> -->
-<!--                 <li><a href="#">Profile</a></li> -->
-<!--                 <li><a href="#">Settings</a></li> -->
-<!--                 <li class="divider"></li> -->
-<!--                 <li><a href="#">Logout</a></li> -->
-<!--               </ul> -->
-<!--             </li> -->
-<!--           </ul> -->
-<!--         </div>/.nav-collapse -->
-<!--       </div> -->
-    
-    </header>
+    </div>
     
     </div>
 	
@@ -134,6 +128,7 @@
 	<div ui-view="navbar" layout="vertical" style="height: auto !important;">
 		
 		</div>
+		
 	
 		<md-content layout="column" flex class="content-wrapper" id="content" style="background-color: #f1f7f9;">
 			<div ui-view="content"></div>

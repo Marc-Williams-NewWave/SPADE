@@ -1,20 +1,21 @@
 <div>
     <div class="row" style="font-family: 'Roboto', sans-serif">
         <div class="col-md-4 col-md-offset-4">
-            <h1 style="font-weight:500;">SPADE Login</h1>
+            <h1 style="font-weight:500;">Login</h1>
 
             <div class="alert alert-danger" ng-show="authenticationError" translate="login.messages.error.authentication">
                 <strong>Authentication failed!</strong> Please check your credentials and try again.
             </div>
             <form class="form" role="form">
                 <div class="form-group">
-                    <label for="username" translate="global.form.username">Login</label>
-                    <input type="text" class="form-control" id="username" placeholder="{{'global.form.username.placeholder' | translate}}" ng-model="username">
+                    <label for="username" translate="global.form.username">User Name</label>
+                    <input type="text" class="form-control" id="username" placeholder="{{'global.form.username.placeholder' | translate}}" ng-model="username"
+                    style="max-width:300px;width:50% !important">
                 </div>
                 <div class="form-group">
                     <label for="password" translate="login.form.password">Password</label>
                     <input type="password" class="form-control" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
-                           ng-model="password">
+                           ng-model="password" style="max-width:300px;width:50% !important">
                 </div>
                 <div class="form-group">
                     <label for="rememberMe">

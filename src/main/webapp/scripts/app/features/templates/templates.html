@@ -1,12 +1,18 @@
-<nav class="navbar navbar-default navbar-transparent" style="background-color:#bdbdbd;margin-bottom: 0px !important;height:auto">
+<nav class="navbar navbar-default navbar-transparent" style="background-color:#e0e0e0;margin-bottom: 0px !important;height:auto">
   <div class="container-fluid">
     
     <div class="navbar-header">
-      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">Infrastructure Dashboard - Templates</div>
+      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">Infrastructure Dashboard - Stack Templates</div>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
       <ul class="nav navbar-nav">
+      <li class="dropdown">
+          <a href="" class="dropdown-toggle md-accent" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Project: Demo <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a ui-sref="home">Radv</a></li>
+          </ul>
+        </li>
       <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">
           Switch View <span class="caret"></span></a>
@@ -15,17 +21,7 @@
             <li><a href="" ng-click="gridView = false">Template View</a></li>
           </ul>
         </li>
-      <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">
-          <div layout="row"><ng-md-icon icon="person" style="fill:black" size="20"></ng-md-icon><span style="display:block; margin-top:11px;" class="caret"></span></div></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="">Profile</a></li>
-            <li><a href="">Statistics</a></li>
-            <li><a ng-click="logout()" href="">Logout</a></li>
-          </ul>
-        </li>
-        
-        <li ><a ui-sref="home"><ng-md-icon icon="home" style="fill:black" size="20"></ng-md-icon></a></li>
+      
       </ul>
     </div>
   </div>

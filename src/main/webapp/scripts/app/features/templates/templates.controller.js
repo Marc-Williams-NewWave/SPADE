@@ -269,6 +269,7 @@ angular.module('spadeApp')
 	$scope.changeSelection = function(template) {
 		if (template.$selected){
 			$scope.selectedTemplate = template;
+			alert($scope.selectedTemplate)
 		} else {
 			$scope.selectedTemplate = {};
 		}
@@ -301,7 +302,7 @@ angular.module('spadeApp')
 	      .targetEvent(ev);
 	    $mdDialog.show(confirm)
 	      .then(function() {
-	      $scope.delTemplate(template);
+	      //$scope.delTemplate(template);
 	      $scope.showSimpleToast();
 	      $state.go('templates', { "reload": true })
 	    }, function() {
@@ -396,10 +397,7 @@ angular.module('spadeApp')
    start = +start;
    return input.slice(start);
  }
-})	
-
-		
-
+})
 .controller('ModalCtrl2', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService,$mdToast, $animate,$state) {
 	$scope.toastPosition = {
 		    bottom: false,

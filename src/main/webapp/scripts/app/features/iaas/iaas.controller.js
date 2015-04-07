@@ -617,7 +617,7 @@ $scope.conf = false;
 
             $mdDialog
                 .show( confirm ).then(function(){
-                	$state.go('stats');
+                	$state.go('statstable');
                 })
                 
           }
