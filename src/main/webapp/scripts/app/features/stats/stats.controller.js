@@ -198,7 +198,7 @@ angular.module('spadeApp').controller('StatsController',
 .factory('SlaveService', function ($http) {
 	 return {
 		    getSlaves: function() {
-         	var promise = $http.get("http://192.168.4.8:8080/spade/api/slaves")
+         	var promise = $http.get("http://localhost:8080/spade/api/slaves")
          	.then(function(response) {
          		return response.data;
          	});
@@ -212,7 +212,7 @@ angular.module('spadeApp').controller('StatsController',
 	 .factory('TaskService', function ($http) {
 	 return {
 		    getTasks: function() {
-         	var promise = $http.get("http://192.168.4.8:8080/spade/api/tasks")
+         	var promise = $http.get("http://localhost:8080/spade/api/tasks")
          	.then(function(response) {
          		return response.data;
          	});

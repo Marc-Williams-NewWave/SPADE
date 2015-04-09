@@ -42,7 +42,7 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
 //        };
 
         myAppsService.getItems = function() {
-        	var promise = $http.get("http://192.168.4.8:8080/spade/api/images")
+        	var promise = $http.get("http://localhost:8080/spade/api/images")
         	.then(function(response) {
         		console.log(response.data.items);
         		var x;

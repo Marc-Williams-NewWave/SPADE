@@ -222,7 +222,7 @@ $scope.showScaleAlert = showScaleAlert;
 	$scope.delPod = function(pod){
 		var req = {
 				 method: "DELETE",
-				 url: "http://192.168.4.8:8080/spade/api/demo/controllers/" + pod.labels.controller
+				 url: "http://localhost:8080/spade/api/demo/controllers/" + pod.labels.controller
 		};
 //		alert(pod.labels.controller);
 		$http(req).then(function(response) {
@@ -247,7 +247,7 @@ $scope.showScaleAlert = showScaleAlert;
 .factory('PodService', function($http) {
 	return {
 		getPods : function() {
-			var promise = $http.get("http://192.168.4.8:8080/spade/api/pods")
+			var promise = $http.get("http://localhost:8080/spade/api/pods")
 			.then(function(response) {
 				return response.data;
 			});
