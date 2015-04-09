@@ -17,7 +17,7 @@
       <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">Demo Project - Resource View</div>
     </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:10%;">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:2.7%;">
       <ul class="nav navbar-nav">
       <li class="dropdown">
           <a href="" class="dropdown-toggle md-accent" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Project: Demo <span class="caret"></span></a>
@@ -44,143 +44,30 @@
 		<md-button class="md-raised md-primary" style="padding:5px 20px 5px 20px;" ng-click="create()">Create</md-button>
 	</md-card>
 	<div class="tabsdemoStaticTabs sample" flex>
-     <md-tabs md-selected="data.selectedIndex" flex>
-     	<md-tab label="CPU" aria-controls="tab1-content" role="tab-panel" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;">
+<!--      <md-tabs md-selected="data.selectedIndex" flex> -->
+<!--      	<md-tab label="CPU" aria-controls="tab1-content" role="tab-panel" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;"> -->
      	
-     	</md-tab>
+<!--      	</md-tab> -->
      	
-     	<md-tab label="Memory" aria-controls="tab2-content" role="tab-panel" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;">
+<!--      	<md-tab label="Memory" aria-controls="tab2-content" role="tab-panel" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;"> -->
      	
-     	</md-tab>
+<!--      	</md-tab> -->
      	
-     	<md-tab label="Storage" aria-controls="tab3-content" role="tab-panel" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;">
+<!--      	<md-tab label="Storage" aria-controls="tab3-content" role="tab-panel" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;"> -->
      	
-     	</md-tab>
-     	</md-tabs>
-     	<ng-switch on="data.selectedIndex" class="tabpanel-container" >
-        <div role="tabpanel" id="tab1-content" aria-labelledby="tab1" ng-switch-when="0">
-			<md-card id="cpulegend" class="md-whiteframe-z2" layout="row" flex>
-			<md-card ng-repeat="(stack, color) in colors" layout="row">
-     		<ng-md-icon icon="brightness_1"
-			 style="fill:{{color}}" size="24" >
-			</ng-md-icon>
-			<div>{{stack}}</div>
-			</md-card>
-     	</md-card>
-     	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" ng-hide="slave.cpuData.length==1" flex>
-     		<nvd3-pie-chart
-            data="slave.cpuData"
-            donut="true"
-            donutRatio=".45"
-            margin="{left:0,top:0,bottom:0,right:0}"
-            x="xFunction()"
-            y="yFunction()"
-            showLabels="false"
-            tooltips="true"
-            height="250"
-            width="250"
-            tooltipContent="tooltipFunction()"
-            color="getColor(slave.cpuData)"
-            pieLabelsOutside="false"
-            showValues="false"
-            labelType="percent">
-        <svg height="250"></svg>
-    </nvd3-pie-chart>
-			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
-		</md-card>
-		</div>
-        <div role="tabpanel" id="tab2-content" aria-labelledby="tab2" ng-switch-when="1">
-        	<md-card id="memlegend" class="md-whiteframe-z2" layout="row" flex>
-			<md-card ng-repeat="(stack, color) in colors" layout="row">
-     		<ng-md-icon icon="brightness_1"
-			 style="fill:{{color}}" size="24" >
-			</ng-md-icon>
-			<div>{{stack}}</div>
-			</md-card>
-     	</md-card>
-     	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" ng-hide="slave.memData.length==1" flex>
-    		<nvd3-pie-chart
-            data="slave.memData"
-            donut="true"
-            donutRatio=".45"
-            margin="{left:0,top:0,bottom:0,right:0}"
-            x="xFunction()"
-            y="yFunction()"
-            showLabels="false"
-            tooltips="true"
-            height="250"
-            width="250"
-            tooltipContent="tooltipFunction()"
-            color="getColor(slave.memData)"
-            pieLabelsOutside="false"
-            showValues="false"
-            labelType="percent">
-        <svg height="250"></svg>
-    </nvd3-pie-chart>
-			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
-		</md-card>
-        </div>
-        <div role="tabpanel" id="tab3-content" aria-labelledby="tab3" ng-switch-when="2">
-        	<md-card id="disklegend" class="md-whiteframe-z2" layout="row" flex>
-			<md-card ng-repeat="(stack, color) in colors" layout="row">
-     		<ng-md-icon icon="brightness_1"
-			 style="fill:{{color}}" size="24" >
-			</ng-md-icon>
-			<div>{{stack}}</div>
-			</md-card>
-     	</md-card>
-     	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" ng-hide="slave.diskData.length==1" flex>
-    		<nvd3-pie-chart
-            data="slave.diskData"
-            donut="true"
-            donutRatio=".45"
-            margin="{left:0,top:0,bottom:0,right:0}"
-            x="xFunction()"
-            y="yFunction()"
-            showLabels="false"
-            tooltips="true"
-            height="250"
-            width="250"
-            tooltipContent="tooltipFunction()"
-            color="getColor(slave.diskData)"
-            pieLabelsOutside="false"
-            showValues="false"
-            labelType="percent">
-        <svg height="250"></svg>
-    </nvd3-pie-chart>
-			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content>
-		</md-card>
-        </div>
-    </ng-switch>
-     	</div>
-     	</div>
-    </div>
-
-<!-- 	     	<md-card class="un-25 md-whiteframe-z2" flex><nvd3 options="options2" data="data" config="chartConfig" api="api" class="un-25 chart md-whiteframe-z2" style="height:100%"flex></nvd3></md-card> -->
-	
-<!-- 	<div class="tabsdemoStaticTabs sample" flex> -->
-<!-- 			    <md-tabs class="" md-selected="data.selectedIndex" style="" flex> -->
-<!-- 				      <md-tab  aria-controls="tab1-content" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;"> -->
-<!-- 				        	Web Server -->
-<!-- 				      </md-tab> -->
-<!-- 				      <md-tab  aria-controls="tab2-content" ng-disabled="data.secondLocked" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;"> -->
-<!-- 				        	App Server -->
-<!-- 				      </md-tab> -->
-<!-- 				      <md-tab  aria-controls="tab3-content" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;"> -->
-<!-- 				        	Database -->
-<!-- 				      </md-tab> -->
-<!-- 			    </md-tabs> -->
-<!--     <ng-switch on="data.selectedIndex" class="tabpanel-container" > -->
+<!--      	</md-tab> -->
+<!--      	</md-tabs> -->
+<!--      	<ng-switch on="data.selectedIndex" class="tabpanel-container" > -->
 <!--         <div role="tabpanel" id="tab1-content" aria-labelledby="tab1" ng-switch-when="0"> -->
-<!-- 				<md-card id="cpulegend" class="md-whiteframe-z2" layout="row" flex> -->
+<!-- 			<md-card id="cpulegend" class="md-whiteframe-z2" layout="row" flex> -->
 <!-- 			<md-card ng-repeat="(stack, color) in colors" layout="row"> -->
 <!--      		<ng-md-icon icon="brightness_1" -->
 <!-- 			 style="fill:{{color}}" size="24" > -->
 <!-- 			</ng-md-icon> -->
-<!-- 			{{stack}} -->
+<!-- 			<div>{{stack}}</div> -->
 <!-- 			</md-card> -->
 <!--      	</md-card> -->
-<!--      	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" flex> -->
+<!--      	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" ng-hide="slave.cpuData.length==1" flex> -->
 <!--      		<nvd3-pie-chart -->
 <!--             data="slave.cpuData" -->
 <!--             donut="true" -->
@@ -200,22 +87,18 @@
 <!--         <svg height="250"></svg> -->
 <!--     </nvd3-pie-chart> -->
 <!-- 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content> -->
-<!-- 		</md-card>			 -->
-<!--         </div> -->
-        
-<!--         <div role="tabpanel" -->
-<!--              id="tab2-content" -->
-<!--              aria-labelledby="tab2" -->
-<!--              ng-switch-when="1"> -->
-<!--             <md-card id="memlegend" class="md-whiteframe-z2" layout="row" flex> -->
+<!-- 		</md-card> -->
+<!-- 		</div> -->
+<!--         <div role="tabpanel" id="tab2-content" aria-labelledby="tab2" ng-switch-when="1"> -->
+<!--         	<md-card id="memlegend" class="md-whiteframe-z2" layout="row" flex> -->
 <!-- 			<md-card ng-repeat="(stack, color) in colors" layout="row"> -->
 <!--      		<ng-md-icon icon="brightness_1" -->
 <!-- 			 style="fill:{{color}}" size="24" > -->
 <!-- 			</ng-md-icon> -->
-<!-- 			{{stack}} -->
+<!-- 			<div>{{stack}}</div> -->
 <!-- 			</md-card> -->
 <!--      	</md-card> -->
-<!--      	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" flex> -->
+<!--      	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" ng-hide="slave.memData.length==1" flex> -->
 <!--     		<nvd3-pie-chart -->
 <!--             data="slave.memData" -->
 <!--             donut="true" -->
@@ -237,19 +120,16 @@
 <!-- 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content> -->
 <!-- 		</md-card> -->
 <!--         </div> -->
-<!--         <div role="tabpanel" -->
-<!--              id="tab3-content" -->
-<!--              aria-labelledby="tab3" -->
-<!--              ng-switch-when="2"> -->
-<!--             <md-card id="disklegend" class="md-whiteframe-z2" layout="row" flex> -->
+<!--         <div role="tabpanel" id="tab3-content" aria-labelledby="tab3" ng-switch-when="2"> -->
+<!--         	<md-card id="disklegend" class="md-whiteframe-z2" layout="row" flex> -->
 <!-- 			<md-card ng-repeat="(stack, color) in colors" layout="row"> -->
 <!--      		<ng-md-icon icon="brightness_1" -->
 <!-- 			 style="fill:{{color}}" size="24" > -->
 <!-- 			</ng-md-icon> -->
-<!-- 			{{stack}} -->
+<!-- 			<div>{{stack}}</div> -->
 <!-- 			</md-card> -->
 <!--      	</md-card> -->
-<!--      	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" flex> -->
+<!--      	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" ng-hide="slave.diskData.length==1" flex> -->
 <!--     		<nvd3-pie-chart -->
 <!--             data="slave.diskData" -->
 <!--             donut="true" -->
@@ -270,10 +150,111 @@
 <!--     </nvd3-pie-chart> -->
 <!-- 			<md-card-content flex style="text-align:center"><h4>{{slave.hostname}}</h4></md-card-content> -->
 <!-- 		</md-card> -->
-						
 <!--         </div> -->
 <!--     </ng-switch> -->
-<!--     <div layout="row"> -->
-   
-<!--     </div> -->
-<!-- </div> -->
+	
+</div>
+
+
+
+    <md-tabs class="tabsDemoStaticTabs title" flex>
+     	<md-tab label="CPU" role="tab-panel" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;">
+     	<md-card id="cpulegend" class="md-whiteframe-z2" layout="row" flex>
+			<md-card ng-repeat="(stack, color) in colors" layout="row">
+     		<ng-md-icon icon="brightness_1"
+			 style="fill:{{color}}" size="24" >
+			</ng-md-icon>
+			<div style="margin-right:4px">{{stack}}</div>
+			</md-card>
+     	</md-card>
+     	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" ng-hide="slave.cpuData.length==1" flex>
+     		<nvd3-pie-chart
+            data="slave.cpuData"
+            donut="true"
+            donutRatio=".45"
+            margin="{left:0,top:0,bottom:0,right:0}"
+            x="xFunction()"
+            y="yFunction()"
+            showLabels="false"
+            tooltips="true"
+            height="250"
+            width="250"
+            tooltipContent="tooltipFunction()"
+            color="getColor(slave.cpuData)"
+            pieLabelsOutside="false"
+            showValues="false"
+            labelType="percent">
+        <svg height="250"></svg>
+    </nvd3-pie-chart>
+			<md-card-content flex style="text-align:center"><h4>{{newHostnames[slave.hostname]}}</h4></md-card-content>
+		</md-card>
+		
+     	</md-tab>
+     	
+     	<md-tab label="Memory" role="tab-panel" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;">
+     	<md-card id="memlegend" class="md-whiteframe-z2" layout="row" flex>
+			<md-card ng-repeat="(stack, color) in colors" layout="row">
+     		<ng-md-icon icon="brightness_1"
+			 style="fill:{{color}}" size="24" >
+			</ng-md-icon>
+			<div style="margin-right:4px">{{stack}}</div>
+			</md-card>
+     	</md-card>
+     	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" ng-hide="slave.memData.length==1" flex>
+    		<nvd3-pie-chart
+            data="slave.memData"
+            donut="true"
+            donutRatio=".45"
+            margin="{left:0,top:0,bottom:0,right:0}"
+            x="xFunction()"
+            y="yFunction()"
+            showLabels="false"
+            tooltips="true"
+            height="250"
+            width="250"
+            tooltipContent="tooltipFunction()"
+            color="getColor(slave.memData)"
+            pieLabelsOutside="false"
+            showValues="false"
+            labelType="percent">
+        <svg height="250"></svg>
+    </nvd3-pie-chart>
+			<md-card-content flex style="text-align:center"><h4>{{newHostnames[slave.hostname]}}</h4></md-card-content>
+		</md-card>
+     	</md-tab>
+     	
+     	<md-tab label="Storage" role="tab-panel" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;">
+     	<md-card id="disklegend" class="md-whiteframe-z2" layout="row" flex>
+			<md-card ng-repeat="(stack, color) in colors" layout="row">
+     		<ng-md-icon icon="brightness_1"
+			 style="fill:{{color}}" size="24" >
+			</ng-md-icon>
+			<div style="margin-right:4px">{{stack}}</div>
+			</md-card>
+     	</md-card>
+     	<md-card ng-repeat="slave in slaves" class="un-25 chart md-whiteframe-z2" ng-hide="slave.diskData.length==1" flex>
+    		<nvd3-pie-chart
+            data="slave.diskData"
+            donut="true"
+            donutRatio=".45"
+            margin="{left:0,top:0,bottom:0,right:0}"
+            x="xFunction()"
+            y="yFunction()"
+            showLabels="false"
+            tooltips="true"
+            height="250"
+            width="250"
+            tooltipContent="tooltipFunction()"
+            color="getColor(slave.diskData)"
+            pieLabelsOutside="false"
+            showValues="false"
+            labelType="percent">
+        <svg height="250"></svg>
+    </nvd3-pie-chart>
+			<md-card-content flex style="text-align:center"><h4>{{newHostnames[slave.hostname]}}</h4></md-card-content>
+		</md-card>
+     	</md-tab>
+     	</md-tabs>
+<!--      	<div class="after-tabs-area" layout="row" layout-sm="column" layout-margin layout-align="left center">HELLO</div> -->
+     	</div>
+    </div>
