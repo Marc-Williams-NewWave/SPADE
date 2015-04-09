@@ -87,8 +87,8 @@
 										
 										<div style="">
 										<div >
-										<md-subheader class="md-primary" style="padding: 0px !important;">Web Server</md-subheader>
-											<select ui-select2 ng-model="webPod.app" data-placeholder="Select a Web Server" ng-change="setWebConfig(webPod.app)">
+										<md-subheader class="md-primary" style="padding: 0px !important;">Web Server*</md-subheader>
+											<select ui-select2 ng-model="webPod.app" data-placeholder="Select a Web Server*" ng-change="setWebConfig(webPod.app)">
 											 <option value=""></option>
 											 <option ng-repeat="app in webApps" value="{{app.app}}">{{app.app}}</option>
 											 </select>
@@ -114,6 +114,7 @@
 										</div>
 									</div>
 								</div>
+								<div style="font-family: 'Roboto', sans-serif;">*Required</div>
 							</md-content>
 							<!-- <div align="right" layout="row">
 							
@@ -143,7 +144,7 @@
 											</md-input-container>
 										</div>
 										<div flex style="width: 50%;" ng-show="!oneOS">
-										<md-subheader class="md-primary" style="padding: 0px !important;">Operating Systems</md-subheader>
+										<md-subheader class="md-primary" style="padding: 0px !important;">Operating Systems*</md-subheader>
 											 <select ui-select2 ng-model="appPod.os" data-placeholder="Select an OS">
 											 <option value=""></option>
 											 <option ng-repeat="os in osOptions" value="{{os}}">{{os}}</option>
@@ -163,7 +164,7 @@
 									<div layout="column" style="">
 										
 										<div style="">
-										<md-subheader class="md-primary" style="padding: 0px !important;">Application Server</md-subheader>
+										<md-subheader class="md-primary" style="padding: 0px !important;">Application Server*</md-subheader>
 											<select ui-select2 ng-model="appPod.app" data-placeholder="Select an App Server" ng-change="setAppConfig(appPod.app)">
 											 <option value=""></option>
 											 <option ng-repeat="app in appApps" value="{{app.app}}">{{app.app}}</option>
@@ -188,6 +189,7 @@
 										</div>
 									</div>
 								</div>
+								<div style="font-family: 'Roboto', sans-serif;">*Required</div>
 							</md-content>
         </div>
         <div role="tabpanel"
@@ -212,7 +214,7 @@
 											</md-input-container>
 										</div>
 										<div flex style="width: 50%;" ng-show="!oneOS">
-										<md-subheader class="md-primary" style="padding: 0px !important;">Operating Systems</md-subheader>
+										<md-subheader class="md-primary" style="padding: 0px !important;">Operating Systems*</md-subheader>
 											 <select ui-select2 ng-model="dbPod.os" data-placeholder="Select an OS">
 											 <option value=""></option>
 											 <option ng-repeat="os in osOptions" value="{{os}}">{{os}}</option>
@@ -232,7 +234,7 @@
 									<div layout="column" style="">
 										
 										<div style="">
-										<md-subheader class="md-primary" style="padding: 0px !important;">Database</md-subheader>
+										<md-subheader class="md-primary" style="padding: 0px !important;">Database*</md-subheader>
 											<select ui-select2 ng-model="dbPod.app" data-placeholder="Select a Database" ng-change="setDBConfig(dbPod.app)">
 											 <option value=""></option>
 											 <option ng-repeat="app in dbApps" value="{{app.app}}">{{app.app}}</option>
@@ -503,15 +505,17 @@
 				</div>
 				 
 				<md-button class="md-raised md-primary"
-					style="margin-top:5%;margin-left:35%;" ng-click="progress = true; launch()" >Launch</md-button> 
+					style="margin-top:5%;margin-left:35%;" ng-click="launch()" >Launch</md-button> 
 					<!-- <md-button class="md-raised md-primary"
 					style="margin-top:5%;" ng-click="deletePod(pod)" ng-disabled="isDisabled">Delete</md-button> -->
 					</md-content>
-			<div ng-show="progress">
+				<div ng-show="progress" >
 <!-- 				<md-progress-linear class="md-warn" md-mode="buffer" value="{{determinateValue}}" md-buffer-value="{{determinateValue2}}"></md-progress-linear> -->
 <!-- 				<md-progress-linear md-mode="indeterminate"></md-progress-linear> -->
-					<div layout="row" layout-sm="column" layout-align="space-around">
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+					<div layout="column" layout-sm="column" layout-align="space-around" >
+						<img style="height:40px; width:40px; padding:10px" src="assets/images/ajax-loader.gif"/>
+						<h4 style="font-family: 'Roboto', sans-serif; font-weight:500;">Please wait...</h4>
+<!--      				<md-progress-circular md-mode="indeterminate" ng-show="show"></md-progress-circular> -->
     </div>
 			</div>
 			</div>

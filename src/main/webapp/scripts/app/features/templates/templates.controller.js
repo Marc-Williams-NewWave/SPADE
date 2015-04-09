@@ -4,11 +4,13 @@ angular.module('spadeApp')
 
 .controller('TemplatesController', function($rootScope, $scope, $state, $timeout, Auth,$http,$mdDialog,$modal,templateService, resolveTemplates,ngTableParams,$filter) {
 		
-	$scope.spadeInfo = function(ev) {
+	$scope.templatesInfo = function(ev) {
 	    $mdDialog.show(
 	      $mdDialog.alert()
 	        .title("Templates")
-	        .content("Templates Info")
+	        .content("The Templates screen lists your available application stack templates. These describe predefined configurations" +
+	        		"you can use to quickly launch infrastructure stacks. Press edit to launch the creation screen with all options preconfigured. " +
+	        		"You can make any neccessary changes, then press launch to create the specified stack.")
 	        .ariaLabel("Templates Info")
 	        .ok("Close")
 	        .targetEvent(ev)

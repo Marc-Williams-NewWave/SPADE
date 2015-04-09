@@ -3,11 +3,14 @@ angular.module('spadeApp').controller('StatsController',
 		[ "$scope", "$http", "$modal", "$state", "$timeout", "$mdDialog", "Auth", "resolveSlaves", "resolveTasks", "resolvePods", "SlaveService", "TaskService", "PodService", "MenuService",
         function($scope, $http, $modal, $state, $timeout, $mdDialog, Auth, resolveSlaves, resolveTasks, resolvePods, SlaveService, TaskService, PodService, MenuService){
 
-			$scope.spadeInfo = function(ev) {
+			$scope.statsInfo = function(ev) {
 			    $mdDialog.show(
 			      $mdDialog.alert()
 			        .title("Resources")
-			        .content("Infrastructure Resources Info")
+			        .content("The Resources view describes the system resources your application stacks are currently consuming. " +
+			        		"Each graph represents a physical/virtual host in your cloud. When you launch application stacks, each server " +
+			        		"will take up a certain percentage of its hosts resources (CPU, Memory, and Storage). Stacks are color coded, with " +
+			        		"all servers in the same stack colored the same. Only hosts that are currently occupied are shown on this page.")
 			        .ariaLabel("Stats Info")
 			        .ok("Close")
 			        .targetEvent(ev)

@@ -611,7 +611,7 @@ $scope.conf = false;
         
         function showAlert() {
            var confirm = $mdDialog.confirm()
-              .title('Success, your server has been launched')
+              .title('Success, your stack has been launched')
               .content('Click \'View Stack\' to view your stack')
               .ok('View Stack')
               .cancel('Close');
@@ -625,29 +625,20 @@ $scope.conf = false;
      	  
           
      	 $scope.launch = function(){
-     		$scope.determinateValue = 30;
-     		$scope.determinateValue2 = 30;
-     		$interval(function() {
-     		      $scope.determinateValue += 1;
-     		      $scope.determinateValue2 += 1.5;
-     		      if ($scope.determinateValue > 100) {
-     		        $scope.determinateValue = 30;
-     		        $scope.determinateValue2 = 30;
-     		      }
-     		    }, 7200, 1, true);
-     		 setTimeout(function(){
-     			console.log($scope.payload);
-         		//alert("CREATED");
-         		
-//         		$scope.showCustomToast();
-         		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
-             		 	.success(function(data){
-             		 		modal.dismiss();
-//             		 		$modalInstance.dismiss();
-             	     		$scope.showAlert();
-             		 		console.log("success data returned ====> " + data);
-             		 });
-     		 }, 5000)
+     		//$scope.validate();
+     		$scope.progress = true;
+     		console.log($scope.payload);
+     		//alert("CREATED");
+     		$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
+ 		 	.success(function(data){
+ 		 		console.log("success data returned ====> " + data);
+ 		 	});
+
+     		setTimeout(function(){
+     			
+ 	     		$scope.showAlert();
+ 	     		modal.dismiss();
+     		 }, 4000);
      			
       	}
      	 

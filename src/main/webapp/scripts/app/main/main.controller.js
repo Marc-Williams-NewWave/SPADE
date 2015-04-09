@@ -8,9 +8,9 @@ angular.module('spadeApp').controller('MainController', function($scope, $state,
 		      $mdDialog.alert()
 		        .title("SPADE")
 		        .content("NewWave’s Self-Service Portal And Dashboard Environment is a next generation provisioning, deployment, and monitoring dashboard. " +
-		        		"SPADE manages the resources for each of your projects and allows you to monitor performance and metrics.\n" +
-		        		"SPADE puts the power of infrastructure management in the hands of your team with just few clicks." +
-		        		"Applications built in container-based environments shift focus from technology maintenance to your business requirements." +
+		        		"SPADE manages the resources for each of your projects and allows you to monitor performance and metrics. \n" +
+		        		"SPADE puts the power of infrastructure management in the hands of your team with just few clicks. " +
+		        		"Applications built in container-based environments shift focus from technology maintenance to your business requirements. " +
 		        		"Multi-container environments combined with DevOps methodology significantly reduce the time and cost needed for setup and maintenance.")
 		        .ariaLabel("Spade Info")
 		        .ok("Welcome to SPADE!")
