@@ -21,7 +21,7 @@ angular.module('spadeApp').controller('StatsController',
 			$scope.switchPages = { "Resource":"stats", "Table":"statstable" };
 			
 			$scope.newHostnames = {"mesos-slave-2":"Host-1","mesos-slave-3":"Host-2","mesos-slave-4":"Host-3",
-			                        "mesos-slave-5":"Host-5","mesos-slave-6":"Host-5","mesos-slave-7":"Host-6"}
+			                        "mesos-slave-5":"Host-4","mesos-slave-6":"Host-5","mesos-slave-7":"Host-6"}
 			
 	$scope.slaves = resolveSlaves.items;
 	function compare(a,b) {
