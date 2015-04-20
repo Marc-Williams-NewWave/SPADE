@@ -7,9 +7,12 @@ angular.module('spadeApp')
         	Auth.logout();
         }
     })
-    .controller('LogoutCtrl', function ($scope, $state, Auth) {
+    .controller('LogoutCtrl', function ($scope, $state, Auth, Principal) {
         $scope.logout = function (){
         	Auth.logout();
         	$state.go('login');
         }
+        
+        $scope.isAuthenticated = Principal.isAuthenticated;
+        $scope.isInRole = Principal.isInRole;
     });
