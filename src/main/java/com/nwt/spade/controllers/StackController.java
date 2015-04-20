@@ -159,9 +159,7 @@ public class StackController {
 		} else {
 			LOG.info("No Stacks found");
 			LOG.info("Containers found");
-			LOG.debug("NO STACKS AND SOME CONTROLLERS");
 			for (JsonValue cont : dbConts) {
-				LOG.debug("CONTAINER" + cont);
 				objBuild = Json.createObjectBuilder();
 				JsonArrayBuilder arrBuild = Json.createArrayBuilder();
 				String ownStack = ((JsonObject) cont).getJsonObject("labels")
@@ -170,12 +168,10 @@ public class StackController {
 						.getString("project");
 				arrBuild.add(((JsonObject) cont).getJsonObject("labels")
 						.getString("name"));
-				LOG.debug("CREATING NEW STACK");
 				objBuild.add("id", ownStack);
 				objBuild.add("project", ownProj);
 				objBuild.add("controllers", arrBuild.build());
 				String payload = objBuild.build().toString();
-				LOG.info("Stack payload: " + payload);
 				LOG.info("Stack updated: " + db.updateStack(ownProj, payload));
 			}
 		}

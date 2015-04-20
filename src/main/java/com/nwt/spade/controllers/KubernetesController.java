@@ -144,13 +144,13 @@ public class KubernetesController {
 
 		// payload = db.getTemplate(imageName).getString("0");
 		JsonArray added = db.addContTemplate(project, payload, stack+"-"+name);
-		LOG.debug("Added template: " + added.getJsonObject(0).toString());
+		//LOG.debug("Added template: " + added.getJsonObject(0).toString());
 
 		String jsonString = kubeApiRequest("POST", endpoint
 				+ "/replicationControllers/", payload);
 
-		LOG.debug("Payload: " + payload);
-		LOG.debug("Return from Kube: " + jsonString);
+		//LOG.debug("Payload: " + payload);
+		LOG.info("Return from Kube: " + jsonString);
 		return db.addController(project, jsonString);
 	}
 
@@ -247,17 +247,14 @@ public class KubernetesController {
 				// if(((JsonObject)jval).getString("kind").equals("Status"))
 				// break;
 				boolean remove = false;
-				LOG.debug("DBENV ID: " + ((JsonObject) jval).toString());
 				for (JsonValue envval : envList) {
-					LOG.debug("KBENV ID: "
-							+ ((JsonObject) envval).getString("id"));
 					if (((JsonObject) envval).getString("id").equals(
 							((JsonObject) jval).getString("id"))) {
 						remove = true;
 					}
 				}
 				if (!remove) {
-					LOG.debug("Deleting leftover env: "
+					LOG.info("Deleting leftover env: "
 							+ db.deleteController(project,
 									((JsonObject) jval).getString("id")));
 				}
@@ -271,8 +268,6 @@ public class KubernetesController {
 				boolean remove = false;
 				
 				for (JsonValue podval : podList) {
-					// LOG.debug("KBPOD ID: " + ((JsonObject)
-					// podval).getString("id"));
 					if (((JsonObject) podval).getString("id").equals(
 							((JsonObject) jval).getString("id"))) {
 						remove = true;
@@ -286,9 +281,7 @@ public class KubernetesController {
 			}
 			for (JsonValue jval : dbPods) {				
 				String dbContName = ((JsonObject) jval).getJsonObject("labels").getString("controller");
-				LOG.debug("DB POD STACK: " + dbContName);
 				JsonArray dbController = db.getController(project, dbContName);
-				LOG.debug("DB CONTROLLERS: " + dbController);
 				boolean remove = false;
 				
 //				for (JsonValue envval : envList) {
@@ -365,7 +358,7 @@ public class KubernetesController {
 			//System.out.println(((JsonObject) jval).getJsonObject("labels").getString("controller"));
 			if (((JsonObject) jval).getJsonObject("labels").getString("controller")
 					.equalsIgnoreCase(selector)) {
-				LOG.debug("Deleting pod: "
+				LOG.info("Deleting pod: "
 						+ ((JsonObject) jval).getString("id"));
 				kubeApiRequest("DELETE",
 						((JsonObject) jval).getString("selfLink"), null);
@@ -782,8 +775,7 @@ public class KubernetesController {
 		StringBuffer jsonString = new StringBuffer();
 		try {
 			URL url = new URL("http://" + host + ":" + port + link);
-
-			//LOG.debug("HOST: " + host);
+			
 			HttpURLConnection connection = (HttpURLConnection) url
 					.openConnection();
 

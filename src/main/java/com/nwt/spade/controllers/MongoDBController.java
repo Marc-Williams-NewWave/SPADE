@@ -51,7 +51,7 @@ public class MongoDBController {
 	public MongoDBController(boolean on) {
 		try {
 			mongo = new MongoClient("localhost");
-			db = mongo.getDB("demo");
+			db = mongo.getDB("spade");
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
@@ -74,7 +74,7 @@ public class MongoDBController {
 		BasicDBObject query = new BasicDBObject();
 		query.put("id", doc.get("id"));
 		//query.put("desiredState.podTemplate.labels.image", imageName);
-		//query.put("desiredState.podTemplate.labels.project", project);
+		query.put("labels.project", project);
 		DBCursor cursor = coll.find(query);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
@@ -97,7 +97,7 @@ public class MongoDBController {
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		query.put("id", id);
 		//query.put("desiredState.podTemplate.labels.image", imageName);
-		query.put("desiredState.podTemplate.labels.project", project);
+		query.put("labels.project", project);
 		DBCollection coll = db.getCollection("controller_templates");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
@@ -118,7 +118,7 @@ public class MongoDBController {
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		query.put("id", id);
-		query.put("desiredState.podTemplate.labels.project", project);
+		query.put("labels.project", project);
 		DBCollection coll = db.getCollection("controller_templates");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
@@ -136,7 +136,7 @@ public class MongoDBController {
 
 	public JsonArray getAllContTemplates(String project) {
 		BasicDBObject query = new BasicDBObject();
-		if (!project.equals("all")) query.put("desiredState.podTemplate.labels.project", project);
+		if (!project.equals("all")) query.put("labels.project", project);
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		DBCollection coll = db.getCollection("controller_templates");
 		DBCursor cursor = coll.find(query, removeId);
@@ -156,13 +156,11 @@ public class MongoDBController {
 
 	public JsonArray addController(String project, String template) {
 		BasicDBObject doc = (BasicDBObject) JSON.parse(template);
-		LOG.debug("Template: " + template);
-		
 		doc.append("_id", doc.get("id"));
 		DBCollection coll = db.getCollection("controllers");
 		BasicDBObject query = new BasicDBObject();
 		query.put("_id", doc.get("_id"));
-		query.put("desiredState.podTemplate.labels.project", project);
+		query.put("labels.project", project);
 		DBCursor cursor = coll.find(query);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
@@ -189,9 +187,8 @@ public class MongoDBController {
 		doc.append("_id", doc.get("id"));
 		DBCollection coll = db.getCollection("pods");
 		BasicDBObject query = new BasicDBObject();
-		//LOG.debug("ID: " + doc.getString("id"));
 		query.put("_id", doc.get("id"));
-		//query.put("labels.project", project);
+		query.put("labels.project", project);
 		DBCursor cursor = coll.find(query);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
@@ -213,9 +210,8 @@ public class MongoDBController {
 		doc.append("_id", doc.get("id"));
 		DBCollection coll = db.getCollection("stacks");
 		BasicDBObject query = new BasicDBObject();
-		//LOG.debug("ID: " + doc.getString("id"));
 		query.put("_id", doc.get("id"));
-		//query.put("labels.project", project);
+		query.put("project", project);
 		DBCursor cursor = coll.find(query);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
@@ -236,7 +232,7 @@ public class MongoDBController {
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		query.put("id", id);
-		//query.put("desiredState.podTemplate.labels.project", project);
+		query.put("project", project);
 		DBCollection coll = db.getCollection("stacks");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
@@ -256,7 +252,7 @@ public class MongoDBController {
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		query.put("id", id);
-		//query.put("desiredState.podTemplate.labels.project", project);
+		query.put("project", project);
 		DBCollection coll = db.getCollection("stacks");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
@@ -274,7 +270,7 @@ public class MongoDBController {
 	
 	public JsonArray getAllStacks(String project) {
 		BasicDBObject query = new BasicDBObject();
-		//query.put("desiredState.podTemplate.labels.project", project); NEED TO IMPLEMENT PROJECT BASED
+		if (!project.equals("all")) query.put("project", project);
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		DBCollection coll = db.getCollection("stacks");
 		DBCursor cursor = coll.find(query, removeId);
@@ -296,9 +292,8 @@ public class MongoDBController {
 		doc.append("_id", doc.get("id"));
 		DBCollection coll = db.getCollection("stack_templates");
 		BasicDBObject query = new BasicDBObject();
-		//LOG.debug("ID: " + doc.getString("id"));
 		query.put("_id", doc.get("id"));
-		//query.put("labels.project", project);
+		query.put("project", project);
 		DBCursor cursor = coll.find(query);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
@@ -319,7 +314,7 @@ public class MongoDBController {
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		query.put("id", id);
-		//query.put("desiredState.podTemplate.labels.project", project);
+		query.put("project", project);
 		DBCollection coll = db.getCollection("stack_template");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
@@ -339,7 +334,7 @@ public class MongoDBController {
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		query.put("id", id);
-		//query.put("desiredState.podTemplate.labels.project", project);
+		query.put("project", project);
 		DBCollection coll = db.getCollection("stack_template");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
@@ -357,7 +352,7 @@ public class MongoDBController {
 	
 	public JsonArray getAllStackTemps(String project) {
 		BasicDBObject query = new BasicDBObject();
-		//query.put("desiredState.podTemplate.labels.project", project); NEED TO IMPLEMENT PROJECT BASED
+		if (!project.equals("all")) query.put("project", project);
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		DBCollection coll = db.getCollection("stack_templates");
 		DBCursor cursor = coll.find(query, removeId);
@@ -376,12 +371,11 @@ public class MongoDBController {
 
 	public JsonArray updateController(String project, String template) {
 		BasicDBObject doc = (BasicDBObject) JSON.parse(template);
-		//LOG.debug(template);
 		doc.append("_id", doc.get("id"));
 		DBCollection coll = db.getCollection("controllers");
 		BasicDBObject query = new BasicDBObject();
 		query.put("_id", doc.get("id"));
-		//query.put("desiredState.podTemplate.labels.project", project);
+		query.put("labels.project", project);
 		DBCursor cursor = coll.find(query);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
@@ -402,8 +396,7 @@ public class MongoDBController {
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		query.put("id", id);
-		LOG.debug("GETTING ID: " + id);
-		//query.put("desiredState.podTemplate.labels.project", project);
+		query.put("labels.project", project);
 		DBCollection coll = db.getCollection("controllers");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
@@ -423,7 +416,7 @@ public class MongoDBController {
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		query.put("id", id);
-		//query.put("desiredState.podTemplate.labels.project", project);
+		query.put("labels.project", project);
 		DBCollection coll = db.getCollection("pods");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
@@ -443,7 +436,7 @@ public class MongoDBController {
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		query.put("id", id);
-		//query.put("desiredState.podTemplate.labels.project", project);
+		query.put("labels.project", project);
 		DBCollection coll = db.getCollection("controllers");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
@@ -461,7 +454,7 @@ public class MongoDBController {
 
 	public JsonArray getAllControllers(String project) {
 		BasicDBObject query = new BasicDBObject();
-		//query.put("desiredState.podTemplate.labels.project", project); NEED TO IMPLEMENT PROJECT BASED
+		if (!project.equals("all")) query.put("labels.project", project);
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		DBCollection coll = db.getCollection("controllers");
 		DBCursor cursor = coll.find(query, removeId);
@@ -480,7 +473,7 @@ public class MongoDBController {
 	
 	public JsonArray getAllPods(String project) {
 		BasicDBObject query = new BasicDBObject();
-		//query.put("desiredState.podTemplate.labels.project", project);
+		if (!project.equals("all")) query.put("labels.project", project);
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		DBCollection coll = db.getCollection("pods");
 		DBCursor cursor = coll.find(query, removeId);
@@ -501,7 +494,7 @@ public class MongoDBController {
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
 		query.put("id", id);
-		//query.put("desiredState.podTemplate.labels.project", project);
+		query.put("labels.project", project);
 		DBCollection coll = db.getCollection("pods");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
@@ -635,7 +628,7 @@ public class MongoDBController {
 		return arrBuild.build();
 	}
 	
-	public JsonArray updateProj(String project) {
+	public JsonArray updateProject(String project) {
 		BasicDBObject doc = (BasicDBObject) JSON.parse(project);
 		doc.append("_id", doc.get("name"));
 		DBCollection coll = db.getCollection("projects");
@@ -718,7 +711,6 @@ public class MongoDBController {
 		doc.append("_id", doc.getString("id"));
 		DBCollection coll = db.getCollection("mesos_tasks");
 		BasicDBObject query = new BasicDBObject();
-		LOG.debug("ID: " + doc.getString("id"));
 		query.put("_id", doc.getString("id"));
 		//query.put("labels.project", project);
 		DBCursor cursor = coll.find(query);
@@ -779,7 +771,6 @@ public class MongoDBController {
 		doc.append("_id", doc.getString("id"));
 		DBCollection coll = db.getCollection("mesos_slaves");
 		BasicDBObject query = new BasicDBObject();
-		LOG.debug("ID: " + doc.getString("id"));
 		query.put("_id", doc.getString("id"));
 		//query.put("labels.project", project);
 		DBCursor cursor = coll.find(query);
@@ -840,7 +831,6 @@ public class MongoDBController {
 		doc.append("_id", doc.getString("name"));
 		DBCollection coll = db.getCollection("users");
 		BasicDBObject query = new BasicDBObject();
-		LOG.debug("NAME: " + doc.getString("name"));
 		query.put("_id", doc.getString("name"));
 		//query.put("labels.project", project);
 		DBCursor cursor = coll.find(query);
@@ -915,9 +905,9 @@ public class MongoDBController {
 		return arrBuild.build();
 	}
 	
-//	public static void main(String[] args){
-//		MongoDBController test = new MongoDBController(true);
-//		System.out.println(test.getController("demo", "wildfly-wildfly-apache"));
-//	}
+	public static void main(String[] args){
+		MongoDBController test = new MongoDBController(true);
+		System.out.println(test.getAllStacks("demo2"));
+	}
 
 }

@@ -100,12 +100,9 @@ public class MesosController {
 					new StringReader(statsPayload)).readObject();
 
 			if (!tasksJson.getJsonArray("frameworks").isEmpty()) {
-				LOG.debug("FRAMEWORKS NOT EMPTY");
 				for (JsonValue framework : tasksJson.getJsonArray("frameworks")) {
 					if (!((JsonObject) framework).getJsonArray("executors")
 							.isEmpty()) {
-						LOG.debug("FOUND EXECUTOR: "
-								+ tasksJson.getJsonArray("executors"));
 						for (JsonValue executor : ((JsonObject) framework)
 								.getJsonArray("executors")) {
 							if (((JsonObject) executor).getString("id").equals(
@@ -113,7 +110,6 @@ public class MesosController {
 								JsonArray kubeTasks = ((JsonObject) executor)
 										.getJsonArray("tasks");
 								if (!kubeTasks.isEmpty()) {
-									LOG.debug("TASKS NOT EMPTY");
 									for (JsonValue jval : kubeTasks) {
 										JsonObjectBuilder taskBuild = Json
 												.createObjectBuilder();

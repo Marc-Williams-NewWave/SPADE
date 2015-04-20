@@ -86,11 +86,9 @@ public class ProjectController {
 				objBuild.add(key, ((JsonObject)proj).get(key));
 			}
 			
-			//LOG.debug("PROJECT: " + ((JsonObject)proj).getString("name"));
 			JsonArray envArr = db.getAllControllers(((JsonObject)proj).getString("name"));
 			JsonArrayBuilder tmp = Json.createArrayBuilder();
 			for(JsonValue env: envArr){
-				//LOG.debug("ENV: " + ((JsonObject)env).getString("id"));
 				if(((JsonObject)env).getJsonObject("labels").getString("project").equals(((JsonObject)proj).getString("name"))){
 					tmp.add(((JsonObject)env).get("id"));
 				}
@@ -100,7 +98,6 @@ public class ProjectController {
 			tmp = Json.createArrayBuilder();
 			for(JsonValue img: imgArr){
 				if(!((JsonObject)proj).getJsonArray("images").contains(((JsonObject)img).getString("image"))){
-					//LOG.debug(((JsonObject)img).getString("image"));
 					tmp.add(((JsonObject)img).get("image"));
 				}
 			}
@@ -108,14 +105,12 @@ public class ProjectController {
 			
 			tmp = Json.createArrayBuilder();
 			for(JsonValue user: userArr){
-				LOG.debug(((JsonObject)user).getString("name"));
 				if(((JsonObject)user).getJsonArray("projects").contains(((JsonObject)proj).getString("name"))){
-					LOG.debug(((JsonObject)user).getString("name"));
 					tmp.add(((JsonObject)user).get("name"));
 				}
 			}
 			objBuild.add("users", tmp.build());
-			LOG.info("Project updated: "+ db.updateProj(objBuild.build().toString()));
+			LOG.info("Project updated: "+ db.updateProject(objBuild.build().toString()));
 		}
 	}
 	
