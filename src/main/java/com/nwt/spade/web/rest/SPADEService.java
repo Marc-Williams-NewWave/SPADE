@@ -31,11 +31,11 @@ public class SPADEService {
 		apiController = api;
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
-	public @ResponseBody ResponseEntity<String> test(@RequestBody String temp) {
-		return new ResponseEntity<String>(apiController.createRepl(temp),
-				HttpStatus.OK);
-	}
+//	@RequestMapping(value = "/test", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
+//	public @ResponseBody ResponseEntity<String> test(@RequestBody String temp) {
+//		return new ResponseEntity<String>(apiController.createRepl(temp),
+//				HttpStatus.OK);
+//	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	public @ResponseBody ResponseEntity<String> spade() {

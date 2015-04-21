@@ -905,9 +905,9 @@ public class MongoDBController {
 		return arrBuild.build();
 	}
 	
-	public static void main(String[] args){
-		MongoDBController test = new MongoDBController(true);
-		System.out.println(test.getAllStacks("demo2"));
-	}
+//	public static void main(String[] args){
+//		MongoDBController test = new MongoDBController(true);
+//		System.out.println(test.getAllStacks("demo2"));
+//	}
 
 }

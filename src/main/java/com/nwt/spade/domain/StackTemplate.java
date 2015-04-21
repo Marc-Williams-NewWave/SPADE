@@ -4,12 +4,27 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class Template implements Serializable {
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Document(collection = "stack_templates")
+public class StackTemplate implements Serializable {
 	
+	@NotNull
+    @Size(min = 0, max = 50)
+    @Id
 	private String id;
-	private String select;
-	private int replicas;
-	private List<Container> containers;
+	@Size(min = 0, max = 50)
+	@Field("project")
+	private String project;
+	@JsonIgnore
+	private List<Container> templates;
 	
 	public String getId() {
 		return id;
@@ -21,26 +36,20 @@ public class Template implements Serializable {
 	/**
 	 * @return the select
 	 */
-	public String getSelect() {
-		return select;
+	public String getProject() {
+		return project;
 	}
 	/**
 	 * @param select the select to set
 	 */
-	public void setSelect(String select) {
-		this.select = select;
+	public void setproject(String project) {
+		this.project = project;
 	}
-	public int getReplicas() {
-		return replicas;
+	public List<Container> getTemplates() {
+		return templates;
 	}
-	public void setReplicas(int replicas) {
-		this.replicas = replicas;
-	}
-	public List<Container> getContainers() {
-		return containers;
-	}
-	public void setContainers(List<Container> containers) {
-		this.containers = containers;
+	public void setContainers(List<Container> templates) {
+		this.templates = templates;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -61,9 +70,9 @@ public class Template implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Template))
+		if (!(obj instanceof StackTemplate))
 			return false;
-		Template other = (Template) obj;
+		StackTemplate other = (StackTemplate) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

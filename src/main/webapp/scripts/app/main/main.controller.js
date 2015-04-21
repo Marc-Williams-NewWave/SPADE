@@ -1,7 +1,13 @@
 'use strict';
 
-angular.module('spadeApp').controller('MainController', function($scope, $state, $mdDialog, Principal, Auth, $http,templateService) {
+angular.module('spadeApp').controller('MainController', function($scope, $state, $cookies, $mdDialog, Principal, Auth, $http, templateService) {
 
+	//var currentUser = $cookies.get('currentUser');
+	//var currentProj = $cookies.get('currentProj');
+	var currentUser = $cookies.currentUser;
+	var currentProj = $cookies.currentProj;
+	
+	console.log(currentUser+", "+currentProj);
 	
 	$scope.spadeInfo = function(ev) {
 		    $mdDialog.show(
@@ -18,7 +24,7 @@ angular.module('spadeApp').controller('MainController', function($scope, $state,
 		    );
 		  };
 
-			$http.get("http://192.168.4.8:8080/spade/api/proj")
+			$http.get("http://localhost:8081/spade/api/proj")
 				.success(function(data) {
 						console.log(data);
 						$scope.projects = data.items;

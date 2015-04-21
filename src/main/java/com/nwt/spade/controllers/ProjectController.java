@@ -105,6 +105,9 @@ public class ProjectController {
 			
 			tmp = Json.createArrayBuilder();
 			for(JsonValue user: userArr){
+				for (JsonValue uproj: ((JsonObject)user).getJsonArray("projects")){
+					
+				}
 				if(((JsonObject)user).getJsonArray("projects").contains(((JsonObject)proj).getString("name"))){
 					tmp.add(((JsonObject)user).get("name"));
 				}

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.nwt.spade.domain.Container;
 import com.nwt.spade.domain.Port;
-import com.nwt.spade.domain.Template;
+import com.nwt.spade.domain.StackTemplate;
 import com.nwt.spade.exceptions.KubernetesOperationException;
 
 @Service
@@ -52,38 +52,38 @@ public class APIController {
 		stackController = sc;
 	}
 	
-	public String createRepl(String temp){
-		LOG.debug("Trying the new Template stuff" + temp);
-		Template template = new Template();
-		JsonObject json = Json.createReader(new StringReader(temp))
-				.readObject();
-		template.setId(json.getString("id"));
-		template.setReplicas(json.getInt("replicas"));
-		template.setSelect(json.getString("select"));
-		template.setContainers(new ArrayList());
-		for (JsonValue jval : json.getJsonArray("containers")){
-			Container cont = new Container();
-			cont.setOs(((JsonObject)jval).getString("os"));
-			cont.setApp(((JsonObject)jval).getString("app"));
-			cont.setName(((JsonObject)jval).getString("name"));
-			cont.setPorts(new ArrayList());
-			for (JsonValue port : ((JsonObject)jval).getJsonArray("ports")){
-				Port pt = new Port();
-				pt.setContainerPort(((JsonObject)port).getInt("containerPort"));
-				pt.setHostPort(((JsonObject)port).getInt("hostPort"));
-				cont.getPorts().add(pt);
-			}
-			template.getContainers().add(cont);
-		}
-		JsonArray jsonReturn = kubeController.createPod(template);
-		
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		objBuild.add("api", "v0.0.4");
-		objBuild.add("time", dateFormat.format(new Date()));
-		objBuild.add("type", "CreateEnv");
-		objBuild.add("items", jsonReturn);
-		return objBuild.build().toString();
-	}
+//	public String createRepl(String temp){
+//		LOG.debug("Trying the new Template stuff" + temp);
+//		StackTemplate template = new StackTemplate();
+//		JsonObject json = Json.createReader(new StringReader(temp))
+//				.readObject();
+//		template.setId(json.getString("id"));
+//		template.setReplicas(json.getInt("replicas"));
+//		template.setSelect(json.getString("select"));
+//		template.setContainers(new ArrayList());
+//		for (JsonValue jval : json.getJsonArray("containers")){
+//			Container cont = new Container();
+//			cont.setOs(((JsonObject)jval).getString("os"));
+//			cont.setApp(((JsonObject)jval).getString("app"));
+//			cont.setName(((JsonObject)jval).getString("name"));
+//			cont.setPorts(new ArrayList());
+//			for (JsonValue port : ((JsonObject)jval).getJsonArray("ports")){
+//				Port pt = new Port();
+//				pt.setContainerPort(((JsonObject)port).getInt("containerPort"));
+//				pt.setHostPort(((JsonObject)port).getInt("hostPort"));
+//				cont.getPorts().add(pt);
+//			}
+//			template.getContainers().add(cont);
+//		}
+//		JsonArray jsonReturn = kubeController.createPod(template);
+//		
+//		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+//		objBuild.add("api", "v0.0.4");
+//		objBuild.add("time", dateFormat.format(new Date()));
+//		objBuild.add("type", "CreateEnv");
+//		objBuild.add("items", jsonReturn);
+//		return objBuild.build().toString();
+//	}
 
 	public String addController(String project, String payload) {
 		JsonObject jsonInput = Json.createReader(new StringReader(payload))

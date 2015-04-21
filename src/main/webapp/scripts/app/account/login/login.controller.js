@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spadeApp')
-    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth) {
+    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, $cookies, Auth) {
 
 			$scope.user = {};
 			$scope.errors = {};
@@ -22,6 +22,9 @@ angular.module('spadeApp')
                 rememberMe: $scope.rememberMe
             }).then(function () {
                 $scope.authenticationError = false;
+                //$cookies.put('currentUser', $scope.username);
+                $cookies.currentUser = $scope.username;
+                alert($cookies.currentUser);
                 $state.go("home");
                 //$rootScope.back();
             }).catch(function () {

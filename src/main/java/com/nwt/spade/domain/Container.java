@@ -8,6 +8,8 @@ public class Container implements Serializable {
 	private String os;
 	private String app;
 	private String name;
+	private int replicas;
+	private String label;
 	private List<Port> ports;
 	/**
 	 * @return the os
@@ -99,6 +101,18 @@ public class Container implements Serializable {
 	@Override
 	public String toString() {
 		return "Container [os=" + os + ", app=" + app + "]";
+	}
+	public int getReplicas() {
+		return replicas;
+	}
+	public void setReplicas(int replicas) {
+		this.replicas = replicas;
+	}
+	public String getLabel() {
+		return label;
+	}
+	public void setLabel(String label) {
+		this.label = label;
 	}
 	
 

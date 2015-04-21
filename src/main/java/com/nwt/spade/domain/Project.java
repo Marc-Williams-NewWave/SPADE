@@ -3,16 +3,39 @@ package com.nwt.spade.domain;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Document(collection = "projects")
 public class Project extends AbstractAuditingEntity implements Serializable {
 
+	@Size(max = 50)
+    @Field("name")
+	@Id
 	private String name;
+	@Size(max = 50)
+    @Field("description")
 	private String description;
+	@JsonIgnore
 	private Set<String> environments;
+	@JsonIgnore
 	private Set<User> users;
+	@JsonIgnore
+	private Set<Image> images;
 	
+	@NotNull
+    @Size(min = 0, max = 50)
+    @Id
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -33,6 +56,12 @@ public class Project extends AbstractAuditingEntity implements Serializable {
 	}
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+	public Set<User> getImages() {
+		return users;
+	}
+	public void setImages(Set<Image> images) {
+		this.images = images;
 	}
 	@Override
 	public int hashCode() {
