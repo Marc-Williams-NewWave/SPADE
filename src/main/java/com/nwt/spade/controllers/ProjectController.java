@@ -77,7 +77,7 @@ public class ProjectController {
 	
 	public void updateProjects(){
 		JsonArray projArr = db.getAllProjects();
-		JsonArray imgArr = db.getAllImages("demo");
+		JsonArray imgArr = db.getAllImages("all");
 		JsonArray userArr = db.getAllUsers();
 		
 		for(JsonValue proj: projArr){
@@ -106,10 +106,15 @@ public class ProjectController {
 			tmp = Json.createArrayBuilder();
 			for(JsonValue user: userArr){
 				for (JsonValue uproj: ((JsonObject)user).getJsonArray("projects")){
-					
-				}
-				if(((JsonObject)user).getJsonArray("projects").contains(((JsonObject)proj).getString("name"))){
-					tmp.add(((JsonObject)user).get("name"));
+					String one = uproj.toString().replace("\"", "");
+					String two = ((JsonObject)proj).getString("name");
+					LOG.debug("PROJECT: " + one);
+					LOG.debug("NAME: " + two);
+					LOG.debug(""+one.equalsIgnoreCase(two));
+					if(one.equalsIgnoreCase(two)){
+						LOG.debug("-------------------USER ADDED TO PROJECT" + user);
+						tmp.add(((JsonObject)user).get("name"));
+					}
 				}
 			}
 			objBuild.add("users", tmp.build());

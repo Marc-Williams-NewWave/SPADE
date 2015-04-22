@@ -158,7 +158,7 @@ public class StackController {
 			}
 		} else {
 			LOG.info("No Stacks found");
-			LOG.info("Containers found");
+			LOG.info("Controllers found");
 			for (JsonValue cont : dbConts) {
 				objBuild = Json.createObjectBuilder();
 				JsonArrayBuilder arrBuild = Json.createArrayBuilder();

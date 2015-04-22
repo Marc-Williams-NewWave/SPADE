@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('spadeApp').controller('MainController', function($scope, $state, $cookies, $mdDialog, Principal, Auth, $http, templateService) {
+angular.module('spadeApp').controller('MainController', function($scope, $state, $cookies, $mdDialog, UserService, Principal, Auth, $http, templateService) {
 
 	//var currentUser = $cookies.get('currentUser');
 	//var currentProj = $cookies.get('currentProj');
-	var currentUser = $cookies.currentUser;
-	var currentProj = $cookies.currentProj;
+	$scope.currentUser = $cookies.currentUser;
+	$scope.currentProj = $cookies.currentProj;
 	
-	console.log(currentUser+", "+currentProj);
+	console.log($scope.currentUser+", "+$scope.currentProj);
 	
 	$scope.spadeInfo = function(ev) {
 		    $mdDialog.show(
@@ -23,17 +23,28 @@ angular.module('spadeApp').controller('MainController', function($scope, $state,
 		        .targetEvent(ev)
 		    );
 		  };
-
-			$http.get("http://localhost:8081/spade/api/proj")
+		  
+//		  $http.get("http://localhost:8081/spade/api/users/"+$scope.currentUser)
+//			.success(function(data) {
+//					console.log(data);
+//					$scope.user = data.items[0];
+//					console.log($scope.user.projects);
+////					$scope.info = data;
+//				});
+		  $scope.user = UserService.getUser().items[0];
+		  console.log($scope.user);
+		  $scope.projects = [];
+		  for (var p in $scope.user.projects){
+			  $http.get("http://localhost:8081/spade/api/proj/"+p.name)
 				.success(function(data) {
 						console.log(data);
-						$scope.projects = data.items;
+						$scope.projects.push(data.items[0]);
 //						$scope.info = data;
 					})
 					
 				.error(function(data, status, headers, config) {
 					$scope.info = data;
-					$scope.projects = data.items;
+					$scope.projects.push(data.items[0]);
 					
 					console.log(data.items);
 					console.log(data);
@@ -41,6 +52,9 @@ angular.module('spadeApp').controller('MainController', function($scope, $state,
 					console.log(headers);
 					console.log(config);
 			});
+		  }
+		  
+			
 
 			var json = {
 					"api" : "v0.0.4",
@@ -96,4 +110,17 @@ angular.module('spadeApp').controller('MainController', function($scope, $state,
 				$scope.account = account;
 				$scope.isAuthenticated = Principal.isAuthenticated;
 			});
-		});
+		})
+		.factory('UserService', function ($http, $cookies) {
+			return {
+				getUser: function() {
+					var promise = $http.get("http://localhost:8081/spade/api/users/"+$cookies.currentUser)
+					.then(function(response) {
+						return response.data;
+					});
+         	
+             return promise;
+         }
+	 }
+	 
+	 });
