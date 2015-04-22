@@ -72,7 +72,7 @@ public class SPADEService {
 				HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/api/proj", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/api/projects", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<String> listAllProjects() {
 		return new ResponseEntity<String>(apiController.listAllProjects("all"),
 				HttpStatus.OK);

@@ -37,14 +37,14 @@ public class ProjectService {
 				HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{project}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/projects/{project}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<String> deleteProject(
 			@PathVariable String project) {
 		return new ResponseEntity<String>(apiController.deleteProject(project),
 				HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{project}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/projects/{project}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<String> getProject(
 			@PathVariable String project) {
 		return new ResponseEntity<String>(apiController.getProject(project),

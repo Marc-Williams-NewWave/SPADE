@@ -10,6 +10,11 @@ angular.module('spadeApp')
 	
 	console.log($scope.currentUser+", "+$scope.currentProj);
 	
+	$scope.setCurrentProject = function(proj){
+		$scope.currentProj = proj;
+		$cookies.currentProj = proj;
+	}
+	
 	$scope.spadeInfo = function(ev) {
 		    $mdDialog.show(
 		      $mdDialog.alert()
@@ -46,10 +51,10 @@ angular.module('spadeApp')
 			for (var p in $scope.user.projects){
 				var proj = $scope.user.projects[p];
 				console.log(proj);
-				  $http.get("http://localhost:8081/spade/api/proj/"+proj)
-					.then(function(data) {
-							console.log(data.items[0]);
-							$scope.projects.push(data.items[0]);
+				  $http.get("http://localhost:8081/spade/api/projects/"+proj)
+					.then(function(response) {
+							console.log(response.data);
+							$scope.projects.push(response.data.items[0]);
 //							$scope.info = data;
 					});
 			}
@@ -147,7 +152,7 @@ angular.module('spadeApp')
 //					var projects = [];
 //					console.log(promise.projects);
 //					for (var p in promise.projects){
-//						  $http.get("http://localhost:8081/spade/api/proj/"+p.name)
+//						  $http.get("http://localhost:8081/spade/api/projects/"+p.name)
 //							.then(function(data) {
 //									console.log(data.items[0]);
 //									projects.push(data.items[0]);
