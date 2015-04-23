@@ -66,6 +66,126 @@ public class MongoDBController {
 			e.printStackTrace();
 		}
 	}
+	
+	/* ----------------------------------------------------------------------------- */
+	/* Controller Methods ---------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------- */
+	
+	public JsonArray addController(String project, String template) {
+		BasicDBObject doc = (BasicDBObject) JSON.parse(template);
+		doc.append("_id", doc.get("id"));
+		DBCollection coll = db.getCollection("controllers");
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", doc.get("_id"));
+		query.put("labels.project", project);
+		DBCursor cursor = coll.find(query);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		if (doc.containsValue("Status")) return arrBuild.add(json).build();
+		if (cursor.count() > 0) {
+			LOG.info("Controller Exists");
+			json = Json
+					.createReader(new StringReader(cursor.next().toString()))
+					.readObject();
+			return arrBuild.add(json).build();
+		} else {
+			LOG.info("Inserted Controller: " + coll.insert(doc).toString());
+			json = Json
+					.createReader(new StringReader(doc.toString()))
+					.readObject();
+			return arrBuild.add(json).build();
+		}
+
+	}
+	
+	public JsonArray updateController(String project, String template) {
+		BasicDBObject doc = (BasicDBObject) JSON.parse(template);
+		doc.append("_id", doc.get("id"));
+		DBCollection coll = db.getCollection("controllers");
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", doc.get("id"));
+		query.put("labels.project", project);
+		DBCursor cursor = coll.find(query);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		LOG.error("CURSOR COUNT: " + cursor.count());
+		if (cursor.count() > 0) {
+			LOG.info("Controller found and updated: "
+					+ coll.update(query, doc, true, false));
+			json = Json.createReader(new StringReader(template)).readObject();
+			return arrBuild.add(json).build();
+		} else {
+			LOG.error("DOC ID: " + doc.getString("id"));
+			LOG.info("Controller inserted: " + coll.insert(doc));
+			json = Json.createReader(new StringReader(template)).readObject();
+			return arrBuild.add(json).build();
+		}
+	}
+
+	public JsonArray getController(String project, String id) {
+		BasicDBObject query = new BasicDBObject();
+		BasicDBObject removeId = new BasicDBObject("_id", 0);
+		query.put("id", id);
+		query.put("labels.project", project);
+		DBCollection coll = db.getCollection("controllers");
+		DBCursor cursor = coll.find(query, removeId);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		while (cursor.hasNext()) {
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			LOG.info("Found Controller: " + found.toString());
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+		return arrBuild.build();
+	}
+	
+	public JsonArray deleteController(String project, String id) {
+		BasicDBObject query = new BasicDBObject();
+		BasicDBObject removeId = new BasicDBObject("_id", 0);
+		query.put("id", id);
+		query.put("labels.project", project);
+		DBCollection coll = db.getCollection("controllers");
+		DBCursor cursor = coll.find(query, removeId);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		while (cursor.hasNext()) {
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			LOG.info("Controller removed: " + coll.remove(found));
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+		return arrBuild.build();
+	}
+
+	public JsonArray getAllControllers(String project) {
+		BasicDBObject query = new BasicDBObject();
+		if (!project.equals("all")) query.put("labels.project", project);
+		BasicDBObject removeId = new BasicDBObject("_id", 0);
+		DBCollection coll = db.getCollection("controllers");
+		DBCursor cursor = coll.find(query, removeId);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		while (cursor.hasNext()) {
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			LOG.info("Found Controller: " + found.toString());
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+		return arrBuild.build();
+	}
+	
+	/* ----------------------------------------------------------------------------- */
+	/* Controller Template Methods ------------------------------------------------- */
+	/* ----------------------------------------------------------------------------- */
 
 	public JsonArray addContTemplate(String project, String template, String imageName) {
 		BasicDBObject doc = (BasicDBObject) JSON.parse(template);
@@ -153,35 +273,11 @@ public class MongoDBController {
 
 		return arrBuild.build();
 	}
-
-	public JsonArray addController(String project, String template) {
-		BasicDBObject doc = (BasicDBObject) JSON.parse(template);
-		doc.append("_id", doc.get("id"));
-		DBCollection coll = db.getCollection("controllers");
-		BasicDBObject query = new BasicDBObject();
-		query.put("_id", doc.get("_id"));
-		query.put("labels.project", project);
-		DBCursor cursor = coll.find(query);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		if (doc.containsValue("Status")) return arrBuild.add(json).build();
-		if (cursor.count() > 0) {
-			LOG.info("Controller Exists");
-			json = Json
-					.createReader(new StringReader(cursor.next().toString()))
-					.readObject();
-			return arrBuild.add(json).build();
-		} else {
-			LOG.info("Inserted Controller: " + coll.insert(doc).toString());
-			json = Json
-					.createReader(new StringReader(doc.toString()))
-					.readObject();
-			return arrBuild.add(json).build();
-		}
-
-	}
 	
+	/* ----------------------------------------------------------------------------- */
+	/* Pod Methods ----------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------- */
+
 	public JsonArray updatePod(String project, String template) {
 		BasicDBObject doc = (BasicDBObject) JSON.parse(template);
 		doc.append("_id", doc.get("id"));
@@ -193,6 +289,7 @@ public class MongoDBController {
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
 		JsonObject json = objBuild.build();
+		LOG.error("CURSOR COUNT: " + cursor.count());
 		if (cursor.count() > 0) {
 			LOG.info("Pod found and updated: "
 					+ coll.update(query, doc, true, false));
@@ -205,6 +302,69 @@ public class MongoDBController {
 		}
 	}
 	
+	public JsonArray getPod(String project, String id) {
+		BasicDBObject query = new BasicDBObject();
+		BasicDBObject removeId = new BasicDBObject("_id", 0);
+		query.put("id", id);
+		query.put("labels.project", project);
+		DBCollection coll = db.getCollection("pods");
+		DBCursor cursor = coll.find(query, removeId);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		while (cursor.hasNext()) {
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			LOG.info("Found Pod: " + found.toString());
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+		return arrBuild.build();
+	}
+	
+	public JsonArray getAllPods(String project) {
+		BasicDBObject query = new BasicDBObject();
+		if (!project.equals("all")) query.put("labels.project", project);
+		BasicDBObject removeId = new BasicDBObject("_id", 0);
+		DBCollection coll = db.getCollection("pods");
+		DBCursor cursor = coll.find(query, removeId);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		while (cursor.hasNext()) {
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			LOG.info("Found Pod: " + found.toString());
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+		return arrBuild.build();
+	}
+	
+	public JsonArray deletePod(String project, String id) {
+		BasicDBObject query = new BasicDBObject();
+		BasicDBObject removeId = new BasicDBObject("_id", 0);
+		query.put("id", id);
+		query.put("labels.project", project);
+		DBCollection coll = db.getCollection("pods");
+		DBCursor cursor = coll.find(query, removeId);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		while (cursor.hasNext()) {
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			LOG.info("Pod removed: " + coll.remove(found));
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+		return arrBuild.build();
+	}
+	
+	/* ----------------------------------------------------------------------------- */
+	
+	/* Stack Methods --------------------------------------------------------------- */
+
 	public JsonArray updateStack(String project, String template) {
 		BasicDBObject doc = (BasicDBObject) JSON.parse(template);
 		doc.append("_id", doc.get("id"));
@@ -287,6 +447,10 @@ public class MongoDBController {
 		return arrBuild.build();
 	}
 	
+	/* ----------------------------------------------------------------------------- */
+	/* Stack Template Methods ------------------------------------------------------ */
+	/* ----------------------------------------------------------------------------- */
+
 	public JsonArray updateStackTemp(String project, String template) {
 		BasicDBObject doc = (BasicDBObject) JSON.parse(template);
 		doc.append("_id", doc.get("id"));
@@ -368,147 +532,10 @@ public class MongoDBController {
 		}
 		return arrBuild.build();
 	}
-
-	public JsonArray updateController(String project, String template) {
-		BasicDBObject doc = (BasicDBObject) JSON.parse(template);
-		doc.append("_id", doc.get("id"));
-		DBCollection coll = db.getCollection("controllers");
-		BasicDBObject query = new BasicDBObject();
-		query.put("_id", doc.get("id"));
-		query.put("labels.project", project);
-		DBCursor cursor = coll.find(query);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		if (cursor.count() > 0) {
-			LOG.info("Controller found and updated: "
-					+ coll.update(query, doc, true, false));
-			json = Json.createReader(new StringReader(template)).readObject();
-			return arrBuild.add(json).build();
-		} else {
-			LOG.info("Controller inserted: " + coll.insert(doc));
-			json = Json.createReader(new StringReader(template)).readObject();
-			return arrBuild.add(json).build();
-		}
-	}
-
-	public JsonArray getController(String project, String id) {
-		BasicDBObject query = new BasicDBObject();
-		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		query.put("id", id);
-		query.put("labels.project", project);
-		DBCollection coll = db.getCollection("controllers");
-		DBCursor cursor = coll.find(query, removeId);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		while (cursor.hasNext()) {
-			BasicDBObject found = (BasicDBObject) cursor.next();
-			LOG.info("Found Controller: " + found.toString());
-			json = Json.createReader(new StringReader(found.toString()))
-					.readObject();
-			arrBuild.add(json);
-		}
-		return arrBuild.build();
-	}
 	
-	public JsonArray getPod(String project, String id) {
-		BasicDBObject query = new BasicDBObject();
-		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		query.put("id", id);
-		query.put("labels.project", project);
-		DBCollection coll = db.getCollection("pods");
-		DBCursor cursor = coll.find(query, removeId);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		while (cursor.hasNext()) {
-			BasicDBObject found = (BasicDBObject) cursor.next();
-			LOG.info("Found Pod: " + found.toString());
-			json = Json.createReader(new StringReader(found.toString()))
-					.readObject();
-			arrBuild.add(json);
-		}
-		return arrBuild.build();
-	}
-
-	public JsonArray deleteController(String project, String id) {
-		BasicDBObject query = new BasicDBObject();
-		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		query.put("id", id);
-		query.put("labels.project", project);
-		DBCollection coll = db.getCollection("controllers");
-		DBCursor cursor = coll.find(query, removeId);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		while (cursor.hasNext()) {
-			BasicDBObject found = (BasicDBObject) cursor.next();
-			LOG.info("Controller removed: " + coll.remove(found));
-			json = Json.createReader(new StringReader(found.toString()))
-					.readObject();
-			arrBuild.add(json);
-		}
-		return arrBuild.build();
-	}
-
-	public JsonArray getAllControllers(String project) {
-		BasicDBObject query = new BasicDBObject();
-		if (!project.equals("all")) query.put("labels.project", project);
-		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		DBCollection coll = db.getCollection("controllers");
-		DBCursor cursor = coll.find(query, removeId);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		while (cursor.hasNext()) {
-			BasicDBObject found = (BasicDBObject) cursor.next();
-			LOG.info("Found Controller: " + found.toString());
-			json = Json.createReader(new StringReader(found.toString()))
-					.readObject();
-			arrBuild.add(json);
-		}
-		return arrBuild.build();
-	}
-	
-	public JsonArray getAllPods(String project) {
-		BasicDBObject query = new BasicDBObject();
-		if (!project.equals("all")) query.put("labels.project", project);
-		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		DBCollection coll = db.getCollection("pods");
-		DBCursor cursor = coll.find(query, removeId);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		while (cursor.hasNext()) {
-			BasicDBObject found = (BasicDBObject) cursor.next();
-			LOG.info("Found Pod: " + found.toString());
-			json = Json.createReader(new StringReader(found.toString()))
-					.readObject();
-			arrBuild.add(json);
-		}
-		return arrBuild.build();
-	}
-	
-	public JsonArray deletePod(String project, String id) {
-		BasicDBObject query = new BasicDBObject();
-		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		query.put("id", id);
-		query.put("labels.project", project);
-		DBCollection coll = db.getCollection("pods");
-		DBCursor cursor = coll.find(query, removeId);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		while (cursor.hasNext()) {
-			BasicDBObject found = (BasicDBObject) cursor.next();
-			LOG.info("Pod removed: " + coll.remove(found));
-			json = Json.createReader(new StringReader(found.toString()))
-					.readObject();
-			arrBuild.add(json);
-		}
-		return arrBuild.build();
-	}
+	/* ----------------------------------------------------------------------------- */
+	/* Image Methods --------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------- */
 
 	public JsonArray addImage(String project, String imageName, String os, String app) {
 		DBCollection coll = db.getCollection("images");
@@ -600,112 +627,11 @@ public class MongoDBController {
 		}
 		return arrBuild.build();
 	}
-
-	public JsonArray addProject(String project) {
-		DBCollection coll = db.getCollection("projects");
-		BasicDBObject newProj = (BasicDBObject) JSON.parse(project);
-		newProj.append("_id", newProj.getString("name"));
-		BasicDBObject query = new BasicDBObject();
-		query.append("name", newProj.getString("name"));
-		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		DBCursor cursor = coll.find(query, removeId);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		if (cursor.count() > 0) {
-			LOG.info("Project already created: ");
-			BasicDBObject found = (BasicDBObject) cursor.next();
-			json = Json.createReader(new StringReader(found.toString()))
-					.readObject();
-			arrBuild.add(json);
-		} else {
-			LOG.info("New project created: " + coll.insert(newProj));
-			json = Json.createReader(new StringReader(newProj.toString()))
-					.readObject();
-			arrBuild.add(json);
-		}
-
-		return arrBuild.build();
-	}
 	
-	public JsonArray updateProject(String project) {
-		BasicDBObject doc = (BasicDBObject) JSON.parse(project);
-		doc.append("_id", doc.get("name"));
-		DBCollection coll = db.getCollection("projects");
-		BasicDBObject query = new BasicDBObject();
-		query.put("_id", doc.get("name"));
-		DBCursor cursor = coll.find(query);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		if (cursor.count() > 0) {
-			LOG.info("Project found and updated: "
-					+ coll.update(query, doc, true, false));
-			json = Json.createReader(new StringReader(project)).readObject();
-			return arrBuild.add(json).build();
-		} else {
-			LOG.info("Project created: " + coll.insert(doc));
-			json = Json.createReader(new StringReader(project)).readObject();
-			return arrBuild.add(json).build();
-		}
-	}
+	/* ----------------------------------------------------------------------------- */
+	/* Mesos Methods --------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------- */
 
-	public JsonArray getProject(String project) {
-		DBCollection coll = db.getCollection("projects");
-		BasicDBObject query = new BasicDBObject();
-		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		query.put("name", project);
-		DBCursor cursor = coll.find(query, removeId);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		while (cursor.hasNext()) {
-			BasicDBObject found = (BasicDBObject) cursor.next();
-			LOG.info("Found Project: " + found.toString());
-			json = Json.createReader(new StringReader(found.toString()))
-					.readObject();
-			arrBuild.add(json);
-		}
-		return arrBuild.build();
-	}
-
-	public JsonArray deleteProject(String project) {
-		BasicDBObject query = new BasicDBObject();
-		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		query.put("name", project);
-		DBCollection coll = db.getCollection("projects");
-		DBCursor cursor = coll.find(query, removeId);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		while (cursor.hasNext()) {
-			BasicDBObject found = (BasicDBObject) cursor.next();
-			LOG.info("Project removed: " + coll.remove(found));
-			json = Json.createReader(new StringReader(found.toString()))
-					.readObject();
-			arrBuild.add(json);
-		}
-		return arrBuild.build();
-	}
-
-	public JsonArray getAllProjects() {
-		BasicDBObject query = new BasicDBObject();
-		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		DBCollection coll = db.getCollection("projects");
-		DBCursor cursor = coll.find(query, removeId);
-		JsonObjectBuilder objBuild = Json.createObjectBuilder();
-		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
-		JsonObject json = objBuild.build();
-		while (cursor.hasNext()) {
-			BasicDBObject found = (BasicDBObject) cursor.next();
-			LOG.info("Found Project: " + found.toString());
-			json = Json.createReader(new StringReader(found.toString()))
-					.readObject();
-			arrBuild.add(json);
-		}
-		return arrBuild.build();
-	}
-	
 	public JsonArray updateTask(String task) {
 		BasicDBObject doc = (BasicDBObject) JSON.parse(task);
 		doc.append("_id", doc.getString("id"));
@@ -826,6 +752,119 @@ public class MongoDBController {
 		return arrBuild.build();
 	}
 	
+	/* ----------------------------------------------------------------------------- */
+	/* Project Methods ------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------- */
+	
+	public JsonArray addProject(String project) {
+		DBCollection coll = db.getCollection("projects");
+		BasicDBObject newProj = (BasicDBObject) JSON.parse(project);
+		newProj.append("_id", newProj.getString("name"));
+		BasicDBObject query = new BasicDBObject();
+		query.append("name", newProj.getString("name"));
+		BasicDBObject removeId = new BasicDBObject("_id", 0);
+		DBCursor cursor = coll.find(query, removeId);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		if (cursor.count() > 0) {
+			LOG.info("Project already created: ");
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		} else {
+			LOG.info("New project created: " + coll.insert(newProj));
+			json = Json.createReader(new StringReader(newProj.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+
+		return arrBuild.build();
+	}
+	
+	public JsonArray updateProject(String project) {
+		BasicDBObject doc = (BasicDBObject) JSON.parse(project);
+		doc.append("_id", doc.get("name"));
+		DBCollection coll = db.getCollection("projects");
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", doc.get("name"));
+		DBCursor cursor = coll.find(query);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		if (cursor.count() > 0) {
+			LOG.info("Project found and updated: "
+					+ coll.update(query, doc, true, false));
+			json = Json.createReader(new StringReader(project)).readObject();
+			return arrBuild.add(json).build();
+		} else {
+			LOG.info("Project created: " + coll.insert(doc));
+			json = Json.createReader(new StringReader(project)).readObject();
+			return arrBuild.add(json).build();
+		}
+	}
+
+	public JsonArray getProject(String project) {
+		DBCollection coll = db.getCollection("projects");
+		BasicDBObject query = new BasicDBObject();
+		BasicDBObject removeId = new BasicDBObject("_id", 0);
+		query.put("name", project);
+		DBCursor cursor = coll.find(query, removeId);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		while (cursor.hasNext()) {
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			LOG.info("Found Project: " + found.toString());
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+		return arrBuild.build();
+	}
+
+	public JsonArray deleteProject(String project) {
+		BasicDBObject query = new BasicDBObject();
+		BasicDBObject removeId = new BasicDBObject("_id", 0);
+		query.put("name", project);
+		DBCollection coll = db.getCollection("projects");
+		DBCursor cursor = coll.find(query, removeId);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		while (cursor.hasNext()) {
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			LOG.info("Project removed: " + coll.remove(found));
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+		return arrBuild.build();
+	}
+
+	public JsonArray getAllProjects() {
+		BasicDBObject query = new BasicDBObject();
+		BasicDBObject removeId = new BasicDBObject("_id", 0);
+		DBCollection coll = db.getCollection("projects");
+		DBCursor cursor = coll.find(query, removeId);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		while (cursor.hasNext()) {
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			LOG.info("Found Project: " + found.toString());
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+		return arrBuild.build();
+	}
+
+	/* ----------------------------------------------------------------------------- */
+	/* User Methods ---------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------- */
+	
 	public JsonArray updateUser(String user) {
 		BasicDBObject doc = (BasicDBObject) JSON.parse(user);
 		doc.append("_id", doc.getString("name"));
@@ -905,9 +944,27 @@ public class MongoDBController {
 		return arrBuild.build();
 	}
 	
-//	public static void main(String[] args){
-//		MongoDBController test = new MongoDBController(true);
-//		System.out.println(test.getAllStacks("demo2"));
-//	}
+	public static void main(String[] args){
+		MongoDBController test = new MongoDBController(true);
+		String cont = "{\"id\":\"demo3-lamp-apache\",\"uid\":\"efa1b7f3-e2d5-11e4-a0ad-fa163e3c002e\","
+				+ "\"creationTimestamp\":\"2015-04-14T18:42:00Z\",\"selfLink\":"
+				+ "\"/api/v1beta2/replicationControllers/demo2-lamp-apache?namespace=default"
+				+ "\",\"resourceVersion\":907222,\"namespace\":\"default\",\"desiredState\":"
+				+ "{\"replicas\":1,\"replicaSelector\":{\"type\":\"demo2-lamp-apache-apache-pod\"},"
+				+ "\"podTemplate\":{\"desiredState\":{\"manifest\":{\"version\":\"v1beta2\",\"id\":"
+				+ "\"\",\"volumes\":null,\"containers\":[{\"name\":\"demo2-lamp-apache-apache\","
+				+ "\"image\":\"sewatech/modcluster\",\"ports\":[{\"hostPort\":31080,\"containerPort"
+				+ "\":80,\"protocol\":\"TCP\"}],\"resources\":{\"limits\":{\"cpu\":\"1\"}},\"cpu\":"
+				+ "1000,\"terminationMessagePath\":\"/dev/termination-log\",\"imagePullPolicy\":"
+				+ "\"PullIfNotPresent\",\"capabilities\":{}}],\"restartPolicy\":{\"always\":{}},"
+				+ "\"dnsPolicy\":\"ClusterFirst\"}},\"labels\":{\"app\":\"apache\",\"controller\":"
+				+ "\"demo2-lamp-apache\",\"image\":\"sewatech/modcluster\",\"name\":\"demo2-lamp-"
+				+ "apache-apache\",\"os\":\"ubuntu\",\"project\":\"demo\",\"stack\":\"demo2\","
+				+ "\"type\":\"demo2-lamp-apache-apache-pod\"}}},\"currentState\":{\"replicas\":1"
+				+ ",\"podTemplate\":{\"desiredState\":{\"manifest\":{\"version\":\"\",\"id\":\"\""
+				+ ",\"volumes\":null,\"containers\":null,\"restartPolicy\":{}}}}},\"labels\":{"
+				+ "\"name\":\"demo2-lamp-apache\",\"project\":\"demo\",\"stack\":\"demo2\"}}";
+		System.out.println(test.updateController("demo", cont));
+	}
 
 }

@@ -151,7 +151,7 @@ public class KubernetesController {
 
 		//LOG.debug("Payload: " + payload);
 		LOG.info("Return from Kube: " + jsonString);
-		return db.addController(project, jsonString);
+		return db.updateController(project, jsonString);
 	}
 
 	public JsonArray scaleController(String project, String id, int num)

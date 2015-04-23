@@ -108,11 +108,7 @@ public class ProjectController {
 				for (JsonValue uproj: ((JsonObject)user).getJsonArray("projects")){
 					String one = uproj.toString().replace("\"", "");
 					String two = ((JsonObject)proj).getString("name");
-					LOG.debug("PROJECT: " + one);
-					LOG.debug("NAME: " + two);
-					LOG.debug(""+one.equalsIgnoreCase(two));
 					if(one.equalsIgnoreCase(two)){
-						LOG.debug("-------------------USER ADDED TO PROJECT" + user);
 						tmp.add(((JsonObject)user).get("name"));
 					}
 				}
