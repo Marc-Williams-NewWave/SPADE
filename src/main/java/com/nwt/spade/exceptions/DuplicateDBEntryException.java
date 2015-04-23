@@ -1,16 +1,16 @@
 package com.nwt.spade.exceptions;
 
-public class ResourceNotFoundException extends Exception {
+public class DuplicateDBEntryException extends Exception {
 
 	private final String message;
 	
-	public ResourceNotFoundException(String m) {
+	public DuplicateDBEntryException(String m) {
 		message=m;
 	}
 	
 	@Override
 	public String getLocalizedMessage() {
-		return "The resource requested could not be found: " + message;
+		return "There appears to be a duplicate DB entry: " + message;
 	}
 	
 	public String message(){

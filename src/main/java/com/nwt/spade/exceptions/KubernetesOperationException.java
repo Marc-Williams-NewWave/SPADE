@@ -13,4 +13,7 @@ public class KubernetesOperationException extends Exception {
 		return "Kubernetes has returned the following error: " + message;
 	}
 	
+	public String message(){
+		return message;
+	}
 }

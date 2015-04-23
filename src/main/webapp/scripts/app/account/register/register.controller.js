@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('spadeApp')
-    .controller('RegisterController', function ($scope, $translate, $timeout, Auth) {
+    .controller('RegisterController', function ($scope, $translate, $timeout, Auth, resolveProjects) {
         $scope.success = null;
         $scope.error = null;
         $scope.doNotMatch = null;
         $scope.errorUserExists = null;
         $scope.registerAccount = {};
         $timeout(function (){angular.element('[ng-model="registerAccount.login"]').focus();});
-
+        $scope.projects = resolveProjects;
+        
         $scope.register = function () {
             if ($scope.registerAccount.password !== $scope.confirmPassword) {
                 $scope.doNotMatch = 'ERROR';
@@ -21,6 +22,7 @@ angular.module('spadeApp')
 
                 Auth.createAccount($scope.registerAccount).then(function () {
                     $scope.success = 'OK';
+                    createMyUser();
                 }).catch(function (response) {
                     $scope.success = null;
                     if (response.status === 400 && response.data === 'login already in use') {
@@ -33,4 +35,45 @@ angular.module('spadeApp')
                 });
             }
         };
-    });
+        
+        function createMyUser(){
+        	var myUser = {};
+        	myUser.name = $scope.registerAccount.login;
+        	myUser.password = $scope.registerAccount.password;
+        	myUser.default_project = $scope.registerAccount.defaultProject;
+        	myUser.projects = [ $scope.registerAccount.defaultProject ];
+        	myUser.roles = [ "user" ];
+        	
+        	console.log(myUser);
+        	
+//        	$http.post("http://localhost:8081/spade/api/users", myUser)
+//			.then(function(response) {
+//				console.log(response.data.items);
+//				return response.data.items;
+//			});
+        }
+    })
+    .factory('ProjectService', function ($http) {
+			return {
+				getProjects: function() {
+					var promise = $http.get("http://localhost:8081/spade/api/projects")
+					.then(function(response) {
+						console.log(response.data.items);
+						return response.data.items;
+					});
+					//console.log(promise);
+//					var projects = [];
+//					console.log(promise.projects);
+//					for (var p in promise.projects){
+//						  $http.get("http://localhost:8081/spade/api/projects/"+p.name)
+//							.then(function(data) {
+//									console.log(data.items[0]);
+//									projects.push(data.items[0]);
+////									$scope.info = data;
+//							});
+//					}
+             return promise;
+         }
+	 }
+	 
+	 });

@@ -1,16 +1,16 @@
 package com.nwt.spade.exceptions;
 
-public class ResourceNotFoundException extends Exception {
+public class MissingDataException extends Exception {
 
 	private final String message;
 	
-	public ResourceNotFoundException(String m) {
+	public MissingDataException(String m) {
 		message=m;
 	}
 	
 	@Override
 	public String getLocalizedMessage() {
-		return "The resource requested could not be found: " + message;
+		return "Looks like you're missing something: " + message;
 	}
 	
 	public String message(){

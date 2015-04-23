@@ -57,8 +57,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
     
+    @Field("default_project")
+    private String defaultProject;
+    
     @JsonIgnore
-    private Set<Authority> projects = new HashSet<>();
+    private Set<String> projects = new HashSet<>();
 
     public String getId() {
         return id;
@@ -139,8 +142,30 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
+    
+    public Set<String> getProjects() {
+        return projects;
+    }
 
-    @Override
+    public void setProjects(Set<String> projects) {
+        this.projects = projects;
+    }
+
+    /**
+	 * @return the defaultProject
+	 */
+	public String getDefaultProject() {
+		return defaultProject;
+	}
+
+	/**
+	 * @param defaultProject the defaultProject to set
+	 */
+	public void setDefaultProject(String defaultProject) {
+		this.defaultProject = defaultProject;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

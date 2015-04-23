@@ -16,6 +16,9 @@ angular.module('spadeApp')
                     }
                 },
                 resolve: {
+                	resolveUser:['UserService', function (userService) {
+                        return userService.getUser();
+                    }],
                     resolveSlaves:['SlaveService', function (slaveService) {
                         return slaveService.getSlaves();
                     }],

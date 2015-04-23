@@ -66,4 +66,10 @@ public class ControllerService {
 				HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/{project}/pods", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<String> getPods(@PathVariable String project) {
+		return new ResponseEntity<String>(apiController.listAllPods(project),
+				HttpStatus.OK);
+	}
+	
 }

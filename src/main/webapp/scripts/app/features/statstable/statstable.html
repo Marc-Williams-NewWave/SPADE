@@ -22,7 +22,7 @@
       <li class="dropdown">
           <a href="" class="dropdown-toggle md-accent" data-toggle="dropdown" role="button" aria-expanded="false" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Project: Demo <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a ui-sref="home">Radv</a></li>
+            <li ng-repeat="project in user.projects" ng-click="switchProject(project)"><a ui-sref="statstable">{{project}}</a></li>
           </ul>
         </li>
       <li class="dropdown">

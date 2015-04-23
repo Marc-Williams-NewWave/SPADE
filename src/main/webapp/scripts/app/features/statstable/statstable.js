@@ -16,6 +16,9 @@ angular.module('spadeApp')
                     }
                 },
                 resolve: {
+                	resolveUser:['UserService', function (userService) {
+                        return userService.getUser();
+                    }],
                     resolvePods:['PodService', function (podService) {
                         return podService.getPods();
                     }] 

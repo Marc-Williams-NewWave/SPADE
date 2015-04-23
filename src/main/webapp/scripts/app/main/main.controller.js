@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spadeApp')
-	 .controller('MainController', function($scope, $state, $cookies, $mdDialog, resolveProjects, ProjectService, Principal, Auth, $http, templateService) {
+	 .controller('MainController', function($scope, $state, $cookies, $mdDialog, resolveUser, UserService, Principal, Auth, $http, templateService) {
 
 	//var currentUser = $cookies.get('currentUser');
 	//var currentProj = $cookies.get('currentProj');
@@ -37,15 +37,8 @@ angular.module('spadeApp')
 //					console.log($scope.user.projects);
 ////					$scope.info = data;
 //				});
-		  function popProjs(){
-			  ProjectService.getProjects()
-			  .then(function(response){
-				$scope.projects = response;
-			  });
-		  }
-		  //popProjs();
 		  //$scope.projects = ProjectService.getProjects();
-		  $scope.user = resolveProjects;
+		  $scope.user = resolveUser;
 		  $scope.projects = [];
 		  console.log($scope.user.projects);
 			for (var p in $scope.user.projects){
@@ -140,25 +133,14 @@ angular.module('spadeApp')
 				$scope.isAuthenticated = Principal.isAuthenticated;
 			});
 		})
-		.factory('ProjectService', function ($http, $cookies) {
+		.factory('UserService', function ($http, $cookies) {
 			return {
-				getProjects: function() {
+				getUser: function() {
 					var promise = $http.get("http://localhost:8081/spade/api/users/"+$cookies.currentUser)
 					.then(function(response) {
 						console.log(response.data.items[0]);
 						return response.data.items[0];
 					});
-					//console.log(promise);
-//					var projects = [];
-//					console.log(promise.projects);
-//					for (var p in promise.projects){
-//						  $http.get("http://localhost:8081/spade/api/projects/"+p.name)
-//							.then(function(data) {
-//									console.log(data.items[0]);
-//									projects.push(data.items[0]);
-////									$scope.info = data;
-//							});
-//					}
              return promise;
          }
 	 }

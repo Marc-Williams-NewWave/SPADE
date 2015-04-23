@@ -23,6 +23,9 @@ public class UserDTO {
 
     @Size(max = 50)
     private String lastName;
+    
+    @Size(max = 50)
+    private String defaultProject;
 
     @Email
     @Size(min = 5, max = 100)
@@ -32,12 +35,14 @@ public class UserDTO {
     private String langKey;
 
     private List<String> roles;
+    
+    private List<String> projects;
 
     public UserDTO() {
     }
 
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   List<String> roles) {
+                   List<String> roles, String defaultProject) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -45,6 +50,8 @@ public class UserDTO {
         this.email = email;
         this.langKey = langKey;
         this.roles = roles;
+        this.defaultProject = defaultProject;
+        //this.setProjects(projects);
     }
 
     public String getPassword() {
@@ -75,7 +82,29 @@ public class UserDTO {
         return roles;
     }
 
-    @Override
+    public List<String> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(List<String> projects) {
+		this.projects = projects;
+	}
+
+	/**
+	 * @return the defaultProject
+	 */
+	public String getDefaultProject() {
+		return defaultProject;
+	}
+
+	/**
+	 * @param defaultProject the defaultProject to set
+	 */
+	public void setDefaultProject(String defaultProject) {
+		this.defaultProject = defaultProject;
+	}
+
+	@Override
     public String toString() {
         return "UserDTO{" +
         "login='" + login + '\'' +

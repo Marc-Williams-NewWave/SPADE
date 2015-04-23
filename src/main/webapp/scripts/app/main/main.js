@@ -17,8 +17,8 @@ angular.module('spadeApp')
                     }
                 },
                 resolve: {
-                	resolveProjects:['ProjectService', function (projectService) {
-                        return projectService.getProjects();
+                	resolveUser:['UserService', function (userService) {
+                        return userService.getUser();
                     }],
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
                         $translatePartialLoader.addPart('main');

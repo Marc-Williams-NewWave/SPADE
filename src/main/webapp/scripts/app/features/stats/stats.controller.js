@@ -1,8 +1,11 @@
 'use strict'
 angular.module('spadeApp').controller('StatsController', 
-		[ "$scope", "$http", "$modal", "$state", "$timeout", "$mdDialog", "Auth", "resolveSlaves", "resolveTasks", "resolvePods", "SlaveService", "TaskService", "PodService", "MenuService",
-        function($scope, $http, $modal, $state, $timeout, $mdDialog, Auth, resolveSlaves, resolveTasks, resolvePods, SlaveService, TaskService, PodService, MenuService){
-
+		[ "$scope", "$http", "$modal", "$state", "$timeout", "$mdDialog", "$cookies", "Auth", "resolveUser","resolveSlaves", "resolveTasks", "resolvePods", "SlaveService", "TaskService", "PodService", "MenuService",
+        function($scope, $http, $modal, $state, $timeout, $mdDialog, $cookies, Auth, resolveUser, resolveSlaves, resolveTasks, resolvePods, SlaveService, TaskService, PodService, MenuService){
+			
+			$scope.user = resolveUser;
+			alert($scope.user);
+			
 			$scope.statsInfo = function(ev) {
 			    $mdDialog.show(
 			      $mdDialog.alert()
@@ -22,6 +25,12 @@ angular.module('spadeApp').controller('StatsController',
 			
 			$scope.newHostnames = {"mesos-slave-2":"Host-1","mesos-slave-3":"Host-2","mesos-slave-4":"Host-3",
 			                        "mesos-slave-5":"Host-4","mesos-slave-6":"Host-5","mesos-slave-7":"Host-6"}
+			
+			$scope.switchProject = function(proj){
+				$cookies.currentProj = proj;
+				//$state.go($state.current, {}, {reload:true});
+			}
+			
 			
 	$scope.slaves = resolveSlaves.items;
 	function compare(a,b) {
@@ -198,7 +207,7 @@ angular.module('spadeApp').controller('StatsController',
 .factory('SlaveService', function ($http) {
 	 return {
 		    getSlaves: function() {
-         	var promise = $http.get("http://192.168.4.8:8080/spade/api/slaves")
+         	var promise = $http.get("http://localhost:8081/spade/api/slaves")
          	.then(function(response) {
          		return response.data;
          	});
@@ -212,11 +221,24 @@ angular.module('spadeApp').controller('StatsController',
 	 .factory('TaskService', function ($http) {
 	 return {
 		    getTasks: function() {
-         	var promise = $http.get("http://192.168.4.8:8080/spade/api/tasks")
+         	var promise = $http.get("http://localhost:8081/spade/api/tasks")
          	.then(function(response) {
          		return response.data;
          	});
          	
+             return promise;
+         }
+	 }
+	 
+	 })
+	 .factory('UserService', function ($http, $cookies) {
+			return {
+				getUser: function() {
+					var promise = $http.get("http://localhost:8081/spade/api/users/"+$cookies.currentUser)
+					.then(function(response) {
+						console.log(response.data.items[0]);
+						return response.data.items[0];
+					});
              return promise;
          }
 	 }

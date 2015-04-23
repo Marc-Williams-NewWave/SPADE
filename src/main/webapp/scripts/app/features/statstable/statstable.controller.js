@@ -1,8 +1,21 @@
 'use strict'
 angular.module('spadeApp')
+.factory('UserService', function ($http, $cookies) {
+			return {
+				getUser: function() {
+					var promise = $http.get("http://localhost:8081/spade/api/users/"+$cookies.currentUser)
+					.then(function(response) {
+						console.log(response.data.items[0]);
+						return response.data.items[0];
+					});
+             return promise;
+         }
+	 }
+	 
+	 })
 .controller('StatsTableController',
-		["$scope", "$http", "$modal", "$filter", "$mdDialog", "$mdToast", "$state", "Auth", "resolvePods", "ngTableParams", 
-		function($scope, $http, $modal, $filter, $mdDialog, $mdToast, $state, Auth, resolvePods, ngTableParams) {
+		["$scope", "$http", "$modal", "$filter", "$mdDialog", "$mdToast", "$state", "$cookies", "Auth", "resolveUser", "resolvePods", "ngTableParams", 
+		function($scope, $http, $modal, $filter, $mdDialog, $mdToast, $state, $cookies, Auth, resolveUser, resolvePods, ngTableParams) {
 	
 			$scope.statsTableInfo = function(ev) {
 			    $mdDialog.show(
@@ -17,8 +30,14 @@ angular.module('spadeApp')
 			    );
 			  };
 			
+			$scope.user = resolveUser;
 			$scope.pageName = "Table View";
 			$scope.switchPages = { "Resource":"stats", "Table":"statstable" };
+			
+			$scope.switchProject = function(proj){
+				$cookies.currentProj = proj;
+				//$state.go($state.current, {}, {reload:true});
+			}
 			
 	$scope.create = function () {
         var modalInstance = $modal.open({
@@ -222,7 +241,7 @@ $scope.showScaleAlert = showScaleAlert;
 	$scope.delPod = function(pod){
 		var req = {
 				 method: "DELETE",
-				 url: "http://192.168.4.8:8080/spade/api/demo/controllers/" + pod.labels.controller
+				 url: "http://localhost:8081/spade/api/"+$cookies.currentProj+"/controllers/" + pod.labels.controller
 		};
 //		alert(pod.labels.controller);
 		$http(req).then(function(response) {
@@ -241,13 +260,13 @@ $scope.showScaleAlert = showScaleAlert;
     };
 	
 }])
-.controller('ScaleController', function($scope, $http, $mdDialog){
+.controller('ScaleController', function($scope, $http, $mdDialog, $cookies){
 	$scope.replicas;
 })
-.factory('PodService', function($http) {
+.factory('PodService', function($http, $cookies) {
 	return {
 		getPods : function() {
-			var promise = $http.get("http://192.168.4.8:8080/spade/api/pods")
+			var promise = $http.get("http://localhost:8081/spade/api/"+$cookies.currentProj+"/pods")
 			.then(function(response) {
 				return response.data;
 			});

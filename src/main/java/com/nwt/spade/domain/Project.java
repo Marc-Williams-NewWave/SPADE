@@ -29,9 +29,6 @@ public class Project extends AbstractAuditingEntity implements Serializable {
 	@JsonIgnore
 	private Set<Image> images;
 	
-	@NotNull
-    @Size(min = 0, max = 50)
-    @Id
 	public String getName() {
 		return name;
 	}
