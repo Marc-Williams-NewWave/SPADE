@@ -1,12 +1,14 @@
 'use strict';
 
 angular.module('spadeApp')
-	 .controller('MainController', function($scope, $state, $cookies, $mdDialog, resolveUser, UserService, Principal, Auth, $http, templateService) {
+	 .controller('MainController', function($scope, $rootScope, $state, $cookies, $mdDialog, resolveUser, UserService, Principal, Auth, $http, templateService) {
 
 	//var currentUser = $cookies.get('currentUser');
 	//var currentProj = $cookies.get('currentProj');
 	$scope.currentUser = $cookies.currentUser;
 	$scope.currentProj = $cookies.currentProj;
+	$rootScope.currentUser = $cookies.currentUser;
+	$rootScope.currentProj = $cookies.currentProj;
 	
 	console.log($scope.currentUser+", "+$scope.currentProj);
 	

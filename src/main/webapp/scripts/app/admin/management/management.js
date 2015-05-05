@@ -3,22 +3,22 @@
 angular.module('spadeApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('home', {
+            .state('management', {
                 parent: 'site',
-                url: '/home',
+                url: '/management',
                 data: {
                     roles: [],
-                    requireLogin: true
+//                    requireLogin: true
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/main/main.html',
-                        controller: 'MainController'
+                        templateUrl: 'scripts/app/admin/management/management.html',
+                        controller: 'ManagementController'
                     }
                 },
                 resolve: {
-                	resolveUser:['UserService', function (userService) {
-                        return userService.getUser();
+                	resolveUsers:['UsersService', function (usersService) {
+                        return usersService.getUsers();
                     }],
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
                         $translatePartialLoader.addPart('main');
