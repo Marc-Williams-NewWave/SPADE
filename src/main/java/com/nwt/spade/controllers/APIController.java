@@ -316,6 +316,15 @@ public class APIController {
 		objBuild.add("items", projController.addProject(project));
 		return objBuild.build().toString();
 	}
+	
+	public String listAllRoles() {
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		objBuild.add("api", "v0.0.4");
+		objBuild.add("time", dateFormat.format(new Date()));
+		objBuild.add("type", "GetRoles");
+		objBuild.add("items", userController.getAllRoles());
+		return objBuild.build().toString();
+	}
 
 	public String getProject(String project) {
 		return projController.getProject(project).toString();

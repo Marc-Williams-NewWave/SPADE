@@ -3,8 +3,10 @@ package com.nwt.spade.controllers;
 import java.util.Date;
 
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +59,9 @@ private MongoDBController db;
 		objBuild.add("type", "ListUsers");
 		objBuild.add("items", db.getAllUsers());
 		return objBuild.build();
-	}	
+	}
+	
+	public JsonArray listAllRoles(){
+		return db.getAllRoles();
+	}
 }

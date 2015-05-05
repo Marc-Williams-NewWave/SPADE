@@ -107,5 +107,11 @@ public class SPADEService {
 		return new ResponseEntity<String>(apiController.listAllStackTemps("all"),
 				HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/api/roles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<String> listAllRoles() {
+		return new ResponseEntity<String>(apiController.listAllRoles(),
+				HttpStatus.OK);
+	}
 
 }

@@ -944,6 +944,47 @@ public class MongoDBController {
 		return arrBuild.build();
 	}
 	
+	public JsonArray updateRole(String role) {
+		BasicDBObject doc = (BasicDBObject) JSON.parse(role);
+		doc.append("_id", doc.getString("_id"));
+		DBCollection coll = db.getCollection("T_AUTHORITY");
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", doc.getString("_id"));
+		//query.put("labels.project", project);
+		DBCursor cursor = coll.find(query);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		if (cursor.count() > 0) {
+			LOG.info("User found and updated: "
+					+ coll.update(query, doc, true, false));
+			json = Json.createReader(new StringReader(role)).readObject();
+			return arrBuild.add(json).build();
+		} else {
+			LOG.info("User created: " + coll.insert(doc));
+			json = Json.createReader(new StringReader(role)).readObject();
+			return arrBuild.add(json).build();
+		}
+	}
+	
+	public JsonArray getAllRoles() {
+		BasicDBObject query = new BasicDBObject();
+		BasicDBObject removeId = new BasicDBObject("_id", 0);
+		DBCollection coll = db.getCollection("users");
+		DBCursor cursor = coll.find(query, removeId);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		while (cursor.hasNext()) {
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			LOG.info("Found User: " + found.toString());
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+		return arrBuild.build();
+	}
+	
 	public static void main(String[] args){
 		MongoDBController test = new MongoDBController(true);
 		String cont = "{\"id\":\"demo3-lamp-apache\",\"uid\":\"efa1b7f3-e2d5-11e4-a0ad-fa163e3c002e\","
