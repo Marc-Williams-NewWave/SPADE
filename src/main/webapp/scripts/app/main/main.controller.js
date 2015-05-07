@@ -1,7 +1,21 @@
 'use strict';
 
-angular.module('spadeApp').controller('MainController', function($scope, $state, $mdDialog, Principal, Auth, $http,templateService) {
+angular.module('spadeApp')
+	 .controller('MainController', function($scope, $rootScope, $state, $cookies, $mdDialog, resolveUser, UserService, Principal, Auth, $http, templateService) {
 
+	//var currentUser = $cookies.get('currentUser');
+	//var currentProj = $cookies.get('currentProj');
+	$scope.currentUser = $cookies.currentUser;
+	$scope.currentProj = $cookies.currentProj;
+	$rootScope.currentUser = $cookies.currentUser;
+	$rootScope.currentProj = $cookies.currentProj;
+	
+	console.log($scope.currentUser+", "+$scope.currentProj);
+	
+	$scope.setCurrentProject = function(proj){
+		$scope.currentProj = proj;
+		$cookies.currentProj = proj;
+	}
 	
 	$scope.spadeInfo = function(ev) {
 		    $mdDialog.show(
@@ -17,24 +31,54 @@ angular.module('spadeApp').controller('MainController', function($scope, $state,
 		        .targetEvent(ev)
 		    );
 		  };
-
-			$http.get("http://192.168.4.8:8080/spade/api/proj")
-				.success(function(data) {
-						console.log(data);
-						$scope.projects = data.items;
-//						$scope.info = data;
-					})
-					
-				.error(function(data, status, headers, config) {
-					$scope.info = data;
-					$scope.projects = data.items;
-					
-					console.log(data.items);
-					console.log(data);
-					console.log(status);
-					console.log(headers);
-					console.log(config);
-			});
+		  
+//		  $http.get("http://localhost:8081/spade/api/users/"+$scope.currentUser)
+//			.success(function(data) {
+//					console.log(data);
+//					$scope.user = data.items[0];
+//					console.log($scope.user.projects);
+////					$scope.info = data;
+//				});
+		  //$scope.projects = ProjectService.getProjects();
+		  $scope.user = resolveUser;
+		  $scope.projects = [];
+		  console.log($scope.user.projects);
+			for (var p in $scope.user.projects){
+				var proj = $scope.user.projects[p];
+				console.log(proj);
+				  $http.get("http://localhost:8081/spade/api/projects/"+proj)
+					.then(function(response) {
+							console.log(response.data);
+							$scope.projects.push(response.data.items[0]);
+//							$scope.info = data;
+					});
+			}
+		  
+		  console.log($scope.projects);
+//		  console.log($scope.user);
+//		  alert($scope.user);
+//		  $scope.projects = [];
+//		  for (var p in $scope.user.projects){
+//			  $http.get("http://localhost:8081/spade/api/proj/"+p.name)
+//				.success(function(data) {
+//						console.log(data.items[0]);
+//						$scope.projects.push(data.items[0]);
+////						$scope.info = data;
+//					})
+//					
+//				.error(function(data, status, headers, config) {
+//					$scope.info = data;
+//					$scope.projects.push(data.items[0]);
+//					
+//					console.log(data.items);
+//					console.log(data);
+//					console.log(status);
+//					console.log(headers);
+//					console.log(config);
+//			});
+//		  }
+		  
+			
 
 			var json = {
 					"api" : "v0.0.4",
@@ -90,4 +134,17 @@ angular.module('spadeApp').controller('MainController', function($scope, $state,
 				$scope.account = account;
 				$scope.isAuthenticated = Principal.isAuthenticated;
 			});
-		});
+		})
+		.factory('UserService', function ($http, $cookies) {
+			return {
+				getUser: function() {
+					var promise = $http.get("http://localhost:8081/spade/api/users/"+$cookies.currentUser)
+					.then(function(response) {
+						console.log(response.data.items[0]);
+						return response.data.items[0];
+					});
+             return promise;
+         }
+	 }
+	 
+	 });

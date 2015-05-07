@@ -58,7 +58,7 @@ angular.module('spadeApp')
     }])
 .config(function($mdThemingProvider) {
   })
-    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService,$state,ImageService,$interval) {
+    .controller('ModalCtrl', function ($modalInstance,$scope,$mdDialog,$http,templateService,$rootScope,appService,$state,ImageService,$interval,$cookies) {
     		  
     	console.log($scope.images);
     	console.log($scope.$parent.images);
@@ -603,7 +603,7 @@ $scope.conf = false;
         
         $scope.payload = {
         		  id: "",
-        		  project: "demo",
+        		  project: $cookies.currentProj,
         		  controllers: $scope.podArray
         		}
         
@@ -629,7 +629,7 @@ $scope.conf = false;
      		$scope.progress = true;
      		console.log($scope.payload);
      		//alert("CREATED");
-     		$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
+     		$http.post("http://192.168.4.8:8080/spade/api/"+$cookies.currentProj+"/stacks", $scope.payload)
  		 	.success(function(data){
  		 		console.log("success data returned ====> " + data);
  		 	});

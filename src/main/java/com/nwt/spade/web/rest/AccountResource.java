@@ -55,6 +55,8 @@ public class AccountResource {
             produces = MediaType.TEXT_PLAIN_VALUE)
     @Timed
     public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO, HttpServletRequest request) {
+    	// Need to find a way to connect my back-end projects with the DTO projects so that I can
+    	// set a default project and keep track of them that way.
         return userRepository.findOneByLogin(userDTO.getLogin())
             .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
             .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
@@ -62,7 +64,7 @@ public class AccountResource {
                 .orElseGet(() -> {
                     User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
                     userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-                    userDTO.getLangKey());
+                    userDTO.getLangKey(), userDTO.getDefaultProject());
                     String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"
                     request.getServerName() +              // "myhost"
@@ -116,7 +118,8 @@ public class AccountResource {
                     user.getLastName(),
                     user.getEmail(),
                     user.getLangKey(),
-                    user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList())),
+                    user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList()),
+                    user.getDefaultProject()),
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }

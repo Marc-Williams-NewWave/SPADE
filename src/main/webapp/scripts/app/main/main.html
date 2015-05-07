@@ -22,8 +22,8 @@
 		
 		<div style="padding-left: 5%; padding-top: 1%; width: 100%">
 			<md-button class="md-raised md-primary md-hue-1 listing" style="font-size: large; margin-right:5%" ng-repeat="project in projects" 
-			ui-sref="stats">
-			<div layout="column" style="font-family: 'Roboto', sans-serif;font-weight:700;color: white">
+			ui-sref="stats" ng-click="setCurrentProject(project.name)">
+			<div layout="column" style="font-family: 'Roboto', sans-serif;font-weight:700;color: white" >
 				<div layout="column">
 		  			 <span style="text-transform: capitalize;">{{project.name}}</span>
 		  			 <span>{{project.description}}</span>

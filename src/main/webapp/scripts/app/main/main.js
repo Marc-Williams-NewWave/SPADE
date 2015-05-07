@@ -8,7 +8,7 @@ angular.module('spadeApp')
                 url: '/home',
                 data: {
                     roles: [],
-//                    requireLogin: true
+                    requireLogin: true
                 },
                 views: {
                     'content@': {
@@ -17,6 +17,9 @@ angular.module('spadeApp')
                     }
                 },
                 resolve: {
+                	resolveUser:['UserService', function (userService) {
+                        return userService.getUser();
+                    }],
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
                         $translatePartialLoader.addPart('main');
                         return $translate.refresh();

@@ -2,7 +2,7 @@
 
 angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 'tmh.dynamicLocale','ngResource', 
                             'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster','n3-pie-chart',
-                            'smart-table','ngMdIcons','ui.select2','ngTable', 'nvd3','nvd3ChartDirectives'])
+                            'smart-table','ngMdIcons','ui.select2','ngSanitize','ngTable', 'nvd3','nvd3ChartDirectives'])
     
     .factory('templateService', function(){
     	var items = [];
@@ -42,7 +42,7 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
 //        };
 
         myAppsService.getItems = function() {
-        	var promise = $http.get("http://192.168.4.8:8080/spade/api/images")
+        	var promise = $http.get("/spade/api/images")
         	.then(function(response) {
         		console.log(response.data.items);
         		var x;
@@ -87,19 +87,21 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
         	$rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;
             
-//        	var requireLogin = toState.data.requireLogin;
-//            
-//            if(requireLogin && typeof $rootScope.currentUser == 'undefined'){
-//            	event.preventDefault();
-//            	//start login modal
+        	var requireLogin = toState.data.requireLogin;
+            
+            if(requireLogin && $cookies.currentUser == 'undefined'){
+            	event.preventDefault();
+            	//start login modal
+            	alert("Login Required");
+            	$state.go('login');
 //            	loginModal()
 //            		.then(function (){
 //            			return $state.go(toState.name, toStateParams);
 //            		})
 //            		.catch(function (){
-//            			return $state.go('home');
+//            			return $state.go('login');
 //            		});
-//            }
+            }
         	
         	
 
