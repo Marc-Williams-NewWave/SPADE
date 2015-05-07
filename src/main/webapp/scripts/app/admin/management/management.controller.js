@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spadeApp')
-	 .controller('ManagementController', function($scope, $state, $cookies, $mdDialog, resolveUsers, UserService, Principal, Auth, $http, templateService) {
+	 .controller('ManagementController', function($scope, $state, $cookies, $mdDialog, resolveUsers, resolveRoles, Principal, Auth, $http) {
 
 	
 	$scope.currentUser = $cookies.currentUser;
@@ -10,6 +10,18 @@ angular.module('spadeApp')
 	$scope.setCurrentProject = function(proj){
 		$scope.currentProj = proj;
 		$cookies.currentProj = proj;
+	}
+	
+	function updateRoles(user){	
+		var newRoles = $scope.roles;
+		
+		for (var r in user.roles){
+			newRoles = newRoles.filter(function(item){
+				return item._id != user.roles[r]._id;
+			});
+			console.log(newRoles);
+		}
+		return newRoles;
 	}
 	
 	$scope.spadeInfo = function(ev) {
@@ -27,11 +39,15 @@ angular.module('spadeApp')
 		    );
 		  };
 		  
-		  $scope.roles = [ "admin_role", "brad_role", "chris_role", "devin_role", "eric_role" ]
-		  
+		  //$scope.roles = [ "admin_role", "brad_role", "chris_role", "devin_role", "eric_role" ]
+		  $scope.roles = resolveRoles;
+		  $scope.displayRoles = [];
 		  $scope.selectedUser = {};
 		  function selectUser(user){
-			  $scope.selectedUser = user;
+			  console.log(user);
+			  var temp = JSON.parse(user);
+			  console.log(temp);
+			  $scope.displayRoles = updateRoles(temp);
 			  //$scope.selectedUser.selected = true;
 		  }
 		  
@@ -52,10 +68,26 @@ angular.module('spadeApp')
 			  console.log(role);
 			  temp.roles.push(role);
 			  console.log(temp);
+			  $http.post("http://localhost:8081/spade/api/users/", temp)
+				.then(function(response) {
+					console.log(response.data.items);
+				});
 			  // Send off updated user info to back end
 		  }
 		  
+		  $scope.permissions = [
+		                     { _id: "DASHBOARD_VIEW", selected: true },
+		                     { _id: "RESOURCE_CREATE", selected: false },
+		                     { _id: "RESOURCE_VIEW", selected: false },
+		                     { _id: "CODE_DEPLOY", selected: false },
+		                     { _id: "STATS_VIEW", selected: false },
+		                     { _id: "METRICS_VIEW", selected: false },
+		                     { _id: "BILLING_VIEW", selected: false },
+		                     { _id: "REQUIREMENTS_VIEW", selected: false }
+		                   ];
+		  
 		  $scope.users = resolveUsers.map(function(item){
+			  console.log(item);
 				return item;
 			});
 		  console.log($scope.users);
@@ -73,6 +105,22 @@ angular.module('spadeApp')
 			return {
 				getUsers: function() {
 					var temp = $http.get("http://localhost:8081/spade/api/users")
+					.then(function(response) {
+						console.log(response.data.items);
+						return response.data.items;
+					});
+//					var promise = temp.map(function(item){
+//						return JSON.parse(item);
+//					});
+             return temp;
+         }
+	 }
+	 
+	 })
+	 .factory('RolesService', function ($http) {
+			return {
+				getRoles: function() {
+					var temp = $http.get("http://localhost:8081/spade/api/roles")
 					.then(function(response) {
 						console.log(response.data.items);
 						return response.data.items;

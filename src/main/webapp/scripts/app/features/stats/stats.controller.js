@@ -4,7 +4,6 @@ angular.module('spadeApp').controller('StatsController',
         function($scope, $http, $modal, $state, $timeout, $mdDialog, $cookies, Auth, resolveUser, resolveSlaves, resolveTasks, resolvePods, SlaveService, TaskService, PodService, MenuService){
 			
 			$scope.user = resolveUser;
-			alert($scope.user);
 			
 			$scope.statsInfo = function(ev) {
 			    $mdDialog.show(

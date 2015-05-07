@@ -125,7 +125,18 @@
 					style="float: right; margin-top: 10px;">
 					<ul class="nav navbar-nav" ng-controller="LogoutCtrl"
 						ng-show="isAuthenticated()">
-
+					<li class="dropdown" ><a href="" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false"
+							style="font-family: 'Roboto', sans-serif; font-weight: 300; color: white;">
+								<div layout="row">
+									<ng-md-icon icon="supervisor_account" style="fill:white" size="22"></ng-md-icon>
+									<div style="display: block; margin-top: 2px;">Admin</div>
+									<span style="display: block; margin-top: 11px;" class="caret"></span>
+								</div>
+						</a>
+							<ul class="dropdown-menu" role="menu">
+									<li><a ui-sref="management">Manage Users</a></li>
+							</ul></li>
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-expanded="false"
 							style="font-family: 'Roboto', sans-serif; font-weight: 300; color: white;">
