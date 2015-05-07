@@ -969,15 +969,14 @@ public class MongoDBController {
 	
 	public JsonArray getAllRoles() {
 		BasicDBObject query = new BasicDBObject();
-		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		DBCollection coll = db.getCollection("users");
-		DBCursor cursor = coll.find(query, removeId);
+		DBCollection coll = db.getCollection("T_AUTHORITY");
+		DBCursor cursor = coll.find(query);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
 		JsonObject json = objBuild.build();
 		while (cursor.hasNext()) {
 			BasicDBObject found = (BasicDBObject) cursor.next();
-			LOG.info("Found User: " + found.toString());
+			LOG.info("Found Role: " + found.toString());
 			json = Json.createReader(new StringReader(found.toString()))
 					.readObject();
 			arrBuild.add(json);

@@ -317,12 +317,21 @@ public class APIController {
 		return objBuild.build().toString();
 	}
 	
+	public String addRole(String role) {
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		objBuild.add("api", "v0.0.4");
+		objBuild.add("time", dateFormat.format(new Date()));
+		objBuild.add("type", "AddRole");
+		objBuild.add("items", userController.addRole(role));
+		return objBuild.build().toString();
+	}
+	
 	public String listAllRoles() {
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		objBuild.add("api", "v0.0.4");
 		objBuild.add("time", dateFormat.format(new Date()));
 		objBuild.add("type", "GetRoles");
-		objBuild.add("items", userController.getAllRoles());
+		objBuild.add("items", userController.listAllRoles());
 		return objBuild.build().toString();
 	}
 
@@ -338,8 +347,8 @@ public class APIController {
 		return projController.listAllProjects().toString();
 	}
 	
-	public String addUser(String payload) {
-		return userController.addUser(payload).toString();
+	public String updateUser(String payload) {
+		return userController.updateUser(payload).toString();
 	}
 
 	public String getUser(String username) {

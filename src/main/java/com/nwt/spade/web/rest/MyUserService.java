@@ -32,7 +32,7 @@ public class MyUserService {
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<String> listAllTemplates(@RequestBody String payload) {
-		return new ResponseEntity<String>(apiController.addUser(payload),
+		return new ResponseEntity<String>(apiController.updateUser(payload),
 				HttpStatus.OK);
 	}
 	

@@ -113,5 +113,11 @@ public class SPADEService {
 		return new ResponseEntity<String>(apiController.listAllRoles(),
 				HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/api/roles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<String> addRole(@RequestBody String role) {
+		return new ResponseEntity<String>(apiController.addRole(role),
+				HttpStatus.OK);
+	}
 
 }
