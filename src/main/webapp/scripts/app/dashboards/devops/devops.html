@@ -1,0 +1,222 @@
+<style>
+html, body, .container{
+    height: 100%;
+}
+.container{
+    display: table;
+    vertical-align: middle;
+}
+.vertical-center-row{
+    display: table-cell;
+    vertical-align: middle;
+}
+</style>
+<div ng-cloak style="background-color: #f1f7f9;">
+<div ng-controller="MainController">
+	<!--[if lt IE 10]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><span translate="global.title">DevopsDashboard</span></a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="navbar-collapse"
+				ng-switch="authenticated">
+				<ul class="nav navbar-nav nav-pills navbar-right">
+					<li><a href="#"> <span class="glyphicon glyphicon-home"></span>
+							<span translate="global.menu.home">Home</span>
+					</a></li>
+			<!-- 		<li ng-switch-when="true" class="dropdown pointer"><a
+						class="dropdown-toggle" data-toggle="dropdown" href=""> <span>
+								<span class="glyphicon glyphicon-th-list"></span> <span
+								class="hidden-tablet" translate="global.menu.entities.main">
+									Projects </span> <b class="caret"></b>
+						</span>
+					</a>
+						<ul class="dropdown-menu" ng-controller="MenuController">
+							<li ng-switch-when="true"><a href="#/projects"><span
+									class="glyphicon glyphicon-asterisk"></span>&nbsp;EPPE</a></li>
+                            <li ng-switch-when="true"><a href="#/author"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;author</a></li>
+							JHipster will add entities to the menu here
+						</ul></li> -->
+<!-- 					<li class="dropdown pointer"><a class="dropdown-toggle" -->
+<!-- 						data-toggle="dropdown" href=""> <span> <span -->
+<!-- 								class="glyphicon glyphicon-user"></span> <span -->
+<!-- 								class="hidden-tablet" translate="global.menu.account.main"> -->
+<!-- 									Account </span> <b class="caret"></b> -->
+<!-- 						</span> -->
+<!-- 					</a> -->
+<!-- 						<ul class="dropdown-menu" ng-controller="MenuController"> -->
+<!-- 							<li ng-switch-when="true"><a href="#/settings"><span -->
+<!-- 									class="glyphicon glyphicon-wrench"></span> &nbsp;<span -->
+<!-- 									translate="global.menu.account.settings">Settings</span></a></li> -->
+<!-- 							<li ng-switch-when="true"><a href="#/password"><span -->
+<!-- 									class="glyphicon glyphicon-lock"></span> &nbsp;<span -->
+<!-- 									translate="global.menu.account.password">Password</span></a></li> -->
+<!-- 							<li ng-switch-when="true"><a href="#/sessions"><span -->
+<!-- 									class="glyphicon glyphicon-cloud"></span> &nbsp;<span -->
+<!-- 									translate="global.menu.account.sessions">Sessions</span></a></li> -->
+<!-- 							<li ng-switch-when="true"><a href="#/logout"><span -->
+<!-- 									class="glyphicon glyphicon-log-out"></span> &nbsp;<span -->
+<!-- 									translate="global.menu.account.logout">Log out</span></a></li> -->
+<!-- 							<li ng-switch-when="false"><a href="#/login"><span -->
+<!-- 									class="glyphicon glyphicon-log-in"></span> &nbsp;<span -->
+<!-- 									translate="global.menu.account.login">Authenticate</span></a></li> -->
+
+<!-- 							<li ng-switch-when="false"><a href="#/register"><span -->
+<!-- 									class="glyphicon glyphicon-plus-sign"></span> &nbsp;<span -->
+<!-- 									translate="global.menu.account.register">Register</span></a></li> -->
+<!-- 						</ul></li> -->
+					
+<!-- 					<li class="dropdown pointer" ng-controller="LanguageController"> -->
+<!-- 						<a class="dropdown-toggle" data-toggle="dropdown" href=""> <span> -->
+<!-- 								<span class="glyphicon glyphicon-flag"></span> <span -->
+<!-- 								class="hidden-tablet" translate="global.menu.language">Language</span> -->
+<!-- 								<b class="caret"></b> -->
+<!-- 						</span> -->
+<!-- 					</a> -->
+<!-- 						<ul class="dropdown-menu"> -->
+<!-- 							<li active-menu="{{key}}" -->
+<!-- 								ng-repeat="(key, language) in languages"><a href="" -->
+<!-- 								ng-click="changeLanguage(key)">{{language}}</a></li> -->
+<!-- 						</ul> -->
+<!-- 					</li> -->
+					<li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)"
+						class="dropdown pointer"><a href="#/projects" ng-click="clear()"> <span class="glyphicon glyphicon-th-list"></span>
+							<span>Create Project</span>
+					</a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div  ng-view=""></div>
+
+
+
+	</div>
+	<div class="footer">
+		<!--                 <p translate="footer">This is your footer</p>
+ -->
+	</div>
+	</div>
+
+	<!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+            
+            
+            'use strict';
+
+/* Controllers */
+
+app
+  // Flot Chart controller 
+  .controller('FlotChartDemoCtrl', ['$scope', function($scope) {
+    $scope.d = [ [1,6.5],[2,6.5],[3,7],[4,8],[5,7.5],[6,7],[7,6.8],[8,7],[9,7.2],[10,7],[11,6.8],[12,7] ];
+
+    $scope.d0_1 = [ [0,7],[1,6.5],[2,12.5],[3,7],[4,9],[5,6],[6,11],[7,6.5],[8,8],[9,7] ];
+
+    $scope.d0_2 = [ [0,4],[1,4.5],[2,7],[3,4.5],[4,3],[5,3.5],[6,6],[7,3],[8,4],[9,3] ];
+
+    $scope.d1_1 = [ [10, 120], [20, 70], [30, 70], [40, 60] ];
+
+    $scope.d1_2 = [ [10, 50],  [20, 60], [30, 90],  [40, 35] ];
+
+    $scope.d1_3 = [ [10, 80],  [20, 40], [30, 30],  [40, 20] ];
+
+    $scope.d2 = [];
+
+    for (var i = 0; i < 20; ++i) {
+      $scope.d2.push([i, Math.sin(i)]);
+    }   
+
+    $scope.d3 = [ 
+      { label: "iPhone5S", data: 40 }, 
+      { label: "iPad Mini", data: 10 },
+      { label: "iPad Mini Retina", data: 20 },
+      { label: "iPhone4S", data: 12 },
+      { label: "iPad Air", data: 18 }
+    ];
+
+    $scope.refreshData = function(){
+      $scope.d0_1 = $scope.d0_2;
+    };
+
+    $scope.getRandomData = function() {
+      var data = [],
+      totalPoints = 150;
+      if (data.length > 0)
+        data = data.slice(1);
+      while (data.length < totalPoints) {
+        var prev = data.length > 0 ? data[data.length - 1] : 50,
+          y = prev + Math.random() * 10 - 5;
+        if (y < 0) {
+          y = 0;
+        } else if (y > 100) {
+          y = 100;
+        }
+        data.push(y);
+      }
+      // Zip the generated y values with the x values
+      var res = [];
+      for (var i = 0; i < data.length; ++i) {
+        res.push([i, data[i]])
+      }
+      return res;
+    }
+
+    $scope.d4 = $scope.getRandomData();
+  }]);
+        </script>-->
+
+
+	<!-- build:js scripts/scripts.js -->
+<!-- 	 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+ -->	
+	
+	
+	
+
+        
+
+
+
+	<!-- endbuild -->
+</div>
+</div>
+<!-- <md-toolbar md-scroll-shrink layout-row style="background-color:gray;">
+    <div class="md-toolbar-tools" flex flex-order="1">
+      <h3>
+        <span>Provisioning - Project List</span>
+      </h3>
+       <div flex flex-order="3" align="left">
+    [flex-order="3"]
+  </div>
+    </div>
+   
+  </md-toolbar> -->
+
+
+<div>
+<div id='outer' flex>
+    <div id="main" class="md-content" flex>
+    <iframe style="width:100%; height: 600px;"  ng-src="http://192.168.4.8:8081"></iframe>
+<!-- 		<embed ng-src="http://192.168.4.8:8081/" width=100% height=600 /> -->
+    </div>
+</div>
+</div>

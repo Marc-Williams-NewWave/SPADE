@@ -4,14 +4,19 @@ angular.module('spadeApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('devops', {
-                parent: 'features',
+                parent: 'dashboards',
                 url: '/devops',
                 data: {
                     roles: []
                 },
+                resolve: {
+                    resolvedSelect:['SelectService', function (SelectService) {
+                        return SelectService.findAllProj();
+                    }]
+                },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/features/devops/devops.html',
+                        templateUrl: 'scripts/app/dashboards/devops/devops.html',
                         controller: 'DevopsController'
                     }
                 }

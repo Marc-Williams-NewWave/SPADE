@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 'tmh.dynamicLocale','ngResource', 
-                            'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster','n3-pie-chart',
-                            'smart-table','ngMdIcons','ui.select2','ngSanitize','ngTable', 'nvd3','nvd3ChartDirectives'])
+                            'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster',
+                            'ngMdIcons','ui.select2','ngSanitize','ngTable', 'nvd3','nvd3ChartDirectives'])
     
     .factory('templateService', function(){
     	var items = [];
@@ -80,7 +80,7 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
     };
 
 }])
-    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV, VERSION,loginModal) {
+    .run(function ($rootScope, $location, $window, $http, $state, $translate, $cookies, Auth, Principal, Language, ENV, VERSION,loginModal) {
         $rootScope.ENV = ENV;
         $rootScope.VERSION = VERSION;
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
@@ -92,7 +92,7 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
             if(requireLogin && $cookies.currentUser == 'undefined'){
             	event.preventDefault();
             	//start login modal
-            	alert("Login Required");
+            	//alert("Login Required");
             	$state.go('login');
 //            	loginModal()
 //            		.then(function (){
