@@ -1,0 +1,103 @@
+<div>
+
+    <h2>Projects</h2>
+
+    <button class="btn btn-primary btn-lg" 	 ng-click="clear()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new Projects
+    </button>
+    <div class="modal fade" id="saveProjectsModal" tabindex="-1" role="dialog" aria-labelledby="myProjectsLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="form" role="form" novalidate
+                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                      ng-submit="create()">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myProjectsLabel">Create or edit a Projects</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="projects.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control"
+                                   ng-model="projects.name">
+                        </div>
+                         <div class="form-group">
+                            <label>Github Username</label>
+                            <input type="text" class="form-control"
+                                   ng-model="projects.gitUsername">
+                        </div>
+                         <div class="form-group">
+                            <label>Github Password</label>
+                            <input type="password" class="form-control"
+                                   ng-model="projects.gitPassword">
+                        </div>
+                         <div class="form-group">
+                            <label>Github repo</label>
+                            <input type="text" class="form-control"
+                                   ng-model="projects.gitUrl">
+                        </div>
+                          <div class="form-group">
+                            <label>Build Server</label>
+                            <input type="url" class="form-control"
+                                   ng-model="projects.buildUrl">
+                        </div>
+                      
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button>
+                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span> Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Github Username</th>
+                    <th>Github URL</th>
+                    <th>Build Server</th>
+					<th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="projects in projectss">
+                    <td>{{projects.name}}</td>
+                    <td>{{projects.gitUsername}}</td>  
+                     <td>{{projects.gitUrl}}</td> 
+                     <td>{{projects.buildUrl}}</td> 
+                     <td>
+                        <button type="submit"
+                                ng-click="update(projects.id)"
+                                class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(projects.id)"
+                                class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
