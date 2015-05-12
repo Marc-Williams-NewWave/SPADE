@@ -1,121 +1,118 @@
 <div ng-cloak style="background-color: #f1f7f9;">
-<nav class="navbar navbar-default navbar-transparent" style="background-color:#e0e0e0;margin-bottom: 0px !important;height:auto">
-  <div class="container-fluid">
-    
-    <div class="navbar-header">
-      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">Administration</div>
-    </div>
+	<nav class="navbar navbar-default navbar-transparent"
+		style="background-color: #e0e0e0; margin-bottom: 0px !important; height: auto">
+		<div class="container-fluid">
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:2.7%;">
-      <ul class="nav navbar-nav">
-      <li role="button" ng-click="spadeInfo()"><ng-md-icon icon="info_outline" style="display:block;margin-top:12px;fill:black" size="25"></ng-md-icon></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+			<div class="navbar-header">
+				<div class="navbar-brand"
+					style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Administration</div>
+			</div>
+
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1" align="right"
+				style="float: right; margin-right: 2.7%;">
+				<ul class="nav navbar-nav">
+					<li role="button" ng-click="spadeInfo()"><ng-md-icon
+							icon="info_outline"
+							style="display:block;margin-top:12px;fill:black" size="25"></ng-md-icon></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 	</md-card>
-<div >
-  <md-content class="md-padding">
-    <md-tabs class="tabsdemoStaticTabs" md-selected="data.selectedIndex" md-dynamic-height md-border-bottom>
-      <md-tab aria-controls="tab1-content" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;" label="Users">
-       
-      </md-tab>
-      <md-tab aria-controls="tab2-content" style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;" label="Roles">
-        
-      </md-tab>
-    </md-tabs>
-    <ng-switch on="data.selectedIndex" class="tabpanel-container" >
-        <div role="tabpanel" id="tab1-content" aria-labelledby="tab1" ng-switch-when="0">
-            	<md-toolbar class="md-primary" style="border-left: 2pt solid rgb(241, 247, 249);border-right: 2pt solid rgb(241, 247, 249);height:40px; min-height: 0px;">
-						<!-- <div class="md-toolbar-tools">
+	<div>
+		<md-content class="md-padding"> <md-tabs
+			class="tabsdemoStaticTabs" md-selected="data.selectedIndex"
+			md-dynamic-height md-border-bottom> <md-tab
+			aria-controls="tab1-content"
+			style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;"
+			label="Users"> </md-tab> <md-tab aria-controls="tab2-content"
+			style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;"
+			label="Roles"> </md-tab> </md-tabs> <ng-switch on="data.selectedIndex"
+			class="tabpanel-container">
+		<div role="tabpanel" id="tab1-content" aria-labelledby="tab1"
+			ng-switch-when="0">
+			<md-toolbar class="md-primary"
+				style="border-left: 2pt solid rgb(241, 247, 249);border-right: 2pt solid rgb(241, 247, 249);height:40px; min-height: 0px;">
+			<!-- <div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Web Server:</span>
 						</div> -->
-						<h2 class="md-toolbar-tools">
-        					<span>User Management</span>
-      					</h2>
-						</md-toolbar>
-							<md-content class="md-padding" style=""> 
-								<div layout="row">
-									<div layout="column" style="">
-										<div >
-										<h4>{{selectedUser}}</h4>
-										<md-subheader class="md-primary" style="padding: 0px !important;">User</md-subheader>
-											<select ui-select2 ng-model="selectedUser" data-placeholder="Select a User" ng-change="selectUser(selectedUser)">
-											 <option value=""></option>
-											 <option ng-repeat="user in users" value="{{user}}">{{user.name}}</option>
-											 </select>
-											 
-										</div>
-									</div>
-								</div>
-								<md-divider></md-divider>
-									<div layout="column" style="">
-										<div style="">
-										<div >
-										<h4>{{selectedRole}}</h4>
-										<md-subheader class="md-primary" style="padding: 0px !important;">Roles</md-subheader>
-											<select ui-select2 ng-model="selectedRole" data-placeholder="Select a Role" ng-change="selectRole(selectedRole)">
-											 <option value=""></option>
-											 <option ng-repeat="role in displayRoles" value="{{role._id}}">{{role._id}}</option>
-											 </select>
-											 </div>
-										</div>
-									</div>
-									<md-button class="md-raised md-primary" ng-click="addRole(selectedUser,selectedRole)" style="padding-left:5px">Add Role</md-button>
-								<md-divider></md-divider>
-								<md-subheader class="md-primary" style="padding: 0px !important;">Users Roles</md-subheader>
-								<md-list >
-									<md-list-item class="md-1-line" ng-repeat="role in selectedUser.roles">
-        								<div class="md-list-item-text">
-         									<h3>{{selectedUser}}</h3>
-        								</div>
-      								</md-list-item>
-								</md-list>
-							</md-content>
-        </div>
-        
-        <div role="tabpanel"
-             id="tab2-content"
-             aria-labelledby="tab2"
-             ng-switch-when="1"
-             >
-            <md-toolbar class="md-primary" style="border-left: 2pt solid rgb(241, 247, 249);border-right: 2pt solid rgb(241, 247, 249);height:40px; min-height: 0px;">
-						<!-- <div class="md-toolbar-tools">
+			<h2 class="md-toolbar-tools" layout="row">
+				<span>User Management</span>
+				<span style=""><md-button class="md-raised md-warn" ng-click="changePassword(user)">Change Password</md-button></span>
+				<span style=""><md-button class="md-raised md-warn" ng-click="manageRoles(user)">Change Password</md-button></span>
+			</h2>
+			</md-toolbar>
+			<md-card class="md-whiteframe-z2" flex>
+			<table ng-table="tableParams" show-filter="true"
+				class="table ng-table-rowselected">
+				<thead>
+					<tr>
+						<th ng-repeat="header in headers" style="text-align: left;">{{header}}</th>
+					</tr>
+					<tr>
+
+					</tr>
+
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in users"
+						ng-click="user.$selected = !user.$selected; changeSelection(user)"
+						ng-class="{'st-selected': user.$selected}">
+						<td data-title="'Name'" sortable="'name'"
+							filter="{ 'name': 'text' }">{{user.name}}</td>
+						<td data-title="'FirstName'" sortable="'firstName'"
+							filter="{ 'firstName': 'text' }">James</td>
+						<td data-title="'LastName'" sortable="'lastName'"
+							filter="{ 'lastName': 'text' }">Baxter</td>
+						<td data-title="'DefaultProject'" sortable="'defaultProject'"
+							filter="{ 'defaultProject': 'text' }">{{user.default_project}}</td>
+					</tr>
+				</tbody>
+				<tfoot>
+
+				</tfoot>
+			</table>
+			</md-card>
+		</div>
+
+		<div role="tabpanel" id="tab2-content" aria-labelledby="tab2"
+			ng-switch-when="1">
+			<md-toolbar class="md-primary"
+				style="border-left: 2pt solid rgb(241, 247, 249);border-right: 2pt solid rgb(241, 247, 249);height:40px; min-height: 0px;">
+			<!-- <div class="md-toolbar-tools">
 							<span class="md-flex">Configure Your Web Server:</span>
 						</div> -->
-						<h2 class="md-toolbar-tools">
-        					<span>Role Management</span>
-      					</h2>
-						</md-toolbar>
-							<md-content class="md-padding" style=""> 
-								<div layout="row">
-									<div layout="column" style="">
-										<div >
-										<h4>{{roleName}}</h4>
-											<md-input-container> 
-												<label>Role Name</label> 
-												<input name="roleName" required ng-model="roleName">
-											</md-input-container>
-										</div>
-									</div>
-								</div>
-								<md-divider></md-divider>
-									<div layout="column" style="">
-										<div style="">
-										<h4>{{selectedRole}}</h4>
-										<md-list-item layout="row" ng-repeat="perm in permissions">
-    										<div> {{ perm._id }} </div> 
-    										<md-checkbox class="md-secondary" ng-model="perm.selected"></md-checkbox>
-  										</md-list-item>
-  										<md-divider></md-divider>
-										</div>
-									</div>
-									<md-button class="md-raised md-primary" ng-click="createRole(roleName)" 
-										style="padding-left:5px">Create Role</md-button>
-							</md-content>
-        </div>
-    </ng-switch>
-  </md-content>
-</div>
+			<h2 class="md-toolbar-tools">
+				<span>Role Management</span>
+			</h2>
+			</md-toolbar>
+			<md-content class="md-padding" style="">
+			<div layout="row">
+				<div layout="column" style="">
+					<div>
+						<h4>{{roleName}}</h4>
+						<md-input-container> <label>Role Name</label>
+						<input name="roleName" required ng-model="roleName"> </md-input-container>
+					</div>
+				</div>
+			</div>
+			<md-divider></md-divider>
+			<div layout="column" style="">
+				<div style="">
+					<md-subheader class="md-primary" style="padding: 0px !important;">Permissions</md-subheader>
+					<h4>{{selectedPerms}}</h4>
+					<md-checkbox class="md-secondary"
+						ng-click="togglePerms(perm, selectedPerms)"
+						ng-repeat="perm in permissions"> {{ perm._id }} </md-checkbox>
+					<md-divider></md-divider>
+				</div>
+			</div>
+			<md-button class="md-raised md-primary"
+				ng-click="createRole(roleName, selectedPerms)"
+				style="padding-left:5px">Create New Role</md-button> </md-content>
+		</div>
+		</ng-switch> </md-content>
+	</div>
 </div>
 

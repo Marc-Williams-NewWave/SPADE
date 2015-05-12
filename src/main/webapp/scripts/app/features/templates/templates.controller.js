@@ -17,7 +17,7 @@ angular.module('spadeApp')
 	    );
 	  };
 	
-		$http.get("http://192.168.4.8:8080/spade/api/stack_templates")
+		$http.get("http://localhost:8081/spade/api/stack_templates")
 		.success(function(data) {
 				$scope.plates = data.items;
 			})
@@ -326,7 +326,7 @@ angular.module('spadeApp')
 	$scope.delTemplate = function(template){
 		var req = {
 				 method: "DELETE",
-				 url: "http://192.168.4.8:8080/spade/api/demo/controllers/" + template.labels.controller
+				 url: "http://localhost:8081/spade/api/demo/controllers/" + template.labels.controller
 		};
 		console.log(template)
 //		$http(req).then(function(response) {
@@ -347,7 +347,7 @@ angular.module('spadeApp')
 .factory('TemplateService2', function($http) {
 	return {
 		getPods : function() {
-			var promise = $http.get("http://192.168.4.8:8080/spade/api/stack_templates")
+			var promise = $http.get("http://localhost:8081/spade/api/stack_templates")
 			.then(function(response) {
 				return response.data;
 			});
@@ -996,7 +996,8 @@ $scope.conf = false;
  		console.log($scope.payload);
  		
 // 		$scope.showCustomToast();
- 		 	$http.post("http://192.168.4.8:8080/spade/api/demo/stacks", $scope.payload)
+ 		 	$http.post("http://localhost:8081l" +
+ 		 			"/spade/api/demo/stacks", $scope.payload)
      		 	.success(function(data){
      		 		$modalInstance.dismiss();
      	     		$scope.showAlert();

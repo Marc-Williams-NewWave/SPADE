@@ -1,16 +1,49 @@
 'use strict';
 
 angular.module('spadeApp')
-    .factory('Principal', function Principal($q, Account) {
+    .factory('Principal', function Principal($q, $http, Account) {
         var _identity,
             _authenticated = false;
 
+        var allRoles = $http.get("/spade/api/roles")
+        	.success(function(data) {
+        		console.log("Roles");
+        		console.log(data.items);
+        		return data.items;
+        })
+        
         return {
             isIdentityResolved: function () {
                 return angular.isDefined(_identity);
             },
             isAuthenticated: function () {
                 return _authenticated;
+            },
+            hasPermission: function (perm) {
+                if (!_authenticated || !_identity.roles) {
+                    return false;
+                }
+
+                for (var i = 0; i < _identity.roles.length; i++) {
+                	var role = roles[i];
+                	
+                    for (var j = 0; j < role.permissions.length; j++){
+                    	
+                    }
+                }
+            },
+            hasAnyPermission: function (perms) {
+                if (!_authenticated || !_identity.roles) {
+                    return false;
+                }
+
+                for (var i = 0; i < roles.length; i++) {
+                    if (this.isInRole(roles[i])) {
+                        return true;
+                    }
+                }
+
+                return false;
             },
             isInRole: function (role) {
                 if (!_authenticated || !_identity.roles) {

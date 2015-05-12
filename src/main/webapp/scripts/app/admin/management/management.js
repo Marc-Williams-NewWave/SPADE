@@ -7,7 +7,7 @@ angular.module('spadeApp')
                 parent: 'site',
                 url: '/management',
                 data: {
-                    roles: [],
+                    roles: ["ROLE_ADMIN"],
 //                    requireLogin: true
                 },
                 views: {
@@ -19,9 +19,6 @@ angular.module('spadeApp')
                 resolve: {
                 	resolveUsers:['UsersService', function (usersService) {
                         return usersService.getUsers();
-                    }],
-                    resolveRoles:['RolesService', function (rolesService) {
-                        return rolesService.getRoles();
                     }],
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
                         $translatePartialLoader.addPart('main');
