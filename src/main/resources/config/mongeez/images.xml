@@ -1,0 +1,10 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-images" author="jhipster">
+        <script>
+            db.T_AUTHORITY.insert({"_id" : "ROLE_ADMIN"});
+            db.T_AUTHORITY.insert({"_id" : "ROLE_USER"});
+            db.T_AUTHORITY.insert({"_id" : "ROLE_MANAGER"});
+            db.T_AUTHORITY.insert({"_id" : "ROLE_DEV"});
+        </script>
+    </changeSet>
+</mongoChangeLog>

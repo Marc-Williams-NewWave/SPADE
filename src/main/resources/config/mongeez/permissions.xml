@@ -1,0 +1,16 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-permissions" author="jhipster">
+        <script>
+            db.permissions.insert({"_id" : "PERM_CREATE_STACKS"});
+            db.permissions.insert({"_id" : "PERM_UPDATE_STACKS"});
+            db.permissions.insert({"_id" : "PERM_DELETE_STACKS"});
+            db.permissions.insert({"_id" : "PERM_VIEW_STACKS"});
+            db.permissions.insert({"_id" : "PERM_VIEW_STATS"});
+            db.permissions.insert({"_id" : "PERM_MANAGE_USERS"});
+            db.permissions.insert({"_id" : "PERM_VIEW_METRICS"});
+            db.permissions.insert({"_id" : "PERM_UPDATE_METRICS"});
+            db.permissions.insert({"_id" : "PERM_ADD_METRICS"});
+            db.permissions.insert({"_id" : "PERM_VIEW_DEVOPS"});
+        </script>
+    </changeSet>
+</mongoChangeLog>

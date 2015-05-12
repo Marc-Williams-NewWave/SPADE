@@ -1,8 +1,43 @@
 <mongoChangeLog>
-    <changeSet changeId="ChangeSet-1" author="jhipster">
+    <changeSet changeId="ChangeSet-authorities" author="jhipster">
         <script>
-            db.T_AUTHORITY.insert({"_id" : "ROLE_ADMIN"});
-            db.T_AUTHORITY.insert({"_id" : "ROLE_USER"});
+            db.T_AUTHORITY.insert({"_id" : "ROLE_ADMIN", 
+            "permissions" : [
+            	{"_id" : "PERM_CREATE_STACKS"},
+            	{"_id" : "PERM_UPDATE_STACKS"},
+            	{"_id" : "PERM_DELETE_STACKS"},
+            	{"_id" : "PERM_VIEW_STACKS"},
+            	{"_id" : "PERM_VIEW_STATS"},
+            	{"_id" : "PERM_MANAGE_USERS"},
+            	{"_id" : "PERM_VIEW_METRICS"},
+            	{"_id" : "PERM_UPDATE_METRICS"},
+            	{"_id" : "PERM_ADD_METRICS"}
+            ]});
+            db.T_AUTHORITY.insert({"_id" : "ROLE_USER", "permissions" : []});
+            db.T_AUTHORITY.insert({"_id" : "ROLE_MANAGER", 
+            "permissions" : [
+            	{"_id" : "PERM_VIEW_STACKS"},
+            	{"_id" : "PERM_VIEW_STATS"},
+            	{"_id" : "PERM_MANAGE_USERS"},
+            	{"_id" : "PERM_VIEW_METRICS"},
+            	{"_id" : "PERM_UPDATE_METRICS"},
+            	{"_id" : "PERM_ADD_METRICS"}
+            ]});
+            db.T_AUTHORITY.insert({"_id" : "ROLE_DEV", 
+            "permissions" : [
+            	{"_id" : "PERM_CREATE_STACKS"},
+            	{"_id" : "PERM_UPDATE_STACKS"},
+            	{"_id" : "PERM_DELETE_STACKS"},
+            	{"_id" : "PERM_VIEW_STACKS"},
+            	{"_id" : "PERM_VIEW_STATS"}
+            ]});
+            db.T_AUTHORITY.insert({"_id" : "ROLE_DASHBOARD", 
+            "permissions" : [
+            	{"_id" : "PERM_VIEW_STACKS"},
+            	{"_id" : "PERM_VIEW_STATS"},
+            	{"_id" : "PERM_VIEW_METRICS"},
+            	{"_id" : "PERM_VIEW_DEVOPS"}
+            ]});
         </script>
     </changeSet>
 </mongoChangeLog>
