@@ -119,5 +119,11 @@ public class SPADEService {
 		return new ResponseEntity<String>(apiController.addRole(role),
 				HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/api/permissions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<String> listAllPermissions() {
+		return new ResponseEntity<String>(apiController.listAllPermissions(),
+				HttpStatus.OK);
+	}
 
 }

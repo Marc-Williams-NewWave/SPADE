@@ -334,6 +334,15 @@ public class APIController {
 		objBuild.add("items", userController.listAllRoles());
 		return objBuild.build().toString();
 	}
+	
+	public String listAllPermissions() {
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		objBuild.add("api", "v0.0.4");
+		objBuild.add("time", dateFormat.format(new Date()));
+		objBuild.add("type", "GetPermissions");
+		objBuild.add("items", userController.listAllPermissions());
+		return objBuild.build().toString();
+	}
 
 	public String getProject(String project) {
 		return projController.getProject(project).toString();

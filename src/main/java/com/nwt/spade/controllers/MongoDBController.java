@@ -984,6 +984,23 @@ public class MongoDBController {
 		return arrBuild.build();
 	}
 	
+	public JsonArray getAllPermissions() {
+		BasicDBObject query = new BasicDBObject();
+		DBCollection coll = db.getCollection("permissions");
+		DBCursor cursor = coll.find(query);
+		JsonObjectBuilder objBuild = Json.createObjectBuilder();
+		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
+		JsonObject json = objBuild.build();
+		while (cursor.hasNext()) {
+			BasicDBObject found = (BasicDBObject) cursor.next();
+			LOG.info("Found Permission: " + found.toString());
+			json = Json.createReader(new StringReader(found.toString()))
+					.readObject();
+			arrBuild.add(json);
+		}
+		return arrBuild.build();
+	}
+	
 	public static void main(String[] args){
 		MongoDBController test = new MongoDBController(true);
 		String cont = "{\"id\":\"demo3-lamp-apache\",\"uid\":\"efa1b7f3-e2d5-11e4-a0ad-fa163e3c002e\","

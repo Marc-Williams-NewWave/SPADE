@@ -1,10 +1,13 @@
 package com.nwt.spade.security;
 
+import com.nwt.spade.controllers.MongoDBController;
 import com.nwt.spade.domain.Authority;
 import com.nwt.spade.domain.User;
 import com.nwt.spade.repository.UserRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -30,6 +34,9 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     @Inject
     private UserRepository userRepository;
+    
+    @Autowired
+    private MongoDBController dbController;
 
     @Override
     @Transactional

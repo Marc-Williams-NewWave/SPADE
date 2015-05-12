@@ -88,4 +88,8 @@ private MongoDBController db;
 	public JsonArray listAllRoles(){
 		return db.getAllRoles();
 	}
+	
+	public JsonArray listAllPermissions(){
+		return db.getAllPermissions();
+	}
 }

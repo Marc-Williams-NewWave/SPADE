@@ -60,6 +60,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth
             .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
+//        auth
+//        	.ldapAuthentication()
+//				.userDnPatterns("uid={0},ou=people")
+//				.groupSearchBase("ou=groups")
+//				.contextSource().ldif("classpath:test-server.ldif");
     }
 
     @Override
@@ -107,7 +112,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/api/**").authenticated()
-                .antMatchers("/spade/api/**").authenticated()
+                .antMatchers("/spade/api/**").permitAll()
                 .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
@@ -120,7 +125,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                .antMatchers("/protected/**").authenticated();
+                .antMatchers("/protected/**").authenticated()
+                .antMatchers("/home/**").authenticated();
 
     }
 
