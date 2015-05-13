@@ -10,6 +10,8 @@ angular.module('spadeApp')
 	$rootScope.currentUser = $cookies.currentUser;
 	$rootScope.currentProj = $cookies.currentProj;
 	
+	//if (Principal.hasPermission("PERM_"))
+	
 	console.log($scope.currentUser+", "+$scope.currentProj);
 	
 	$scope.setCurrentProject = function(proj){

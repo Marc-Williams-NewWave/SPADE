@@ -1,7 +1,6 @@
 package com.nwt.spade.security;
 
 import com.nwt.spade.controllers.MongoDBController;
-import com.nwt.spade.domain.Authority;
 import com.nwt.spade.domain.User;
 import com.nwt.spade.repository.UserRepository;
 
@@ -16,12 +15,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import javax.json.JsonObject;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,6 +41,16 @@ public class UserDetailsService implements org.springframework.security.core.use
         log.debug("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase();
         Optional<User> userFromDatabase =  userRepository.findOneByLogin(lowercaseLogin);
+        JsonObject myUser = null;
+//        try {
+//        	myUser = dbController.getUser(lowercaseLogin).getJsonObject(0);
+//        } catch(Exception e){
+//        	throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
+//        }
+//        
+//        User temp = new User();
+//        //temp.
+//        log.debug("Custom User found {}", myUser);
         return userFromDatabase.map(user -> {
             if (!user.getActivated()) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");

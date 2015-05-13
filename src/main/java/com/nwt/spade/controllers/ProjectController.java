@@ -109,7 +109,7 @@ public class ProjectController {
 					String one = uproj.toString().replace("\"", "");
 					String two = ((JsonObject)proj).getString("name");
 					if(one.equalsIgnoreCase(two)){
-						tmp.add(((JsonObject)user).get("name"));
+						tmp.add(((JsonObject)user).get("login"));
 					}
 				}
 			}

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.nwt.spade.domain.Authority;
 import com.nwt.spade.repository.AuthorityRepository;
+import com.nwt.spade.service.UserService;
 
 @Service
 public class UserController {
@@ -28,6 +29,9 @@ private MongoDBController db;
 
 	@Inject
     private AuthorityRepository authorityRepository;
+	
+	@Inject
+	private UserService userService;
 	
 	@Autowired
 	public UserController(MongoDBController db){

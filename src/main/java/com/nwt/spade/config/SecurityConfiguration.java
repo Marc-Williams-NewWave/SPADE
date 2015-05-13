@@ -62,8 +62,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
 //        auth
 //        	.ldapAuthentication()
-//				.userDnPatterns("uid={0},ou=people")
-//				.groupSearchBase("ou=groups")
+//				.userDnPatterns("nwtsvc@newwave.com")
+//				.userSearchBase("DC=Newwave,DC=com");
 //				.contextSource().ldif("classpath:test-server.ldif");
     }
 

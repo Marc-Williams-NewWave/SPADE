@@ -26,9 +26,8 @@ angular.module('spadeApp')
 
                 for (var i = 0; i < _identity.roles.length; i++) {
                 	var role = roles[i];
-                	
                     for (var j = 0; j < role.permissions.length; j++){
-                    	
+                    	console.log("Checking Permission");
                     }
                 }
             },

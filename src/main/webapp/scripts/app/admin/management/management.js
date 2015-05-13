@@ -20,6 +20,12 @@ angular.module('spadeApp')
                 	resolveUsers:['UsersService', function (usersService) {
                         return usersService.getUsers();
                     }],
+                    resolveRoles:['RolesService', function (rolesService) {
+                        return rolesService.getRoles();
+                    }],
+                    resolvePermissions:['PermissionsService', function (permsService) {
+                        return permsService.getPerms();
+                    }],
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
                         $translatePartialLoader.addPart('main');
                         return $translate.refresh();

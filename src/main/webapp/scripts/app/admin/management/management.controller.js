@@ -26,7 +26,10 @@ angular.module('spadeApp')
 		        .targetEvent(ev)
 		    );
 		  };
-		  
+		  $scope.users = resolveUsers.map(function(item){
+			  console.log(item);
+				return item;
+		  });
 		  console.log($scope.users);
 			$scope.logout = function () {
 	            Auth.logout();
@@ -39,9 +42,10 @@ angular.module('spadeApp')
 			});
 			
 			$scope.headers = [
-			          	    "ID",
+			          	    "Username",
 			          	    "First Name",
 			          	    "Last Name",
+			          	    "Email",
 			          	    "Default Project"
 			          	];
 			          	//var displayedPods = [].concat($scope.pods);
@@ -146,6 +150,7 @@ angular.module('spadeApp')
 		  }
 		  
 		  $scope.permissions = resolvePermissions;
+		  console.log($scope.permissions);
 //		  = [
 //		                     { _id: "DASHBOARD_VIEW", selected: true },
 //		                     { _id: "RESOURCE_CREATE", selected: false },

@@ -867,10 +867,10 @@ public class MongoDBController {
 	
 	public JsonArray updateUser(String user) {
 		BasicDBObject doc = (BasicDBObject) JSON.parse(user);
-		doc.append("_id", doc.getString("name"));
-		DBCollection coll = db.getCollection("users");
+		doc.append("login", doc.getString("name"));
+		DBCollection coll = db.getCollection("T_USER");
 		BasicDBObject query = new BasicDBObject();
-		query.put("_id", doc.getString("name"));
+		query.put("login", doc.getString("name"));
 		//query.put("labels.project", project);
 		DBCursor cursor = coll.find(query);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
@@ -889,10 +889,10 @@ public class MongoDBController {
 	}
 	
 	public JsonArray getUser(String username) {
-		DBCollection coll = db.getCollection("users");
+		DBCollection coll = db.getCollection("T_USER");
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		query.put("name", username);
+		query.put("login", username);
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
@@ -910,8 +910,8 @@ public class MongoDBController {
 	public JsonArray deleteUser(String username) {
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		query.put("name", username);
-		DBCollection coll = db.getCollection("users");
+		query.put("login", username);
+		DBCollection coll = db.getCollection("T_USER");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
@@ -929,7 +929,7 @@ public class MongoDBController {
 	public JsonArray getAllUsers() {
 		BasicDBObject query = new BasicDBObject();
 		BasicDBObject removeId = new BasicDBObject("_id", 0);
-		DBCollection coll = db.getCollection("users");
+		DBCollection coll = db.getCollection("T_USER");
 		DBCursor cursor = coll.find(query, removeId);
 		JsonObjectBuilder objBuild = Json.createObjectBuilder();
 		JsonArrayBuilder arrBuild = Json.createArrayBuilder();
@@ -1001,27 +1001,27 @@ public class MongoDBController {
 		return arrBuild.build();
 	}
 	
-	public static void main(String[] args){
-		MongoDBController test = new MongoDBController(true);
-		String cont = "{\"id\":\"demo3-lamp-apache\",\"uid\":\"efa1b7f3-e2d5-11e4-a0ad-fa163e3c002e\","
-				+ "\"creationTimestamp\":\"2015-04-14T18:42:00Z\",\"selfLink\":"
-				+ "\"/api/v1beta2/replicationControllers/demo2-lamp-apache?namespace=default"
-				+ "\",\"resourceVersion\":907222,\"namespace\":\"default\",\"desiredState\":"
-				+ "{\"replicas\":1,\"replicaSelector\":{\"type\":\"demo2-lamp-apache-apache-pod\"},"
-				+ "\"podTemplate\":{\"desiredState\":{\"manifest\":{\"version\":\"v1beta2\",\"id\":"
-				+ "\"\",\"volumes\":null,\"containers\":[{\"name\":\"demo2-lamp-apache-apache\","
-				+ "\"image\":\"sewatech/modcluster\",\"ports\":[{\"hostPort\":31080,\"containerPort"
-				+ "\":80,\"protocol\":\"TCP\"}],\"resources\":{\"limits\":{\"cpu\":\"1\"}},\"cpu\":"
-				+ "1000,\"terminationMessagePath\":\"/dev/termination-log\",\"imagePullPolicy\":"
-				+ "\"PullIfNotPresent\",\"capabilities\":{}}],\"restartPolicy\":{\"always\":{}},"
-				+ "\"dnsPolicy\":\"ClusterFirst\"}},\"labels\":{\"app\":\"apache\",\"controller\":"
-				+ "\"demo2-lamp-apache\",\"image\":\"sewatech/modcluster\",\"name\":\"demo2-lamp-"
-				+ "apache-apache\",\"os\":\"ubuntu\",\"project\":\"demo\",\"stack\":\"demo2\","
-				+ "\"type\":\"demo2-lamp-apache-apache-pod\"}}},\"currentState\":{\"replicas\":1"
-				+ ",\"podTemplate\":{\"desiredState\":{\"manifest\":{\"version\":\"\",\"id\":\"\""
-				+ ",\"volumes\":null,\"containers\":null,\"restartPolicy\":{}}}}},\"labels\":{"
-				+ "\"name\":\"demo2-lamp-apache\",\"project\":\"demo\",\"stack\":\"demo2\"}}";
-		System.out.println(test.updateController("demo", cont));
-	}
+//	public static void main(String[] args){
+//		MongoDBController test = new MongoDBController(true);
+////		String cont = "{\"id\":\"demo3-lamp-apache\",\"uid\":\"efa1b7f3-e2d5-11e4-a0ad-fa163e3c002e\","
+////				+ "\"creationTimestamp\":\"2015-04-14T18:42:00Z\",\"selfLink\":"
+////				+ "\"/api/v1beta2/replicationControllers/demo2-lamp-apache?namespace=default"
+////				+ "\",\"resourceVersion\":907222,\"namespace\":\"default\",\"desiredState\":"
+////				+ "{\"replicas\":1,\"replicaSelector\":{\"type\":\"demo2-lamp-apache-apache-pod\"},"
+////				+ "\"podTemplate\":{\"desiredState\":{\"manifest\":{\"version\":\"v1beta2\",\"id\":"
+////				+ "\"\",\"volumes\":null,\"containers\":[{\"name\":\"demo2-lamp-apache-apache\","
+////				+ "\"image\":\"sewatech/modcluster\",\"ports\":[{\"hostPort\":31080,\"containerPort"
+////				+ "\":80,\"protocol\":\"TCP\"}],\"resources\":{\"limits\":{\"cpu\":\"1\"}},\"cpu\":"
+////				+ "1000,\"terminationMessagePath\":\"/dev/termination-log\",\"imagePullPolicy\":"
+////				+ "\"PullIfNotPresent\",\"capabilities\":{}}],\"restartPolicy\":{\"always\":{}},"
+////				+ "\"dnsPolicy\":\"ClusterFirst\"}},\"labels\":{\"app\":\"apache\",\"controller\":"
+////				+ "\"demo2-lamp-apache\",\"image\":\"sewatech/modcluster\",\"name\":\"demo2-lamp-"
+////				+ "apache-apache\",\"os\":\"ubuntu\",\"project\":\"demo\",\"stack\":\"demo2\","
+////				+ "\"type\":\"demo2-lamp-apache-apache-pod\"}}},\"currentState\":{\"replicas\":1"
+////				+ ",\"podTemplate\":{\"desiredState\":{\"manifest\":{\"version\":\"\",\"id\":\"\""
+////				+ ",\"volumes\":null,\"containers\":null,\"restartPolicy\":{}}}}},\"labels\":{"
+////				+ "\"name\":\"demo2-lamp-apache\",\"project\":\"demo\",\"stack\":\"demo2\"}}";
+//		System.out.println(test.getUser("radv"));
+//	}
 
 }

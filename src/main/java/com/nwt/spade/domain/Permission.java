@@ -16,16 +16,13 @@ import java.util.Set;
 /**
  * An authority (a security role) used by Spring Security.
  */
-@Document(collection = "T_AUTHORITY")
-public class Authority implements Serializable {
+@Document(collection = "permissions")
+public class Permission implements Serializable {
 
     @NotNull
     @Size(min = 0, max = 50)
     @Id
     private String name;
-    
-    @JsonIgnore
-    private Set<Permission> permissions = new HashSet<>();
 
     public String getName() {
         return name;
@@ -33,14 +30,6 @@ public class Authority implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-    
-    public Set<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setAuthorities(Set<Permission> permissions) {
-        this.permissions = permissions;
     }
 
     @Override
@@ -52,7 +41,7 @@ public class Authority implements Serializable {
             return false;
         }
 
-        Authority authority = (Authority) o;
+        Permission authority = (Permission) o;
 
         if (name != null ? !name.equals(authority.name) : authority.name != null) {
             return false;

@@ -40,7 +40,7 @@
 			<h2 class="md-toolbar-tools" layout="row">
 				<span>User Management</span>
 				<span style=""><md-button class="md-raised md-warn" ng-click="changePassword(user)">Change Password</md-button></span>
-				<span style=""><md-button class="md-raised md-warn" ng-click="manageRoles(user)">Change Password</md-button></span>
+				<span style=""><md-button class="md-raised md-warn" ng-click="manageRoles(user)">Manage Roles</md-button></span>
 			</h2>
 			</md-toolbar>
 			<md-card class="md-whiteframe-z2" flex>
@@ -50,21 +50,19 @@
 					<tr>
 						<th ng-repeat="header in headers" style="text-align: left;">{{header}}</th>
 					</tr>
-					<tr>
-
-					</tr>
-
 				</thead>
 				<tbody>
 					<tr ng-repeat="user in users"
 						ng-click="user.$selected = !user.$selected; changeSelection(user)"
 						ng-class="{'st-selected': user.$selected}">
 						<td data-title="'Name'" sortable="'name'"
-							filter="{ 'name': 'text' }">{{user.name}}</td>
+							filter="{ 'name': 'text' }">{{user.login}}</td>
 						<td data-title="'FirstName'" sortable="'firstName'"
-							filter="{ 'firstName': 'text' }">James</td>
+							filter="{ 'firstName': 'text' }">{{user.first_name}}</td>
 						<td data-title="'LastName'" sortable="'lastName'"
-							filter="{ 'lastName': 'text' }">Baxter</td>
+							filter="{ 'lastName': 'text' }">{{user.last_name}}</td>
+						<td data-title="'Email'" sortable="'email'"
+							filter="{ 'email': 'text' }">{{user.email}}</td>
 						<td data-title="'DefaultProject'" sortable="'defaultProject'"
 							filter="{ 'defaultProject': 'text' }">{{user.default_project}}</td>
 					</tr>

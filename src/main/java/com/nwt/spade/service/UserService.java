@@ -8,8 +8,10 @@ import com.nwt.spade.repository.PersistentTokenRepository;
 import com.nwt.spade.repository.UserRepository;
 import com.nwt.spade.security.SecurityUtils;
 import com.nwt.spade.service.util.RandomUtil;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.opensaml.saml1.core.AuthorityBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -91,6 +94,15 @@ public class UserService {
             u.setEmail(email);
             userRepository.save(u);
             log.debug("Changed Information for User: {}", u);
+        });
+    }
+    
+    public void updateUserRoles(String username, String authority) {
+        userRepository.findOneByLogin(username).ifPresent(u -> {
+        	Authority a = authorityRepository.findOne(authority);
+        	u.addAuthority(a);
+            userRepository.save(u);
+            log.debug("Changed Authorities for User: {}", u);
         });
     }
 
