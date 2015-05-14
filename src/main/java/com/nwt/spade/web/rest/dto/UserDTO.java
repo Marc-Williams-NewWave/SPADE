@@ -26,6 +26,9 @@ public class UserDTO {
     
     @Size(max = 50)
     private String defaultProject;
+    
+    @Size(max = 50)
+    private String ldapUser;
 
     @Email
     @Size(min = 5, max = 100)
@@ -41,13 +44,14 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
+    public UserDTO(String login, String password, String firstName, String lastName, String email, String ldapUser, String langKey,
                    List<String> roles, String defaultProject) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.ldapUser = ldapUser;
         this.langKey = langKey;
         this.roles = roles;
         this.defaultProject = defaultProject;
@@ -74,7 +78,21 @@ public class UserDTO {
         return email;
     }
 
-    public String getLangKey() {
+    /**
+	 * @return the ldapUser
+	 */
+	public String getLdapUser() {
+		return ldapUser;
+	}
+
+	/**
+	 * @param ldapUser the ldapUser to set
+	 */
+	public void setLdapUser(String ldapUser) {
+		this.ldapUser = ldapUser;
+	}
+
+	public String getLangKey() {
         return langKey;
     }
 

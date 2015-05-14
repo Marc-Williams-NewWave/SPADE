@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spadeApp')
-	 .controller('ManagementController', function($scope, $state, $cookies, $mdDialog, $filter, resolveUsers, resolveRoles, resolvePermissions, ngTableParams, Principal, Auth, $http) {
+	 .controller('ManagementController', function($scope, $state, $cookies, $modal, $mdDialog, $filter, resolveLDAPUsers, resolveUsers, resolveRoles, resolvePermissions, resolveProjects, ngTableParams, Principal, Auth, $http) {
 
 	
 	$scope.currentUser = $cookies.currentUser;
@@ -11,7 +11,41 @@ angular.module('spadeApp')
 		$scope.currentProj = proj;
 		$cookies.currentProj = proj;
 	}
-	
+	var app = this;
+	app.closeAlert = function () {
+        app.reason = null;
+    };	
+
+//	var passwdModal = $modal.open(
+//    		{
+//    	
+//        templateUrl: 'scripts/app/admin/management/users/',
+//        controller: 'ModalCtrl',
+//        controllerAs: 'modal',
+//    });
+//
+//    passwdModal.result
+//        .then(function (data) {
+//            app.closeAlert();
+//            app.summary = data;
+//        }, function (reason) {
+//            app.reason = reason;
+//        });
+	app.createUser = function(){
+    var newUserModal = $modal.open({
+        templateUrl: 'scripts/app/admin/management/users/createUser.html',
+        controller: 'CreateUserController',
+        controllerAs: 'modal',
+    });
+
+    newUserModal.result
+        .then(function (data) {
+            app.closeAlert();
+            app.summary = data;
+        }, function (reason) {
+            app.reason = reason;
+        });
+	};
 	$scope.spadeInfo = function(ev) {
 		    $mdDialog.show(
 		      $mdDialog.alert()
@@ -30,6 +64,18 @@ angular.module('spadeApp')
 			  console.log(item);
 				return item;
 		  });
+		  $scope.ldapUsers = resolveLDAPUsers;
+		  
+		  $scope.projects = resolveProjects;
+		  
+		  $scope.permissions = resolvePermissions;
+		  $scope.selectedPerms = [];
+	      $scope.togglePerms = function (item, list) {
+	        var idx = list.indexOf(item);
+	        if (idx > -1) list.splice(idx, 1);
+	        else list.push(item);
+	      };
+	      
 		  console.log($scope.users);
 			$scope.logout = function () {
 	            Auth.logout();
@@ -201,10 +247,29 @@ angular.module('spadeApp')
 				}
 			}
 		})
+		.controller('CreateUserController', function($scope, $state, $cookies, $mdDialog, $filter, resolveRoles, resolveLDAPUsers, resolvePermissions, ngTableParams, Principal, Auth, $http) {
+			$scope.ldapUsers = resolveLDAPUsers;
+		})
 		.factory('UsersService', function ($http) {
 			return {
 				getUsers: function() {
 					var temp = $http.get("http://localhost:8081/spade/api/users")
+					.then(function(response) {
+						console.log(response.data.items);
+						return response.data.items;
+					});
+//					var promise = temp.map(function(item){
+//						return JSON.parse(item);
+//					});
+             return temp;
+         }
+	 }
+	 
+	 })
+	 .factory('LDAPUsersService', function ($http) {
+			return {
+				getUsers: function() {
+					var temp = $http.get("http://localhost:8081/spade/api/test")
 					.then(function(response) {
 						console.log(response.data.items);
 						return response.data.items;
@@ -245,4 +310,17 @@ angular.module('spadeApp')
          }
 	 }
 	 
-	 });;
+	 })
+	 .factory('ProjectsService', function ($http) {
+			return {
+				getProjects: function() {
+					var promise = $http.get("http://localhost:8081/spade/api/projects")
+					.then(function(response) {
+						console.log(response.data);
+						return response.data.items;
+				}); 
+             return promise;
+         }
+	 }
+	 
+	 });

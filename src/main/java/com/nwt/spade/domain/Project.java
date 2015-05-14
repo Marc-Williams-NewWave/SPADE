@@ -1,7 +1,7 @@
 package com.nwt.spade.domain;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,11 +23,11 @@ public class Project extends AbstractAuditingEntity implements Serializable {
     @Field("description")
 	private String description;
 	@JsonIgnore
-	private Set<String> environments;
+	private List<String> environments;
 	@JsonIgnore
-	private Set<User> users;
+	private List<User> users;
 	@JsonIgnore
-	private Set<Image> images;
+	private List<Image> images;
 	
 	public String getName() {
 		return name;
@@ -42,22 +42,22 @@ public class Project extends AbstractAuditingEntity implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Set<String> getEnvironments() {
+	public List<String> getEnvironments() {
 		return environments;
 	}
-	public void setEnvironments(Set<String> environments) {
+	public void setEnvironments(List<String> environments) {
 		this.environments = environments;
 	}
-	public Set<User> getUsers() {
+	public List<User> getUsers() {
 		return users;
 	}
-	public void setUsers(Set<User> users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
-	public Set<User> getImages() {
+	public List<User> getImages() {
 		return users;
 	}
-	public void setImages(Set<Image> images) {
+	public void setImages(List<Image> images) {
 		this.images = images;
 	}
 	@Override

@@ -21,15 +21,21 @@
 	</nav>
 	</md-card>
 	<div>
-		<md-content class="md-padding"> <md-tabs
-			class="tabsdemoStaticTabs" md-selected="data.selectedIndex"
-			md-dynamic-height md-border-bottom> <md-tab
-			aria-controls="tab1-content"
-			style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;"
-			label="Users"> </md-tab> <md-tab aria-controls="tab2-content"
-			style="height: auto !important;text-transform: none !important;border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;border-top-right-radius:10px;"
-			label="Roles"> </md-tab> </md-tabs> <ng-switch on="data.selectedIndex"
-			class="tabpanel-container">
+		<md-content class="md-padding"> 
+		<md-tabs class="tabsdemoStaticTabs" md-selected="data.selectedIndex"
+			md-dynamic-height md-border-bottom> 
+			<md-tab	aria-controls="tab1-content" style="height: auto !important;text-transform: none !important;
+				border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;
+				border-top-right-radius:10px;" label="Users"> </md-tab> 
+			<md-tab aria-controls="tab2-content" style="height: auto !important;text-transform: none !important;
+				border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;
+				border-top-right-radius:10px;" label="Roles"> </md-tab> 
+			<md-tab aria-controls="tab3-content" style="height: auto !important;text-transform: none !important;
+				border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;
+				border-top-right-radius:10px;" label="Temp"> </md-tab>
+		</md-tabs> 
+			
+			<ng-switch on="data.selectedIndex" class="tabpanel-container">
 		<div role="tabpanel" id="tab1-content" aria-labelledby="tab1"
 			ng-switch-when="0">
 			<md-toolbar class="md-primary"
@@ -41,6 +47,7 @@
 				<span>User Management</span>
 				<span style=""><md-button class="md-raised md-warn" ng-click="changePassword(user)">Change Password</md-button></span>
 				<span style=""><md-button class="md-raised md-warn" ng-click="manageRoles(user)">Manage Roles</md-button></span>
+				<span style=""><md-button class="md-raised md-primary" ng-click="app.open()">Create User</md-button></span>
 			</h2>
 			</md-toolbar>
 			<md-card class="md-whiteframe-z2" flex>
@@ -109,6 +116,41 @@
 			<md-button class="md-raised md-primary"
 				ng-click="createRole(roleName, selectedPerms)"
 				style="padding-left:5px">Create New Role</md-button> </md-content>
+		</div>
+		
+		<div role="tabpanel" id="tab3-content" aria-labelledby="tab3"
+			ng-switch-when="2">
+			<md-toolbar class="md-primary"
+				style="border-left: 2pt solid rgb(241, 247, 249);border-right: 2pt solid rgb(241, 247, 249);
+				height:40px; min-height: 0px;">
+			<h2 class="md-toolbar-tools">
+				<span>Link to LDAP User</span>
+			</h2>
+			</md-toolbar>
+			<md-content class="md-padding" style="">
+			<div layout="column" style="">
+				<div style="">
+					<md-subheader class="md-primary" style="padding: 0px !important;">NewWave LDAP User</md-subheader>
+					<h4>{{selectedLdap}}</h4>
+					<select ui-select2 ng-model="selectedLdap" data-placeholder="Select an LDAP user"
+						ng-change="selectLdapUser(selectedLdap)">
+						<option value=""></option>
+						<option ng-repeat="user in ldapUsers track by $index | orderBy:'user'" value="{{user}}">{{user}}</option>
+					</select>
+					<md-divider></md-divider>
+					<md-subheader class="md-primary" style="padding: 0px !important;">Default Project</md-subheader>
+					<select ui-select2 ng-model="defaultProj" data-placeholder="Select a default project"
+						ng-change="selectProject(selectedProj)">
+						<option value=""></option>
+						<option ng-repeat="proj in projects" value="{{proj}}">{{proj.name}}</option>
+					</select>
+					<md-divider></md-divider>
+				</div>
+			</div>
+			<md-button class="md-raised md-primary"
+				ng-click="createUser(selectedLdap)"
+				style="padding-left:5px">Create New User</md-button>
+			</md-content>
 		</div>
 		</ng-switch> </md-content>
 	</div>

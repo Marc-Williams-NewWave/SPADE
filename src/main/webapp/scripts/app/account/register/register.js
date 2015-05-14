@@ -20,6 +20,9 @@ angular.module('spadeApp')
                 	resolveProjects:['ProjectService', function (projectService) {
                         return projectService.getProjects();
                     }],
+                    resolveLDAPUsers:['LDAPUsersService', function (usersService) {
+                        return usersService.getUsers();
+                    }],
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('register');
                         return $translate.refresh();

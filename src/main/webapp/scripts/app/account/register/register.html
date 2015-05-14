@@ -48,6 +48,19 @@
                     </p>
                     </div>
                 </div>
+                <div class="form-group" >
+					<label >LDAP User</label>
+					<select ui-select2 name="ldapUser" ng-model="registerAccount.ldapUser" data-placeholder="Select LDAP User">
+						<option value=""></option>
+						<option ng-repeat="user in ldapUsers track by $index | orderBy:'user'" value="{{user}}">{{user}}</option>
+					 </select>
+					  <div ng-show="form.ldapUser.$dirty && form.ldapUser.$invalid">
+                        <p class="help-block"
+                               ng-show="form.ldapUser.$error.required" l>
+                            You must select a NewWave User.
+                        </p>
+                    </div>
+				</div>
                 <div class="form-group">
                     <label translate="global.form.email">E-mail</label>
                     <input type="email" class="form-control" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"

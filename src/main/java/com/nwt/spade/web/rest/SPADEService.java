@@ -1,5 +1,7 @@
 package com.nwt.spade.web.rest;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nwt.spade.config.LDAPTest;
 import com.nwt.spade.controllers.APIController;
 import com.nwt.spade.controllers.APIController.API;
 
@@ -23,19 +26,21 @@ import com.nwt.spade.controllers.APIController.API;
 public class SPADEService {
 
 	private APIController apiController;
+	private LDAPTest ldapTest;
 	private static final Logger LOG = LoggerFactory
 			.getLogger(SPADEService.class);
 
 	@Autowired
-	public SPADEService(APIController api) {
+	public SPADEService(APIController api, LDAPTest ldap) {
 		apiController = api;
+		ldapTest = ldap;
 	}
 	
-//	@RequestMapping(value = "/test", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
-//	public @ResponseBody ResponseEntity<String> test(@RequestBody String temp) {
-//		return new ResponseEntity<String>(apiController.createRepl(temp),
-//				HttpStatus.OK);
-//	}
+	@RequestMapping(value = "/api/test", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public @ResponseBody ResponseEntity<String> test() {
+		return new ResponseEntity<String>(ldapTest.getLDAPUsers().toString(),
+				HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	public @ResponseBody ResponseEntity<String> spade() {

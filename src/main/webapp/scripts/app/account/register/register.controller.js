@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spadeApp')
-    .controller('RegisterController', function ($scope, $translate, $timeout, Auth, resolveProjects) {
+    .controller('RegisterController', function ($scope, $translate, $timeout, Auth, resolveProjects, resolveLDAPUsers) {
         $scope.success = null;
         $scope.error = null;
         $scope.doNotMatch = null;
@@ -9,6 +9,7 @@ angular.module('spadeApp')
         $scope.registerAccount = {};
         $timeout(function (){angular.element('[ng-model="registerAccount.login"]').focus();});
         $scope.projects = resolveProjects;
+        $scope.ldapUsers = resolveLDAPUsers;
         
         $scope.register = function () {
             if ($scope.registerAccount.password !== $scope.confirmPassword) {
@@ -38,11 +39,12 @@ angular.module('spadeApp')
         
         function createMyUser(){
         	var myUser = {};
-        	myUser.name = $scope.registerAccount.login;
+        	myUser.login = $scope.registerAccount.login;
         	myUser.password = $scope.registerAccount.password;
         	myUser.default_project = $scope.registerAccount.defaultProject;
         	myUser.projects = [ $scope.registerAccount.defaultProject ];
-        	myUser.roles = [ "user" ];
+        	myUser.ldap_user = $scope.registerAccount.ldapUser;
+        	myUser.authorities = [ {_id : "ROLE_USER"} ];
         	
         	console.log(myUser);
         	

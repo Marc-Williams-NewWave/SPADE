@@ -1,0 +1,40 @@
+<md-content class="md-padding" style="">
+<div layout="row">
+	<div layout="column" style="">
+		<div>
+			<h4>{{selectedUser}}</h4>
+			<md-subheader class="md-primary" style="padding: 0px !important;">User</md-subheader>
+			<select ui-select2 ng-model="selectedUser"
+				data-placeholder="Select a User"
+				ng-change="selectUser(selectedUser)">
+				<option value=""></option>
+				<option ng-repeat="user in users" value="{{user}}">{{user.name}}</option>
+			</select>
+
+		</div>
+	</div>
+</div>
+<md-divider></md-divider>
+<div layout="column" style="">
+	<div style="">
+		<div>
+			<h4>{{selectedRole}}</h4>
+			<md-subheader class="md-primary" style="padding: 0px !important;">Roles</md-subheader>
+			<select ui-select2 ng-model="selectedRole"
+				data-placeholder="Select a Role"
+				ng-change="selectRole(selectedRole)">
+				<option value=""></option>
+				<option ng-repeat="role in displayRoles" value="{{role._id}}">{{role._id}}</option>
+			</select>
+		</div>
+	</div>
+</div>
+<md-button class="md-raised md-primary"
+	ng-click="addRole(selectedUser,selectedRole)" style="padding-left:5px">Add
+Role</md-button> <md-divider></md-divider> <md-subheader class="md-primary"
+	style="padding: 0px !important;">Users Roles</md-subheader> <md-list>
+<md-list-item class="md-1-line" ng-repeat="role in selectedUser.roles">
+<div class="md-list-item-text">
+	<h3>{{selectedUser}}</h3>
+</div>
+</md-list-item> </md-list> </md-content>
