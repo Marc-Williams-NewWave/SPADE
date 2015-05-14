@@ -1,0 +1,85 @@
+
+
+		<div class="navbar-default navbar-transparent"
+			style="background-color: #274973; width: 100%; color: white;"
+			layout="column" layout-align="">
+			<div layout="row">
+				<div class="navbar-header" align="left">
+					<a href="http://www.newwave.io"><img alt="NewWave Logo"
+						src="assets/images/newwave-logo-wave-long-white-1024x282.png"
+						height="60px"></a>
+				</div>
+				<div align="center" layout="row"
+					style="margin-right: auto; margin-left: auto">
+					<a ui-sref="home"><img alt="spade logo"
+						src="assets/images/SPADEIcon.png" height="60px"></a>
+					<h2 style="font-family: 'Roboto', sans-serif; font-weight: 700;">SPADE</h2>
+				</div>
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1" align="right"
+					style="float: right; margin-top: 10px;">
+					<ul class="nav navbar-nav" ng-show="isAuthenticated()">
+<!-- 						<li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" -->
+<!-- 						class="dropdown pointer"><a -->
+<!-- 						class="dropdown-toggle" data-toggle="dropdown" href=""> <span> -->
+<!-- 								<span class="glyphicon glyphicon-tower"></span> <span -->
+<!-- 								class="hidden-tablet" translate="global.menu.admin">Admin</span> -->
+<!-- 								<b class="caret"></b> -->
+<!-- 						</span> -->
+<!-- 					</a> -->
+<!-- 						<ul class="dropdown-menu"> -->
+
+<!-- 						</ul></li> -->
+					<li class="dropdown" ><a href="" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false"
+							style="font-family: 'Roboto', sans-serif; font-weight: 300; color: white;">
+								<div layout="row">
+									<ng-md-icon icon="supervisor_account" style="fill:white" size="22"></ng-md-icon>
+									<div style="display: block; margin-top: 2px;">Admin</div>
+									<span style="display: block; margin-top: 11px;" class="caret"></span>
+								</div>
+						</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a ui-sref="management"><span
+									class="glyphicon glyphicon-group"></span> &nbsp;<span>Manage Users</span></a></li>
+								<li><a ui-sref="metrics"><span
+									class="glyphicon glyphicon-dashboard"></span> &nbsp;<span>Metrics</span></a></li>
+								<li><a ui-sref="health"><span
+									class="glyphicon glyphicon-heart"></span> &#xA0;<span>Health</span></a></li>
+								<li><a ui-sref="configuration"><span
+									class="glyphicon glyphicon-list-alt"></span> &#xA0;<span>Configuration</span></a></li>
+								<li><a ui-sref="audits"><span
+									class="glyphicon glyphicon-bell"></span> &nbsp;<span>Audits</span></a></li>
+								<li><a ui-sref="logs"><span
+									class="glyphicon glyphicon-tasks"></span> &nbsp;<span>Logs</span></a></li>
+								<li><a ui-sref="docs"><span
+									class="glyphicon glyphicon-book"></span> &nbsp;<span>API Docs</span></a></li>
+							</ul>
+					</li>
+					<li class="dropdown"><a href="" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false"
+							style="font-family: 'Roboto', sans-serif; font-weight: 300; color: white;">
+								<div layout="row">
+									<ng-md-icon icon="person" style="fill:white" size="20"></ng-md-icon>
+									<div style="display: block; margin-top: 2px;">Account</div>
+									<span style="display: block; margin-top: 11px;" class="caret"></span>
+								</div>
+						</a>
+							<ul class="dropdown-menu" role="menu">
+								<li ><a ng-click="logout()"
+									href="">Logout</a></li>
+							</ul>
+					</li>
+					<li><a ui-sref="home"><div layout="row">
+							<ng-md-icon icon="home" style="fill:white" size="20"></ng-md-icon>
+								<div role="button" aria-expanded="false"
+										style="font-family: 'Roboto', sans-serif; font-weight: 300;
+										color: white; display: block; margin-left: 4% margin-top:2px;">Home</div>
+								</div></a>
+					</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+

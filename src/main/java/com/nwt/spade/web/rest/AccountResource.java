@@ -209,7 +209,7 @@ public class AccountResource {
                 .orElseGet(() -> {
                     User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
                     userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-                    userDTO.getLangKey(), userDTO.getDefaultProject());
+                    userDTO.getLdapUser(), userDTO.getLangKey(), userDTO.getDefaultProject());
                     String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"
                     request.getServerName() +              // "myhost"
@@ -262,6 +262,7 @@ public class AccountResource {
                     user.getFirstName(),
                     user.getLastName(),
                     user.getEmail(),
+                    user.getLdapUser(),
                     user.getLangKey(),
                     user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList()),
                     user.getDefaultProject()),

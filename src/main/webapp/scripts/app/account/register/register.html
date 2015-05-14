@@ -24,9 +24,21 @@
             </div>
 
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
-
+				<div class="form-group" >
+					<label >LDAP User</label>
+					<select ui-select2 style="min-width:30%" name="ldapUser" ng-model="registerAccount.ldapUser" data-placeholder="Select LDAP User" required>
+						<option value=""></option>
+						<option ng-repeat="user in ldapUsers track by $index | orderBy:'user'" value="{{user}}">{{user}}</option>
+					 </select>
+					  <div ng-show="form.ldapUser.$dirty && form.ldapUser.$invalid">
+                        <p class="help-block"
+                               ng-show="form.ldapUser.$error.required" >
+                            You must select a NewWave User to link.
+                        </p>
+                    </div>
+				</div>
                 <div class="form-group">
-                    <label translate="global.form.username">Login</label>
+                    <label translate="global.form.username">Username</label>
                     <input type="text" class="form-control" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
                            ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required>
                     <div ng-show="form.login.$dirty && form.login.$invalid">
@@ -48,19 +60,7 @@
                     </p>
                     </div>
                 </div>
-                <div class="form-group" >
-					<label >LDAP User</label>
-					<select ui-select2 name="ldapUser" ng-model="registerAccount.ldapUser" data-placeholder="Select LDAP User">
-						<option value=""></option>
-						<option ng-repeat="user in ldapUsers track by $index | orderBy:'user'" value="{{user}}">{{user}}</option>
-					 </select>
-					  <div ng-show="form.ldapUser.$dirty && form.ldapUser.$invalid">
-                        <p class="help-block"
-                               ng-show="form.ldapUser.$error.required" l>
-                            You must select a NewWave User.
-                        </p>
-                    </div>
-				</div>
+                
                 <div class="form-group">
                     <label translate="global.form.email">E-mail</label>
                     <input type="email" class="form-control" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
@@ -125,7 +125,7 @@
                 </div>
 				<div class="form-group" >
 					<label >Default Project</label>
-					<select ui-select2 name="selectProject" ng-model="registerAccount.defaultProject" data-placeholder="Select Project">
+					<select ui-select2 style="min-width:30%" name="selectProject" ng-model="registerAccount.defaultProject" data-placeholder="Select Project" required>
 						<option value=""></option>
 						<option ng-repeat="project in projects" value="{{project.name}}">{{project.name}}</option>
 					 </select>
@@ -133,10 +133,6 @@
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="register.form.button">Register</button>
             </form>
             <p></p>
-            <div class="alert alert-warning" translate="global.messages.info.authenticated">
-                If you want to <a href="#/login">authenticate</a>, you can try the default login="admin" and
-                password="admin".
-            </div>
         </div>
     </div>
 </div>

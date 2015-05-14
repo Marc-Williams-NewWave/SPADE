@@ -39,6 +39,8 @@ public class UserDTO {
 
     private List<String> roles;
     
+    private List<String> permissions;
+    
     private List<String> projects;
 
     public UserDTO() {

@@ -89,6 +89,7 @@ angular.module('spadeApp')
 			
 			$scope.headers = [
 			          	    "Username",
+			          	    "LDAP User",
 			          	    "First Name",
 			          	    "Last Name",
 			          	    "Email",

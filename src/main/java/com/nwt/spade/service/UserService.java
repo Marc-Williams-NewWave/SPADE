@@ -60,10 +60,11 @@ public class UserService {
     }
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-                                      String langKey, String project) {
+                                      String ldapUser, String langKey, String project) {
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");
         Set<Authority> authorities = new HashSet<>();
+        Set<String> permissions = new HashSet<>();
         Set<String> projects = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);
@@ -72,6 +73,7 @@ public class UserService {
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
+        newUser.setLdapUser(ldapUser);
         newUser.setLangKey(langKey);
         // new user is not active
         newUser.setActivated(true);
@@ -79,6 +81,8 @@ public class UserService {
         newUser.setActivationKey(null);
         authorities.add(authority);
         newUser.setAuthorities(authorities);
+        permissions.add("PERM_USER_EXAMPLE");
+        newUser.setPermissions(permissions);
         projects.add(project);
         newUser.setDefaultProject(project);
         newUser.setProjects(projects);

@@ -19,11 +19,10 @@
 			</div>
 		</div>
 	</nav>
-	</md-card>
+
 	<div>
 		<md-content class="md-padding"> 
-		<md-tabs class="tabsdemoStaticTabs" md-selected="data.selectedIndex"
-			md-dynamic-height md-border-bottom> 
+		<md-tabs class="tabsdemoStaticTabs" md-selected="data.selectedIndex" md-dynamic-height md-border-bottom> 
 			<md-tab	aria-controls="tab1-content" style="height: auto !important;text-transform: none !important;
 				border: 2pt solid rgb(241, 247, 249);min-width:163px !important;border-top-left-radius:10px;
 				border-top-right-radius:10px;" label="Users"> </md-tab> 
@@ -64,13 +63,15 @@
 						ng-class="{'st-selected': user.$selected}">
 						<td data-title="'Name'" sortable="'name'"
 							filter="{ 'name': 'text' }">{{user.login}}</td>
+						<td data-title="'ldapUser'" sortable="'ldapUser'"
+							filter="{ 'LdapUser': 'text' }">{{user.ldap_user}}</td>
 						<td data-title="'FirstName'" sortable="'firstName'"
 							filter="{ 'firstName': 'text' }">{{user.first_name}}</td>
 						<td data-title="'LastName'" sortable="'lastName'"
 							filter="{ 'lastName': 'text' }">{{user.last_name}}</td>
 						<td data-title="'Email'" sortable="'email'"
 							filter="{ 'email': 'text' }">{{user.email}}</td>
-						<td data-title="'DefaultProject'" sortable="'defaultProject'"
+						<td data-title="'dDefaultProject'" sortable="'defaultProject'"
 							filter="{ 'defaultProject': 'text' }">{{user.default_project}}</td>
 					</tr>
 				</tbody>
@@ -125,6 +126,7 @@
 				height:40px; min-height: 0px;">
 			<h2 class="md-toolbar-tools">
 				<span>Link to LDAP User</span>
+				<span style=""><md-button class="md-raised md-warn" ui-sref="register">Alternate</md-button></span>
 			</h2>
 			</md-toolbar>
 			<md-content class="md-padding" style="">

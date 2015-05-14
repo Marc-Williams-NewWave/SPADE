@@ -43,6 +43,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Email
     @Size(max = 100)
     private String email;
+    
+    @Size(max = 50)
+    @Field("ldap_user")
+    private String ldapUser;
 
     private boolean activated = false;
 
@@ -56,6 +60,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
+    
+    @JsonIgnore
+    private Set<String> permissions = new HashSet<>();
     
     @Field("default_project")
     private String defaultProject;
@@ -111,7 +118,21 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.email = email;
     }
 
-    public boolean getActivated() {
+    /**
+	 * @return the ldapUser
+	 */
+	public String getLdapUser() {
+		return ldapUser;
+	}
+
+	/**
+	 * @param ldapUser the ldapUser to set
+	 */
+	public void setLdapUser(String ldapUser) {
+		this.ldapUser = ldapUser;
+	}
+
+	public boolean getActivated() {
         return activated;
     }
 
@@ -143,7 +164,21 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.authorities = authorities;
     }
     
-    public void addAuthority(Authority authority) {
+    /**
+	 * @return the permissions
+	 */
+	public Set<String> getPermissions() {
+		return permissions;
+	}
+
+	/**
+	 * @param permissions the permissions to set
+	 */
+	public void setPermissions(Set<String> permissions) {
+		this.permissions = permissions;
+	}
+
+	public void addAuthority(Authority authority) {
         this.authorities.add(authority);
     }
     
