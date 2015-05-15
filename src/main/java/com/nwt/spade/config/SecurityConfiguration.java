@@ -2,10 +2,10 @@ package com.nwt.spade.config;
 
 import com.nwt.spade.security.*;
 import com.nwt.spade.web.filter.CsrfCookieGeneratorFilter;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-
 import org.springframework.data.repository.query.spi.EvaluationContextExtension;
 import org.springframework.data.repository.query.spi.EvaluationContextExtensionSupport;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.ldap.userdetails.LdapUserDetailsService;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 
@@ -46,6 +47,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     private UserDetailsService userDetailsService;
+    
+    @Inject
+    private LdapUserDetailsService ldapUserDetailsService;
 
     @Inject
     private RememberMeServices rememberMeServices;
@@ -57,14 +61,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
 //        auth
-//        	.ldapAuthentication()
-//				.userDnPatterns("nwtsvc@newwave.com")
-//				.userSearchBase("DC=Newwave,DC=com");
-//				.contextSource().ldif("classpath:test-server.ldif");
+//            .userDetailsService(userDetailsService)
+//                .passwordEncoder(passwordEncoder());
+//        
+        auth
+        	.userDetailsService(ldapUserDetailsService)
+        	.and()
+        	.ldapAuthentication()
+        	.userDnPatterns("OU=person")
+				.contextSource()
+					.url("ldap://192.168.5.50:3268")
+					.root("DC=Newwave,DC=com")
+					.managerDn("nwtsvc@newwave.com")
+					.managerPassword("Nati0naloneWisd0m2o2o");
     }
 
     @Override
