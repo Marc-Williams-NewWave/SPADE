@@ -5,10 +5,10 @@ angular.module('spadeApp').controller('TopbarController',
 
 			$scope.logout = function() {
 				Auth.logout();
-				$cookies.currentUser = 'undefined';
-				$cookies.currentProj = 'undefined';
-				$rootScope.currentUser = 'undefined';
-				$rootScope.currentProj = 'undefined';
+				$cookies.currentUser = {};
+				$cookies.currentProj = {};
+				$rootScope.currentUser = {};
+				$rootScope.currentProj = {};
 				$state.go('login');
 			}
 			$scope.isAuthenticated = Principal.isAuthenticated;

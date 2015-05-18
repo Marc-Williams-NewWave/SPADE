@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Authenticate a user from the database.
  */
-@Component("ldapUserDetailsService")
+//@Component("ldapUserDetailsService")
 public class LdapUserDetailsService extends org.springframework.security.ldap.userdetails.LdapUserDetailsService {
 
     public LdapUserDetailsService(LdapUserSearch userSearch) {

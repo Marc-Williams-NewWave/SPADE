@@ -48,8 +48,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Inject
     private UserDetailsService userDetailsService;
     
-    @Inject
-    private LdapUserDetailsService ldapUserDetailsService;
+//    @Inject
+//    private LdapUserDetailsService ldapUserDetailsService;
 
     @Inject
     private RememberMeServices rememberMeServices;
@@ -61,20 +61,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//            .userDetailsService(userDetailsService)
-//                .passwordEncoder(passwordEncoder());
-//        
         auth
-        	.userDetailsService(ldapUserDetailsService)
-        	.and()
-        	.ldapAuthentication()
-        	.userDnPatterns("OU=person")
-				.contextSource()
-					.url("ldap://192.168.5.50:3268")
-					.root("DC=Newwave,DC=com")
-					.managerDn("nwtsvc@newwave.com")
-					.managerPassword("Nati0naloneWisd0m2o2o");
+            .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+        
+//        auth
+//        	.userDetailsService(ldapUserDetailsService)
+//        	.and()
+//        	.ldapAuthentication()
+//        	.userDnPatterns("OU=person")
+//				.contextSource()
+//					.url("ldap://192.168.5.50:3268")
+//					.root("DC=Newwave,DC=com")
+//					.managerDn("nwtsvc@newwave.com")
+//					.managerPassword("Nati0naloneWisd0m2o2o");
     }
 
     @Override
@@ -123,6 +123,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/spade/api/**").permitAll()
+                .antMatchers("/devops/**").authenticated()
                 .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)

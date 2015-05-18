@@ -3,8 +3,8 @@ angular.module('spadeApp')
         .config(function ($stateProvider) {
         $stateProvider
             .state('projects', {
-                parent: 'features',
-                url: '/projects',
+                parent: 'devops',
+                url: '/devops/projects',
                 data: {
                     roles: []
                 },

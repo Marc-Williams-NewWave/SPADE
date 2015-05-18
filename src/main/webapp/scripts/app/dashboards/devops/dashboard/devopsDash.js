@@ -1,24 +1,23 @@
 'use strict';
 
-
 angular.module('spadeApp')
-	.config(function ($stateProvider) {
+    .config(function ($stateProvider) {
         $stateProvider
-            .state('author', {
+            .state('devopsDash', {
                 parent: 'devops',
-                url: '/devops/author',
+                url: '/dashboard',
                 data: {
                     roles: []
                 },
-                resolve:{
-                    resolvedAuthor: ['Author1', function (Author) {
-                        return Author.query().$promise;
+                resolve: {
+                    resolvedSelect:['SelectService', function (SelectService) {
+                        return SelectService.findAllProj();
                     }]
                 },
                 views: {
                     'content@': {
-                    	templateUrl: 'scripts/app/dashboards/devops/author/author.html',
-                        controller: 'AuthorController'
+                        templateUrl: 'scripts/app/dashboards/devops/dashboard/devopsDash.html',
+                        controller: 'DevopsController'
                     }
                 }
 //                ,
@@ -29,4 +28,4 @@ angular.module('spadeApp')
 //                    }]
 //                }
             });
-    });;
+    });

@@ -88,8 +88,9 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
             $rootScope.toStateParams = toStateParams;
             
         	var requireLogin = toState.data.requireLogin;
-            
-            if(requireLogin && $cookies.currentUser == 'undefined'){
+            console.log("STATE CHANGE");
+            if(requireLogin && $cookies.currentUser == {}){
+            	console.log($cookies.currentUser);
             	event.preventDefault();
             	//start login modal
             	//alert("Login Required");

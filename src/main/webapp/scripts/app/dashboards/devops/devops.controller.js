@@ -7,23 +7,20 @@ angular.module('spadeApp')
 	projects.push("Select Project");
 	for (var i = 0; i < resolvedSelect.length; i++) {
 		projects.push(resolvedSelect[i].name);
-
-
 	}
 
-
 	$scope.colors = projects;
-
 
 	$('select.selectpicker').on('change', function(){
 		var selected = $('.selectpicker option:selected').text();
 	
-		$state.go("dashboard",{id:selected});
+		$state.go("devopsDash",{id:selected});
 
 //		$location.path('/dashboard/'+selected);
 
 	});
-}]).controller('AdminController',function($scope,resolvedRel,resolvecheckin,resolvedBuild,resolvedCont,$rootScope,$route,$stateParams,$http,Admin,resolveDonut){
+}])
+.controller('AdminController',function($scope,resolvedRel,resolvecheckin,resolvedBuild,resolvedCont,$rootScope,$route,$stateParams,$http,Admin,resolveDonut){
 
 	var issues = resolveDonut;
 	$scope.chart_options = {
@@ -152,7 +149,78 @@ angular.module('spadeApp')
 
      
 
-}).directive('selectpicker', ['$parse', function ($parse) {
+})
+.factory('Admin1', function ($resource) {
+	
+	  return $resource('app/rest/releases', {}, {
+	        'get': { method: 'GET', params: {}, isArray: true}
+	  });
+})
+.factory('Admin', function ($http) {
+	 return {
+	
+		 
+		    findCont: function(name) {
+          	
+	            
+              var promise = $http.get('app/rest/contributor', {params: {name: name}}).then(function (response) {
+                  return response.data;
+              });
+              return promise;
+          },
+          findBuild: function(name) {
+            	
+	            
+              var promise = $http.get('app/rest/builds', {params: {name: name}}).then(function (response) {
+                  return response.data;
+              });
+              return promise;
+          },
+          findCheckins:function(name){
+        	  
+        	  var promise = $http.get('app/rest/checkin', {params: {name: name}}).then(function (response) {
+                  return response.data;
+              });
+              return promise;
+          },
+          findRel: function(name) {
+            	
+	            
+              var promise = $http.get('app/rest/releases', {params: {name: name}}).then(function (response) {
+                  return response.data;
+              });
+              return promise;
+          },
+          
+          findIssues: function(name) {
+          	
+	            
+              var promise = $http.get('app/rest/issues', {params: {name: name}}).then(function (response) {
+                  return response.data;
+              });
+              return promise;
+          },
+	 
+	 }
+	
+	  
+})
+.factory('SelectService', function ($http) {
+	 return {
+	
+		 
+		    findAllProj: function() {
+         	
+	            
+             var promise = $http.get('app/rest/projectss').then(function (response) {
+                 return response.data;
+             });
+             return promise;
+         }
+	 }
+	 
+})
+.directive('selectpicker', ['$parse', function ($parse) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -254,7 +322,8 @@ angular.module('spadeApp')
         }
     };
 });
-angular.module('angular-bootstrap-select', []).directive('linechart', function ($window) {
+angular.module('angular-bootstrap-select', [])
+.directive('linechart', function ($window) {
 
     return {
         restrict: 'E',
