@@ -16,7 +16,7 @@ angular.module('spadeApp')
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/dashboards/devops/selection/select.html',
+                        templateUrl: 'scripts/app/dashboards/devops/devops.html',
                         controller: 'DevopsController'
                     }
                 }
