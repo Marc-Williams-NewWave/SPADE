@@ -6,8 +6,8 @@ import com.nwt.spade.devops.CheckinChart;
 import com.nwt.spade.devops.Contributor;
 import com.nwt.spade.devops.IssueChart;
 import com.nwt.spade.devops.Releases;
-import com.nwt.spade.domain.Projects;
-import com.nwt.spade.repository.ProjectsRepository;
+import com.nwt.spade.domain.DevOpsProject;
+import com.nwt.spade.repository.DevOpsProjectRepository;
 import com.nwt.spade.service.DevOpsProjectService;
 import com.nwt.spade.domain.Authority;
 import com.nwt.spade.domain.PersistentToken;
@@ -66,7 +66,7 @@ public class AccountResource {
     private DevOpsProjectService projectService;
     
     @Inject
-    private ProjectsRepository projectsRepository;
+    private DevOpsProjectRepository projectsRepository;
     
     /**
      * GET  /rest/activate -> activate the registered user.
@@ -109,9 +109,9 @@ public class AccountResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Projects> listProjects() {
+    public List<DevOpsProject> listProjects() {
        
-         List<Projects> projects = projectsRepository.findAll();
+         List<DevOpsProject> projects = projectsRepository.findAll();
 
     	    
     	

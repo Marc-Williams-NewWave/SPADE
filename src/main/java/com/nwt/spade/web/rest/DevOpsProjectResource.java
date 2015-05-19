@@ -2,8 +2,8 @@ package com.nwt.spade.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.nwt.spade.devops.Contributor;
-import com.nwt.spade.domain.Projects;
-import com.nwt.spade.repository.ProjectsRepository;
+import com.nwt.spade.domain.DevOpsProject;
+import com.nwt.spade.repository.DevOpsProjectRepository;
 
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -26,12 +26,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/app")
-public class ProjectsResource {
+public class DevOpsProjectResource {
 
-    private final Logger log = LoggerFactory.getLogger(ProjectsResource.class);
+    private final Logger log = LoggerFactory.getLogger(DevOpsProjectResource.class);
 
     @Inject
-    private ProjectsRepository projectsRepository;
+    private DevOpsProjectRepository projectsRepository;
 
     /**
      * POST  /rest/projectss -> Create a new projects.
@@ -40,7 +40,7 @@ public class ProjectsResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@RequestBody Projects projects) {
+    public void create(@RequestBody DevOpsProject projects) {
         log.debug("REST request to save Projects : {}", projects);
         projectsRepository.save(projects);
     }
@@ -52,7 +52,7 @@ public class ProjectsResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Projects> getAll() {
+    public List<DevOpsProject> getAll() {
         log.debug("REST request to get all Projectss");
         return projectsRepository.findAll();
     }
@@ -64,9 +64,9 @@ public class ProjectsResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Projects> get(@PathVariable String id) {
+    public ResponseEntity<DevOpsProject> get(@PathVariable String id) {
         log.debug("REST request to get Projects : {}", id);
-        Projects projects = projectsRepository.findOne(id);
+        DevOpsProject projects = projectsRepository.findOne(id);
         if (projects == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

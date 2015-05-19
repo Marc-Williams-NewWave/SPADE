@@ -88,9 +88,9 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
             $rootScope.toStateParams = toStateParams;
             
         	var requireLogin = toState.data.requireLogin;
-            console.log("STATE CHANGE");
-            if(requireLogin && $cookies.currentUser == {}){
-            	console.log($cookies.currentUser);
+            console.log("STATE CHANGE ATTEMPT: " + toState.name);
+            if(requireLogin && $cookies.currentUser === {}){
+            	console.log("Not logged in");
             	event.preventDefault();
             	//start login modal
             	//alert("Login Required");
@@ -118,7 +118,7 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
 
         $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
             var titleKey = 'global.title';
-
+            console.log("STATE CHANGE SUCCESS: " + fromState.name + " -> " + toState.name);
             $rootScope.previousStateName = fromState.name;
             $rootScope.previousStateParams = fromParams;
 
@@ -151,8 +151,7 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
-        $urlRouterProvider.otherwise('/');
-
+        $urlRouterProvider.otherwise('/home');
         
         $stateProvider
         .state('site', {

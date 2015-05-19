@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * A Projects.
  */
-public class Projects implements Serializable {
+public class DevOpsProject implements Serializable {
 
     @Id
     private String id;
@@ -125,7 +125,7 @@ public class Projects implements Serializable {
             return false;
         }
 
-        Projects projects = (Projects) o;
+        DevOpsProject projects = (DevOpsProject) o;
 
         if (id != null ? !id.equals(projects.id) : projects.id != null) return false;
 

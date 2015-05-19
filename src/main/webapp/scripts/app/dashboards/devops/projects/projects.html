@@ -1,9 +1,20 @@
+<nav class="navbar navbar-default navbar-transparent" style="background-color:#e0e0e0;margin-bottom: 0px !important;height:auto">
+  <div class="container-fluid">
+    
+    <div class="navbar-header">
+      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">Project Build Information</div>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:2.7%;">
+      <ul class="nav navbar-nav">
+      <li role="button" ng-click="spadeInfo()"><ng-md-icon icon="info_outline" style="display:block;margin-top:12px;fill:black" size="25"></ng-md-icon></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <div>
-
-    <h2>Projects</h2>
-
-    <button class="btn btn-primary btn-lg" 	 ng-click="clear()">
-        <span class="glyphicon glyphicon-flash"></span> Create a new Projects
+    <button class="btn btn-primary btn-lg" ng-click="clear()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new build Project
     </button>
     <div class="modal fade" id="saveProjectsModal" tabindex="-1" role="dialog" aria-labelledby="myProjectsLabel"
          aria-hidden="true">
@@ -11,51 +22,51 @@
             <div class="modal-content">
                 <form name="form" role="form" novalidate
                       class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
-                      ng-submit="create()">
+                      ng-submit="createProj()">
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                ng-click="clear()">&times;</button>
-                        <h4 class="modal-title" id="myProjectsLabel">Create or edit a Projects</h4>
+                                ng-click="clearProj()">&times;</button>
+                        <h4 class="modal-title" id="myProjectsLabel">Create or edit a Project</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
                             <label>ID</label>
                             <input type="text" class="form-control" name="id"
-                                   ng-model="projects.id" readonly>
+                                   ng-model="saveProject.id" readonly>
                         </div>
 
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control"
-                                   ng-model="projects.name">
+                                   ng-model="saveProject.name">
                         </div>
                          <div class="form-group">
                             <label>Github Username</label>
                             <input type="text" class="form-control"
-                                   ng-model="projects.gitUsername">
+                                   ng-model="saveProject.gitUsername">
                         </div>
                          <div class="form-group">
                             <label>Github Password</label>
                             <input type="password" class="form-control"
-                                   ng-model="projects.gitPassword">
+                                   ng-model="saveProject.gitPassword">
                         </div>
                          <div class="form-group">
                             <label>Github repo</label>
                             <input type="text" class="form-control"
-                                   ng-model="projects.gitUrl">
+                                   ng-model="saveProject.gitUrl">
                         </div>
                           <div class="form-group">
                             <label>Build Server</label>
                             <input type="url" class="form-control"
-                                   ng-model="projects.buildUrl">
+                                   ng-model="saveProject.buildUrl">
                         </div>
                       
 
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearProj()">
                             <span class="glyphicon glyphicon-ban-circle"></span> Cancel
                         </button>
                         <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
@@ -79,19 +90,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="projects in projectss">
-                    <td>{{projects.name}}</td>
-                    <td>{{projects.gitUsername}}</td>  
-                     <td>{{projects.gitUrl}}</td> 
-                     <td>{{projects.buildUrl}}</td> 
+                <tr ng-repeat="project in projects">
+                    <td>{{project.name}}</td>
+                    <td>{{project.gitUsername}}</td>  
+                     <td>{{project.gitUrl}}</td> 
+                     <td>{{project.buildUrl}}</td> 
                      <td>
                         <button type="submit"
-                                ng-click="update(projects.id)"
+                                ng-click="updateProj(project.id)"
                                 class="btn btn-default">
                             <span class="glyphicon glyphicon-pencil"></span> Edit
                         </button>
                         <button type="submit"
-                                ng-click="delete(projects.id)"
+                                ng-click="deleteProj(project.id)"
                                 class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove-circle"></span> Delete
                         </button>

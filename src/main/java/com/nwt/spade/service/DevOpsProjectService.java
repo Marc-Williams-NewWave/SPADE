@@ -27,8 +27,8 @@ import com.nwt.spade.devops.CheckinChart;
 import com.nwt.spade.devops.Contributor;
 import com.nwt.spade.devops.IssueChart;
 import com.nwt.spade.devops.Severity;
-import com.nwt.spade.domain.Projects;
-import com.nwt.spade.repository.ProjectsRepository;
+import com.nwt.spade.domain.DevOpsProject;
+import com.nwt.spade.repository.DevOpsProjectRepository;
 
 @Service
 public class DevOpsProjectService {
@@ -36,7 +36,7 @@ public class DevOpsProjectService {
 	private final Logger log = LoggerFactory.getLogger(UserService.class);
 
 	@Inject
-	private ProjectsRepository projectRepository;
+	private DevOpsProjectRepository projectRepository;
 
 	@Inject
 	private MongoTemplate mongoTemplate;
@@ -45,7 +45,7 @@ public class DevOpsProjectService {
 	// private RestTemplate restTemplate;
 
 	public List<CheckinChart> findAllCheckins(String name) {
-		Projects project = projectRepository.getProjectByName(name);
+		DevOpsProject project = projectRepository.getProjectByName(name);
 		String plainCreds = project.getGitUsername() + ':'
 				+ project.getGitPassword();
 		byte[] plainCredsBytes = plainCreds.getBytes();
@@ -101,7 +101,7 @@ public class DevOpsProjectService {
 		//
 		// proj.size();
 
-		Projects project = projectRepository.getProjectByName(name);
+		DevOpsProject project = projectRepository.getProjectByName(name);
 		String plainCreds = project.getGitUsername() + ':'
 				+ project.getGitPassword();
 		byte[] plainCredsBytes = plainCreds.getBytes();
@@ -126,7 +126,7 @@ public class DevOpsProjectService {
 	public List<Builds> insertBuildInformation(String name) {
 		RestTemplate restTemplate = new RestTemplate();
 		List<Builds> builds;
-		Projects project = projectRepository.getProjectByName(name);
+		DevOpsProject project = projectRepository.getProjectByName(name);
 		String buildurl = project.getBuildUrl();
 		String url = buildurl + ":8080/job/EPPE-CI/lastBuild/api/json";
 

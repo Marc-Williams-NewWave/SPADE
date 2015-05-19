@@ -4,15 +4,15 @@
 angular.module('spadeApp')
 	.config(function ($stateProvider) {
         $stateProvider
-            .state('author', {
+            .state('authors', {
                 parent: 'devops',
-                url: '/devops/author',
+                url: '/authors',
                 data: {
                     roles: []
                 },
                 resolve:{
-                    resolvedAuthor: ['Author1', function (Author) {
-                        return Author.query().$promise;
+                    resolveAuthors: ['AuthorService', function (authorService) {
+                        return authorService.query().$promise;
                     }]
                 },
                 views: {

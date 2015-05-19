@@ -4,19 +4,22 @@ angular.module('spadeApp')
         $stateProvider
             .state('projects', {
                 parent: 'devops',
-                url: '/devops/projects',
+                url: '/projects',
                 data: {
                     roles: []
                 },
                 resolve:{
-                    resolvedProjects: ['Projects', function (Projects) {
-                        return Projects.query().$promise;
+                    resolveProjects: ['DevOpsProjectsService', function (projService) {
+                        return projService.query().$promise;
+                    }],
+                    resolveSelect:['SelectService', function (selectService) {
+                        return selectService.findAllProj();
                     }]
                 },
                 views: {
                     'content@': {
                     	templateUrl: 'scripts/app/dashboards/devops/projects/projects.html',
-                        controller: 'ProjectsController'
+                        controller: 'DevOpsProjectsController'
                     }
                 }
 //                ,
@@ -27,4 +30,4 @@ angular.module('spadeApp')
 //                    }]
 //                }
             });
-    });;;
+    });

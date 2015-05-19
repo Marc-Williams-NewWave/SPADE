@@ -1,36 +1,66 @@
 'use strict';
 
-angular.module('spadeApp').controller('ProjectsController', function ($scope, resolvedProjects, Projects) {
+angular.module('spadeApp')
+	.controller('DevOpsProjectsController', function ($scope, resolveProjects, DevOpsProjectsService ,resolveSelect, $mdDialog) {
 
-        $scope.projectss = resolvedProjects;
+        $scope.projects = resolveSelect;
 
-        $scope.create = function () {
-            Projects.save($scope.projects,
+        $scope.createProj = function () {
+        	DevOpsProjectServce.save($scope.saveProject,
                 function () {
-                    $scope.projectss = Projects.query();
+                    $scope.projects = DevOpsProjectServce.query();
                     $('#saveProjectsModal').modal('hide');
                    // $scope.clear();
                 });
         };
 
-        $scope.update = function (id) {
-            $scope.projects = Projects.get({id: id});
+        $scope.updateProj = function (id) {
+            $scope.projects = DevOpsProjectServce.get({id: id});
             $('#saveProjectsModal').modal('show');
         };
 
-        $scope.delete = function (id) {
-            Projects.delete({id: id},
+        $scope.deleteProj = function (id) {
+        	DevOpsProjectServce.delete({id: id},
                 function () {
-                    $scope.projectss = Projects.query();
+                    $scope.projects = DevOpsProjectServce.query();
                 });
         };
 
-        $scope.clear = function () {
+        $scope.clearProj = function () {
             $('#saveProjectsModal').modal('show');
 
-            $scope.projects = {name: null, lastBuildDate: null, id: null};
+            $scope.project = {name: null, lastBuildDate: null, id: null};
         };
         
 //        $('#saveProjectsModal').modal('show');
 
-    });
+        $scope.spadeInfo = function(ev) {
+		    $mdDialog.show(
+		      $mdDialog.alert()
+		        .title("SPADE")
+		        .content("DevOps Projects (Placeholder)")
+		        .ariaLabel("DevOps Info")
+		        .ok("Close")
+		        .targetEvent(ev)
+		    );
+		  };
+        
+    })
+    .factory('DevOpsProjectsService', function ($resource) {
+        return $resource('app/rest/projectss/:id', {}, {
+            'query': { method: 'GET', isArray: true},
+            'get': { method: 'GET'}
+        });
+    })
+    .factory('SelectService', function ($http) {
+	 return {
+	    findAllProj: function() {
+        var promise = $http.get('spade/api/projects')//$http.get('app/rest/projectss')
+             	.then(function (response) {
+             		console.log(response.data);
+                 return response.data.items;
+             });
+             return promise;
+         }
+	 }	 
+});
