@@ -10,14 +10,14 @@ angular.module('spadeApp')
                     roles: []
                 },
                 resolve: {
-                    resolvedSelect:['SelectService', function (SelectService) {
-                        return SelectService.findAllProj();
+                    resolveSelect:['SelectService', function (selectService) {
+                        return selectService.findAllProj();
                     }]
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/dashboards/devops/devops.html',
-                        controller: 'DevopsController'
+                        templateUrl: 'scripts/app/dashboards/devops/main/devops.html',
+                        controller: 'DevOpsController'
                     }
                 }
 //                ,

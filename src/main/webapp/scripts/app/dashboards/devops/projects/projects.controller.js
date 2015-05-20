@@ -47,7 +47,7 @@ angular.module('spadeApp')
         
     })
     .factory('DevOpsProjectsService', function ($resource) {
-        return $resource('app/rest/projectss/:id', {}, {
+        return $resource('spade/api/devops/projects/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': { method: 'GET'}
         });

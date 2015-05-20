@@ -33,7 +33,7 @@ angular.module('spadeApp')
         };
     })
     .factory('AuthorService', function ($resource) {
-        return $resource('app/rest/authors/:id', {}, {
+        return $resource('spade/api/devops/authors/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': { method: 'GET'}
         });

@@ -1,26 +1,85 @@
-<!-- <div class="container-fluid">
-<div class="row" >
-<div class="col-md-2 col-md-offset-5">
- <select class="selectpicker"  selectpicker="" ng-model="model" toggle-dropdown data-style="btn-success btn-lg">
-                        <option value="">Select the Project</option>
-                        <option>EPPE</option>
-                        <option>RADV</option>
-                        <option>NEWWAVE CARE</option>
-                    </select>
-                    </div>
-                    </div>
+<nav class="navbar navbar-default navbar-transparent" style="background-color:#e0e0e0;margin-bottom: 0px !important;height:auto">
+  <div class="container-fluid">
+    
+    <div class="navbar-header">
+      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">DevOps - Project List</div>
+    </div>
 
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:2.7%;">
+      <ul class="nav navbar-nav">
+      <li class="dropdown">
+          <a ui-sref="devops" class="dropdown-toggle md-accent" role="button" aria-expanded="false" 
+          	style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Select Project</a>
+      </li>
+      <li role="button" ng-click="spadeInfo()"><ng-md-icon icon="info_outline" style="display:block;margin-top:12px;fill:black" size="25"></ng-md-icon></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div ng-show="false" ng-cloak style="background-color: #f1f7f9;">
+	<div>
+	<md-card class="md-whiteframe-z2" style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">
+	<h2 style="padding-left:6%">Select a project</h2>
+		<md-card-content>
+		
+	</md-card-content>
+	</md-card>
+		<div layout="row">
+		
+		<div style="padding-left: 5%; padding-top: 1%; width: 100%">
+			<md-button class="md-raised md-primary md-hue-1 listing" style="font-size: large; margin-right:5%" ng-repeat="project in devProjects" 
+			href="" ng-click="setCurrentProject(project.name)">
+			<div layout="column" style="font-family: 'Roboto', sans-serif;font-weight:700;color: white" >
+				<div layout="column">
+		  			 <span style="text-transform: capitalize;">{{project.name}}</span>
+		  			 <span>{{project.description}}</span>
+		  		</div>
+		  	</div> 
+	  		</md-button>
+  		</div>
+		</div>
+	</div>
 </div>
- -->
 
-<div class="container" style="margin-top: 200px;">
+<div ng-show="true" class="container" style="margin-top: 200px;">
     <div class="row vertical-center-row">
         <div class="col-lg-12">
             <div class="row ">
                 <div class="col-md-10 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4">
-                
-                <select ng-init="model = devProjects[0]" class="selectpicker" selectpicker="" ng-model="model" ng-options="c as c for c in devProjects" toggle-dropdown data-style="btn-success btn-lg">
-                 </select>
+<!--                 <select title="Select a Project" class="selectpicker" selectpicker=""  -->
+<!--                 	ng-model="selectedProj"   -->
+<!--                 	toggle-dropdown data-live-search="true" data-style="btn-success btn-lg"> -->
+<!--                 	<option ng-repeat="project in devProjects">{{project}}</option> -->
+<!--                 </select> -->
+                <ol id="dynamic-options" title="Select a Project" class="nya-bs-select btn-success btn-lg" ng-model="selectedProj" style="">
+    				<li nya-bs-option="project in devProjects" ng-click="setCurrentProject(project)">
+      					<a>{{ project }}</a>
+    				</li>
+  				</ol>
+                </div>
+            </div>
+             <div class="row" style="margin-top: 50px">
+                <div class="col-md-10 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4"> 
+                <a class="btn-lg btn-info" type="button" ui-sref="projects" ng-click="clear()"> 
+					<span>Create a New Project</span>
+				</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="false" class="container" style="margin-top: 200px;">
+    <div class="row vertical-center-row">
+        <div class="col-lg-12">
+            <div class="row ">
+                <div class="col-md-10 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4">
+<!--                 ng-options="c as c for c in devProjects" -->
+                <select title="Select a Project" class="selectpicker" selectpicker="" 
+                	ng-model="selectedProj"  
+                	toggle-dropdown data-live-search="true" data-style="btn-success btn-lg">
+                	<option ng-repeat="project in devProjects">{{project}}</option>
+                </select>
                  
                 
                     

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 'tmh.dynamicLocale','ngResource', 
-                            'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster',
+                            'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster', 'nya.bootstrap.select',
                             'ngMdIcons','ui.select2','ngSanitize','ngTable', 'nvd3','nvd3ChartDirectives'])
     
     .factory('templateService', function(){
@@ -151,7 +151,7 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/');
         
         $stateProvider
         .state('site', {

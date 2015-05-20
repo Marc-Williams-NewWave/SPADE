@@ -11,6 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.joda.time.LocalDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * A Projects.
  */
+@Document(collection = "devops_projects")
 public class DevOpsProject implements Serializable {
 
     @Id

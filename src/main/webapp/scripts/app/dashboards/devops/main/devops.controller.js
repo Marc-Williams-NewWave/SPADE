@@ -1,12 +1,14 @@
 'use strict'
 
 angular.module('spadeApp')
-.controller('DevopsController',	["$scope", "$state", "resolvedSelect", function($scope, $state, resolvedSelect) {
+.controller('DevOpsController',	["$scope", "$state", "$mdDialog", "resolveSelect", function($scope, $state, $mdDialog, resolveSelect) {
 	$scope.devProjects = [];
-	$scope.devProjects.push("Select Project");
-	for (var i = 0; i < resolvedSelect.length; i++) {
-		$scope.devProjects.push(resolvedSelect[i].name);
-		console.log(resolvedSelect[i].name);
+	//$scope.devProjects.push("Select Project");
+	for (var i = 0; i < resolveSelect.length; i++) {
+		if(resolveSelect[i].projName !== "demo"){
+			$scope.devProjects.push(resolveSelect[i].projName);
+		}
+		console.log(resolveSelect[i].projName);
 	}
 	console.log($scope.devProjects);
 
@@ -18,7 +20,34 @@ angular.module('spadeApp')
 //		$location.path('/dashboard/'+selected);
 
 	});
-}])
+	
+	$scope.setCurrentProject = function(project){
+		console.log(project);
+		$state.go("devopsDash", { id : project });
+	};
+	
+	$scope.spadeInfo = function(ev) {
+	    $mdDialog.show(
+	      $mdDialog.alert()
+	        .title("Project Code Metrics")
+	        .content("DevOps Project Selection")
+	        .ariaLabel("Code Metrics Info")
+	        .ok("Close")
+	        .targetEvent(ev)
+	    );
+	  };
+}]).factory('SelectService', function ($http) {
+	 return {
+		    findAllProj: function() {
+	        var promise = $http.get('spade/api/projects')//$http.get('app/rest/projectss')
+	             	.then(function (response) {
+	             		console.log(response.data);
+	                 return response.data.items;
+	             });
+	             return promise;
+	         }
+		 }	 
+	})
 .directive('selectpicker', ['$parse', function ($parse) {
     return {
         restrict: 'A',

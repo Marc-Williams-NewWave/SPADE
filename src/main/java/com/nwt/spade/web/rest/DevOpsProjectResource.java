@@ -25,7 +25,7 @@ import java.util.List;
  * REST controller for managing Projects.
  */
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/spade/api/devops")
 public class DevOpsProjectResource {
 
     private final Logger log = LoggerFactory.getLogger(DevOpsProjectResource.class);
@@ -36,7 +36,7 @@ public class DevOpsProjectResource {
     /**
      * POST  /rest/projectss -> Create a new projects.
      */
-    @RequestMapping(value = "/rest/projectss",
+    @RequestMapping(value = "/projects",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -48,7 +48,7 @@ public class DevOpsProjectResource {
     /**
      * GET  /rest/projectss -> get all the projectss.
      */
-    @RequestMapping(value = "/rest/projectss",
+    @RequestMapping(value = "/projects",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -60,7 +60,7 @@ public class DevOpsProjectResource {
     /**
      * GET  /rest/projectss/:id -> get the "id" projects.
      */
-    @RequestMapping(value = "/rest/projectss/{id}",
+    @RequestMapping(value = "/projects/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -76,7 +76,7 @@ public class DevOpsProjectResource {
     /**
      * DELETE  /rest/projectss/:id -> delete the "id" projects.
      */
-    @RequestMapping(value = "/rest/projectss/{id}",
+    @RequestMapping(value = "/projects/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed

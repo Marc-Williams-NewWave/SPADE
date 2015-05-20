@@ -19,7 +19,7 @@ import java.util.List;
  * REST controller for managing Author.
  */
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/spade/api/devops")
 public class AuthorResource {
 
     private final Logger log = LoggerFactory.getLogger(AuthorResource.class);
@@ -30,7 +30,7 @@ public class AuthorResource {
     /**
      * POST  /rest/authors -> Create a new author.
      */
-    @RequestMapping(value = "/rest/authors",
+    @RequestMapping(value = "/authors",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -42,7 +42,7 @@ public class AuthorResource {
     /**
      * GET  /rest/authors -> get all the authors.
      */
-    @RequestMapping(value = "/rest/authors",
+    @RequestMapping(value = "/authors",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -54,7 +54,7 @@ public class AuthorResource {
     /**
      * GET  /rest/authors/:id -> get the "id" author.
      */
-    @RequestMapping(value = "/rest/authors/{id}",
+    @RequestMapping(value = "/authors/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -70,7 +70,7 @@ public class AuthorResource {
     /**
      * DELETE  /rest/authors/:id -> delete the "id" author.
      */
-    @RequestMapping(value = "/rest/authors/{id}",
+    @RequestMapping(value = "/authors/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
