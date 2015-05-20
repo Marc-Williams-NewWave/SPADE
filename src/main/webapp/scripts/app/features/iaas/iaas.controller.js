@@ -629,7 +629,7 @@ $scope.conf = false;
      		$scope.progress = true;
      		console.log($scope.payload);
      		//alert("CREATED");
-     		$http.post("http://localhost:8081/spade/api/"+$cookies.currentProj+"/stacks", $scope.payload)
+     		$http.post("spade/api/"+$cookies.currentProj+"/stacks", $scope.payload)
  		 	.success(function(data){
  		 		console.log("success data returned ====> " + data);
  		 	});
@@ -778,7 +778,7 @@ $scope.conf = false;
   .factory('ImageService', function ($http) {
 	 return {
 		    getImages: function() {
-         	var promise = $http.get("http://localhost:8081/spade/api/images")
+         	var promise = $http.get("spade/api/images")
          	.then(function(response) {
          		return response.data;
          	});

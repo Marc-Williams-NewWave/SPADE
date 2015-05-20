@@ -1,15 +1,31 @@
 'use strict'
 
 angular.module('spadeApp')
-.controller('DevOpsController',	["$scope", "$state", "$mdDialog", "resolveSelect", function($scope, $state, $mdDialog, resolveSelect) {
+.controller('DevOpsController',	["$scope", "$state", "$http", "$mdDialog", "resolveUser", "Principal", function($scope, $state, $http, $mdDialog, resolveUser, Principal) {
+	$scope.projects = [];
 	$scope.devProjects = [];
-	//$scope.devProjects.push("Select Project");
-	for (var i = 0; i < resolveSelect.length; i++) {
-		if(resolveSelect[i].projName !== "demo"){
-			$scope.devProjects.push(resolveSelect[i].projName);
-		}
-		console.log(resolveSelect[i].projName);
+	$scope.currentUser = resolveUser;
+	console.log($scope.currentUser);
+	for (var p in $scope.currentUser.projects){
+		var proj = $scope.currentUser.projects[p];
+		console.log(proj);
+		  $http.get("spade/api/projects/"+proj)
+			.then(function(response) {
+				console.log(response.data);
+				$scope.projects.push(response.data.items[0]);
+//				$scope.info = data;
+			});
 	}
+	
+	//$scope.devProjects.push("Select Project");
+	for (var i = 0; i < $scope.projects.length; i++) {
+		console.log(i);
+		if($scope.projects[i].projName !== "demo"){
+			$scope.devProjects.push($scope.projects[i].projName);
+		}
+		console.log($scope.projects[i].projName);
+	}
+	console.log($scope.projects);
 	console.log($scope.devProjects);
 
 	$('select.selectpicker').on('change', function(){
@@ -21,9 +37,11 @@ angular.module('spadeApp')
 
 	});
 	
+	$scope.hasPermission = Principal.hasPermission;
+	
 	$scope.setCurrentProject = function(project){
 		console.log(project);
-		$state.go("devopsDash", { id : project });
+		$state.go("devopsDash", { id : project.projName });
 	};
 	
 	$scope.spadeInfo = function(ev) {
@@ -36,18 +54,20 @@ angular.module('spadeApp')
 	        .targetEvent(ev)
 	    );
 	  };
-}]).factory('SelectService', function ($http) {
-	 return {
-		    findAllProj: function() {
-	        var promise = $http.get('spade/api/projects')//$http.get('app/rest/projectss')
-	             	.then(function (response) {
-	             		console.log(response.data);
-	                 return response.data.items;
-	             });
-	             return promise;
-	         }
-		 }	 
-	})
+}])
+.factory('UserService', function ($http, $cookies) {
+			return {
+				getUser: function() {
+					var promise = $http.get("spade/api/users/"+$cookies.currentUser)
+					.then(function(response) {
+						console.log(response.data.items[0]);
+						return response.data.items[0];
+					});
+             return promise;
+         }
+	 }
+	 
+	 })
 .directive('selectpicker', ['$parse', function ($parse) {
     return {
         restrict: 'A',

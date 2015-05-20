@@ -48,7 +48,7 @@ angular.module('spadeApp')
         	
         	console.log(myUser);
         	
-//        	$http.post("http://localhost:8081/spade/api/users", myUser)
+//        	$http.post("spade/api/users", myUser)
 //			.then(function(response) {
 //				console.log(response.data.items);
 //				return response.data.items;
@@ -58,7 +58,7 @@ angular.module('spadeApp')
     .factory('ProjectService', function ($http) {
 			return {
 				getProjects: function() {
-					var promise = $http.get("http://localhost:8081/spade/api/projects")
+					var promise = $http.get("spade/api/projects")
 					.then(function(response) {
 						console.log(response.data.items);
 						return response.data.items;
@@ -67,7 +67,7 @@ angular.module('spadeApp')
 //					var projects = [];
 //					console.log(promise.projects);
 //					for (var p in promise.projects){
-//						  $http.get("http://localhost:8081/spade/api/projects/"+p.name)
+//						  $http.get("spade/api/projects/"+p.name)
 //							.then(function(data) {
 //									console.log(data.items[0]);
 //									projects.push(data.items[0]);

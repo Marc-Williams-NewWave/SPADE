@@ -189,7 +189,7 @@ angular.module('spadeApp')
 			  console.log(role);
 			  temp.roles.push({_id : role});
 			  console.log(temp);
-			  $http.post("http://localhost:8081/spade/api/users/", temp)
+			  $http.post("spade/api/users/", temp)
 				.then(function(response) {
 					console.log(response.data.items);
 				});
@@ -219,7 +219,7 @@ angular.module('spadeApp')
 	      $scope.createRole = function (role, perms){
 	    	  var newRole = { _id : "ROLE_"+role, permissions : perms };
 	    	  console.log(newRole);
-	    	  $http.post("http://localhost:8081/spade/api/roles/", newRole)
+	    	  $http.post("spade/api/roles/", newRole)
 				.then(function(response) {
 					console.log(response.data.items);
 				});
@@ -254,7 +254,7 @@ angular.module('spadeApp')
 		.factory('UsersService', function ($http) {
 			return {
 				getUsers: function() {
-					var temp = $http.get("http://localhost:8081/spade/api/users")
+					var temp = $http.get("spade/api/users")
 					.then(function(response) {
 						console.log(response.data.items);
 						return response.data.items;
@@ -270,7 +270,7 @@ angular.module('spadeApp')
 	 .factory('LDAPUsersService', function ($http) {
 			return {
 				getUsers: function() {
-					var temp = $http.get("http://localhost:8081/spade/api/test")
+					var temp = $http.get("spade/api/test")
 					.then(function(response) {
 						console.log(response.data.items);
 						return response.data.items;
@@ -286,7 +286,7 @@ angular.module('spadeApp')
 	 .factory('RolesService', function ($http) {
 			return {
 				getRoles: function() {
-					var temp = $http.get("http://localhost:8081/spade/api/roles")
+					var temp = $http.get("spade/api/roles")
 					.then(function(response) {
 						console.log(response.data.items);
 						return response.data.items;
@@ -302,7 +302,7 @@ angular.module('spadeApp')
 	 .factory('PermissionsService', function ($http) {
 			return {
 				getPerms: function() {
-					var promise = $http.get("http://localhost:8081/spade/api/permissions")
+					var promise = $http.get("spade/api/permissions")
 					.then(function(response) {
 						console.log(response.data.items);
 						return response.data.items;
@@ -315,7 +315,7 @@ angular.module('spadeApp')
 	 .factory('ProjectsService', function ($http) {
 			return {
 				getProjects: function() {
-					var promise = $http.get("http://localhost:8081/spade/api/projects")
+					var promise = $http.get("spade/api/projects")
 					.then(function(response) {
 						console.log(response.data);
 						return response.data.items;

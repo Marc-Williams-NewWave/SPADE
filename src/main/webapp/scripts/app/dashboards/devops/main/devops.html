@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default navbar-transparent" style="background-color:#e0e0e0;margin-bottom: 0px !important;height:auto">
-  <div class="container-fluid">
+  <div class="container-fluid" ng-show=hasPermission("PERM_VIEW_DEVOPS")>
     
     <div class="navbar-header">
       <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">DevOps - Project List</div>
@@ -22,7 +22,7 @@
 	<h2 style="padding-left:6%">Select a project</h2>
 		<md-card-content>
 		
-	</md-card-content>
+		</md-card-content>
 	</md-card>
 		<div layout="row">
 		
@@ -52,19 +52,19 @@
 <!--                 	<option ng-repeat="project in devProjects">{{project}}</option> -->
 <!--                 </select> -->
                 <ol id="dynamic-options" title="Select a Project" class="nya-bs-select btn-success btn-lg" ng-model="selectedProj" style="">
-    				<li nya-bs-option="project in devProjects" ng-click="setCurrentProject(project)">
-      					<a>{{ project }}</a>
+    				<li nya-bs-option="project in projects" ng-click="setCurrentProject(project)">
+      					<a>{{ project.name }}</a>
     				</li>
   				</ol>
                 </div>
             </div>
-             <div class="row" style="margin-top: 50px">
-                <div class="col-md-10 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4"> 
-                <a class="btn-lg btn-info" type="button" ui-sref="projects" ng-click="clear()"> 
-					<span>Create a New Project</span>
-				</a>
-                </div>
-            </div>
+<!--              <div class="row" style="margin-top: 50px"> -->
+<!--                 <div class="col-md-10 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4">  -->
+<!--                 <a class="btn-lg btn-info" type="button" ui-sref="projects" ng-click="clear()">  -->
+<!-- 					<span>Create a New Project</span> -->
+<!-- 				</a> -->
+<!--                 </div> -->
+<!--             </div> -->
         </div>
     </div>
 </div>

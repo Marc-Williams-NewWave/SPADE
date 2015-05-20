@@ -206,7 +206,7 @@ angular.module('spadeApp').controller('StatsController',
 .factory('SlaveService', function ($http) {
 	 return {
 		    getSlaves: function() {
-         	var promise = $http.get("http://localhost:8081/spade/api/slaves")
+         	var promise = $http.get("spade/api/slaves")
          	.then(function(response) {
          		return response.data;
          	});
@@ -220,7 +220,7 @@ angular.module('spadeApp').controller('StatsController',
 	 .factory('TaskService', function ($http) {
 	 return {
 		    getTasks: function() {
-         	var promise = $http.get("http://localhost:8081/spade/api/tasks")
+         	var promise = $http.get("spade/api/tasks")
          	.then(function(response) {
          		return response.data;
          	});
@@ -233,7 +233,7 @@ angular.module('spadeApp').controller('StatsController',
 	 .factory('UserService', function ($http, $cookies) {
 			return {
 				getUser: function() {
-					var promise = $http.get("http://localhost:8081/spade/api/users/"+$cookies.currentUser)
+					var promise = $http.get("spade/api/users/"+$cookies.currentUser)
 					.then(function(response) {
 						console.log(response.data.items[0]);
 						return response.data.items[0];

@@ -10,9 +10,9 @@ angular.module('spadeApp')
                     roles: []
                 },
                 resolve: {
-                    resolveSelect:['SelectService', function (selectService) {
-                        return selectService.findAllProj();
-                    }]
+                	resolveUser:['UserService', function (userService) {
+                        return userService.getUser();
+                    }],
                 },
                 views: {
                     'content@': {

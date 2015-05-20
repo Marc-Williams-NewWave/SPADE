@@ -34,7 +34,7 @@ angular.module('spadeApp')
 		    );
 		  };
 		  
-//		  $http.get("http://localhost:8081/spade/api/users/"+$scope.currentUser)
+//		  $http.get("spade/api/users/"+$scope.currentUser)
 //			.success(function(data) {
 //					console.log(data);
 //					$scope.user = data.items[0];
@@ -48,7 +48,7 @@ angular.module('spadeApp')
 			for (var p in $scope.user.projects){
 				var proj = $scope.user.projects[p];
 				console.log(proj);
-				  $http.get("http://localhost:8081/spade/api/projects/"+proj)
+				  $http.get("spade/api/projects/"+proj)
 					.then(function(response) {
 							console.log(response.data);
 							$scope.projects.push(response.data.items[0]);
@@ -61,7 +61,7 @@ angular.module('spadeApp')
 //		  alert($scope.user);
 //		  $scope.projects = [];
 //		  for (var p in $scope.user.projects){
-//			  $http.get("http://localhost:8081/spade/api/proj/"+p.name)
+//			  $http.get("spade/api/proj/"+p.name)
 //				.success(function(data) {
 //						console.log(data.items[0]);
 //						$scope.projects.push(data.items[0]);
@@ -140,7 +140,7 @@ angular.module('spadeApp')
 		.factory('UserService', function ($http, $cookies) {
 			return {
 				getUser: function() {
-					var promise = $http.get("http://localhost:8081/spade/api/users/"+$cookies.currentUser)
+					var promise = $http.get("spade/api/users/"+$cookies.currentUser)
 					.then(function(response) {
 						console.log(response.data.items[0]);
 						return response.data.items[0];

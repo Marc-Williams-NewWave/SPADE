@@ -1,17 +1,41 @@
 'use strict';
 
 angular.module('spadeApp')
-    .factory('Principal', function Principal($q, $http, Account) {
+.factory('RoleService', function ($http) {
+	 return {
+		    getRoles: function() {
+	        var promise = $http.get('spade/api/roles')
+	             	.then(function (response) {
+	             		var lookup = {};
+	            		for (var i = 0, len = response.data.items.length; i < len; i++) {
+	            		    lookup[response.data.items[i]._id] = response.data.items[i];
+	            		}
+	                 return lookup;
+	             });
+	             return promise;
+	         }
+		 }	 
+	})
+    .factory('Principal', function Principal($q, $http, Account, RoleService) {
         var _identity,
             _authenticated = false;
 
-        var allRoles = $http.get("/spade/api/roles")
-        	.success(function(data) {
-        		console.log("Roles");
-        		console.log(data.items);
-        		return data.items;
-        })
-        
+//        var allRoles = $http.get("/spade/api/roles")
+//        	.then(function(response) {
+//        		console.log("Roles");
+//        		
+//        		var lookup = {};
+//        		for (var i = 0, len = response.data.items.length; i < len; i++) {
+//        		    lookup[response.data.items[i]._id] = response.data.items[i];
+//        		}
+//        		console.log(lookup);
+//        		return lookup;
+//        });
+        var allRoles;
+        RoleService.getRoles().then(function(response){
+        	allRoles = response;
+        });
+        console.log(allRoles);
         return {
             isIdentityResolved: function () {
                 return angular.isDefined(_identity);
@@ -25,9 +49,12 @@ angular.module('spadeApp')
                 }
 
                 for (var i = 0; i < _identity.roles.length; i++) {
-                	var role = roles[i];
+                	var role = allRoles[_identity.roles[i]];
                     for (var j = 0; j < role.permissions.length; j++){
-                    	console.log("Checking Permission");
+                    	var p = role.permissions[j];
+                    	if(p._id === perm){
+                    		return true;
+                    	}
                     }
                 }
             },

@@ -3,7 +3,7 @@ angular.module('spadeApp')
 .factory('UserService', function ($http, $cookies) {
 			return {
 				getUser: function() {
-					var promise = $http.get("http://localhost:8081/spade/api/users/"+$cookies.currentUser)
+					var promise = $http.get("spade/api/users/"+$cookies.currentUser)
 					.then(function(response) {
 						console.log(response.data.items[0]);
 						return response.data.items[0];
@@ -241,7 +241,7 @@ $scope.showScaleAlert = showScaleAlert;
 	$scope.delPod = function(pod){
 		var req = {
 				 method: "DELETE",
-				 url: "http://localhost:8081/spade/api/"+$cookies.currentProj+"/controllers/" + pod.labels.controller
+				 url: "spade/api/"+$cookies.currentProj+"/controllers/" + pod.labels.controller
 		};
 //		alert(pod.labels.controller);
 		$http(req).then(function(response) {
@@ -266,7 +266,7 @@ $scope.showScaleAlert = showScaleAlert;
 .factory('PodService', function($http, $cookies) {
 	return {
 		getPods : function() {
-			var promise = $http.get("http://localhost:8081/spade/api/"+$cookies.currentProj+"/pods")
+			var promise = $http.get("spade/api/"+$cookies.currentProj+"/pods")
 			.then(function(response) {
 				return response.data;
 			});
