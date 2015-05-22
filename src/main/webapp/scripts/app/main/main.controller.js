@@ -99,9 +99,18 @@ angular.module('spadeApp')
 	$scope.hasPermission = Principal.hasPermission;
 	$scope.dismiss = $modalInstance.dismiss;
 	$scope.project = resolveCurrentProj;
+	$scope.progress = false;
 	console.log($scope.project.projName);
+	
+	$scope.checkForDevOps = function(){
+		if ($scope.project.projName !== ""){
+			return false;
+		} else return true;
+	};
+	
 	$scope.moveToDevOps = function(){
 		console.log("Moving to DevOps");
+		$scope.progress = true;
 		$state.go('devopsDash', { id : $scope.project.projName});
 	};
 })

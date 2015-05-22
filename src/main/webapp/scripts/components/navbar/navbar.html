@@ -8,7 +8,7 @@
 	      					<a ui-sref="home"><span style="font-family: 'Roboto', sans-serif;font-weight:500;color: black;">Home</span></a>
 	      </accordion-heading>
 	    </accordion-group>
-	    <accordion-group ng-show=hasPermission("PERM_PROVISION") is-disabled="status.isFirstDisabled">
+	    <accordion-group ng-show=hasPermission('PERM_PROVISION') is-disabled="status.isFirstDisabled">
 	    <accordion-heading><span><img src="assets/images/appbar.database.png" height="34px"><a href=""><span style="font-family: 'Roboto', sans-serif;font-weight:500;color: black;">Provisioning</span></a></accordion-heading>
 	      <ul>
 	        <li><a ng-click="app.open()" href="#"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">Launch Stack</span></a></li>
@@ -19,8 +19,8 @@
 	    <accordion-group>
 	    <accordion-heading><span><img src="assets/images/appbar.graph.line.png" height="34px"><a href=""><span style="font-family: 'Roboto', sans-serif;font-weight:500;color: black;">Metrics</span></a></accordion-heading>
 	      <ul>
-	        <li ng-show=hasPermission("PERM_VIEW_DEVOPS")><a ui-sref="devops"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">DevOps Dashboard</span></li>
-	        <li ng-show=hasPermission("PERM_VIEW_STATS")><a ui-sref="stats"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">Infrastructure Dashboard</span></a></li>
+	        <li ng-show=hasPermission('PERM_VIEW_DEVOPS')><a ui-sref="devops"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">DevOps Dashboard</span></li>
+<!-- 	        <li ng-show=hasPermission("PERM_VIEW_STATS")><a ui-sref="stats"><span style="font-family: 'Roboto', sans-serif;font-weight:300;">Infrastructure Dashboard</span></a></li> -->
 	        <!-- <li>Performance Dashboard</li>
 	        <li><a href="#">SOC Dashboard (Security Operations Center)</a></li>
 	        <li>NOC Dashboard (Network Operations Dashboard)</li>

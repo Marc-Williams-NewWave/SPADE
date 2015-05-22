@@ -1,14 +1,20 @@
 <div class="" style="height: 530px; width: 530px;">
   <div class="modal-dialog">
       <div class="modal-header">
-        <md-button type="button" class="close" ng-click="dismiss()" data-dismiss="modal" aria-hidden="true">&times;</md-button>
-        <h4 class="modal-title">Navigate within Project</h4>
+        <md-button ng-show="!progress" type="button" class="close" ng-click="dismiss()" data-dismiss="modal" aria-hidden="true">&times;</md-button>
+        <div ng-show="progress" >
+			<div layout="column" layout-sm="column" layout-align="space-around" >
+				<img style="display:block;margin-left:auto;margin-right:auto;height:100px; width:100px; padding:10px" src="assets/images/ajax-loader.gif"/>
+<!-- 				<h4 style="text-align:center;font-family: 'Roboto', sans-serif; font-weight:500;">Launching...</h4> -->
+    		</div>
+		</div>
+        <h4 class="modal-title" >Navigate within Project <span style="text-transform: capitalize;">{{project.name}}</span></h4>
       </div>
       <div class="modal-body">
-        <md-button ui-sref="stats" ng-click="dismiss()" ng-show=hasPermission("PERM_VIEW_STATS")>Infrastructure Stats</md-button>
-        <md-button ui-sref="templates" ng-click="dismiss()" ng-show=hasPermission("PERM_CREATE_STACKS")>Infrastructure Templates</md-button>
-        <md-button href="" ng-click="dismiss()" ng-show=hasPermission("PERM_MANAGE_PROJECT")>Project Management</md-button>
-        <md-button ui-sref="devopsDash({id:project.projName})" ng-show=hasPermission("PERM_VIEW_DEVOPS") ng-click="dismiss()">DevOps Dashboard</md-button>
+        <md-button md-no-ink class="md-primary" ui-sref="stats" ng-click="dismiss()" ng-show=hasPermission("PERM_VIEW_STATS")>Infrastructure Stats</md-button>
+        <md-button md-no-ink class="md-primary" ui-sref="templates" ng-click="dismiss()" ng-show=hasPermission("PERM_CREATE_STACKS")>Infrastructure Templates</md-button>
+        <md-button md-no-ink class="md-primary" href="" ng-click="dismiss()" ng-show=hasPermission("PERM_MANAGE_PROJECT")>Project Management</md-button>
+        <md-button md-no-ink class="md-primary" ui-sref="devopsDash({id:project.projName})" ng-disabled="checkForDevOps()" ng-show=hasPermission("PERM_VIEW_DEVOPS") ng-click="dismiss()">DevOps Dashboard</md-button>
       </div>
       <div class="modal-footer">
         <md-button type="button" data-dismiss="modal" ng-click="dismiss()" class="btn btn-primary">Close</md-button>

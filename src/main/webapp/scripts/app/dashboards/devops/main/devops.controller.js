@@ -20,22 +20,13 @@ angular.module('spadeApp')
 	//$scope.devProjects.push("Select Project");
 	for (var i = 0; i < $scope.projects.length; i++) {
 		console.log(i);
-		if($scope.projects[i].projName !== "demo"){
+		if($scope.projects[i].projName !== ""){
 			$scope.devProjects.push($scope.projects[i].projName);
 		}
 		console.log($scope.projects[i].projName);
 	}
 	console.log($scope.projects);
 	console.log($scope.devProjects);
-
-	$('select.selectpicker').on('change', function(){
-		var selected = $('.selectpicker option:selected').text();
-		console.log(selected);
-		$state.go("devopsDash",{id:selected});
-
-//		$location.path('/dashboard/'+selected);
-
-	});
 	
 	$scope.hasPermission = Principal.hasPermission;
 	
@@ -56,18 +47,18 @@ angular.module('spadeApp')
 	  };
 }])
 .factory('UserService', function ($http, $cookies) {
-			return {
-				getUser: function() {
-					var promise = $http.get("spade/api/users/"+$cookies.currentUser)
-					.then(function(response) {
-						console.log(response.data.items[0]);
-						return response.data.items[0];
-					});
-             return promise;
-         }
-	 }
+	return {
+		getUser: function() {
+			var promise = $http.get("spade/api/users/"+$cookies.currentUser)
+			.then(function(response) {
+				console.log(response.data.items[0]);
+				return response.data.items[0];
+			});
+            return promise;
+        }
+	}
 	 
-	 })
+})
 .directive('selectpicker', ['$parse', function ($parse) {
     return {
         restrict: 'A',
