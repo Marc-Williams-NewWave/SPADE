@@ -12,7 +12,7 @@ angular.module('spadeApp')
                     resolveProjects: ['DevOpsProjectsService', function (projService) {
                         return projService.query().$promise;
                     }],
-                    resolveSelect:['SelectService', function (selectService) {
+                    resolveSelect: ['SelectService', function (selectService) {
                         return selectService.findAllProj();
                     }]
                 },

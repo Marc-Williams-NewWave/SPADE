@@ -4,6 +4,8 @@ angular.module('spadeApp')
     .controller('NavbarController', function ($scope, $location, $state, Auth, Principal, $modal) {
     	$scope.app = this;
     	
+    	$scope.hasPermission = Principal.hasPermission;
+    	
     	$scope.app.closeAlert = function(){
     		$scope.app.reason = null;
     	}

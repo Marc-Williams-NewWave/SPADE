@@ -5,6 +5,10 @@ angular.module('spadeApp')
         $stateProvider
             .state('features', {
                 abstract: true,
-                parent: 'site'
+                parent: 'site',
+                data: {
+                    roles: [],
+                    requireLogin: true
+                }
             });
     });

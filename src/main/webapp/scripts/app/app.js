@@ -89,7 +89,10 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
             
         	var requireLogin = toState.data.requireLogin;
             console.log("STATE CHANGE ATTEMPT: " + toState.name);
-            if(requireLogin && $cookies.currentUser === {}){
+            console.log(Auth.authorize());
+            console.log(requireLogin);
+            console.log(Principal.isAuthenticated());
+            if(requireLogin && Principal.isAuthenticated() === false){
             	console.log("Not logged in");
             	event.preventDefault();
             	//start login modal
@@ -104,7 +107,9 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
 //            		});
             }
         	
-        	
+        	if (!Principal.hasPermission("PERM_PROVISION")){
+        		
+        	}
 
             if (Principal.isIdentityResolved()) {
                 Auth.authorize();

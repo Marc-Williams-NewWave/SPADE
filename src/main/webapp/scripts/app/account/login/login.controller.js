@@ -3,14 +3,14 @@
 angular.module('spadeApp')
     .controller('LoginController', function ($rootScope, $scope, $state, $timeout, $cookies, Auth, UserService) {
 
-			$scope.user = {};
-			$scope.errors = {};
+		$scope.user = {};
+		$scope.errors = {};
 
-			$scope.rememberMe = true;
+		$scope.rememberMe = true;
 
 		
 
-    	        $scope.user = {};
+    	$scope.user = {};
         $scope.errors = {};
 
         $scope.rememberMe = true;
@@ -25,7 +25,7 @@ angular.module('spadeApp')
                 $cookies.currentUser = $scope.username;
                 $scope.user = UserService.getUser();
                 console.log($scope.user);
-                $cookies.currentProject = $scope.user.default_project;
+                //$cookies.currentProject = $scope.user.default_project;
                 $state.go("home");
                 //$rootScope.back();
             }).catch(function () {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spadeApp')
-	 .controller('MainController', function($scope, $rootScope, $state, $cookies, $mdDialog, resolveUser, UserService, Principal, Auth, $http, templateService) {
+	 .controller('MainController', function($scope, $rootScope, $state, $cookies, $mdDialog, $modal, resolveCurrentUser, resolveCurrentProj, Principal, Auth, $http, templateService) {
 
 	//var currentUser = $cookies.get('currentUser');
 	//var currentProj = $cookies.get('currentProj');
@@ -14,9 +14,36 @@ angular.module('spadeApp')
 	
 	console.log($scope.currentUser+", "+$scope.currentProj);
 	
+	var app = this;
+	app.closeAlert = function () {
+        app.reason = null;
+    };
+	
+	function launchMenu(){
+		var projMenuModal = $modal.open({
+			templateUrl: 'scripts/app/main/projMenu.html',
+			controller: 'ProjMenuController',
+			controllerAs: 'modal',
+			resolve: {
+            	resolveCurrentProj:['CurrentProjService', function (projService) {
+                    return projService.getProj();
+                }]
+            }
+		});
+
+		projMenuModal.result
+        	.then(function (data) {
+        		app.closeAlert();
+        		app.summary = data;
+        	}, function (reason) {
+        		app.reason = reason;
+        	});
+	};
+	
 	$scope.setCurrentProject = function(proj){
 		$scope.currentProj = proj;
 		$cookies.currentProj = proj;
+		launchMenu();
 	}
 	
 	$scope.spadeInfo = function(ev) {
@@ -42,7 +69,7 @@ angular.module('spadeApp')
 ////					$scope.info = data;
 //				});
 		  //$scope.projects = ProjectService.getProjects();
-		  $scope.user = resolveUser;
+		  $scope.user = resolveCurrentUser;
 		  $scope.projects = [];
 		  console.log($scope.user.projects);
 			for (var p in $scope.user.projects){
@@ -57,75 +84,6 @@ angular.module('spadeApp')
 			}
 		  
 		  console.log($scope.projects);
-//		  console.log($scope.user);
-//		  alert($scope.user);
-//		  $scope.projects = [];
-//		  for (var p in $scope.user.projects){
-//			  $http.get("spade/api/proj/"+p.name)
-//				.success(function(data) {
-//						console.log(data.items[0]);
-//						$scope.projects.push(data.items[0]);
-////						$scope.info = data;
-//					})
-//					
-//				.error(function(data, status, headers, config) {
-//					$scope.info = data;
-//					$scope.projects.push(data.items[0]);
-//					
-//					console.log(data.items);
-//					console.log(data);
-//					console.log(status);
-//					console.log(headers);
-//					console.log(config);
-//			});
-//		  }
-		  
-			
-
-			var json = {
-					"api" : "v0.0.4",
-					"time" : 1425659436363,
-					"label" : "extra",
-					"items" : [ {
-						"name" : "demo",
-						"description" : "Demo Project",
-						"environments" : [],
-						"users" : [],
-						"images" : [ "partlab/ubuntu-mongodb",
-								"bradams/devops:cluster", "sewatech/modcluster" ]
-					}]
-				};
-//			$scope.projects = json.items;
-			
-//			var json = {
-//					"api" : "v0.0.4",
-//					"time" : 1425659436363,
-//					"label" : "extra",
-//					"items" : [ {
-//						"name" : "demo",
-//						"description" : "Demo Project",
-//						"environments" : [],
-//						"users" : [],
-//						"images" : [ "partlab/ubuntu-mongodb",
-//								"bradams/devops:cluster", "sewatech/modcluster" ]
-//					}]}
-//			
-//			$scope.projects = json.items;
-			
-			
-//			$scope.defaultPod2 = {
-//         			name : '',
-//         			os: 'None Selected',
-//                   	app : 'None Selected',
-//                   	replicas : 0
-//                   };
-//        	 console.log($scope.defaultPod2);
-//        	 
-//        	 
-//        	 $scope.templateFactoryService = templateService;
-//        	 
-//        	 
-//        	 $scope.templateFactoryService.addItem($scope.defaultPod2);
 
 			$scope.logout = function () {
 	            Auth.logout();
@@ -136,8 +94,31 @@ angular.module('spadeApp')
 				$scope.account = account;
 				$scope.isAuthenticated = Principal.isAuthenticated;
 			});
-		})
-		.factory('UserService', function ($http, $cookies) {
+})
+.controller('ProjMenuController', function($scope, $state, $cookies, $modalInstance, resolveCurrentProj, Principal) {
+	$scope.hasPermission = Principal.hasPermission;
+	$scope.dismiss = $modalInstance.dismiss;
+	$scope.project = resolveCurrentProj;
+	console.log($scope.project.projName);
+	$scope.moveToDevOps = function(){
+		console.log("Moving to DevOps");
+		$state.go('devopsDash', { id : $scope.project.projName});
+	};
+})
+.factory('CurrentProjService', function ($http, $cookies) {
+			return {
+				getProj: function() {
+					var promise = $http.get("spade/api/projects/"+$cookies.currentProj)
+					.then(function(response) {
+						console.log(response.data.items[0]);
+						return response.data.items[0];
+					});
+             return promise;
+         }
+	 }
+	 
+	 })
+.factory('CurrentUserService', function ($http, $cookies) {
 			return {
 				getUser: function() {
 					var promise = $http.get("spade/api/users/"+$cookies.currentUser)
