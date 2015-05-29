@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider;
 //import org.springframework.security.ldap.userdetails.LdapUserDetailsService;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
@@ -49,7 +50,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     
 //    @Inject
-//    private LdapUserDetailsService ldapUserDetailsService;
+//    private CustomADAuthenticationProvider customAuth;
+//    
+//    @Inject
+//    private ActiveDirectoryLdapAuthenticationProvider ldapProvider;
 
     @Inject
     private RememberMeServices rememberMeServices;
@@ -61,10 +65,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    	    	
         auth
             .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
-        
+//    	ActiveDirectoryLdapAuthenticationProvider temp = 
+//    			new ActiveDirectoryLdapAuthenticationProvider("newwave.com", "ldap://192.168.5.50:3268");
+//    	auth.authenticationProvider(temp);
 //        auth
 //        	.userDetailsService(ldapUserDetailsService)
 //        	.and()

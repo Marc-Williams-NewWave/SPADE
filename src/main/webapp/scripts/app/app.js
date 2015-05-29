@@ -107,10 +107,6 @@ angular.module('spadeApp', ['ui.bootstrap','ngMaterial','LocalStorageModule', 't
 //            		});
             }
         	
-        	if (!Principal.hasPermission("PERM_PROVISION")){
-        		
-        	}
-
             if (Principal.isIdentityResolved()) {
                 Auth.authorize();
             }

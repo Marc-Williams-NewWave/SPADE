@@ -20,6 +20,8 @@ public interface UserRepository extends MongoRepository<User, String> {
     Optional<User> findOneByEmail(String email);
 
     Optional<User> findOneByLogin(String login);
+    
+    Optional<User> findOneByLdapUser(String ldapUser);
 
     void delete(User t);
 
