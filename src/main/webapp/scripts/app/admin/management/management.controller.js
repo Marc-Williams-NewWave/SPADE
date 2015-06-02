@@ -59,7 +59,7 @@ angular.module('spadeApp')
 		        .ok("Welcome to SPADE!")
 		        .targetEvent(ev)
 		    );
-		  };
+	};
 		  $scope.users = resolveUsers.map(function(item){
 			  console.log(item);
 				return item;
@@ -136,8 +136,37 @@ angular.module('spadeApp')
 					$scope.selectedUser = {};
 				}
 			}
-		})
-		.controller('EditUserRolesController', function($scope, $state, $cookies, $mdDialog, $filter, resolveUsers, resolveRoles, resolvePermissions, ngTableParams, Principal, Auth, $http) {
+			
+		function roleCreated(ev) {
+				$mdDialog.show(
+			    $mdDialog.alert()
+			      .title("Role Created")
+			      .content("New role has been created!")
+			      .ariaLabel("New Role Created")
+			      .ok("Close")
+			      .targetEvent(ev)
+				);
+		};
+		
+		function clear(){
+			$scope.roleName = "";
+			$scope.selectedPerms = [];
+		};
+			
+		$scope.createRole = function(name, perms){
+				
+			var newRole = { _id : name, permissions : perms };				
+			console.log(newRole);
+//			$http.post("spade/api/roles/", newRole)
+//			.then(function(response) {
+//				console.log(response.data.items);
+//			});
+			roleCreated();
+			clear();
+		};
+			
+})
+.controller('EditUserRolesController', function($scope, $state, $cookies, $mdDialog, $filter, resolveUsers, resolveRoles, resolvePermissions, ngTableParams, Principal, Auth, $http) {
 
 	
 	$scope.currentUser = $cookies.currentUser;

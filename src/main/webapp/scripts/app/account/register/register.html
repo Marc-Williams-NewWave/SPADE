@@ -25,7 +25,7 @@
 
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
 				<div class="form-group" >
-					<label >LDAP User</label>
+					<label >LDAP User*</label>
 					<select ui-select2 style="min-width:30%" name="ldapUser" ng-model="registerAccount.ldapUser" data-placeholder="Select LDAP User" required>
 						<option value=""></option>
 						<option ng-repeat="user in ldapUsers track by $index | orderBy:'user'" value="{{user}}">{{user}}</option>
@@ -38,7 +38,7 @@
                     </div>
 				</div>
                 <div class="form-group">
-                    <label translate="global.form.username">Username</label>
+                    <label translate="global.form.username">Username*</label>
                     <input type="text" class="form-control" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
                            ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required>
                     <div ng-show="form.login.$dirty && form.login.$invalid">
@@ -54,15 +54,15 @@
                                ng-show="form.login.$error.maxlength" translate="register.messages.validate.login.maxlength">
                             Your login cannot be longer than 50 characters
                         </p>
-                        <p class="help-block"
-                               ng-show="form.login.$error.pattern" translate="register.messages.validate.login.pattern">
-                            Your login can only contain lower-case letters and digits
-                    </p>
+<!--                         <p class="help-block" -->
+<!--                                ng-show="form.login.$error.pattern" translate="register.messages.validate.login.pattern"> -->
+<!--                             Your login can only contain lower-case letters and digits -->
+<!--                     	</p> -->
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label translate="global.form.email">E-mail</label>
+                    <label translate="global.form.email">E-mail*</label>
                     <input type="email" class="form-control" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
                            ng-model="registerAccount.email" ng-minlength=5 ng-maxlength=100 required>
                     <div ng-show="form.email.$dirty && form.email.$invalid">
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label translate="global.form.newpassword">New password</label>
+                    <label translate="global.form.newpassword">New password*</label>
                     <input type="password" class="form-control" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
                            ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>
                     <div ng-show="form.password.$dirty && form.password.$invalid">
@@ -105,7 +105,7 @@
                     <password-strength-bar password-to-check="registerAccount.password"></password-strength-bar>
                 </div>
                 <div class="form-group">
-                    <label translate="global.form.confirmpassword">New password confirmation</label>
+                    <label translate="global.form.confirmpassword">New password confirmation*</label>
                     <input type="password" class="form-control" name="confirmPassword" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
                            ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 required>
                     <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">

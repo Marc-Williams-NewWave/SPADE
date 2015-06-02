@@ -1,0 +1,86 @@
+<nav class="navbar navbar-default navbar-transparent" style="background-color:#e0e0e0;margin-bottom: 0px !important;height:auto">
+  <div class="container-fluid" >
+    
+    <div class="navbar-header">
+      <div class="navbar-brand" style="font-family: 'Roboto', sans-serif; font-weight:300;  color:black;">DevOps - Project List</div>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" align="right" style="float:right;margin-right:2.7%;">
+      <ul class="nav navbar-nav">
+      <li class="dropdown">
+          <a ui-sref="devops" class="dropdown-toggle md-accent" role="button" aria-expanded="false" 
+          	style="font-family: 'Roboto', sans-serif; font-weight: 300; color: black;">Select Project</a>
+      </li>
+      <li role="button" ng-click="spadeInfo()"><ng-md-icon icon="info_outline" style="display:block;margin-top:12px;fill:black" size="25"></ng-md-icon></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid" style="top-margin:23px" ng-show="true">
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-long-arrow-right"></i>Physical Hosts
+					</h3>
+				</div>
+				<div class="panel-body">
+   					<donutchart id="compliancyDonut" data-options="compliancyChartData"></donutchart>
+				</div>
+			</div>
+		</div>
+			<div class="col-lg-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-long-arrow-right"></i>Virtual Servers
+					</h3>
+				</div>
+				<div class="panel-body">
+	                <linechart xkey="xCheckin" ykeys="yCheckin" labels="checkinLabels" data-value="{{checkinChartData}}"></linechart>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-long-arrow-right"></i>Pipe
+					</h3>
+				</div>
+				<div class="panel-body">
+	               <linechart xkey="xRelease" ykeys="yRelease" labels="releaseLabels" data-value="{{releaseChartData}}"></linechart>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-long-arrow-right"></i>Random Metric
+					</h3>
+				</div>
+				<div class="panel-body">
+					<barchart class="morris-bar" xkey="xCont" ykeys="yCont" labels="contLabels" data-value="{{contributorsChartData}}"></barchart>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-long-arrow-right"></i>Bar Chart Something
+					</h3>
+				</div>
+				<div class="panel-body">
+					<barchart1 class="morris-bar" xkey="xBuild" ykeys="yBuild" labels="buildLabels" data-value="{{buildChartData}}"></barchart>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
